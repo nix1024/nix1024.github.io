@@ -1,0 +1,1328 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0"/>
+
+
+
+
+
+    <meta name="keywords" content="Hexo,next" />
+
+
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0" />
+
+
+
+
+  <title> Nix 的自我修养 </title>
+</head>
+
+<body>
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nix 的自我修养</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/errors-due-to-nested-pop-or-push/">
+                Nested pop/push 导致的问题
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-09-03
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/errors-due-to-nested-pop-or-push/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/errors-due-to-nested-pop-or-push/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>有这样一个场景：当一个 ViewControllerA 出现的时候，我们检查某个状态值，如果符合条件就用 <code>pushViewController</code> 或 <code>popViewController</code> 跳转到另一页面。</p>
+<p>很容易想到的方法就是在 ViewControllerA 的 <code>viewDidLoad</code> 或者 <code>viewWillAppear</code> 中来检查状态并跳转。但这时候系统会给出警告：</p>
+<blockquote>
+<p>nested push animation can result in corrupted navigation bar.</p>
+<p>Finishing up a navigation transition in an unexpected state. Navigation Bar subview tree might get corrupted.</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>Unbalanced calls to begin/end appearance transitions for <uinavigationcontroller: 0x6849b30=""></uinavigationcontroller:></p>
+</blockquote>
+<p>并且可能导致 navigationController 的标题栏出现重影甚至崩溃。</p>
+<p>导致这个问题的原因是：<strong>当一个 ViewController 的出现有动画时</strong>，<code>viewWillAppear</code> 和 <code>viewDidAppear</code> 是应该成对出现的，如果在 <code>viewDidAppear</code> 被调用之前 <code>push/popViewController</code> 会导致转换过程在 <code>viewDidAppear</code> 还没被调用时就终止，系统处在一个错误的中间态。</p>
+<p>这里说的动画包括这个 ViewController 被 push 时有动画和下一个 ViewController 被 pop 时有动画。</p>
+<p>解决方法显然有两种，一种是去掉动画；另一种是在<code>viewDidAppear</code>中调用<code>push/popViewController</code>，但是这样会导致动画完成时前一个画面会闪现一下才切换到下一个画面，目前还没有找到避免的方法。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/arc-on-ios/">
+                OC 中的 ARC
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-25
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/arc-on-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/arc-on-ios/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
+<p>在类属性的声明中，ARC 相关的修饰词有两个：</p>
+<ul>
+<li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
+<li><code>weak</code> 不会延长对象的生命周期，当<code>weak</code>类型的指针指向的对象被释放时，指针自身会被自动置为<code>nil</code>。</li>
+</ul>
+<p>在 ARC 机制下，指针缺省的类型是<code>strong</code>。</p>
+<p>在声明局部变量时，有四个 ARC 相关的修饰词，他们的用法跟 const 类似。</p>
+<ul>
+<li><code>__strong</code> 缺省值。用法同<code>strong</code>。</li>
+<li><code>__weak</code> 用法同<code>weak</code>。</li>
+<li><code>__unsafe_unretained</code> 类似于<code>weak</code>，但其指向的对象被释放时，其值不会被置为<code>nil</code>。应该是由于兼容性的原因而存在，通常不建议使用。</li>
+<li><code>__autoreleasing</code> 用来修饰一个以引用（id *）方式传入的参数，当函数返回值时被释放。</li>
+</ul>
+<p>上面的修饰词正确的使用方法是</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
+<p>修饰词放在其他位置也可以编译通过，但是严格来说是不正确的。</p>
+<h2 id="循环引用以及避免方法">循环引用以及避免方法</h2><p>当两个对象使用<code>strong</code>指针互相引用时，就会出现双方都不会被释放的情况，经常出现在使用 block 的地方。</p>
+<p>例如下面的代码就存在循环引用：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong) void(^someBlock)();&#10;&#10;[self setSomeBlock:^&#123;&#10;&#9;[self doSomething];&#10;&#125;];</span><br></pre></td></tr></table></figure>
+<p>在属性的生命中，类的对象含有一个 strong 类型的指针指向 block，在 block 中又存在 self （默认是 strong 类型）来引用类的对象，这样两者在生命周期结束时都不会被释放。</p>
+<p>解决方法：通过使用<code>__weak</code>修饰词来得到一个指向 self 的 weak 指针来打破循环引用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong) void(^someBlock)();&#10;&#10;MyClass *__weak weakSelf = self;&#10;[self setSomeBlock:^&#123;&#10;        MyClass *__strong strongSelf = weakSelf;&#10;&#9;[strongSelf doSomething];&#10;&#125;];</span><br></pre></td></tr></table></figure>
+<p>block 内部的 strong 指针是为了保证在 block 执行的过程中，对象不会被释放掉。其实也可以先判断一下 weakSelf 是否为空。</p>
+<p><strong>但不应在所有使用 block 的情况下都采用 weakSelf</strong>，因为只要类中不存在指向 block 的 strong 指针，就不会存在循环引用。而滥用weakSelf 可能会导致某些情况下 self 被释放后才调用 block，此时 block 中的代码不会被执行，往往不是我们期望的。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/arc/">
+                #ARC
+              </a>
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/pits-on-ios/">
+                本周在 iOS 上踩过的坑主要有
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-03
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/pits-on-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/pits-on-ios/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <h1 id="UITableView_相关">UITableView 相关</h1><h2 id="在写_UITableView_的_Demo_时，删除一个_cell_导致程序崩溃">在写 UITableView 的 Demo 时，删除一个 cell 导致程序崩溃</h2><p>在写 dataSource  protocol 中的<code>- (NSInteger)numberOfRowsInSection:(NSInteger)section</code>方法时，采用了 hardcode 方式。这个函数的返回值应该实时计算。</p>
+<h2 id="UITableView_的背景色">UITableView 的背景色</h2><p>想要设置 UITableView 的背景色，可以采用下面的语句。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.tableView.backgroundView = nil;&#10;self.tableView.backgroundColor = [UIColor whiteColor];</span><br></pre></td></tr></table></figure>
+<h2 id="添加_Static_样式的_TableView_到另一个_View">添加 Static 样式的 TableView 到另一个 View</h2><p>从 XCode 特定版本之后，Static 样式的 TableView 只能添加到一个 UITableViewController 中。要想添加一个 Static 样式的 TableView 到其他的 View 中，必须先添加一个 Container View，然后在其内部添加。</p>
+<p>其实通过编辑 UITableViewController 中 Static 样式的 TableView 的 tableHeaderView 以及 tableFooterView 就可以实现很多效果，不一定要使用上面的方法。</p>
+<h1 id="UIWebView_相关">UIWebView 相关</h1><h2 id="UIWebView_与_UINavigationController_的配合">UIWebView 与 UINavigationController 的配合</h2><p>当想让程序中的 UIWebView 后退与前进采用 UINavigationController 的返回按钮时，可以考虑重载</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType</span><br></pre></td></tr></table></figure>
+<p>这个函数返回<code>NO</code>时就会终止加载。每当加载页面时，新建一个 UIWebViewController，然后 push 进去及可利用 UINavigationController 自带的返回按钮。</p>
+<h2 id="UIWebView_的后退">UIWebView 的后退</h2><p>采用下面的方式让 WebView 返回最早的页面会进入死循环，内存暴涨。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">while([webView canGoBack])&#10;&#123;&#10;&#9;[webView goBack];&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>因为<code>goBack</code>的完成需要一定时间，期间<code>canGoBack</code>的值一直为真。正确的方式之一是设置一个 flag，在<code>webViewDidFinishLoad</code>中根据这个 flag 和<code>canGoBack</code>来循环后退。</p>
+<h1 id="One_more_keng">One more keng</h1><p>项目中使用到了开源的 <a href="https://github.com/jaydee3/JDFlipNumberView/issues/35" target="_blank" rel="external">JDFlipNumberView</a> 来显示令牌上的数字。我看了一下 readme，发现这个库是自带一些动画效果的，它有两套 API，而项目中使用的是静态的版本，I can not endure!</p>
+<p>结果测试发现，当在动画过程中切换 tabbar 后再切换回来，这个控件会 freeze 在一个中间状态！</p>
+<p>尝试在 <code>viewWillAppear</code>中重新设置控件显示的值，反复测试还是会有这个问题，最后因为发布日期将近，还是去掉了动画效果。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/a-boring-saturday/">
+                一个慵懒的周六
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-02
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/a-boring-saturday/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/a-boring-saturday/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>上一次更新博客已经是4月份了。我还在。</p>
+<p>为了证明这个博客存在的意义并不只是为了找工作时给面试官一个好一些的印象，我决定继续更新下去。</p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/a-boring-saturday/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/nix-learn-to-drive/">
+                学车记
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-04-29
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/nix-learn-to-drive/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/nix-learn-to-drive/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>我报的是北京远航驾校，C1，周末速成班，富康，价格4400。从科目一第一次上课到拿到驾照，历时两个月整。</p>
+<h1 id="报名">报名</h1><p>报名的方式有很多种：学校代理、直接去报名点、找驾校教练。这里面的水有点深，我是找的学校代理，价格是4400，结果发现有一起学车的4200就能报上周末速成，还是比亚迪，说是赶上活动了，我顿时喷出一口老血。这个只能多打听打听了。</p>
+<p>报名地点是五道口华清嘉园的门口。如果你色觉正常，通常报名点的人会帮你代办体检。而我，就得自己去一趟二炮了。所幸体检过了，乃们以后坐我的车系好安全带就是了。</p>
+<p>至于富康还是比亚迪，我觉得富康也挺好。区别在于：富康的方向盘比较重，车屁股小，便宜100块。如果是力气小的女生，还是选比亚迪吧。<br>如果不差钱，还是选高冷的东方时尚吧，正规，服务质量也好。</p>
+<h1 id="科目一">科目一</h1><p>远航的学员需要上三个半天的课，东方时尚的自己在家背直接去考就成，这里就体现了多掏的钱的价值了。第一次课要录考试用的指纹，后两次课都要点名，还是全点，这意味着每次都得去。</p>
+<p>作为一个学生，最不需要担心的就是这种死记硬背的考试了。在手机上下一个名为“驾考宝典”的APP（跟我念：[æp]），先全刷一遍，再背背错题就没问题了。100道单选题，每题一分。90分就能及格，一般考下来都是98分左右。</p>
+<h1 id="科目二">科目二</h1><h2 id="约车">约车</h2><p>科目一考完自己回大厅约科目二的时间，一共6个半天，有两种选择：上午半天和下午半天。上午学车的话，得起个大早（北邮的班车是早上6点25，南门等车），但是还剩半天可以干点别的；如果是下午练车，一天就没了。作为一个床癌晚期患者，我果断选了下午。<br><img src="/_image/2014-04-29/等车.jpg" alt="北邮南门"></p>
+<h2 id="练车">练车</h2><p>头一天一般是熟悉车内环境两个课时，剩下两个课时可以启动绕两圈。<br>这里有个小插曲，第一节课的四个课时当中，我都没有成功地放下过一次手刹。教练告诉我：你像这样握住手刹，拇指按下上面的按钮，往下掰就行了。我试了试，表示按不动按钮，不由得暗暗佩服教练的指力，两只手一起再试一次，还是按不动，不由得开始怀疑人生了。教练又重复了一遍。我还是不得要领，最终放弃回去上网查——先往上拉一点就行了，你说一声我不就知道了。</p>
+<p>第二天起就是压离合控制车速加无尽的倒库了。教练会帮你调好后视镜，告诉你参照点，照着做就是了。</p>
+<p><img src="/_image/2014-04-29/后视镜.jpg" alt="后视镜"></p>
+<p>值得注意的是，镜子的位置很重要，你可以用手机模拟自己的视角拍下来，以后就可以自己调。我有一个半天就是因为镜子没调好倒库全跪，而上一个半天的倒库一次问题都没有出过。这对心态影响很大，还好及时发现，避免悲剧的再次发生。另外一点是，第一个参照点的打轮宁可早一点也不能晚，晚了就没有调整的余地了。</p>
+<p>后面可能有一两次课是用来教另外4项的：定点停车和坡起、侧方停车、直角弯、S型弯道，在我眼里难度依次递减。这里就可以明白倒库的重要性了——科目二有一半以上的时间都是用来倒库的。坡起还是有点难度的，尤其是富康这种动力比较弱的车，需要油离配合，这个谁说了都没用，只能自己体会。</p>
+<p>每次学车都是四个小时，实际练车的时间大概三个小时。速成班的时间都是安排好的，一旦约上了，<strong>少去一个半天就得交320的补课费</strong>。<br>即使是下午的课，一天下来还是挺累的，尤其是来回一共三个小时的班车坐下来，连我这种爱坐车的人也受不了。</p>
+<h2 id="考试">考试</h2><p>考试场地在海淀驾校旁边，就在京海教学楼斜对面。</p>
+<p><img src="/_image/2014-04-29/科目二考场.jpg" alt="科目二考场"></p>
+<p>驾校的车会送你到门口，然后听点名凭身份证进去。首先是在一个大厅里面等。大屏幕上会提示几号桩的前两个人是谁，等你名字后面的排序变成1就说明轮到你了。</p>
+<p><img src="/_image/2014-04-29/考试大厅.jpg" alt="考试大厅"></p>
+<p>考试规则是，每人有两次机会，当你其中一项挂了之后，之前考过的每一项都要重考一遍。第一项就是倒库，因为最难所以放在最前面，如果挂了的话，只需要重考倒库这一项就行了。</p>
+<p><img src="/_image/2014-04-29/倒库考场.jpg" alt="倒库考场"></p>
+<p>当时在考场的铁栅栏外等待的时候，还是挺紧张的，尤其是你看到一个哥们连跪两次的时候。考完倒库，再回到大厅等着，接下来的四项是一次性完成的。顺序是：定点停车和坡起、S弯道、侧方、直角弯。点到名字之后去找对应号码的车和协考。我做了个考场的地图。需要注意的是，S弯在一个棚子里面，所以如果外面阳光很强，眼睛就有个明暗适应的过程。</p>
+<p><img src="/_image/2014-04-29/科目二考场地图.jpg" alt="科目二考场地图"></p>
+<p><strong>听话就能过。</strong>考试过程太快，一点感觉都还没有就结束了。</p>
+<p>不过据说4月以后科目二考试车上不准坐协考了，应该会有别的方式帮过吧，驾校总是要保证大多数人都能考过的。</p>
+<p><img src="/_image/2014-04-29/科目二考完.jpg" alt="科目二考完"></p>
+<p>考完回大厅签字，约科三的课。</p>
+<h1 id="科目三">科目三</h1><h2 id="练车-1">练车</h2><p>一共三次课，两次白天，一次夜间训练。</p>
+<p>主要学的内容有：加减挡、并线、转弯、掉头、靠边停车。整个科目二期间，我只挂过一次二挡，科目三终于上五挡了。后来发现，练车的地点就是考场，教练会带你把三个考场（北一、北二、聂东）都练一遍。</p>
+<p><img src="/_image/2014-04-29/科目三练车.jpg" alt="科目三练车"></p>
+<p><strong>必须逐级加挡，可以越级减挡。</strong>加挡时，我是先踩油门，等转速到了1500到2000时就加一挡。新手在高挡的时候就不知道如何减速，一踩刹车就不自觉地踩离合，这是科目二留下的后遗症——怕熄火。其实如果车速不是太慢，根本没有那么容易熄火，放心大胆地踩刹车吧，等车速降下来再踩离合，根据车速降到合适的挡位。</p>
+<p>夜间训练就很扯了，先给你讲讲灯的开关都在哪，然后给一张纸让你看各种口令下怎么打灯，最后跟白天一样绕几圈就结束了。我练车的时候天还是亮的，什么灯都没开。</p>
+<h2 id="考试-1">考试</h2><p>考试也是两次机会。夜考是随机抽取20%的人参加，去考试的那天才知道有没有被抽中。反正我是没有被抽中，据说白天考试过了，夜考就没有挂的。</p>
+<p>白天考试流程是：先去驾驶位一侧的车窗外喊”报告“，逆时针绕车一周再喊报告，上车双手递上身份证，然后调座椅、系安全带，轰一脚油门再说”仪表检查完毕，请求起步“。考官一共只会发四个口令：起步、掉头、掉头、靠边停车。整个过程就是在一条笔直的马路上绕一圈回来，想想就不难吧。</p>
+<p>秘诀是：</p>
+<ul>
+<li>记得打灯。</li>
+<li><strong>一定要看后视镜，就像你打Dota看小地图一样。</strong>起步要看，并线要看，没事就看；看的时候要有明显的扭头动作。</li>
+<li>换挡不能看挡把，看了就跪。</li>
+<li>二挡转弯，一挡掉头，虽然考试过程中没有转弯。</li>
+<li>”车要走起来“。尽可能快地上五挡，速度起码50以上。如果前面的车太慢，可以超车。等到考官提醒你”快点“的时候就危险了。</li>
+</ul>
+<p><img src="/_image/2014-04-29/科目三考试.jpg" alt="科目三考试"></p>
+<h1 id="科目四">科目四</h1><p>这个时候驾照基本上就已经到手了。科目四的考试题型是50道选择题，其中5道多选，每题2分，90分及格。考试内容跟科目一差不多，考前背了一个晚上就满分过了。</p>
+<h1 id="领证">领证</h1><p>远航的官方说法是考完之后的第一个周末早上去领驾照，就意味着还得起个大早花半天时间。但是，班车队队长告诉我们说考试当天下午4点多就可以在约车大厅领了。我们一行三个人趁机去凤凰岭玩了一圈。</p>
+<p><img src="/_image/2014-04-29/凤凰岭.jpg" alt="凤凰岭"></p>
+<p>下午驾照到手。</p>
+<p><img src="/_image/2014-04-29/远航驾校.jpg" alt="远航驾校"></p>
+<h1 id="题外话">题外话</h1><p>关于买烟。当你在外面练车中途休息的时候，会有各种大妈过来问你要不要买烟，你可以直接回绝，不用担心，以我的经验来看，教练的脸也没有黑到哪里去。有一同去的学妹练科目二撞石头上了，也是自己买烟带过去的。</p>
+<p>关于教练态度。人和人之间的差别真的是太大了，有的张口就骂，有的不闻不问，也有慈祥的大叔。但是大多数情况是嘴上不饶人，不知道是因为北京人与生俱来的优越感，还是因为教练的生活太艰辛。<br>具体表现是：<strong>每一句话都是反诘。</strong></p>
+<blockquote>
+<p>我能上车吗？<br>上来干嘛啊？</p>
+<p>这后视镜没用呗？没用我把它掰了得了。</p>
+</blockquote>
+<p>回头想想，学车的过程虽然辛苦，但还是挺有意思的，大家一起讨论驾车技巧，分享考试经验，也见识了各种嘴脸。</p>
+<p>现在只盼土豪能借车给我过过瘾。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/bupt-id-card-tut/">
+                北邮办理护照攻略
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-01-09
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/bupt-id-card-tut/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/bupt-id-card-tut/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>最近试图考驾照，但是报名时被告知需要有<strong>北京地址的身份证</strong>。如果已经有北京户口，就要办临时身份证；如果是外地户口，就要办<del>狗日的</del>暂住证。</p>
+<p>办临时身份证或者护照，需要在学校保卫科借户籍卡。于是悲剧开始了。</p>
+<p>大致是这个样子的：</p>
+<ul>
+<li>写申请，找导师签字。（如果是办护照，就需要在<a href="http://www.byr.edu.cn/" target="_blank" rel="external">北邮人主页</a>提交申请。）</li>
+<li>找辅导员签字。</li>
+<li>到学院办公室盖章。</li>
+<li>到小白楼204的学生处盖章。</li>
+<li>带上学生证、身份证和申请到保卫处借户籍卡。慢着，他们只在上午8:30到11:30可以办理户籍卡借出！</li>
+<li>到北太平庄派出所办理。（如果是护照，<a href="http://bbs.byr.cn/#!article/GoAbroad/291163" target="_blank" rel="external">这里</a>有一个攻略。万能的北邮人！）</li>
+</ul>
+<p>如果你恰好需要借户籍卡，那么最好顺便把护照办了，因为据说在学校办理还是相对容易的。万一哪天打通任督二脉，能够肉身翻墙，可以用得上。</p>
+<p>今天跑了一圈，只拿到了导师签字。辅导员说下周一才来，非得亲眼看到导师签字，不能代签。</p>
+<p><strong>教训是，签字盖章这种事，你永远不知道有多少依赖项在等着你，那帮大爷们是个什么样的工作时间。我能做的就是：事先调查清楚；尽量早地开始准备；做好折腾的打算。</strong></p>
+<hr>
+<p>今天领到了临时身份证、办好了港澳通行证和护照。</p>
+<p>有几个注意事项：</p>
+<ul>
+<li>可以同时办理港澳通行证和护照，因为步骤是一样的，而且都在一幢名为“中关村.+服务中心”的大楼中办理。</li>
+<li>办理上面两样<strong>需要身份证和户籍卡上的地址一致</strong>。如果不一致，你就需要办理临时身份证。</li>
+<li>仅仅需要户籍卡、身份证、两寸照片两张（也可以去那边临时洗，30块）。</li>
+</ul>
+<p>所以办理的过程是：</p>
+<p>首先，到北太平庄派出所办理临时身份证。从学院路一致往南走过了今典花园不远就到了。去了先照相，希望你不会也后悔为什么当时头发搞得那么挫。工作人员会给你一张纸条，让你去“中关村.+服务中心”去取临时身份证。正式身份证十个工作日后在北太平庄派出所领。</p>
+<p>到明光桥南坐392到底站“西钓鱼台”，一下车就是“中关村.+服务中心”，不用担心找不到。去三楼取个号排队。在116号窗口领临时身份证，大约要等10分钟左右，期间可以填写护照的申请表。</p>
+<p>取到临时身份证后，拿着填好的表格去拍照，因为需要电子档录入系统。这里的拍照是不能戴眼镜或镜框的。接下来再去取号、等待、办理。</p>
+<p>最后交钱，港澳通行证160，护照200。过一段时间后再来取，也可以选择邮寄。</p>
+<p>所有的手续都在三楼办好，不得不说这里的办事效率还是挺高的，办理这些我一共花了45分钟。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/攻略/">
+                #攻略
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/vimium/">
+                Vimium
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-01-03
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/vimium/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/vimium/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>像一个Geek一样使用Chrome吧。</p>
+<p>这款叫做<a href="https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb" target="_blank" rel="external">Vimium</a>的插件让你可以在Chrome中使用Vim快捷键！</p>
+<p>虽然其中的很多操作都有Chrome默认的快捷键支持，但是对于经常在Win\Mac之间切换的人来说，<strong>可以用来屏蔽不同OS快捷键的不同。</strong>之前用过strokeit、jitouch，还是不如Chrome扩展的兼容性。</p>
+<p>常用的操作有：</p>
+<ul>
+<li>? 打开帮助</li>
+<li>页面浏览<ul>
+<li>j\k\h\l 上\下\左\右滚动页面</li>
+<li>gg\G 回到顶\底部 </li>
+<li>r 重新加载</li>
+<li>yy 复制当前页面地址</li>
+<li>p\P 在当前\新Tab中打开剪贴板中的地址</li>
+<li>H\L 后退\前进    </li>
+</ul>
+</li>
+<li>查找<ul>
+<li>/ 进入查找模式</li>
+<li>n\N 下一个\上一个结果</li>
+</ul>
+</li>
+<li>Tab<ul>
+<li>K\J 切换到左\右边的Tab</li>
+<li>t 新建Tab</li>
+<li>x 关闭Tab</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/工具/">
+                #工具
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/a-crawler/">
+                一只爬虫
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-01-02
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/a-crawler/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/a-crawler/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>重新学习python，写了一个爬<a href="http://jandan.net/pic/" target="_blank" rel="external">煎蛋无聊图</a>的爬虫。</p>
+<p>这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。</p>
+<p>其间遇到了一个异常<code>bad character range</code>，放狗一搜，看到stackoverflow上说正则表达式写错了，我改了半天正则表达式，还是不能正确运行。最后知道真相我的眼泪掉下来，我把<code>re.findall</code>的两个参数传反了。</p>
+<p>另外，由于图片的格式有很多种，我使用<code>&lt;img src=&quot;(.*\.(?:jpg|jpeg|gif))&quot;</code>来匹配，其中<code>(?:exp)</code>的语法表示不捕获匹配到的内容，仅仅用来限制<code>|</code>的作用范围。</p>
+<p>下面是代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_img_url</span><span class="params">(page_url)</span>:</span></span><br><span class="line">    socket.setdefaulttimeout(<span class="number">20</span>)   <span class="comment"># 设置超时时间</span></span><br><span class="line">    imgs = []</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        content_in_bytes = urllib.request.urlopen(page_url).read()</span><br><span class="line">        content = str(content_in_bytes.decode(<span class="string">'utf-8'</span>))</span><br><span class="line">        pattern = <span class="string">r'&lt;img src="(.*\.(?:jpg|jpeg|gif))"'</span></span><br><span class="line">        imgs = re.findall(pattern, content)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"parse content failed %r"</span> % str(e))</span><br><span class="line">    <span class="keyword">return</span> imgs</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download_img</span><span class="params">(url, save_path)</span>:</span></span><br><span class="line">    <span class="comment"># 从URL中获取文件名</span></span><br><span class="line">    filename = url.split(<span class="string">"/"</span>)[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        urllib.request.urlretrieve(url, save_path + filename, <span class="keyword">None</span>)</span><br><span class="line">        print(<span class="string">"download succeeded"</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"download failed %r"</span> % str(e))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">jandan_xxoo</span><span class="params">(folder_path, page_no)</span>:</span></span><br><span class="line">    print(<span class="string">"page "</span>, page_no)</span><br><span class="line">    url = <span class="string">r"http://jandan.net/pic/page-"</span> + str(page_no) + <span class="string">'#comments'</span></span><br><span class="line">    path = folderpath + str(page_no) + <span class="string">'\\'</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(path):</span><br><span class="line">        print(<span class="string">"page already downloaded"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        os.mkdir(path)</span><br><span class="line">    imgs = get_img_url(url)</span><br><span class="line">    <span class="keyword">for</span> img <span class="keyword">in</span> imgs:</span><br><span class="line">        download_img(img, path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    folderpath= <span class="string">"E:\\study\\py\\img\\jandan\\"</span></span><br><span class="line">    page_no = <span class="number">3945</span>          <span class="comment"># 从3945页开始下载</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">30</span>):    <span class="comment"># 一共下载30页</span></span><br><span class="line">        jandan_xxoo(folderpath, page_no - i)</span><br></pre></td></tr></table></figure></p>
+<p>代码比较丑陋，有空还是得去看看<a href="http://www.python.org/dev/peps/pep-0008/" target="_blank" rel="external">PEP8</a>，一个python的代码规范。</p>
+<p>既然你都已经看到了这里，估计你也想到了，把url里面的<code>pic</code>换成<code>ooxx</code>就可以批量下载<a href="http://jandan.net/ooxx" target="_blank" rel="external">妹子图</a>了。不用谢。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/happy-new-year/">
+                Happy New Year
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-12-31
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/happy-new-year/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/happy-new-year/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p><img src="/_image/2013-12-31/new-years-eve.gif" alt="new years eve"></p>
+<p>Google今天的Doodle太好玩了。看了N久。不知道12点时那个站在旁边的4会不会蹦上来。</p>
+<p>新年快乐。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/spec-work/">
+                记一个小网站的诞生
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-12-28
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/spec-work/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/spec-work/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。</p>
+<p>很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。</p>
+<p>由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpress，跟Joomla差距应该不大。</p>
+<h1 id="第一夜">第一夜</h1><p>主机用的是阿里云而不是之前用的虚拟主机，还需要自己搭环境。拿到账号密码，找了一个<a href="http://115.28.161.33/article/70.html" target="_blank" rel="external">教程</a>，从硬盘格式化开始，按部就班地来。</p>
+<p>安装配置Apache、MySql、vsftp、Wordpress、phpMyAdmin，尤其是vsftp，弄得我焦头烂额，Linux渣伤不起。后来回宿舍，哥们提醒，直接用scp就OK了，压根不用这玩意，我顿时一口老血喷出。再后来发现，ftp还是需要配置的，因为在wordpress后台安装主题或插件时需要用到。</p>
+<h1 id="第二夜">第二夜</h1><p>找模板。</p>
+<p>模板要配色清爽，简单大气，还要高度可自定义。找了好久才找到<a href="http://www.themesandco.com/customizr/" target="_blank" rel="external">Customizr</a>。看名字就知道好改。简单了解了下Wordpress的“仪表盘”（就是后台页面），把网站的内容都填了进去。看到网站就这么搭起来了，心中暗爽。</p>
+<p>回来给Show给小伙伴看的时候掉链子了，发现域名不能用，于是有了<a href="http://nixwang.com/post/2013-12-20-wordpress-change-domain" target="_blank" rel="external">这么一出</a>。</p>
+<h1 id="第三夜">第三夜</h1><p>找图片。</p>
+<p>首页的大Slider需要三张大图，于是在Google之。此时脑中立马浮现出一群衣冠楚楚的老外（一定要有个黑人在里面），傻呵呵地握手看着镜头傻笑的场面，就是这货没跑了，总觉得这些老板就好这口。另外还找了几张小图片，是那种抽象立体小人。当然这里的图片用的都是盗版的，鄙视我吧。</p>
+<p>另外还用我仅有的一点点CSS知识改了下排版。</p>
+<p>心想，这下一定完爆你的要求了。</p>
+<h1 id="第四夜">第四夜</h1><p>我让萌萌把网站给客户看了。萌萌说客户还比较满意，但是还有几个地方要改。</p>
+<p>发来了一个Word。打开一看，顿时惊了。里面齐刷刷躺着8条修改意见，其中几条说得是页面上的样式设计问题，说得我真没脾气。痛定思痛，按照意见一条条修改下来，确实好看了许多。</p>
+<h1 id="第五夜">第五夜</h1><p>客户发现了两处Bug，一个是导航栏尺寸不对，另一个是合作伙伴的图片尺寸大小不对。看了客户发来的截图，原来他用的是360浏览器，貌似是IE8内核。在萌萌的帮助下，顺利解决。</p>
+<p>IE7、IE8就是个奇葩，连CSS圆角都不支持。让我想到这幅图：</p>
+<p><img src="/_image/2013-12-29/doraemon-css.png" alt="doraemon-css"></p>
+<p>希望能圆满完成任务。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+
+          </div>
+
+          
+            <div class="pagination">
+              <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+            </div>
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="/images/default_avatar.jpg" alt="Nix Wang" />
+        <p class="site-author-name">Nix Wang</p>
+      </div>
+      <p class="site-description motion-element"></p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">18</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">1</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+
+      <div class="social-info motion-element">
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2013 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Nix Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" id="motion.page.home">
+    $(document).ready(function () {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200, sequenceQueue: false } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    });
+  </script>
+
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = 'index.html';
+      var disqus_url = '';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+  
+</body>
+</html>

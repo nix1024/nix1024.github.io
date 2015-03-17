@@ -1,0 +1,1335 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0"/>
+
+
+
+
+
+    <meta name="keywords" content="Hexo,next" />
+
+
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0" />
+
+
+
+
+  <title> Nix 的自我修养 </title>
+</head>
+
+<body>
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nix 的自我修养</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/wordpress-change-domain/">
+                Wordpress 修改站点域名
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-12-20
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/wordpress-change-domain/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/wordpress-change-domain/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>最近在做一个Wordpress小站，但是发现用域名不能访问，用IP访问不能正确加载CSS、JS和图片，后果可想而知，最重要的是不能登录Wordpress后台了。</p>
+<p>但是查了下DNS设置是没问题的，可以Ping到正确的IP。后来一番Google才想起来我们伟大祖国母亲<del>再打我一次</del>的备案制度——这个域名还没有备案。Wordpress的资源文件路径中的域名是不能访问的，所以不能加载。而且万网上说一般的备案流程需要20个工作日（干！）。</p>
+<p>为了在这20天内可以用IP访问，可以通过设置Wordpress站点域名的方法来绕行。同样适用于更换域名。</p>
+<p>所需要做的是：登陆phpMyAdmin，将<code>wp-options</code>（默认前缀是<code>wp</code>）中的<code>siteurl</code>字段修改为站点的公网IP即可。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            <a class="post-title-link post-title-link-external" target="_blank" href="http://www.benjaminkeen.com/open-source-projects/smaller-projects/responsive-design-bookmarklet/">
+              响应式设计测试工具
+              <i class="icon-external-link"></i>
+            </a>
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-12-17
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/responsive-design-tester/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/responsive-design-tester/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>这是一个测试页面在各个分辨率下效果的工具。</p>
+<p>只需要把它拖到书签栏，浏览到需要测试的页面，点击这个书签即可。</p>
+<p>不用谢。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/web/">
+                #Web
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/head-first-bootstrap/">
+                Head First Bootstrap
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-12-15
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/head-first-bootstrap/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/head-first-bootstrap/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <blockquote>
+<p>如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。</p>
+</blockquote>
+<p>Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合<a href="http://www.ruanyifeng.com/blog/2012/05/responsive_web_design.html" target="_blank" rel="external">响应式设计</a>。要使用Bootstrap，拢共分三步。</p>
+<h1 id="引入Bootstrap">引入Bootstrap</h1><p>可以在<a href="http://getbootstrap.com/" target="_blank" rel="external">Bootstrap官网</a>下载源码添加到自己的项目中，也可以在HTML中添加Bootcss提供的<a href="http://v3.bootcss.com/getting-started/#download-cdn" target="_blank" rel="external">CDN</a>。</p>
+<p>使用CDN的好处是，服务器会自动选取最近的节点来提供文件的下载；另一方面，当用户之前浏览其他网页的时候如果加载过了这个文件，在访问我们的站点时就会从缓存中读取。</p>
+<h1 id="改造自己的HTML">改造自己的HTML</h1><p>只要为自己的HTML元素<strong>赋上特定的类名</strong>，就可以修改各个元素的外观甚至行为。</p>
+<p>例如，要为按钮设置样式，只需要写下面的代码，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Standard button --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-default"</span>&gt;</span>Default<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Provides extra visual weight and identifies the primary action in a set of buttons --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span>Primary<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates a successful or positive action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-success"</span>&gt;</span>Success<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Contextual button for informational alert messages --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-info"</span>&gt;</span>Info<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates caution should be taken with this action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-warning"</span>&gt;</span>Warning<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates a dangerous or potentially negative action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-danger"</span>&gt;</span>Danger<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Deemphasize a button by making it look like a link while maintaining button behavior --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-link"</span>&gt;</span>Link<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>就会得到这样的效果：</p>
+<p><img src="/_image/2013-12-15/bootstrap-button.png" alt="Bootstrap按钮效果"></p>
+<p>另外，Bootstrap还提供了响应式的导航条，会根据浏览器的分辨率自动调整样式，在移动客户端上会变成弹出式下拉菜单，效果很棒。使用Bootstrap的栅格系统，可以轻松完成页面的布局，并且可以自适应分辨率。</p>
+<p>所有这些，都不需要写一行CSS或JS代码。</p>
+<h1 id="定制Bootstrap">定制Bootstrap</h1><p>当你用完爽过了之后，会发现所有用Bootstrap默认样式做出来的东西都是一副面孔，逼格瞬间下降了。这个时候就需要定制Bootstrap了。当然，已经有很多为Bootstrap开发的主题，比如<a href="http://bootswatch.com/‎" target="_blank" rel="external">Bootswatch</a>。除此之外，还可以通过在<a href="http://v3.bootcss.com/customize/" target="_blank" rel="external">这里</a>自定义LESS变量来定制Bootstrap。设置完毕后下载编译好的CSS和JS文件即可。</p>
+<hr>
+<p>Bootstrap自身提供了200个<strong>字体图标</strong>供我们使用。这些图标并不是图片，而是字体，可以不失真调整大小，自定义颜色、阴影等一切CSS能控制的样式。同样，只需要为<code>&lt;span&gt;</code>赋上特定的类名即可。如果丧心病狂的你认为这200个还不够用的话，我们还有<a href="http://fontawesome.io/" target="_blank" rel="external">Font Awesome</a>，总有一款适合你。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/web/">
+                #Web
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            <a class="post-title-link post-title-link-external" target="_blank" href="http://rogerdudler.github.io/git-guide/index.zh.html">
+              Git 简易指南
+              <i class="icon-external-link"></i>
+            </a>
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-12-09
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/git-guide/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/git-guide/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>一个简单的Git教程。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/git/">
+                #Git
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/farbox-theme/">
+                FarBox 主题
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-11-30
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/farbox-theme/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/farbox-theme/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>我发现了一个很漂亮的FarBox<a href="http://motype.org/post/design/theme-farbox" target="_blank" rel="external">主题</a>，作者是一个专业的前端，做得很专业。</p>
+<p>但是有一些小的瑕疵，我做了一些小的修改。</p>
+<ul>
+<li>文章列表页面图片的缩略图移到了标题下面靠右侧。这样每一篇文章的标题以及相关信息的显示都是一致的，无论是否包含图片。</li>
+<li>右侧SideBar中的新浪微博版块使用了一个iframe，高度改到500。</li>
+<li>Tag List中的显示过于拥挤，现在改成每个Tag一行，后面是这个Tag下文章的数目。</li>
+<li>NavBar中的Photo指向的地址有错误，导致不能正常显示图片目录。</li>
+<li>修改了图片浏览的导航。</li>
+<li>修改了导航条样式、侧边栏样式。</li>
+<li>修改了文章页面样式。</li>
+</ul>
+<p>期间了解了不少FarBox模板的机制，感觉 <a href="http://mytype.org/" target="_blank" rel="external">衣不如新</a> 的作者。</p>
+<p>代码我放在了<a href="https://github.com/nix1024/NixBlogTheme" target="_blank" rel="external">这里</a>。</p>
+<hr>
+<p>更新：</p>
+<ul>
+<li>2013-12-09 <ul>
+<li>使用Bootstrap和Bootswatch更新了导航的样式。</li>
+<li>在移动设备上隐藏侧边栏。</li>
+<li>post-list中的图片不再显示为小的缩略图，也不再是链接。</li>
+<li>暂时去掉PHOTO页面，还没有修改好。</li>
+</ul>
+</li>
+<li>2013-12-10<ul>
+<li>将原先主题中的screen.css中剥离出Font Awesome和自定义部分。</li>
+<li>修改了文章内标题的大小和样式。</li>
+<li>把代码高亮的样式设置为Sublime Text上的<a href="https://github.com/richleland/pygments-css/blob/master/monokai.css" target="_blank" rel="external">Monokai</a>。</li>
+</ul>
+</li>
+<li>2013-12-17<ul>
+<li>去除了原有的布局，完全采用Bootstrap的栅格机制。</li>
+<li>修改了导航条，改为Fixed，半透明。</li>
+<li>加上了PHOTO链接。万一有人想不开要用我的模板，请记得把照片放在Dropbox中md文件同级的photo文件夹下。</li>
+<li>ARCHIVE页面中的外部链接不再指向post页面。</li>
+</ul>
+</li>
+<li>2014-04-24<ul>
+<li>增加了instagram配置。</li>
+<li>添加了404页面。</li>
+</ul>
+</li>
+<li>2014-08-02<ul>
+<li>去掉了侧边栏，调整了文章页面宽度。添加配置项 hide_sider。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/web/">
+                #Web
+              </a>
+            
+              <a href="/tags/折腾/">
+                #折腾
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/hhkb/">
+                HHKB上手
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-11-29
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/hhkb/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/hhkb/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>从土豪同学那借来了他刚买的HHKB。</p>
+<p><img src="/_image/2013-11-30/HHKB.jpg" alt="HHKB"></p>
+<p>我要找些字来打。</p>
+<p>外形就不说了，的确非常好看。拿到手上的这块是黑色的，印字也是黑色的，看起来很低调的样子。</p>
+<p>只是我在敲这些字的时候，会想去找方向键。Farbox编辑器不支持Ctrl+F、B、P、N的快捷键。</p>
+<p>十几分钟打下来，主要感觉是：</p>
+<p>优点：</p>
+<ul>
+<li>有人形容手感像“咬断一块巧克力”，说得还是比较贴切的。手感有点像薄膜键盘，只是更软，反馈更强一点，说像少女的肌肤什么的还是算了吧。</li>
+<li>按下去一点点就可以生效，按到底键帽撞击到底部的声音听起来挺闷的，像在敲一块木头。</li>
+<li>Ctrl所在的位置非常舒服，不过这个通过软件也能做到。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>Mac下的调节屏幕亮度、多媒体控制等按键彻底不能用了。这也敢声称支持Mac？还是我没有找到设置的地方。</li>
+<li>当你想要找方向键的时候，你会要抓狂的（习惯之后说不定能适应）。Fn被安排在右下角的一个不起眼的位置，而方向键被放在几个符号的键位上，估计是为了可以单手操作。</li>
+<li>键盘底部的脚垫显得比较松垮，也没有类似Filco一样的橡胶防滑层，显得不够精致。</li>
+<li>有人说这块键盘可以刚好放在MBP的键盘上，我试了一下，尺寸是刚好，但是中出的那根线会直直顶上屏幕。放下来的话，触控板又不能用了，Mac的魅力少了一半。</li>
+</ul>
+<p>1600软妹币呢，还是狠不下心来。再用个一两天吧。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/机械键盘/">
+                #机械键盘
+              </a>
+            
+              <a href="/tags/玩物/">
+                #玩物
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/hello-farbox/">
+                Hello Farbox
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-11-28
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/hello-farbox/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/hello-farbox/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">print</span><span class="params">(<span class="string">"Introducing Farbox."</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(<span class="string">"Beauty in simplicity, in clarity, in efficiency."</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>很遗憾，我又在折腾了。</p>
+<p>从一个同北邮的同名的哥们的<a href="http://wangx.in/post/moving-to-farbox/" target="_blank" rel="external">博客</a>上知道了Farbox。看上去就是把Octopress打包做成一个服务，这样就不用在各台机器上都配置一遍那个恶心的环境了。</p>
+<p>更棒的是，可以直接用以前的markdown文件生成新的博客。</p>
+<h3 id="优点">优点</h3><ul>
+<li>支持Markdown。</li>
+<li>可以自定义域名。</li>
+<li>可以自定义模板。</li>
+<li>md文件都放在Google Drive或者Dropbox上，够稳定。</li>
+<li>有客户端可以用来编辑和同步。</li>
+<li>比直接使用Octopress要方便很多很多，不需要每次修改都生成一次，图片可以直接拖拽进来！！！<h3 id="缺点">缺点</h3></li>
+<li>界面略丑，不过可以忍受。</li>
+<li>Web端操作起来比较麻烦，有时候会报些用户不友好的错误。客户端用起来很舒服。</li>
+</ul>
+<p>如果服务够稳定的话，我是愿意付费的。</p>
+<p>希望Farbox能够茁壮成长。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/cool-stuff/">
+                一些酷酷的东西
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-07-15
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/cool-stuff/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/cool-stuff/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>或者应该叫“如何正确败家”。</p>
+<p>作为一个穷学生，虽然没几个钱，但对我在乎的东西决不妥协。</p>
+<p>下面都是一些能大幅提升幸福感的小东西。</p>
+<h2 id="SSD">SSD</h2><p>在CPU性能过剩的今天，要提升电脑的性能，更换硬盘 &gt; 加内存 &gt; 换CPU（不考虑玩游戏）。以前开机菊花20圈，现在基本半圈。程序基本秒开，腰不酸了，腿不疼了。</p>
+<h2 id="Lamy钢笔">Lamy钢笔</h2><p>我有一支黑色磨砂的Lamy Safari，准备考研的时候买的，已经有三年，表面已经完全磨光了。这年头似乎大家都不愿意用钢笔了，怕换墨水？怕弄脏手？还是怕写出好看的字？配合Parker墨水，如丝般顺滑。作为一个脑残粉，已经有5位同学在我的影响下购买。等我的这支坏了（或者突然哪天不差钱了），一定再买支All-Star。</p>
+<h2 id="AKG_K420">AKG K420</h2><p>作为一个木耳中的战斗木耳，我实在听不惯HD201的白开水声音，果断送人，入手K420，不会评价，只知道它完全满足我的需求。这款耳机戴久了会有一点夹耳朵，但这个时候你应该摘下耳机让耳朵休息一会了。</p>
+<h2 id="TP-Link_WR系列">TP-Link WR系列</h2><p>蓝色小盒子，看起来有点苹果范的设计，便携美观。</p>
+<h2 id="威戈背包">威戈背包</h2><p>看着就皮实，摸上去更皮实，黑色款码农必备。</p>
+<h2 id="iPhone_+_Macbook_Pro">iPhone + Macbook Pro</h2><p>不解释</p>
+<h2 id="Wish_List">Wish List</h2><ul>
+<li>Filco家的青轴机械键盘。</li>
+</ul>
+<p>被誉为“手指马杀鸡”，让人停不下来。据说用了机械键盘的人再也用不回薄膜键盘了。如果让我买一台台式电脑，我会在显示器、键盘、鼠标、音响上分配比以往更多的资金，因为这是每一天都要直接接触的东西。</p>
+<p>发烧一点的还有HHKB。</p>
+<ul>
+<li>Nike Pro</li>
+</ul>
+<p>用来跑步的衣服。据说透气性好，质量倍儿棒。宅男也要运动起来！</p>
+<ul>
+<li>Nike+ Fuelband </li>
+</ul>
+<p>Life is sport make it count.</p>
+<ul>
+<li>New Balance 574</li>
+</ul>
+<p>用来跑步的鞋子。不管做什么，一定要专业。好的鞋子能保护脚和膝盖。考虑到我现在还只是3km的水平，暂时不需要。</p>
+<ul>
+<li>Macbook Pro with Retina Display</li>
+</ul>
+<h2 id="据扯好到令人痛哭流泪的东西">据扯好到令人痛哭流泪的东西</h2><ul>
+<li>旭化成的保鲜膜</li>
+</ul>
+<p>“这东西的价格似乎贵过其他大部分保鲜膜，但是质量之优秀令人流泪。如果说其他的保鲜膜是山寨触摸手机，那旭化成就是iPhone。用过这个牌子的保鲜膜之后,我深深地为一部分家庭妇女们悲哀，也许她们一辈子没用过 “真正的保鲜膜”，以至于在她们的印象里保鲜膜就是那种又薄又扯不断的东西。”</p>
+<ul>
+<li>洗碗机</li>
+</ul>
+<p>“据说能解决家庭矛盾的存在。”</p>
+<ul>
+<li>Oral-B 电动牙刷</li>
+</ul>
+<p>“用完后觉得牙从来没刷这么干净过。”</p>
+<ul>
+<li>卫生棉条（为了她）</li>
+</ul>
+<p>“我的天空，星星都亮了”。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/玩物/">
+                #玩物
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/letter-press-game/">
+                Letter Press
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-06-20
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/letter-press-game/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/letter-press-game/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>最近在App Store发现了一款游戏，叫<a href="https://itunes.apple.com/cn/app/letterpress-word-game/id526619424?mt=8" target="_blank" rel="external">Letter Press</a>。这款游戏获得了Apple的设计大奖，界面十分清新，动画生动自然，我非常喜欢。</p>
+<p>这里是游戏截图：<br><img src="/_image/2013-06-20/letterpress.jpg" alt="Image Title"></p>
+<p>游戏规则比较简单：</p>
+<ul>
+<li>两个玩家对战，轮流进行。玩家使用界面上的任意字母来组成一个个单词，使用过的字母将会变成特定的颜色（自己用过的变成蓝色，对方使用过的则会变成红色）。</li>
+<li>每次提交的单词不能是之前双方使用过的单词的前缀。比如之前提交过<code>players</code>，则不能再提交<code>player</code>或者<code>play</code>。</li>
+<li>如果某个字母以及它周围的字母全是自己方的颜色，这个字母就处于防御状态，对方下次使用这个字母时则不会变成对方的颜色。</li>
+<li>当所有的字母都被使用过，或某一个玩家拼不出单词的时候，获得字母多的一方获胜。</li>
+</ul>
+<p>玩家可以在Game Center上找好友玩，也可以自动匹配玩家。</p>
+<p>并且，这个游戏是免费的。</p>
+<p>这里有一个玩这个游戏的<a href="http://hzlzh.github.io/Letterpress-Helper/?" target="_blank" rel="external">小工具</a>，感觉做得不错，有空的话再研究一下是怎么实现的。</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/app/">
+                #App
+              </a>
+            
+              <a href="/tags/game/">
+                #Game
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2013/google-unchained/">
+                Google Unchained
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-05-28
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/google-unchained/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/google-unchained/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>由于周所周知的原因，Google在中国常常处于不可用状态，经常会发现“连接被重置”的情况，即使侥幸打开了，点击搜索结果之后也需要很久才能打开，这是因为Google需要进行一些统计，结果中的链接不是真正的网址，需要连接Google服务器，之后再跳转到目标页面。</p>
+<p>解决方法之一是翻墙，对于不爱折腾的用户，当然要找其他方法，总不能用百度吧。</p>
+<p>今天在刷Google Reader时发现一款Chrome插件，叫急速谷歌，下面是功能介绍：</p>
+<blockquote>
+<p>本插件会自动侦测可用的google服务器，在某服务器被屏蔽的瞬间切换到其他服务器。并将搜索结果中经由谷歌的链接转换为直接链接，从而提高访问速度和稳定度。</p>
+</blockquote>
+<p><a href="https://chrome.google.com/webstore/detail/%E6%9E%81%E9%80%9F%E8%B0%B7%E6%AD%8C/nodbcjhlapenofbimeinhpojlcfaeobe" target="_blank" rel="external">这里</a>是插件的Web Store地址。  </p>
+<p>如果下载失败，可以使用这个技巧：</p>
+<p>打开插件页面（如果连这个都打不开，你还是翻墙吧），看到地址栏里面的最后一段字符串，复制下来，替换到下面地址中“字符串”的位置，再把这个URL复制到<strong>其他浏览器</strong>中打开即可。</p>
+<blockquote>
+<p><a href="https://clients2.google.com/service/update2/crx?response=redirect&amp;x=id%3D字符串%26uc" target="_blank" rel="external">https://clients2.google.com/service/update2/crx?response=redirect&amp;x=id%3D字符串%26uc</a></p>
+</blockquote>
+<p>以急速谷歌为例：</p>
+<blockquote>
+<p>插件地址：<br><a href="https://chrome.google.com/webstore/detail/%E6%9E%81%E9%80%9F%E8%B0%B7%E6%AD%8C/nodbcjhlapenofbimeinhpojlcfaeobe" target="_blank" rel="external">https://chrome.google.com/webstore/detail/%E6%9E%81%E9%80%9F%E8%B0%B7%E6%AD%8C/nodbcjhlapenofbimeinhpojlcfaeobe</a><br>替换后的地址：<br><a href="https://clients2.google.com/service/update2/crx?response=redirect&amp;x=id%3Dnodbcjhlapenofbimeinhpojlcfaeobe%26uc" target="_blank" rel="external">https://clients2.google.com/service/update2/crx?response=redirect&amp;x=id%3Dnodbcjhlapenofbimeinhpojlcfaeobe%26uc</a></p>
+</blockquote>
+<p>下载完毕后，打开Chrome的扩展管理页面，把文件拖进去就行了。<br>收工。</p>
+<p>参考：<br><a href="http://www.zhihu.com/question/20140749/answer/17193893?utm_campaign=rss&amp;utm_medium=rss&amp;utm_source=rss&amp;utm_content=title" target="_blank" rel="external">知乎-百度吐槽文</a><br><a href="http://www.appinn.com/chrome-extension-downloader/" target="_blank" rel="external">小众软件-如何下载 Chrome 应用商店的 .crx 文件</a></p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/fuckgfw/">
+                #FuckGFW
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+
+          </div>
+
+          
+            <div class="pagination">
+              <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+            </div>
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="/images/default_avatar.jpg" alt="Nix Wang" />
+        <p class="site-author-name">Nix Wang</p>
+      </div>
+      <p class="site-description motion-element"></p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">18</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">1</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+
+      <div class="social-info motion-element">
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2013 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Nix Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" id="motion.page.home">
+    $(document).ready(function () {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200, sequenceQueue: false } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    });
+  </script>
+
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = 'page/2/index.html';
+      var disqus_url = '';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+  
+</body>
+</html>

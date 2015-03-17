@@ -1,0 +1,695 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0"/>
+
+
+
+
+
+    <meta name="keywords" content="Hexo,next" />
+
+
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0" />
+
+
+
+
+  <title> 归档 // Nix 的自我修养 </title>
+</head>
+
+<body>
+  <div class="container one-column  page-archive ">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nix 的自我修养</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+
+  <span class="archive-move-on"></span>
+
+  <span class="archive-page-counter">
+    
+    
+     
+    
+    嗯..! 目前共计 27 篇日志。 继续努力。
+  </span>
+
+  
+
+    
+    
+    
+
+    
+      
+      <div class="collection-title">
+        <h2 class="archive-year motion-element" id="archive-year-2013">2013</h2>
+      </div>
+    
+    
+
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Windows CryptoAPI入门
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-04-18
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/windows-cryptoapi/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/windows-cryptoapi/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>CryptoAPI为开发者提供在Windows下使用PKI的API。CryptoAPI包括编码、解码、加密、解密、Hash、数字证书管理和证书存储等功能。</p>
+<!--More-->
+<h2 id="常用API">常用API</h2><h3 id="CSP相关">CSP相关</h3><p>一个CSP是实现加密操作的独立模块，要实现加密，至少需要一个CSP。每个CSP对CryptAPI的实现是不同的，使用的算法不同，有些包含了对硬件的支持。</p>
+<ul>
+<li><code>CryptAcquireContext</code> 获得指定CSP的密钥容器的句柄</li>
+<li><code>CryptReleaseContext</code> 释放由<code>CryptAcquireContext</code>得到的句柄</li>
+</ul>
+<h3 id="密钥相关">密钥相关</h3><p>用来创建和销毁密钥，也可以使用一个已有的密钥</p>
+<ul>
+<li><code>CryptDeriveKey</code> 从一个密码中派生一个密钥</li>
+<li><code>CryptDestoryKey</code> 销毁密钥</li>
+<li><code>CryptDuplicateKey</code> 制作一个密钥和密钥状态的精确复制</li>
+<li><code>CryptGenKey</code> 创建一个随机密钥</li>
+<li><code>CryptImportKey</code> 把一个密钥BLOB传送到CSP中</li>
+</ul>
+<h3 id="加解密相关">加解密相关</h3><p>用来加解密数据，需要指定一个密钥，这个密钥可以是由<code>CryptGenKey</code>、<code>CryptDuplicateKey</code>、<code>CryptImportKey</code>产生。</p>
+<ul>
+<li><code>CryptEncrypt</code> 使用指定加密密钥来加密一段信息</li>
+<li><code>CryptDecrypt</code> 使用指定加密密钥来解密一段密文</li>
+</ul>
+<h3 id="哈希和数字签名函数">哈希和数字签名函数</h3><p>用来计算Hash、创建和校验数字签名。</p>
+<ul>
+<li><code>CryptCreateHash</code> 创建一个空哈希对象</li>
+<li><code>CryptDestoryHash</code> 销毁一个哈希对象</li>
+<li><code>CryptDuplicateHash</code> 复制一个哈希对象</li>
+<li><code>CryptGetHashParam</code> 得到一个哈希对象参数</li>
+<li><code>CryptHashData</code> 对一块数据进行哈希，把它加到指定的哈希对象中</li>
+<li><code>CryptHashSessionKey</code> 对一个会话密钥进行哈希，把它加到指定的哈希对象中</li>
+<li><code>CryptSetHashParam</code> 设置一个哈希对象的参数</li>
+<li><code>CryptSignHash</code> 对一个哈希对象进行签名</li>
+<li><code>CryptVerifySignature</code> 校验一个数字签名</li>
+</ul>
+<h3 id="示例">示例</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;windows.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;wincrypt.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> comment (lib, "advapi32")</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    HCRYPTPROV hCryptProv;</span><br><span class="line">    HCRYPTHASH hCryptHash;</span><br><span class="line">    HCRYPTKEY hCryptKey;</span><br><span class="line"></span><br><span class="line">    CryptAcquireContext(&amp;hCryptProv,            <span class="comment">// CSP句柄的指针</span></span><br><span class="line">                        NULL,                   <span class="comment">// 密钥容器名称</span></span><br><span class="line">                        MS_DEF_PROV,            <span class="comment">// CSP名称（如果为NULL，就使用默认的CSP）</span></span><br><span class="line">                        PROV_RSA_FULL,          <span class="comment">// CSP类型</span></span><br><span class="line">                        CRYPT_VERIFYCONTEXT);   <span class="comment">// 此选项指出应用程序不需要使用公钥/私钥对</span></span><br><span class="line"></span><br><span class="line">    CryptCreateHash(hCryptProv,     <span class="comment">// CSP句柄</span></span><br><span class="line">                    CALG_MD5,       <span class="comment">// Hash算法的标识符</span></span><br><span class="line">                    <span class="number">0</span>,              <span class="comment">// 如果哈希算法是密钥哈希，如HMAC或MAC算法，就用此密钥句柄传递密钥</span></span><br><span class="line">                    <span class="number">0</span>,              <span class="comment">// 保留，必须为0</span></span><br><span class="line">                    &amp;hCryptHash);   <span class="comment">// 哈希对象的句柄指针</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> szPassword[] = <span class="string">"FSD@#fds23"</span>; <span class="comment">// 加密密码</span></span><br><span class="line">    DWORD dwLen = <span class="built_in">strlen</span>(szPassword);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算密码的Hash值</span></span><br><span class="line">    CryptHashData(hCryptHash,</span><br><span class="line">                    (BYTE*)szPassword, </span><br><span class="line">                    dwLen,</span><br><span class="line">                    <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据密码的Hash值派生一个密钥</span></span><br><span class="line">    CryptDeriveKey(hCryptProv,      <span class="comment">// CSP句柄</span></span><br><span class="line">                    CALG_RC4,       <span class="comment">// 要产生密钥的对称加密算法</span></span><br><span class="line">                    hCryptHash,     <span class="comment">// 哈希对象的句柄</span></span><br><span class="line">                    <span class="number">0</span>,              <span class="comment">// 密钥类型</span></span><br><span class="line">                    &amp;hCryptKey);    <span class="comment">// 输出密钥句柄指针</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 待加密数据</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> szData[] = <span class="string">"important data"</span>;</span><br><span class="line"></span><br><span class="line">    DWORD dwLenIn = <span class="built_in">strlen</span>(szData);</span><br><span class="line">    DWORD dwLenOut = dwLenIn;</span><br><span class="line"></span><br><span class="line">    CryptEncrypt(hCryptKey,         <span class="comment">// 密钥句柄</span></span><br><span class="line">                <span class="number">0</span>,                  <span class="comment">// 如果在加密的同时需要计算Hash值，传入一个Hash对象句柄</span></span><br><span class="line">                TRUE,               <span class="comment">// 标识是否是最后一次加密操作</span></span><br><span class="line">                <span class="number">0</span>,                  <span class="comment">// 保留，必须为0</span></span><br><span class="line">                (BYTE*)szData,      <span class="comment">// 要被加密的数据</span></span><br><span class="line">                &amp;dwLenOut,          <span class="comment">// [in/out] 传入需要加密的数据长度，传出已经加密的数据长度</span></span><br><span class="line">                dwLenIn);           <span class="comment">// 指出szData的Buffer长度</span></span><br><span class="line"></span><br><span class="line">    CryptDecrypt(hCryptKey,         <span class="comment">// CSP句柄</span></span><br><span class="line">                <span class="number">0</span>,                  <span class="comment">// 如果在加密的同时需要计算Hash值，传入一个Hash对象句柄</span></span><br><span class="line">                TRUE,               <span class="comment">// 标识是否是最后一个解密操作</span></span><br><span class="line">                <span class="number">0</span>,                  <span class="comment">// 保留，必须为0</span></span><br><span class="line">                (BYTE*)szData,      <span class="comment">// [in/out] 需要解密数据的地址</span></span><br><span class="line">                &amp;dwLenOut);         <span class="comment">// [in/out] 传入需要解密的数据长度，传出已经解密的数据长度</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 清理工作</span></span><br><span class="line">    CryptDestroyKey(hCryptKey);</span><br><span class="line">    CryptDestroyHash(hCryptHash);</span><br><span class="line">    CryptReleaseContext(hCryptProv, NULL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际应用时</p>
+<ul>
+<li>应该加上每个步骤成功与否的检查、错误处理。</li>
+<li>当要加解密的数据很长时，通常会把数据分多个块进行加解密，此时就需要计算是否是最后一个块，改变传入的参数。</li>
+<li>如果要使用文件来保存、处理加解密后的数据，可以使用Base64编码，使得数据全部都是可见字符，以防止文件写入时遇到某些不可见字符被截断。</li>
+</ul>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/crypto/">
+                #Crypto
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2013/zheteng/">折腾</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2013/basics-of-cryptography/">密码学基本概念</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+
+    
+    
+    
+
+    
+    
+
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              密码学基本概念
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-04-14
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/basics-of-cryptography/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/basics-of-cryptography/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <h2 id="基本概念">基本概念</h2><p>密钥密码学（即对称密码学）是指加密解密使用<strong>相同的钥匙</strong>，钥匙需要保密。</p>
+<p>公钥密码学（即非对称密码学）是指加密解密使用<strong>不同的钥匙</strong>，通常一个是公开的，叫<strong>公钥</strong>，另一个保密，叫<strong>私钥</strong>。他们有下面的特点：</p>
+<ul>
+<li>公钥是公开的，密钥是不公开的。</li>
+<li>公钥和私钥不可以（很难）相互推导。</li>
+<li>公钥加密后的数据只能用对应的私钥解密，反之亦然。</li>
+</ul>
+<p>由于非对称加密的公钥是公开的，所以<strong>非对称加密不能用来对通信内容进行加密，一般仅仅用来确认身份和传输会话密钥</strong>。会话密钥由持有公钥的一方来指定，并使用公钥加密后发送给另一方。<strong>通信内容使用对称加密。</strong></p>
+<p>对称加密运算比非对称加密速度要快。</p>
+<p>Hash函数用于对一段信息生成一个指纹，它有如下特性：</p>
+<ul>
+<li>可以用于任意长度的信息。</li>
+<li>对任意长得信息产生定长的Hash值。</li>
+<li>得到Hash值后要得到原文在计算上是不可行的。</li>
+<li>对于不同的原文一定得到不同的Hash值。</li>
+</ul>
+<h2 id="数字签名">数字签名</h2><p>数字签名用于保证发送数据的<strong>完整性</strong>。数字签名具有不可否认性（不可抵赖曾发过该信息），具有法律效力。</p>
+<ul>
+<li>生成：发送者对一段要发送的数据使用Hash函数计算出摘要（Digest），之后再用自己的私钥加密，得到数字签名。</li>
+<li>验证：接收者用发送者的公钥解密，再比对摘要（Digest），如果吻合，即说明<ul>
+<li>数据没有被篡改。</li>
+<li>在<strong>公钥可信</strong>的情况下，可以认定是由发送者本人发出的。</li>
+</ul>
+</li>
+</ul>
+<p>为了确保公钥的可信，就要使用数字证书。</p>
+<h2 id="数字证书">数字证书</h2><p>由证书中心（CA）颁发，用于证明证书中列出的用户合法拥有证书中列出的公开密钥。 </p>
+<ul>
+<li>生成：数字证书主要包括三方面的内容：证书所有者的信息、证书所有者的公开密钥和<strong>证书颁发机构的签名</strong>。</li>
+<li>验证：当接收者使用CA的公钥解密后得到数字证书的指纹与用指纹算法计算出的证书指纹吻合时（即验签成功），就可以确保数字证书的确是由CA颁发，并且没有被篡改。</li>
+</ul>
+<p>辣么，我们只需要保证所使用的CA的公钥是正确的。<br>CA给别人颁发证书的同时，也有自己的证书。这些证书通常预装在操作系统中。</p>
+<h2 id="一个栗子">一个栗子</h2><p>一个客户端(C)和安全服务器(S)通信：</p>
+<ol>
+<li>S把自己的数字证书发给C，数字证书中包含S的公钥和S的名称等相关信息。</li>
+<li>C用证书中心的公钥对证书进行解密，得到证书的指纹，再与用指纹算法对证书计算出来的指纹进行对比，两者吻合，即说明证书中S的公钥是可信的。如果不吻合，则给出警告。</li>
+<li>S发送一条明文信息给C，并附上用自己的私钥加密的密文版本。</li>
+<li>C用证书中S的公钥对密文解密后，比对明文，如果吻合，说明对方确实是S本人。</li>
+<li>C生成一个会话密钥，并指定一个算法，用S的公钥加密后发送给S。</li>
+<li>S使用自己的私钥解密，得到会话密钥（对称加密密钥）和指定算法。</li>
+<li>S和C使用会话密钥进行后续通信。</li>
+</ol>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/密码学/">
+                #密码学
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2013/windows-cryptoapi/">Windows CryptoAPI入门</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2013/sparrow-push-mail/">我最喜欢的邮件客户端Sparrow</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="/images/default_avatar.jpg" alt="Nix Wang" />
+        <p class="site-author-name">Nix Wang</p>
+      </div>
+      <p class="site-description motion-element"></p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">18</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">1</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+
+      <div class="social-info motion-element">
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2013 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Nix Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    <script type="text/javascript">
+      postMotionOptions = {stagger: 100, drag: true};
+    </script>
+  
+
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
+
+
+  
+
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = 'archives/2013/04/index.html';
+      var disqus_url = '';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+  
+</body>
+</html>
