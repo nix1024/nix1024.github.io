@@ -134,6 +134,7 @@
 <p>Unbalanced calls to begin/end appearance transitions for <uinavigationcontroller: 0x6849b30=""></uinavigationcontroller:></p>
 </blockquote>
 <p>并且可能导致 navigationController 的标题栏出现重影甚至崩溃。</p>
+<a id="more"></a>
 <p>导致这个问题的原因是：<strong>当一个 ViewController 的出现有动画时</strong>，<code>viewWillAppear</code> 和 <code>viewDidAppear</code> 是应该成对出现的，如果在 <code>viewDidAppear</code> 被调用之前 <code>push/popViewController</code> 会导致转换过程在 <code>viewDidAppear</code> 还没被调用时就终止，系统处在一个错误的中间态。</p>
 <p>这里说的动画包括这个 ViewController 被 push 时有动画和下一个 ViewController 被 pop 时有动画。</p>
 <p>解决方法显然有两种，一种是去掉动画；另一种是在<code>viewDidAppear</code>中调用<code>push/popViewController</code>，但是这样会导致动画完成时前一个画面会闪现一下才切换到下一个画面，目前还没有找到避免的方法。</p>

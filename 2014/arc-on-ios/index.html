@@ -124,6 +124,7 @@
 
         
           <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
+<a id="more"></a>
 <p>在类属性的声明中，ARC 相关的修饰词有两个：</p>
 <ul>
 <li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
@@ -138,14 +139,14 @@
 <li><code>__autoreleasing</code> 用来修饰一个以引用（id *）方式传入的参数，当函数返回值时被释放。</li>
 </ul>
 <p>上面的修饰词正确的使用方法是</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
 <p>修饰词放在其他位置也可以编译通过，但是严格来说是不正确的。</p>
 <h2 id="循环引用以及避免方法">循环引用以及避免方法</h2><p>当两个对象使用<code>strong</code>指针互相引用时，就会出现双方都不会被释放的情况，经常出现在使用 block 的地方。</p>
 <p>例如下面的代码就存在循环引用：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong) void(^someBlock)();&#10;&#10;[self setSomeBlock:^&#123;&#10;&#9;[self doSomething];&#10;&#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">	[<span class="keyword">self</span> doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>在属性的生命中，类的对象含有一个 strong 类型的指针指向 block，在 block 中又存在 self （默认是 strong 类型）来引用类的对象，这样两者在生命周期结束时都不会被释放。</p>
 <p>解决方法：通过使用<code>__weak</code>修饰词来得到一个指向 self 的 weak 指针来打破循环引用。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong) void(^someBlock)();&#10;&#10;MyClass *__weak weakSelf = self;&#10;[self setSomeBlock:^&#123;&#10;        MyClass *__strong strongSelf = weakSelf;&#10;&#9;[strongSelf doSomething];&#10;&#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">MyClass *__<span class="keyword">weak</span> weakSelf = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">        MyClass *__<span class="keyword">strong</span> strongSelf = weakSelf;</span><br><span class="line">	[strongSelf doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>block 内部的 strong 指针是为了保证在 block 执行的过程中，对象不会被释放掉。其实也可以先判断一下 weakSelf 是否为空。</p>
 <p><strong>但不应在所有使用 block 的情况下都采用 weakSelf</strong>，因为只要类中不存在指向 block 的 strong 指针，就不会存在循环引用。而滥用weakSelf 可能会导致某些情况下 self 被释放后才调用 block，此时 block 中的代码不会被执行，往往不是我们期望的。</p>
 

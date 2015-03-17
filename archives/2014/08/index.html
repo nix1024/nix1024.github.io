@@ -159,6 +159,7 @@
 
         
           <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
+<a id="more"></a>
 <p>在类属性的声明中，ARC 相关的修饰词有两个：</p>
 <ul>
 <li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
@@ -173,14 +174,14 @@
 <li><code>__autoreleasing</code> 用来修饰一个以引用（id *）方式传入的参数，当函数返回值时被释放。</li>
 </ul>
 <p>上面的修饰词正确的使用方法是</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
 <p>修饰词放在其他位置也可以编译通过，但是严格来说是不正确的。</p>
 <h2 id="循环引用以及避免方法">循环引用以及避免方法</h2><p>当两个对象使用<code>strong</code>指针互相引用时，就会出现双方都不会被释放的情况，经常出现在使用 block 的地方。</p>
 <p>例如下面的代码就存在循环引用：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong) void(^someBlock)();&#10;&#10;[self setSomeBlock:^&#123;&#10;&#9;[self doSomething];&#10;&#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">	[<span class="keyword">self</span> doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>在属性的生命中，类的对象含有一个 strong 类型的指针指向 block，在 block 中又存在 self （默认是 strong 类型）来引用类的对象，这样两者在生命周期结束时都不会被释放。</p>
 <p>解决方法：通过使用<code>__weak</code>修饰词来得到一个指向 self 的 weak 指针来打破循环引用。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong) void(^someBlock)();&#10;&#10;MyClass *__weak weakSelf = self;&#10;[self setSomeBlock:^&#123;&#10;        MyClass *__strong strongSelf = weakSelf;&#10;&#9;[strongSelf doSomething];&#10;&#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">MyClass *__<span class="keyword">weak</span> weakSelf = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">        MyClass *__<span class="keyword">strong</span> strongSelf = weakSelf;</span><br><span class="line">	[strongSelf doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>block 内部的 strong 指针是为了保证在 block 执行的过程中，对象不会被释放掉。其实也可以先判断一下 weakSelf 是否为空。</p>
 <p><strong>但不应在所有使用 block 的情况下都采用 weakSelf</strong>，因为只要类中不存在指向 block 的 strong 指针，就不会存在循环引用。而滥用weakSelf 可能会导致某些情况下 self 被释放后才调用 block，此时 block 中的代码不会被执行，往往不是我们期望的。</p>
 
@@ -280,18 +281,19 @@
         
 
         
-          <h1 id="UITableView_相关">UITableView 相关</h1><h2 id="在写_UITableView_的_Demo_时，删除一个_cell_导致程序崩溃">在写 UITableView 的 Demo 时，删除一个 cell 导致程序崩溃</h2><p>在写 dataSource  protocol 中的<code>- (NSInteger)numberOfRowsInSection:(NSInteger)section</code>方法时，采用了 hardcode 方式。这个函数的返回值应该实时计算。</p>
-<h2 id="UITableView_的背景色">UITableView 的背景色</h2><p>想要设置 UITableView 的背景色，可以采用下面的语句。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.tableView.backgroundView = nil;&#10;self.tableView.backgroundColor = [UIColor whiteColor];</span><br></pre></td></tr></table></figure>
-<h2 id="添加_Static_样式的_TableView_到另一个_View">添加 Static 样式的 TableView 到另一个 View</h2><p>从 XCode 特定版本之后，Static 样式的 TableView 只能添加到一个 UITableViewController 中。要想添加一个 Static 样式的 TableView 到其他的 View 中，必须先添加一个 Container View，然后在其内部添加。</p>
+          <h2 id="UITableView_相关">UITableView 相关</h2><h3 id="在写_UITableView_的_Demo_时，删除一个_cell_导致程序崩溃">在写 UITableView 的 Demo 时，删除一个 cell 导致程序崩溃</h3><p>在写 dataSource  protocol 中的<code>- (NSInteger)numberOfRowsInSection:(NSInteger)section</code>方法时，采用了 hardcode 方式。这个函数的返回值应该实时计算。</p>
+<a id="more"></a>
+<h3 id="UITableView_的背景色">UITableView 的背景色</h3><p>想要设置 UITableView 的背景色，可以采用下面的语句。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.backgroundView</span> = <span class="literal">nil</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> whiteColor];</span><br></pre></td></tr></table></figure>
+<h3 id="添加_Static_样式的_TableView_到另一个_View">添加 Static 样式的 TableView 到另一个 View</h3><p>从 XCode 特定版本之后，Static 样式的 TableView 只能添加到一个 UITableViewController 中。要想添加一个 Static 样式的 TableView 到其他的 View 中，必须先添加一个 Container View，然后在其内部添加。</p>
 <p>其实通过编辑 UITableViewController 中 Static 样式的 TableView 的 tableHeaderView 以及 tableFooterView 就可以实现很多效果，不一定要使用上面的方法。</p>
-<h1 id="UIWebView_相关">UIWebView 相关</h1><h2 id="UIWebView_与_UINavigationController_的配合">UIWebView 与 UINavigationController 的配合</h2><p>当想让程序中的 UIWebView 后退与前进采用 UINavigationController 的返回按钮时，可以考虑重载</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType</span><br></pre></td></tr></table></figure>
+<h2 id="UIWebView_相关">UIWebView 相关</h2><h3 id="UIWebView_与_UINavigationController_的配合">UIWebView 与 UINavigationController 的配合</h3><p>当想让程序中的 UIWebView 后退与前进采用 UINavigationController 的返回按钮时，可以考虑重载</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)webView:(<span class="built_in">UIWebView</span> *)webView shouldStartLoadWithRequest:(<span class="built_in">NSURLRequest</span> *)request navigationType:(UIWebViewNavigationType)navigationType</span><br></pre></td></tr></table></figure>
 <p>这个函数返回<code>NO</code>时就会终止加载。每当加载页面时，新建一个 UIWebViewController，然后 push 进去及可利用 UINavigationController 自带的返回按钮。</p>
-<h2 id="UIWebView_的后退">UIWebView 的后退</h2><p>采用下面的方式让 WebView 返回最早的页面会进入死循环，内存暴涨。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">while([webView canGoBack])&#10;&#123;&#10;&#9;[webView goBack];&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="UIWebView_的后退">UIWebView 的后退</h3><p>采用下面的方式让 WebView 返回最早的页面会进入死循环，内存暴涨。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>([webView canGoBack])</span><br><span class="line">&#123;</span><br><span class="line">	[webView goBack];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>因为<code>goBack</code>的完成需要一定时间，期间<code>canGoBack</code>的值一直为真。正确的方式之一是设置一个 flag，在<code>webViewDidFinishLoad</code>中根据这个 flag 和<code>canGoBack</code>来循环后退。</p>
-<h1 id="One_more_keng">One more keng</h1><p>项目中使用到了开源的 <a href="https://github.com/jaydee3/JDFlipNumberView/issues/35" target="_blank" rel="external">JDFlipNumberView</a> 来显示令牌上的数字。我看了一下 readme，发现这个库是自带一些动画效果的，它有两套 API，而项目中使用的是静态的版本，I can not endure!</p>
+<h2 id="One_more_pit">One more pit</h2><p>项目中使用到了开源的 <a href="https://github.com/jaydee3/JDFlipNumberView/issues/35" target="_blank" rel="external">JDFlipNumberView</a> 来显示令牌上的数字。我看了一下 readme，发现这个库是自带一些动画效果的，它有两套 API，而项目中使用的是静态的版本，I can not endure!</p>
 <p>结果测试发现，当在动画过程中切换 tabbar 后再切换回来，这个控件会 freeze 在一个中间状态！</p>
 <p>尝试在 <code>viewWillAppear</code>中重新设置控件显示的值，反复测试还是会有这个问题，最后因为发布日期将近，还是去掉了动画效果。</p>
 
