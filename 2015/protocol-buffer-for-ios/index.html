@@ -18,19 +18,9 @@
 
 
 
+	<meta name="keywords" content="iOS," />
 
-    <meta name="keywords" content="Hexo,next" />
-
-
-
-
-
-    <link rel="shorticon icon" type="image/x-icon" href="/favicon.png?v=0.3.0" />
-
-
-
-
-  <title> 折腾 // Nix 的自我修养 </title>
+  <title> Protocol Buffers for iOS // Nix 的自我修养 </title>
 </head>
 
 <body>
@@ -101,7 +91,7 @@
           
           
             
-              折腾
+              Protocol Buffers for iOS
             
           
         </h1>
@@ -110,15 +100,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2013-05-21
+            发表于 2015-03-18
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2013/zheteng/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/zheteng/"></span>
+            <a href="/2015/protocol-buffer-for-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/protocol-buffer-for-ios/"></span>
             </a>
           </span>
           
@@ -133,17 +123,51 @@
         
 
         
-          <p>我是爱折腾的。</p>
-<p>从大学刚刚拥有自己的电脑时，就一直在折腾。</p>
-<p>刚刚买下电脑，就在自己的PC机上装OSX，终日混迹各大论坛，找各种教程。甚至因为驱动问题想换一块显卡。尝试了不下百次之后终于成功了。后来装好了才发现，OSX没有了Mac的硬件，就不再是OSX了。</p>
+          <p>Protocol Buffers 是 Google 出品的用来序列化/反序列化数据的工具。原生支持 C++、Java、Python。</p>
+<p>如果要在 iOS 上使用 PB，可以直接使用 C++，但是编译过程很麻烦，因此这里使用的是第三方的库。</p>
+<h2 id="安装_Protocol_Buffers">安装 Protocol Buffers</h2><ul>
+<li>安装 homebrew</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 automake、libtool、protobuf。这里安装的 protobuf 是 google 官方版本。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install automake</span><br><span class="line">brew install libtool</span><br><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>除了操作系统外，我喜欢装尝试各种新的软件。用鼠标手势操作的StrokeIt，从Chrome发布就一直在使用，用来录制键盘宏的AHK，用来在PC上模拟Mac字体渲染的MacType，小众的鼠须管输入法、五笔、双拼；Mac上的快速启动工具QuickSilver、Alfred，自动扩展输入的xType，触控板扩展Jitouch；当然还有各种编辑器。</p>
-<p>除了装X的心理，更多是因为，我认为花费大量经历来学习新的工具来提高效率是非常值得的。大部分时候，我愿意抛弃以前的习惯，去折腾新的东西。</p>
-<p>对于一类工具，我总是多多尝试，希望找到一个最好的。</p>
-<p>好的软件，如果使用者愿意，都是可以高度自定义，可扩展的。比如StrokeIt和Jitouch可以自己定义手势的功能，AHk可以自己编写脚本，Vim高度可配置，Emacs就更不用说了，它是一个伪装成操作系统的编辑器。</p>
-<p>但是折腾过后，我发现还是有些东西最简单的最好用。程序用起来越简单就说明开发者在背后花了越多的心思。比如Spotlight，自带的功能已经能满足我的绝大部分需要了。而且，它是预装的，不需要操心。我很喜欢苹果家的东西。因为你买到的东西在各个方面都是比较高的水准，你根本不用担心怎么去维护它，产品本身也很少出问题。我觉得这才是性价比！</p>
-<p>我还一度想用Emacs来做VC++开发环境，我当时觉得那才应该是一个程序员该用的。但现在的我觉得，对于手头的C++任务，VS配合番茄已经足够强大和易用了。Emacs配置得再好，也只是编辑器层面上的好，它只是处理文本，而不能理解程序。或许大牛们可以折腾到跟IDE一样强大，但那又是为了什么呢，我们需要的是效率。（现在写一些小的验证性程序、算法题，我都会用Sublime Text，因为她实在是太性感了！）</p>
-<p>我还会继续折腾，但不会为了折腾而折腾。</p>
+<p>如果后面的步骤出错了，请确保 /usr/local/bin 目录下有这些工具：automake、autoconf、autoreconf、aclocal、libtool、protoc。其中的 protoc 用来把 .proto 文件编译成 C++、Java 或 Python 代码。</p>
+<ul>
+<li>编译 protoc-gen-objc。protoc-gen-objc 是 protoc 的一个插件，使其能将 .proto 文件编译成 objective-c 代码。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:alexeyxo/protobuf-objc.git</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> protobuf-objc</span><br><span class="line"></span><br><span class="line">./autogen.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后面的参数保证 configure 能找到 protobuf 相关的头文件和库</span></span><br><span class="line"><span class="comment"># 避免报 protobuf headers are required 错误</span></span><br><span class="line">./configure CXXFLAGS=-I/usr/<span class="built_in">local</span>/include LDFLAGS=-L/usr/<span class="built_in">local</span>/lib</span><br><span class="line"></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将编译好的 protoc-gen-objc 拷贝到 /usr/local/bin 目录下。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /PATH/TO/protobuf-objc/src/compiler/protoc-gen-objc /usr/local/bin</span><br></pre></td></tr></table></figure>
+<p>这一步确保 protoc 能够找到 protoc-gen-objc，避免报下面的错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">protoc-gen-objc: program not found or is not executable</span><br><span class="line">--objc_out: protoc-gen-objc: Plugin failed with status code <span class="number">1</span>.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用 protoc 将 .proto 文件编译成 objective-c 代码。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc message.proto --objc_out=<span class="string">"."</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>在 Podfile 中添加<code>pod &#39;ProtocolBuffers&#39;, &#39;1.9.2&#39;</code>然后执行<code>pod install</code>。</p>
+</li>
+<li><p>将生成的 .h 和 .m 文件添加到工程中，编译。</p>
+</li>
+</ul>
+<p>这里会提示找不到<code>GeneratedMessageProtocol</code>。你只需要帅气地将其注释掉就行了。</p>
+<h2 id="使用">使用</h2><p>假设有 person.proto 定义如下 </p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">required</span> <span class="built_in">int32</span> id = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">required</span> <span class="built_in">string</span> name = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">optional</span> <span class="built_in">string</span> email = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过 protoc 生成 Person.pb.h 和 Person.pb.m 两个文件。</p>
+<ul>
+<li>序列化</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person* person = [[[[[Person builder] setId:<span class="number">123</span>]</span><br><span class="line">                                    setName:<span class="string">@"Bob"</span>]</span><br><span class="line">                                   setEmail:<span class="string">@"bob@example.com"</span>] build];</span><br><span class="line"><span class="built_in">NSData</span>* data = [person data];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>反序列化</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span>* raw_data = ...;</span><br><span class="line">Person* person = [Person parseFromData:raw_data];</span><br></pre></td></tr></table></figure>
+<h2 id="参考">参考</h2><p><a href="http://protobuf.axo.io/#objc" target="_blank" rel="external">http://protobuf.axo.io/#objc</a><br><a href="https://github.com/alexeyxo/protobuf-objc" target="_blank" rel="external">https://github.com/alexeyxo/protobuf-objc</a></p>
 
         
       </div>
@@ -152,18 +176,24 @@
     
       <div class="post-footer">
         
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
 
         
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2013/db-index/">关于数据库索引</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2013/windows-cryptoapi/">Windows CryptoAPI入门</a>
+                <a href="/2015/sign-your-mac-app-with -developer-id/">使用 Developer ID 为 Mac app 签名</a>
               
             </div>
           </div>
@@ -257,7 +287,7 @@
       <div class="post-toc-wrap sidebar-panel-active">
         <div class="post-toc-indicator-top post-toc-indicator"></div>
         <div class="post-toc">
-          
+          <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装_Protocol_Buffers"><span class="nav-number">1.</span> <span class="nav-text">安装 Protocol Buffers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol>
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
       </div>
@@ -797,8 +827,8 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'nix1024';
-      var disqus_identifier = '2013/zheteng/';
-      var disqus_url = 'http://yoursite.com/2013/zheteng/';
+      var disqus_identifier = '2015/protocol-buffer-for-ios/';
+      var disqus_url = 'http://yoursite.com/2015/protocol-buffer-for-ios/';
 
       (function(){
         var dsq = document.createElement('script');

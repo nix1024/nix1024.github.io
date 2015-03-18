@@ -30,11 +30,11 @@
 
 
 
-  <title> 标签: Git // Nix 的自我修养 </title>
+  <title> 归档 // Nix 的自我修养 </title>
 </head>
 
 <body>
-  <div class="container one-column ">
+  <div class="container one-column  page-archive ">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -88,13 +88,33 @@
             
           
 
-          <div id="posts" class="posts-collapse">
+          <div id="posts" class="posts-expand">
             
-  <div class="collection-title">
-    <h2 >Git</h2>
-  </div>
+
+  <span class="archive-move-on"></span>
+
+  <span class="archive-page-counter">
+    
+    
+     
+    
+    OK! 目前共计 31 篇日志。 继续努力。
+  </span>
 
   
+
+    
+    
+    
+
+    
+      
+      <div class="collection-title">
+        <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
+      </div>
+    
+    
+
     
 
   <div class="post post-type-normal ">
@@ -105,10 +125,9 @@
         <h1 class="post-title">
           
           
-            <a class="post-title-link post-title-link-external" target="_blank" href="http://rogerdudler.github.io/git-guide/index.zh.html">
-              Git 简易指南
-              <i class="icon-external-link"></i>
-            </a>
+            
+              Protocol Buffers for iOS
+            
           
         </h1>
       
@@ -116,15 +135,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            12-09
+            发表于 2015-03-18
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2013/git-guide/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/git-guide/"></span>
+            <a href="/2015/protocol-buffer-for-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/protocol-buffer-for-ios/"></span>
             </a>
           </span>
           
@@ -133,9 +152,94 @@
     </div>
 
     
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>Protocol Buffers 是 Google 出品的用来序列化/反序列化数据的工具。原生支持 C++、Java、Python。</p>
+<p>如果要在 iOS 上使用 PB，可以直接使用 C++，但是编译过程很麻烦，因此这里使用的是第三方的库。</p>
+<h2 id="安装_Protocol_Buffers">安装 Protocol Buffers</h2><ul>
+<li>安装 homebrew</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 automake、libtool、protobuf。这里安装的 protobuf 是 google 官方版本。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install automake</span><br><span class="line">brew install libtool</span><br><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>如果后面的步骤出错了，请确保 /usr/local/bin 目录下有这些工具：automake、autoconf、autoreconf、aclocal、libtool、protoc。其中的 protoc 用来把 .proto 文件编译成 C++、Java 或 Python 代码。</p>
+<ul>
+<li>编译 protoc-gen-objc。protoc-gen-objc 是 protoc 的一个插件，使其能将 .proto 文件编译成 objective-c 代码。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:alexeyxo/protobuf-objc.git</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> protobuf-objc</span><br><span class="line"></span><br><span class="line">./autogen.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后面的参数保证 configure 能找到 protobuf 相关的头文件和库</span></span><br><span class="line"><span class="comment"># 避免报 protobuf headers are required 错误</span></span><br><span class="line">./configure CXXFLAGS=-I/usr/<span class="built_in">local</span>/include LDFLAGS=-L/usr/<span class="built_in">local</span>/lib</span><br><span class="line"></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将编译好的 protoc-gen-objc 拷贝到 /usr/local/bin 目录下。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /PATH/TO/protobuf-objc/src/compiler/protoc-gen-objc /usr/local/bin</span><br></pre></td></tr></table></figure>
+<p>这一步确保 protoc 能够找到 protoc-gen-objc，避免报下面的错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">protoc-gen-objc: program not found or is not executable</span><br><span class="line">--objc_out: protoc-gen-objc: Plugin failed with status code <span class="number">1</span>.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用 protoc 将 .proto 文件编译成 objective-c 代码。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc message.proto --objc_out=<span class="string">"."</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>在 Podfile 中添加<code>pod &#39;ProtocolBuffers&#39;, &#39;1.9.2&#39;</code>然后执行<code>pod install</code>。</p>
+</li>
+<li><p>将生成的 .h 和 .m 文件添加到工程中，编译。</p>
+</li>
+</ul>
+<p>这里会提示找不到<code>GeneratedMessageProtocol</code>。你只需要帅气地将其注释掉就行了。</p>
+<h2 id="使用">使用</h2><p>假设有 person.proto 定义如下 </p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">required</span> <span class="built_in">int32</span> id = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">required</span> <span class="built_in">string</span> name = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">optional</span> <span class="built_in">string</span> email = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过 protoc 生成 Person.pb.h 和 Person.pb.m 两个文件。</p>
+<ul>
+<li>序列化</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person* person = [[[[[Person builder] setId:<span class="number">123</span>]</span><br><span class="line">                                    setName:<span class="string">@"Bob"</span>]</span><br><span class="line">                                   setEmail:<span class="string">@"bob@example.com"</span>] build];</span><br><span class="line"><span class="built_in">NSData</span>* data = [person data];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>反序列化</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span>* raw_data = ...;</span><br><span class="line">Person* person = [Person parseFromData:raw_data];</span><br></pre></td></tr></table></figure>
+<h2 id="参考">参考</h2><p><a href="http://protobuf.axo.io/#objc" target="_blank" rel="external">http://protobuf.axo.io/#objc</a><br><a href="https://github.com/alexeyxo/protobuf-objc" target="_blank" rel="external">https://github.com/alexeyxo/protobuf-objc</a></p>
+
+        
+      </div>
+    
 
     
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2015/sign-your-mac-app-with -developer-id/">使用 Developer ID 为 Mac app 签名</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
   </div>
+
 
 
   
@@ -157,6 +261,15 @@
 <div id="sidebar" class="sidebar">
   <div class="sidebar-inner">
 
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
     
 
     <div class="site-overview">
@@ -198,6 +311,14 @@
     </div>
 
     
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
 
   </div>
 </div>
@@ -238,6 +359,12 @@
 
   
   
+  
+    <script type="text/javascript">
+      postMotionOptions = {stagger: 100, drag: true};
+    </script>
+  
+
 
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
@@ -398,12 +525,37 @@
 
 
   
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
+
 
   
 
   
   
 
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = 'archives/2015/03/index.html';
+      var disqus_url = '';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
   
 
 

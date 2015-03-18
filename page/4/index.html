@@ -30,11 +30,13 @@
 
 
 
-  <title> 标签: Git // Nix 的自我修养 </title>
+  <title> Nix 的自我修养 </title>
 </head>
 
 <body>
-  <div class="container one-column ">
+  <div class="container one-column 
+   page-home 
+">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -88,12 +90,8 @@
             
           
 
-          <div id="posts" class="posts-collapse">
+          <div id="posts" class="posts-expand">
             
-  <div class="collection-title">
-    <h2 >Git</h2>
-  </div>
-
   
     
 
@@ -105,10 +103,11 @@
         <h1 class="post-title">
           
           
-            <a class="post-title-link post-title-link-external" target="_blank" href="http://rogerdudler.github.io/git-guide/index.zh.html">
-              Git 简易指南
-              <i class="icon-external-link"></i>
-            </a>
+            
+              <a class="post-title-link" href="/2013/shuangpin-input-method/">
+                拥抱双拼输入法
+              </a>
+            
           
         </h1>
       
@@ -116,15 +115,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            12-09
+            发表于 2013-03-16
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2013/git-guide/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/git-guide/"></span>
+            <a href="/2013/shuangpin-input-method/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/shuangpin-input-method/"></span>
             </a>
           </span>
           
@@ -133,7 +132,45 @@
     </div>
 
     
+      <div class="post-body">
 
+        
+        
+
+        
+          
+            <h2 id="双拼是什么？">双拼是什么？</h2><p>不是吉野家的套餐啊你个吃货!</p>
+<p>首先，你需要知道的是<strong>你已经会用双拼了，电脑上也已经装好了，只是没有开始用而已。</strong></p>
+<p><strong>你只需要花几个小时，就可以提高你剩下来大半辈子的每一天的打字效率，这么好的事上哪去找？</strong></p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2013/shuangpin-input-method/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/工具控/">
+                #工具控
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
     
   </div>
 
@@ -142,6 +179,10 @@
 
           </div>
 
+          
+            <div class="pagination">
+              <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+            </div>
           
         </div>
 
@@ -279,6 +320,17 @@
   <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
 
   
+  <script type="text/javascript" id="motion.page.home">
+    $(document).ready(function () {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200, sequenceQueue: false } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    });
+  </script>
+
 
   <script type="text/javascript" id="motion.global">
   $(document).ready(function () {
@@ -404,6 +456,25 @@
   
   
 
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = 'page/4/index.html';
+      var disqus_url = '';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
   
 
 
