@@ -25,7 +25,7 @@
 
 
 
-    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0" />
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.png?v=0.3.0" />
 
 
 
@@ -92,6 +92,94 @@
 
           <div id="posts" class="posts-expand">
             
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/sign-your-mac-app-with -developer-id/">
+                使用 Developer ID 为 Mac app 签名
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-01-07
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/sign-your-mac-app-with -developer-id/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/sign-your-mac-app-with -developer-id/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <h1 id="为何要签名">为何要签名</h1><blockquote>
+<p>对 app 进行代码签名可让用户确信它来自已知来源，且自最后一次签名之后未被修改。在您的 Mac app 或 iOS app 可以使用商店服务，安装到 iOS 设备上进行开发或测试，或者提交到 App Store 之前，必须先使用 Apple 颁布的证书对其进行签名。</p>
+</blockquote>
+<p>在 OS X 的<code>安全性与隐私</code>的设置里有一项设置是<code>允许从以下位置下载的应用程序</code>，默认的设置是<code>Mac App Store 和被认可的开发者</code>。</p>
+<p>也就是说在用户不手动修改设置的情况下，用户无法打开未签名的程序。</p>
+<p><img src="/images/2015-01-07/invalid_code_sign.png" alt="打开未签名程序时的警告"></p>
+<p>下面就来介绍如何使用 Developer ID 为 app 签名。</p>
+<p>注意：本文不适用于发布到 Mac App Store 的签名。</p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/sign-your-mac-app-with -developer-id/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/os-x/">
+                #OS X
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
   
     
 
@@ -231,6 +319,11 @@
         
           
             <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
+<p>在类属性的声明中，ARC 相关的修饰词有两个：</p>
+<ul>
+<li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
+<li><code>weak</code> 不会延长对象的生命周期，当<code>weak</code>类型的指针指向的对象被释放时，指针自身会被自动置为<code>nil</code>。</li>
+</ul>
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/arc-on-ios/">
                 阅读全文 &raquo;
@@ -249,6 +342,174 @@
               <a href="/tags/arc/">
                 #ARC
               </a>
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/plugins-and-themes-for-xcode/">
+                Plugins and Themes for Xcode
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-13
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/plugins-and-themes-for-xcode/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/plugins-and-themes-for-xcode/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <blockquote>
+<p>优秀的程序员炫耀自己的代码，二逼程序员炫耀自己的工具。</p>
+</blockquote>
+<p>快来看我发现的 Xcode 插件们！</p>
+<h1 id="插件">插件</h1><p>Xcode 下的插件安装一般都是下载源码编译一次就 OK 了。<br>如果想卸载插件，只需要到<code>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</code>目录下删除相应的文件即可。</p>
+<h2 id="Alcatraz"><a href="https://github.com/supermarin/Alcatraz">Alcatraz</a></h2><p>推荐指数 ★★★★</p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/plugins-and-themes-for-xcode/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/工具控/">
+                #工具控
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/view-controllers-on-ios/">
+                iOS 的 MVC 以及 View Controller 间的切换
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-10
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/view-controllers-on-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/view-controllers-on-ios/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>之前一直在听斯坦福大学的公开课： <a href="http://v.163.com/special/opencourse/ios7.html">iOS 7应用开发</a>，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。</p>
+<p>在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。</p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/view-controllers-on-ios/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
             
               <a href="/tags/ios/">
                 #iOS
@@ -471,6 +732,9 @@
         
           
             <p>我报的是北京远航驾校，C1，周末速成班，富康，价格4400。从科目一第一次上课到拿到驾照，历时两个月整。</p>
+<h2 id="报名">报名</h2><p>报名的方式有很多种：学校代理、直接去报名点、找驾校教练。这里面的水有点深，我是找的学校代理，价格是4400，结果发现有一起学车的4200就能报上周末速成，还是比亚迪，说是赶上活动了，我顿时喷出一口老血。这个只能多打听打听了。</p>
+<p>报名地点是五道口华清嘉园的门口。如果你色觉正常，通常报名点的人会帮你代办体检。而我，就得自己去一趟二炮了。所幸体检过了，乃们以后坐我的车系好安全带就是了。</p>
+<p>至于富康还是比亚迪，我觉得富康也挺好。区别在于：富康的方向盘比较重，车屁股小，便宜100块。如果是力气小的女生，还是选比亚迪吧。<br>如果不差钱，还是选高冷的东方时尚吧，正规，服务质量也好。</p>
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/nix-learn-to-drive/">
                 阅读全文 &raquo;
@@ -544,6 +808,16 @@
         
           
             <p>最近试图考驾照，但是报名时被告知需要有<strong>北京地址的身份证</strong>。如果已经有北京户口，就要办临时身份证；如果是外地户口，就要办<del>狗日的</del>暂住证。</p>
+<p>办临时身份证或者护照，需要在学校保卫科借户籍卡。于是悲剧开始了。</p>
+<p>大致是这个样子的：</p>
+<ul>
+<li>写申请，找导师签字。（如果是办护照，就需要在<a href="http://www.byr.edu.cn/">北邮人主页</a>提交申请。）</li>
+<li>找辅导员签字。</li>
+<li>到学院办公室盖章。</li>
+<li>到小白楼204的学生处盖章。</li>
+<li>带上学生证、身份证和申请到保卫处借户籍卡。慢着，他们只在上午8:30到11:30可以办理户籍卡借出！</li>
+<li>到北太平庄派出所办理。（如果是护照，<a href="http://bbs.byr.cn/#!article/GoAbroad/291163">这里</a>有一个攻略。万能的北邮人！）</li>
+</ul>
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/bupt-id-card-tut/">
                 阅读全文 &raquo;
@@ -660,234 +934,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/a-crawler/">
-                一只爬虫
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-01-02
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/a-crawler/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/a-crawler/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>重新学习python，写了一个爬<a href="http://jandan.net/pic/">煎蛋无聊图</a>的爬虫。</p>
-<p>这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/a-crawler/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/python/">
-                #Python
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/happy-new-year/">
-                Happy New Year
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2013-12-31
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/happy-new-year/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/happy-new-year/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p><img src="/_image/2013-12-31/new-years-eve.gif" alt="new years eve"></p>
-<p>Google今天的Doodle太好玩了。看了N久。不知道12点时那个站在旁边的4会不会蹦上来。</p>
-<p>新年快乐。</p>
-
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/spec-work/">
-                记一个小网站的诞生
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2013-12-28
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/spec-work/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/spec-work/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。</p>
-<p>很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。</p>
-<p>由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpress，跟Joomla差距应该不大。</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2013/spec-work/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -920,11 +966,11 @@
       <p class="site-description motion-element"></p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">18</span>
+            <span class="site-state-item-count">19</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">

@@ -25,7 +25,7 @@
 
 
 
-    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0" />
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.png?v=0.3.0" />
 
 
 
@@ -98,7 +98,7 @@
     
      
     
-    嗯..! 目前共计 27 篇日志。 继续努力。
+    嗯..! 目前共计 30 篇日志。 继续努力。
   </span>
 
   
@@ -159,12 +159,12 @@
 
         
           <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
-<a id="more"></a>
 <p>在类属性的声明中，ARC 相关的修饰词有两个：</p>
 <ul>
 <li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
 <li><code>weak</code> 不会延长对象的生命周期，当<code>weak</code>类型的指针指向的对象被释放时，指针自身会被自动置为<code>nil</code>。</li>
 </ul>
+<a id="more"></a>
 <p>在 ARC 机制下，指针缺省的类型是<code>strong</code>。</p>
 <p>在声明局部变量时，有四个 ARC 相关的修饰词，他们的用法跟 const 类似。</p>
 <ul>
@@ -210,6 +210,252 @@
             <div class="post-nav-prev post-nav-item">
               
                 <a href="/2014/errors-due-to-nested-pop-or-push/">Nested pop/push 导致的问题</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/plugins-and-themes-for-xcode/">Plugins and Themes for Xcode</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+
+    
+    
+    
+
+    
+    
+
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Plugins and Themes for Xcode
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-13
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/plugins-and-themes-for-xcode/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/plugins-and-themes-for-xcode/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <blockquote>
+<p>优秀的程序员炫耀自己的代码，二逼程序员炫耀自己的工具。</p>
+</blockquote>
+<p>快来看我发现的 Xcode 插件们！</p>
+<h1 id="插件">插件</h1><p>Xcode 下的插件安装一般都是下载源码编译一次就 OK 了。<br>如果想卸载插件，只需要到<code>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</code>目录下删除相应的文件即可。</p>
+<h2 id="Alcatraz"><a href="https://github.com/supermarin/Alcatraz" target="_blank" rel="external">Alcatraz</a></h2><p>推荐指数 ★★★★</p>
+<a id="more"></a>
+<p>对于安装插件这种事还要手动操作，简直太麻烦了！There’s a plugin for that! Alcatraz 可以帮你来安装和管理插件。</p>
+<h2 id="BBUncrustifyPlugin-Xcode"><a href="https://github.com/benoitsan/BBUncrustifyPlugin-Xcode" target="_blank" rel="external">BBUncrustifyPlugin-Xcode</a></h2><p>推荐指数 ★★★★★</p>
+<p>这是一款用来格式化代码的插件。如果你有代码洁癖，又刚好接手别人的代码，让它来拯救你！通过修改配置文件，你可以控制每一个空格和换行。</p>
+<p>更牛逼的是，这款插件允许你在工程目录下新建一个<code>uncrustify.cfg</code>文件来为工程配置一个特定的代码风格，简直令人动容。</p>
+<h2 id="BBUDebuggerTuckAway_和_BBUUtilitiesTuckAway"><a href="https://github.com/neonichu/BBUDebuggerTuckAway" target="_blank" rel="external">BBUDebuggerTuckAway</a> 和 <a href="https://github.com/neonichu/BBUUtilitiesTuckAway" target="_blank" rel="external">BBUUtilitiesTuckAway</a></h2><p>推荐指数 ★★★</p>
+<p>这两个插件是当你开始编辑代码的时候自动隐藏 Debugger 和 Utilities 窗口的。不知道为毛不做成一个插件。</p>
+<h2 id="XVim"><a href="https://github.com/JugglerShu/XVim" target="_blank" rel="external">XVim</a></h2><p>推荐指数 ★★★★</p>
+<p>作为程序员，不用 VIM 都不好意思跟其他人打招呼！这是一个用来模拟 Vim 快捷键的插件。但是这个插件可能会导致 Xcode 崩溃，还有一些快捷键冲突，安装需谨慎。</p>
+<h2 id="CodePilot"><a href="http://codepilot.cc/" target="_blank" rel="external">CodePilot</a></h2><p>推荐指数 ★★★</p>
+<p>一个用来在文件、函数之间跳转的插件。在我的机器上运行很慢，不知道是不是因为才安装，正在生成索引的缘故。不过我觉得 Xcode 自带的 <code>Cmd+Shit+O</code>已经能满足我的需要，所以就卸载了。</p>
+<h1 id="主题">主题</h1><p><a href="https://github.com/tursunovic/Xcode-themes" target="_blank" rel="external">这里</a>有很多主题，总有一款适合你。</p>
+<p>如果觉得默认字体太小，在字体设置页面 Cmd+A 再调字体大小即可。</p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/工具控/">
+                #工具控
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2014/arc-on-ios/">OC 中的 ARC</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/view-controllers-on-ios/">iOS 的 MVC 以及 View Controller 间的切换</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+
+    
+    
+    
+
+    
+    
+
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              iOS 的 MVC 以及 View Controller 间的切换
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-10
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/view-controllers-on-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/view-controllers-on-ios/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>之前一直在听斯坦福大学的公开课： <a href="http://v.163.com/special/opencourse/ios7.html" target="_blank" rel="external">iOS 7应用开发</a>，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。</p>
+<p>在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。</p>
+<a id="more"></a>
+<h1 id="iOS_中的_MVC">iOS 中的 MVC</h1><p>所谓的 MVC 是指：</p>
+<ul>
+<li>Model: 数据的拥有者，实现具体的业务逻辑。</li>
+<li>View: 具体的用户界面，如按钮、列表、图片。</li>
+<li>Controller: 负责将 View 中用户的动作传达给 Model，将 Model 的数据通过 View 展现出来。</li>
+</ul>
+<p>通常 iOS 的每个场景（scene）都由一个 ViewController 来管理，这个 ViewController 可以是库中原生的，更多情况下是我们自定义的，但是都继承自 UIViewController。顾名思义，ViewController 包含了 MVC 中的 Controller 和 View，其中的 View 一般是系统提供的 UIButton、UILabel 等类的实例。而 Model 一般都是我们自定义的类。</p>
+<h1 id="MVC_之间的交互">MVC 之间的交互</h1><p><img src="/images/2014-08-10/ios_mvc.jpg" alt="白胡子老头的 Keynote"></p>
+<h2 id="View_与_Controller">View 与 Controller</h2><p>View 与 Controller 的关系是十分紧密的，他们之间可以双向通信。</p>
+<p><strong>Controller 可以直接操作 View。</strong>在使用 Storyboard 进行界面设计时，我们可以直接拖拽现有的控件（View），再通过 Controller—Drag 就可以为各种 控件生成一种类似于句柄的 outlet来作为 ViewController 的属性，ViewController 通过 outlet 来对 View 进行操作，设置其外观、状态或者行为等等。如果是通过纯代码来编写界面，ViewController 类中就包含了控件的实例，直接通过这些实例的指针进行操作即可。</p>
+<p><strong>View 可以通过特殊的方式来发消息给 Controller。</strong>因为系统自定义的 View 并不知道当用户进行操作之后，Controller 需要做些什么，为了减少耦合性，采用了一些特殊的方式来与 Controller 进行通信。通信的方式有：</p>
+<ul>
+<li>IBAction。通过 Controller—Drag，XCode 会自动生成事件的响应方法。也可以使用<code>(void)addTarget:(id)target action:(SEL)action</code>方法来注册事件的响应方法。</li>
+<li>DataSource。当系统的某些 View 在呈现时需要我们提供相应的数据。我们必须为 View 指定 DataSource，并实现相应的 DataSourceProtocol（所谓的 Protocol 是指预先定义好的一组回调函数，其中的部分是必须实现的，部分是可选的。）最典型的是 UITableView，我们必须告诉系统这个 TableView 有多少行，每行的 Cell 内容是什么。</li>
+<li>Delegate。它也是一组 Protocol，系统会在特定事件（如网页的跳转、网页加载）发生的前后来调用这些方法。View 可以在不知道某个类的细节的情况下，把该类设置成自己的 Delegate，只要目标类实现了 Protocol 中的必须实现的方法。这些 Protocol 中的方法的命名是有规律的，通常会包含三种关键字：<ul>
+<li>will: 表示这个方法会在某种事件<strong>发生前</strong>调用。</li>
+<li>did: 表示这个方法会在某种事件<strong>发生后</strong>调用。</li>
+<li>should: 通常用来确定<strong>该不该让某件事发生</strong>。如<code>webView:shouldStartLoadWithRequest:navigationType:</code>，它的返回值是布尔型，当返回 NO 时，WebView 将不会加载内容。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Model_与_Controller">Model 与 Controller</h2><p><strong>Controller 直接向 Model 请求数据。</strong>一般将 Model 的类作为 Controller 的属性，直接调用相应的实例方法或者类方法即可。</p>
+<p><strong>Model 通过 Notification 和 KVO 将数据的变化通知给 Controller。</strong>KVO 是指 Key-value observing，是一种观察者模式的实现，可以使得 Controller 在 Model 的数据变化时能够得到通知。Notification 是另外一种系统提供的通知机制，与 KVO 的直接通知到观察者对象不同，系统提供了一个 NotificationCenter 来广播通知。两者都可以实现一对一或一对多的关系。</p>
+<h2 id="Model_与_View">Model 与 View</h2><p>他们不能相互发送信息。</p>
+<h1 id="View_Controller_之间的切换">View Controller 之间的切换</h1><p>View Controller 之间的切换主要有三种方式：</p>
+<ul>
+<li>Storyboard 的 segue。如果使用 Storyboard 来构建 App，那么只需要 Ctrl-Drag 即可实现 View Controller 的切换，比如将一个按钮 Ctrl-Drag 到另一个 View Controller 上。如果一个 segue 链接的是两个 View Controller，那么就需要用代码来完成跳转，这个时候需要为 segue 来指定一个 Identifier，通过调用<code>performSegueWithIdentifier:sender:</code>来完成跳转。</li>
+<li><code>pushViewController:animated:</code>方法。这个方法需要当前的 View Controller 在一个 UINavigationController 内部。UINavigationController 内部维护了一个栈来保存其中的所有 View Controller，将新的 View Controller push 到栈内就可以完成跳转。</li>
+<li><code>presentViewController:animated:completion:</code>方法。不同于上一种方法，这个方法并不是将 View Controller push 到栈内，而是维护一个 presenting 和 presented 关系。例如有两个 View Controller 分别叫 A 和 B，如果 A 调用此方法来显示 B，相当于 A <strong>拥有</strong> 了 B。A 中的<code>presentedViewController</code>属性会指向 B，B 的<code>presentingViewController</code>属性会指向 A，这个关系是由系统自动维护的。</li>
+</ul>
+<p>其中的第二种方法和第三种方法是类似的。他们之间的区别更多的是语义上的区别——<code>presentViewController:animated:completion:</code>方法更多的是在强调打断现有的工作流，展现一组新的 View 来完成某个特定的工作，通常需要向用户获取某些信息<a href="https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/ModalViewControllers/ModalViewControllers.html#//apple_ref/doc/uid/TP40007457-CH111-SW1" target="_blank" rel="external">^1</a>。它常常用来显示一个模态的 View，一个模态的 View 通常有下面三个特点<a href="https://developer.apple.com/library/ios/documentation/userexperience/conceptual/mobilehig/Alerts.html#//apple_ref/doc/uid/TP40006556-CH14-SW3" target="_blank" rel="external">^2</a>：</p>
+<ul>
+<li>占据整个屏幕，或者 iPad 上的整个 父View 的区域。</li>
+<li>包含了完成一个任务所需的文本和控件。</li>
+<li>通常有一个完成按钮和一个取消按钮，点击它们来表示任务的完成情况，并且退出当前的 View。</li>
+</ul>
+<p>典型的场景：用户登录、添加一项待办事项。</p>
+<p>另外一个值得注意的地方是，在写 App 的时候有必要了解在各个状态下，栈中的 View Controller 都有哪些，以避免重复地 push 同一个 View Controller。并且可以利用 UINavigationController 提供的一系列 pop*ViewController 的方法来快速到达指定的 View Controller。</p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2014/plugins-and-themes-for-xcode/">Plugins and Themes for Xcode</a>
               
             </div>
 
@@ -317,7 +563,7 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/arc-on-ios/">OC 中的 ARC</a>
+                <a href="/2014/view-controllers-on-ios/">iOS 的 MVC 以及 View Controller 间的切换</a>
               
             </div>
 
@@ -471,11 +717,11 @@
       <p class="site-description motion-element"></p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">18</span>
+            <span class="site-state-item-count">19</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">
