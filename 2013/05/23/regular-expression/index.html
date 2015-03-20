@@ -1,0 +1,891 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0"/>
+
+
+
+
+	<meta name="keywords" content="RE," />
+
+  <title> 正则表达式学习笔记 // Nix 的自我修养 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nix 的自我修养</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              正则表达式学习笔记
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2013-05-23
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2013/05/23/regular-expression/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/05/23/regular-expression/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p><img src="/images/2013-05-23/regular_expressions.png" alt="RegExp"></p>
+<p>正则表达式（Regular Expression）：计算机科学的一个概念。正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。在很多文本编辑器里，正则表达式通常被用来检索、替换那些符合某个模式的文本。</p>
+<a id="more"></a>
+<h2 id="匹配单个字符">匹配单个字符</h2><h3 id="匹配固定单个字符">匹配固定单个字符</h3><p>任何单个大小写字母、数字以及特殊字符都可以匹配其自身。 </p>
+<blockquote>
+<p><code>m</code> -&gt; ‘m’  </p>
+</blockquote>
+<p>它们可以组合使用。   </p>
+<blockquote>
+<p><code>mm</code> -&gt; ‘mm’</p>
+</blockquote>
+<h3 id="匹配任意单个字符">匹配任意单个字符</h3><p>使用<code>.</code>可以匹配任意的单个字符，包括它本身，但一般不包括换行符。</p>
+<blockquote>
+<p><code>.i.</code> -&gt; ‘nix’, ‘six’…<br><code>\.</code> -&gt; <code>.</code></p>
+</blockquote>
+<!--More-->
+<h2 id="匹配字符组">匹配字符组</h2><p>使用<code>[abc]</code>来匹配多个字符中的一个。</p>
+<blockquote>
+<p><code>r[abc]</code> -&gt; ‘ra’, ‘rb’, ‘rc’</p>
+</blockquote>
+<h3 id="字符区间">字符区间</h3><p>使用<code>[a-z]</code>来匹配a到z之间的字符。（如果需要匹配<code>-</code>则需要使用<code>\-</code>）<br>注意：这里依赖ASCII码的大小，起始字符必须小于结束字符。</p>
+<blockquote>
+<p><code>[a-c]</code> -&gt; ‘a’, ‘b’, ‘c’<br><code>[a-z0-9]</code> -&gt; ‘a’, ‘8’…</p>
+</blockquote>
+<p>使用<code>[^a-z]</code>来匹配这个范围之外的字符。</p>
+<h2 id="匹配特殊字符">匹配特殊字符</h2><h3 id="匹配元字符">匹配元字符</h3><p>使用转义字符<code>\</code>来匹配元字符。</p>
+<blockquote>
+<p><code>\[0\]</code> -&gt; <code>[0]</code></p>
+</blockquote>
+<h3 id="匹配空字符">匹配空字符</h3><blockquote>
+<p><code>\r</code> -&gt; 回车符<br><code>\n</code> -&gt; 换行符<br><code>\t</code> -&gt; 制表符<br><code>\d</code> == <code>[0-9]</code><br><code>\w</code> == <code>[a-zA-Z0-9_]</code><br><code>\W</code> == <code>[^a-zA-Z0-9_]</code><br><code>\s</code> == <code>[\f\n\r\t\v]</code><br><code>\S</code> == <code>[^\f\n\r\t\v]</code></p>
+</blockquote>
+<h2 id="匹配多个字符">匹配多个字符</h2><h3 id="匹配一个或多个字符">匹配一个或多个字符</h3><p>在单字符表达式后面加上<code>+</code>，表示匹配一个或多个这样的字符。单字符表达式包括单个固定字符、单个任意字符、以及特殊字符。</p>
+<blockquote>
+<p><code>j+</code> -&gt; ‘j’, ‘jj’, ‘jjj’…<br><code>\w+@\w+\.\w+</code> -&gt; 电子邮件地址</p>
+</blockquote>
+<h3 id="匹配零个或多个字符">匹配零个或多个字符</h3><p>在单字符表达式后面加上<code>*</code>，表示匹配零个或多个这样的字符。</p>
+<blockquote>
+<p><code>var\d*</code> -&gt; ‘var’, ‘var123’…</p>
+</blockquote>
+<h3 id="匹配零个或一个字符">匹配零个或一个字符</h3><p>在单字符表达式后面加上<code>？</code>，表示匹配零个或一个这样的字符。</p>
+<blockquote>
+<p><code>nix1?</code> -&gt; ‘nix’, ‘nix1’</p>
+</blockquote>
+<p><code>+</code>,<code>*</code>,<code>?</code>都是元字符，匹配它们本身时需要转义。</p>
+<h3 id="匹配指定个数字">匹配指定个数字</h3><p>在单字符表达式后面加上<code>{n1-n2}</code>，n1和n2是两个整数，表示匹配n1到n2个这样的字符。<br>n1可以为0，表示0个字符，n2可以置空，表示多个字符。</p>
+<blockquote>
+<p><code>z{1-3}</code> -&gt; ‘z’, ‘zz’, ‘zzz’<br><code>ha{0-2}</code> -&gt; ‘h’, ‘ha’, ‘haa’</p>
+</blockquote>
+<h2 id="贪婪匹配和惰性匹配">贪婪匹配和惰性匹配</h2><p>贪婪匹配：匹配尽量多的字符，直到无法匹配。<br>惰性匹配：匹配尽量少的字符，一旦符合条件就立即停止。<br>正则表达式默认贪婪匹配，如果需要惰性匹配，在元字符后面加<code>?</code></p>
+<blockquote>
+<p>若目标文本中含有<code>haaa</code><br><code>ha+</code> -&gt; ‘haaa’<br><code>ha+?</code> -&gt; ‘ha’<br><code>a{3}</code> == ‘a{3}?’</p>
+</blockquote>
+<h2 id="匹配边界">匹配边界</h2><h3 id="单词边界">单词边界</h3><p><code>\b</code>表示单词边界</p>
+<blockquote>
+<p><code>\bcat\b</code> -&gt; ‘cat’</p>
+</blockquote>
+<p>边界是相对的，对于字符，边界是空格、分隔符、逗号、句号；对于空格、分隔符、逗号、句号，普通字符就是边界。</p>
+<h3 id="匹配非边界字符">匹配非边界字符</h3><p>使用<code>\B</code>来匹配不在边界的字符。</p>
+<h3 id="匹配文本边界">匹配文本边界</h3><p>使用<code>^</code>来表示全部字符之首（包括空格）。<br>使用<code>$</code>来表示全部字符之末。</p>
+<h2 id="匹配子模式">匹配子模式</h2><h3 id="子模式">子模式</h3><p>使用<code>()</code>来将一个复杂表达式转换成子模式。<br>将一个复杂表达式转化成子模式之后，这个表达式就可以被当成一个单字符表达式来使用。这样就可以对其使用<code>?</code>,<code>{n1, n2}</code>等表达式。</p>
+<blockquote>
+<p><code>(ha)+</code> -&gt; ‘haha’, ‘hahaha’…</p>
+</blockquote>
+<h3 id="“或”匹配">“或”匹配</h3><p>使用<code>|</code>来连接两个表达式，将匹配两个表达式中任意一个所匹配的字符。</p>
+<blockquote>
+<p><code>(19|20)\d{2}</code> -&gt; 1900~2099中所有整数</p>
+</blockquote>
+<h2 id="后向引用">后向引用</h2><p>使用<code>\数字</code>来进行后向引用，<code>\1</code>表示前面第一个子模式匹配的内容。</p>
+<blockquote>
+<p><code>(of|up) \1</code> -&gt; ‘of of’, ‘up up’ 而不能匹配’up of’或者’of up’<br><code>(\w+)\1</code> -&gt; 连续且重复一次的单词<br><code>&lt;h([1-6])&gt;.*?&lt;/h\1&gt;</code> -&gt; <code>&lt;h1&gt;blah&lt;/h1&gt;</code></p>
+</blockquote>
+<p>默认情况下，每个子模式都有一个名称。起名规则是：从左至右以左括号出现的顺序为准，从1开始命名。<br>可以使用下面的语法自己给子模式命名</p>
+<blockquote>
+<p><code>(?&lt;name&gt;exp)</code></p>
+</blockquote>
+<p>相关常用语法：</p>
+<blockquote>
+<p><code>(exp)</code> 匹配exp，并捕获文本到自动命名的组里<br><code>(?&lt;name&gt;exp)</code> 匹配exp，并捕获文本到名称为name的组里<br><code>(?:exp)</code> 匹配exp，不捕获匹配的文本，也不给此分组分配组号</p>
+</blockquote>
+<h3 id="零宽断言">零宽断言</h3><p>要匹配所有扩展名为app的文件名，而又不希望结果中包含app，可以使用<code>\b\w+(?\.app)</code></p>
+<blockquote>
+<p><code>(?=exp)</code> 匹配exp前面的位置<br><code>(?&lt;=exp)</code> 匹配exp后面的位置<br><code>(?!exp)</code> 匹配后面跟的不是exp的位置<br><code>(?&lt;!exp)</code> 匹配前面不是exp的位置</p>
+</blockquote>
+<h2 id="文字替换">文字替换</h2><p>替换时可以使用<code>\数字</code>或<code>$</code>来引用子模式匹配的内容。跟正则表达式的具体实现有关。</p>
+<blockquote>
+<p>假如有文本：<br>nixwang.com<br>使用查找语句：<br><code>(\w+).com</code><br>替换语句：<br><code>$1.net</code><br>替换结果：<br><code>nixwang.net</code>  </p>
+</blockquote>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/re/">
+                #RE
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2013/05/28/google-unchained/">Google Unchained</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2013/05/23/db-index/">关于数据库索引</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="disqus_thread">
+          <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="/images/avatar.jpg" alt="Nix Wang" />
+        <p class="site-author-name">Nix Wang</p>
+      </div>
+      <p class="site-description motion-element"></p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">19</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">1</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+
+      <div class="social-info motion-element">
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配单个字符"><span class="nav-number">1.</span> <span class="nav-text">匹配单个字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配固定单个字符"><span class="nav-number">1.1.</span> <span class="nav-text">匹配固定单个字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配任意单个字符"><span class="nav-number">1.2.</span> <span class="nav-text">匹配任意单个字符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配字符组"><span class="nav-number">2.</span> <span class="nav-text">匹配字符组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符区间"><span class="nav-number">2.1.</span> <span class="nav-text">字符区间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配特殊字符"><span class="nav-number">3.</span> <span class="nav-text">匹配特殊字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配元字符"><span class="nav-number">3.1.</span> <span class="nav-text">匹配元字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配空字符"><span class="nav-number">3.2.</span> <span class="nav-text">匹配空字符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配多个字符"><span class="nav-number">4.</span> <span class="nav-text">匹配多个字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配一个或多个字符"><span class="nav-number">4.1.</span> <span class="nav-text">匹配一个或多个字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配零个或多个字符"><span class="nav-number">4.2.</span> <span class="nav-text">匹配零个或多个字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配零个或一个字符"><span class="nav-number">4.3.</span> <span class="nav-text">匹配零个或一个字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配指定个数字"><span class="nav-number">4.4.</span> <span class="nav-text">匹配指定个数字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贪婪匹配和惰性匹配"><span class="nav-number">5.</span> <span class="nav-text">贪婪匹配和惰性匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配边界"><span class="nav-number">6.</span> <span class="nav-text">匹配边界</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单词边界"><span class="nav-number">6.1.</span> <span class="nav-text">单词边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配非边界字符"><span class="nav-number">6.2.</span> <span class="nav-text">匹配非边界字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配文本边界"><span class="nav-number">6.3.</span> <span class="nav-text">匹配文本边界</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配子模式"><span class="nav-number">7.</span> <span class="nav-text">匹配子模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子模式"><span class="nav-number">7.1.</span> <span class="nav-text">子模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#“或”匹配"><span class="nav-number">7.2.</span> <span class="nav-text">“或”匹配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后向引用"><span class="nav-number">8.</span> <span class="nav-text">后向引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#零宽断言"><span class="nav-number">8.1.</span> <span class="nav-text">零宽断言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文字替换"><span class="nav-number">9.</span> <span class="nav-text">文字替换</span></a></li></ol>
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2013 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Nix Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      if ($('.post-toc').html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = '2013/05/23/regular-expression/';
+      var disqus_url = 'http://yoursite.com/2013/05/23/regular-expression/';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+  
+</body>
+</html>

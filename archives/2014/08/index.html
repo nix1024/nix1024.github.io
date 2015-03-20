@@ -88,7 +88,7 @@
             
           
 
-          <div id="posts" class="posts-expand">
+          <div id="posts" class="posts-collapse">
             
 
   <span class="archive-move-on"></span>
@@ -126,7 +126,9 @@
           
           
             
-              OC 中的 ARC
+              <a class="post-title-link" href="/2014/08/25/arc-on-ios/">
+                OC 中的 ARC
+              </a>
             
           
         </h1>
@@ -135,15 +137,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-25
+            08-25
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/arc-on-ios/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/arc-on-ios/"></span>
+            <a href="/2014/08/25/arc-on-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/25/arc-on-ios/"></span>
             </a>
           </span>
           
@@ -152,78 +154,7 @@
     </div>
 
     
-      <div class="post-body">
 
-        
-        
-
-        
-          <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
-<p>在类属性的声明中，ARC 相关的修饰词有两个：</p>
-<ul>
-<li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
-<li><code>weak</code> 不会延长对象的生命周期，当<code>weak</code>类型的指针指向的对象被释放时，指针自身会被自动置为<code>nil</code>。</li>
-</ul>
-<a id="more"></a>
-<p>在 ARC 机制下，指针缺省的类型是<code>strong</code>。</p>
-<p>在声明局部变量时，有四个 ARC 相关的修饰词，他们的用法跟 const 类似。</p>
-<ul>
-<li><code>__strong</code> 缺省值。用法同<code>strong</code>。</li>
-<li><code>__weak</code> 用法同<code>weak</code>。</li>
-<li><code>__unsafe_unretained</code> 类似于<code>weak</code>，但其指向的对象被释放时，其值不会被置为<code>nil</code>。应该是由于兼容性的原因而存在，通常不建议使用。</li>
-<li><code>__autoreleasing</code> 用来修饰一个以引用（id *）方式传入的参数，当函数返回值时被释放。</li>
-</ul>
-<p>上面的修饰词正确的使用方法是</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
-<p>修饰词放在其他位置也可以编译通过，但是严格来说是不正确的。</p>
-<h2 id="循环引用以及避免方法">循环引用以及避免方法</h2><p>当两个对象使用<code>strong</code>指针互相引用时，就会出现双方都不会被释放的情况，经常出现在使用 block 的地方。</p>
-<p>例如下面的代码就存在循环引用：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">	[<span class="keyword">self</span> doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<p>在属性的生命中，类的对象含有一个 strong 类型的指针指向 block，在 block 中又存在 self （默认是 strong 类型）来引用类的对象，这样两者在生命周期结束时都不会被释放。</p>
-<p>解决方法：通过使用<code>__weak</code>修饰词来得到一个指向 self 的 weak 指针来打破循环引用。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">MyClass *__<span class="keyword">weak</span> weakSelf = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">        MyClass *__<span class="keyword">strong</span> strongSelf = weakSelf;</span><br><span class="line">	[strongSelf doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<p>block 内部的 strong 指针是为了保证在 block 执行的过程中，对象不会被释放掉。其实也可以先判断一下 weakSelf 是否为空。</p>
-<p><strong>但不应在所有使用 block 的情况下都采用 weakSelf</strong>，因为只要类中不存在指向 block 的 strong 指针，就不会存在循环引用。而滥用weakSelf 可能会导致某些情况下 self 被释放后才调用 block，此时 block 中的代码不会被执行，往往不是我们期望的。</p>
-
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/arc/">
-                #ARC
-              </a>
-            
-              <a href="/tags/ios/">
-                #iOS
-              </a>
-            
-          </div>
-        
-
-        
-          <div class="post-nav">
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2014/errors-due-to-nested-pop-or-push/">Nested pop/push 导致的问题</a>
-              
-            </div>
-
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2014/plugins-and-themes-for-xcode/">Plugins and Themes for Xcode</a>
-              
-            </div>
-          </div>
-        
-
-        
-        
-      </div>
     
   </div>
 
@@ -249,7 +180,9 @@
           
           
             
-              Plugins and Themes for Xcode
+              <a class="post-title-link" href="/2014/08/13/plugins-and-themes-for-xcode/">
+                Plugins and Themes for Xcode
+              </a>
             
           
         </h1>
@@ -258,15 +191,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-13
+            08-13
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/plugins-and-themes-for-xcode/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/plugins-and-themes-for-xcode/"></span>
+            <a href="/2014/08/13/plugins-and-themes-for-xcode/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/13/plugins-and-themes-for-xcode/"></span>
             </a>
           </span>
           
@@ -275,67 +208,7 @@
     </div>
 
     
-      <div class="post-body">
 
-        
-        
-
-        
-          <blockquote>
-<p>优秀的程序员炫耀自己的代码，二逼程序员炫耀自己的工具。</p>
-</blockquote>
-<p>快来看我发现的 Xcode 插件们！</p>
-<h1 id="插件">插件</h1><p>Xcode 下的插件安装一般都是下载源码编译一次就 OK 了。<br>如果想卸载插件，只需要到<code>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</code>目录下删除相应的文件即可。</p>
-<h2 id="Alcatraz"><a href="https://github.com/supermarin/Alcatraz" target="_blank" rel="external">Alcatraz</a></h2><p>推荐指数 ★★★★</p>
-<a id="more"></a>
-<p>对于安装插件这种事还要手动操作，简直太麻烦了！There’s a plugin for that! Alcatraz 可以帮你来安装和管理插件。</p>
-<h2 id="BBUncrustifyPlugin-Xcode"><a href="https://github.com/benoitsan/BBUncrustifyPlugin-Xcode" target="_blank" rel="external">BBUncrustifyPlugin-Xcode</a></h2><p>推荐指数 ★★★★★</p>
-<p>这是一款用来格式化代码的插件。如果你有代码洁癖，又刚好接手别人的代码，让它来拯救你！通过修改配置文件，你可以控制每一个空格和换行。</p>
-<p>更牛逼的是，这款插件允许你在工程目录下新建一个<code>uncrustify.cfg</code>文件来为工程配置一个特定的代码风格，简直令人动容。</p>
-<h2 id="BBUDebuggerTuckAway_和_BBUUtilitiesTuckAway"><a href="https://github.com/neonichu/BBUDebuggerTuckAway" target="_blank" rel="external">BBUDebuggerTuckAway</a> 和 <a href="https://github.com/neonichu/BBUUtilitiesTuckAway" target="_blank" rel="external">BBUUtilitiesTuckAway</a></h2><p>推荐指数 ★★★</p>
-<p>这两个插件是当你开始编辑代码的时候自动隐藏 Debugger 和 Utilities 窗口的。不知道为毛不做成一个插件。</p>
-<h2 id="XVim"><a href="https://github.com/JugglerShu/XVim" target="_blank" rel="external">XVim</a></h2><p>推荐指数 ★★★★</p>
-<p>作为程序员，不用 VIM 都不好意思跟其他人打招呼！这是一个用来模拟 Vim 快捷键的插件。但是这个插件可能会导致 Xcode 崩溃，还有一些快捷键冲突，安装需谨慎。</p>
-<h2 id="CodePilot"><a href="http://codepilot.cc/" target="_blank" rel="external">CodePilot</a></h2><p>推荐指数 ★★★</p>
-<p>一个用来在文件、函数之间跳转的插件。在我的机器上运行很慢，不知道是不是因为才安装，正在生成索引的缘故。不过我觉得 Xcode 自带的 <code>Cmd+Shit+O</code>已经能满足我的需要，所以就卸载了。</p>
-<h1 id="主题">主题</h1><p><a href="https://github.com/tursunovic/Xcode-themes" target="_blank" rel="external">这里</a>有很多主题，总有一款适合你。</p>
-<p>如果觉得默认字体太小，在字体设置页面 Cmd+A 再调字体大小即可。</p>
-
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/工具控/">
-                #工具控
-              </a>
-            
-          </div>
-        
-
-        
-          <div class="post-nav">
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2014/arc-on-ios/">OC 中的 ARC</a>
-              
-            </div>
-
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2014/view-controllers-on-ios/">iOS 的 MVC 以及 View Controller 间的切换</a>
-              
-            </div>
-          </div>
-        
-
-        
-        
-      </div>
     
   </div>
 
@@ -361,7 +234,9 @@
           
           
             
-              iOS 的 MVC 以及 View Controller 间的切换
+              <a class="post-title-link" href="/2014/08/10/view-controllers-on-ios/">
+                iOS 的 MVC 以及 View Controller 间的切换
+              </a>
             
           
         </h1>
@@ -370,15 +245,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-10
+            08-10
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/view-controllers-on-ios/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/view-controllers-on-ios/"></span>
+            <a href="/2014/08/10/view-controllers-on-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/10/view-controllers-on-ios/"></span>
             </a>
           </span>
           
@@ -387,89 +262,7 @@
     </div>
 
     
-      <div class="post-body">
 
-        
-        
-
-        
-          <p>之前一直在听斯坦福大学的公开课： <a href="http://v.163.com/special/opencourse/ios7.html" target="_blank" rel="external">iOS 7应用开发</a>，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。</p>
-<p>在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。</p>
-<a id="more"></a>
-<h1 id="iOS_中的_MVC">iOS 中的 MVC</h1><p>所谓的 MVC 是指：</p>
-<ul>
-<li>Model: 数据的拥有者，实现具体的业务逻辑。</li>
-<li>View: 具体的用户界面，如按钮、列表、图片。</li>
-<li>Controller: 负责将 View 中用户的动作传达给 Model，将 Model 的数据通过 View 展现出来。</li>
-</ul>
-<p>通常 iOS 的每个场景（scene）都由一个 ViewController 来管理，这个 ViewController 可以是库中原生的，更多情况下是我们自定义的，但是都继承自 UIViewController。顾名思义，ViewController 包含了 MVC 中的 Controller 和 View，其中的 View 一般是系统提供的 UIButton、UILabel 等类的实例。而 Model 一般都是我们自定义的类。</p>
-<h1 id="MVC_之间的交互">MVC 之间的交互</h1><p><img src="/images/2014-08-10/ios_mvc.jpg" alt="白胡子老头的 Keynote"></p>
-<h2 id="View_与_Controller">View 与 Controller</h2><p>View 与 Controller 的关系是十分紧密的，他们之间可以双向通信。</p>
-<p><strong>Controller 可以直接操作 View。</strong>在使用 Storyboard 进行界面设计时，我们可以直接拖拽现有的控件（View），再通过 Controller—Drag 就可以为各种 控件生成一种类似于句柄的 outlet来作为 ViewController 的属性，ViewController 通过 outlet 来对 View 进行操作，设置其外观、状态或者行为等等。如果是通过纯代码来编写界面，ViewController 类中就包含了控件的实例，直接通过这些实例的指针进行操作即可。</p>
-<p><strong>View 可以通过特殊的方式来发消息给 Controller。</strong>因为系统自定义的 View 并不知道当用户进行操作之后，Controller 需要做些什么，为了减少耦合性，采用了一些特殊的方式来与 Controller 进行通信。通信的方式有：</p>
-<ul>
-<li>IBAction。通过 Controller—Drag，XCode 会自动生成事件的响应方法。也可以使用<code>(void)addTarget:(id)target action:(SEL)action</code>方法来注册事件的响应方法。</li>
-<li>DataSource。当系统的某些 View 在呈现时需要我们提供相应的数据。我们必须为 View 指定 DataSource，并实现相应的 DataSourceProtocol（所谓的 Protocol 是指预先定义好的一组回调函数，其中的部分是必须实现的，部分是可选的。）最典型的是 UITableView，我们必须告诉系统这个 TableView 有多少行，每行的 Cell 内容是什么。</li>
-<li>Delegate。它也是一组 Protocol，系统会在特定事件（如网页的跳转、网页加载）发生的前后来调用这些方法。View 可以在不知道某个类的细节的情况下，把该类设置成自己的 Delegate，只要目标类实现了 Protocol 中的必须实现的方法。这些 Protocol 中的方法的命名是有规律的，通常会包含三种关键字：<ul>
-<li>will: 表示这个方法会在某种事件<strong>发生前</strong>调用。</li>
-<li>did: 表示这个方法会在某种事件<strong>发生后</strong>调用。</li>
-<li>should: 通常用来确定<strong>该不该让某件事发生</strong>。如<code>webView:shouldStartLoadWithRequest:navigationType:</code>，它的返回值是布尔型，当返回 NO 时，WebView 将不会加载内容。</li>
-</ul>
-</li>
-</ul>
-<h2 id="Model_与_Controller">Model 与 Controller</h2><p><strong>Controller 直接向 Model 请求数据。</strong>一般将 Model 的类作为 Controller 的属性，直接调用相应的实例方法或者类方法即可。</p>
-<p><strong>Model 通过 Notification 和 KVO 将数据的变化通知给 Controller。</strong>KVO 是指 Key-value observing，是一种观察者模式的实现，可以使得 Controller 在 Model 的数据变化时能够得到通知。Notification 是另外一种系统提供的通知机制，与 KVO 的直接通知到观察者对象不同，系统提供了一个 NotificationCenter 来广播通知。两者都可以实现一对一或一对多的关系。</p>
-<h2 id="Model_与_View">Model 与 View</h2><p>他们不能相互发送信息。</p>
-<h1 id="View_Controller_之间的切换">View Controller 之间的切换</h1><p>View Controller 之间的切换主要有三种方式：</p>
-<ul>
-<li>Storyboard 的 segue。如果使用 Storyboard 来构建 App，那么只需要 Ctrl-Drag 即可实现 View Controller 的切换，比如将一个按钮 Ctrl-Drag 到另一个 View Controller 上。如果一个 segue 链接的是两个 View Controller，那么就需要用代码来完成跳转，这个时候需要为 segue 来指定一个 Identifier，通过调用<code>performSegueWithIdentifier:sender:</code>来完成跳转。</li>
-<li><code>pushViewController:animated:</code>方法。这个方法需要当前的 View Controller 在一个 UINavigationController 内部。UINavigationController 内部维护了一个栈来保存其中的所有 View Controller，将新的 View Controller push 到栈内就可以完成跳转。</li>
-<li><code>presentViewController:animated:completion:</code>方法。不同于上一种方法，这个方法并不是将 View Controller push 到栈内，而是维护一个 presenting 和 presented 关系。例如有两个 View Controller 分别叫 A 和 B，如果 A 调用此方法来显示 B，相当于 A <strong>拥有</strong> 了 B。A 中的<code>presentedViewController</code>属性会指向 B，B 的<code>presentingViewController</code>属性会指向 A，这个关系是由系统自动维护的。</li>
-</ul>
-<p>其中的第二种方法和第三种方法是类似的。他们之间的区别更多的是语义上的区别——<code>presentViewController:animated:completion:</code>方法更多的是在强调打断现有的工作流，展现一组新的 View 来完成某个特定的工作，通常需要向用户获取某些信息<a href="https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/ModalViewControllers/ModalViewControllers.html#//apple_ref/doc/uid/TP40007457-CH111-SW1" target="_blank" rel="external">^1</a>。它常常用来显示一个模态的 View，一个模态的 View 通常有下面三个特点<a href="https://developer.apple.com/library/ios/documentation/userexperience/conceptual/mobilehig/Alerts.html#//apple_ref/doc/uid/TP40006556-CH14-SW3" target="_blank" rel="external">^2</a>：</p>
-<ul>
-<li>占据整个屏幕，或者 iPad 上的整个 父View 的区域。</li>
-<li>包含了完成一个任务所需的文本和控件。</li>
-<li>通常有一个完成按钮和一个取消按钮，点击它们来表示任务的完成情况，并且退出当前的 View。</li>
-</ul>
-<p>典型的场景：用户登录、添加一项待办事项。</p>
-<p>另外一个值得注意的地方是，在写 App 的时候有必要了解在各个状态下，栈中的 View Controller 都有哪些，以避免重复地 push 同一个 View Controller。并且可以利用 UINavigationController 提供的一系列 pop*ViewController 的方法来快速到达指定的 View Controller。</p>
-
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/ios/">
-                #iOS
-              </a>
-            
-          </div>
-        
-
-        
-          <div class="post-nav">
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2014/plugins-and-themes-for-xcode/">Plugins and Themes for Xcode</a>
-              
-            </div>
-
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2014/pits-on-ios/">本周在 iOS 上踩过的坑主要有</a>
-              
-            </div>
-          </div>
-        
-
-        
-        
-      </div>
     
   </div>
 
@@ -495,7 +288,9 @@
           
           
             
-              本周在 iOS 上踩过的坑主要有
+              <a class="post-title-link" href="/2014/08/03/pits-on-ios/">
+                本周在 iOS 上踩过的坑主要有
+              </a>
             
           
         </h1>
@@ -504,15 +299,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-03
+            08-03
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/pits-on-ios/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/pits-on-ios/"></span>
+            <a href="/2014/08/03/pits-on-ios/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/03/pits-on-ios/"></span>
             </a>
           </span>
           
@@ -521,63 +316,7 @@
     </div>
 
     
-      <div class="post-body">
 
-        
-        
-
-        
-          <h2 id="UITableView_相关">UITableView 相关</h2><h3 id="在写_UITableView_的_Demo_时，删除一个_cell_导致程序崩溃">在写 UITableView 的 Demo 时，删除一个 cell 导致程序崩溃</h3><p>在写 dataSource  protocol 中的<code>- (NSInteger)numberOfRowsInSection:(NSInteger)section</code>方法时，采用了 hardcode 方式。这个函数的返回值应该实时计算。</p>
-<a id="more"></a>
-<h3 id="UITableView_的背景色">UITableView 的背景色</h3><p>想要设置 UITableView 的背景色，可以采用下面的语句。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.backgroundView</span> = <span class="literal">nil</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> whiteColor];</span><br></pre></td></tr></table></figure>
-<h3 id="添加_Static_样式的_TableView_到另一个_View">添加 Static 样式的 TableView 到另一个 View</h3><p>从 XCode 特定版本之后，Static 样式的 TableView 只能添加到一个 UITableViewController 中。要想添加一个 Static 样式的 TableView 到其他的 View 中，必须先添加一个 Container View，然后在其内部添加。</p>
-<p>其实通过编辑 UITableViewController 中 Static 样式的 TableView 的 tableHeaderView 以及 tableFooterView 就可以实现很多效果，不一定要使用上面的方法。</p>
-<h2 id="UIWebView_相关">UIWebView 相关</h2><h3 id="UIWebView_与_UINavigationController_的配合">UIWebView 与 UINavigationController 的配合</h3><p>当想让程序中的 UIWebView 后退与前进采用 UINavigationController 的返回按钮时，可以考虑重载</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)webView:(<span class="built_in">UIWebView</span> *)webView shouldStartLoadWithRequest:(<span class="built_in">NSURLRequest</span> *)request navigationType:(UIWebViewNavigationType)navigationType</span><br></pre></td></tr></table></figure>
-<p>这个函数返回<code>NO</code>时就会终止加载。每当加载页面时，新建一个 UIWebViewController，然后 push 进去及可利用 UINavigationController 自带的返回按钮。</p>
-<h3 id="UIWebView_的后退">UIWebView 的后退</h3><p>采用下面的方式让 WebView 返回最早的页面会进入死循环，内存暴涨。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>([webView canGoBack])</span><br><span class="line">&#123;</span><br><span class="line">	[webView goBack];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为<code>goBack</code>的完成需要一定时间，期间<code>canGoBack</code>的值一直为真。正确的方式之一是设置一个 flag，在<code>webViewDidFinishLoad</code>中根据这个 flag 和<code>canGoBack</code>来循环后退。</p>
-<h2 id="One_more_pit">One more pit</h2><p>项目中使用到了开源的 <a href="https://github.com/jaydee3/JDFlipNumberView/issues/35" target="_blank" rel="external">JDFlipNumberView</a> 来显示令牌上的数字。我看了一下 readme，发现这个库是自带一些动画效果的，它有两套 API，而项目中使用的是静态的版本，I can not endure!</p>
-<p>结果测试发现，当在动画过程中切换 tabbar 后再切换回来，这个控件会 freeze 在一个中间状态！</p>
-<p>尝试在 <code>viewWillAppear</code>中重新设置控件显示的值，反复测试还是会有这个问题，最后因为发布日期将近，还是去掉了动画效果。</p>
-
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/ios/">
-                #iOS
-              </a>
-            
-          </div>
-        
-
-        
-          <div class="post-nav">
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2014/view-controllers-on-ios/">iOS 的 MVC 以及 View Controller 间的切换</a>
-              
-            </div>
-
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2014/a-boring-saturday/">一个慵懒的周六</a>
-              
-            </div>
-          </div>
-        
-
-        
-        
-      </div>
     
   </div>
 
@@ -603,7 +342,9 @@
           
           
             
-              一个慵懒的周六
+              <a class="post-title-link" href="/2014/08/02/a-boring-saturday/">
+                一个慵懒的周六
+              </a>
             
           
         </h1>
@@ -612,15 +353,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-02
+            08-02
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/a-boring-saturday/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/a-boring-saturday/"></span>
+            <a href="/2014/08/02/a-boring-saturday/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/02/a-boring-saturday/"></span>
             </a>
           </span>
           
@@ -629,51 +370,7 @@
     </div>
 
     
-      <div class="post-body">
 
-        
-        
-
-        
-          <p>上一次更新博客已经是4月份了。我还在。</p>
-<p>为了证明这个博客存在的意义并不只是为了找工作时给面试官一个好一些的印象，我决定继续更新下去。</p>
-<a id="more"></a>
-<p>一觉睡到10点多，起来整了整博客主题，去掉了侧边栏，看起来更简单一些。但还是没有考虑字体的选择，看了看专业前端的作品，自叹不如。为了对得起 farbox 官网上的链接，就没有切到自带的主题。</p>
-<p>farbox 在我不在的这段日子里有了长足的进步，后台界面设计更加精致，自带的 editor 和 code 简直是神器！还有那个自动同步功能是怎么做到的！</p>
-<p>下午打了几把 dota 睡了一觉就过去了……╮(╯_╰)╭</p>
-<p>最近从零开始学习 iOS 开发，深深地感觉到封闭系统带来的易用性，甚至连开发也是如此，Storyboard 用得飞起。系统适配也非常方便，模拟器可以模拟所有型号的 iPhone，安卓开发没有接触过，想想应该是很痛苦的。 </p>
-<p>跟我一同学习的 Sunus 同学对此表示不屑，坚持用更 Geek 的方式——纯代码来写界面。我喜欢 IB 的易用和效率，他喜欢代码的可读性和可维护性。</p>
-<p>本来看到 App Store 上的汇率转换 App 都不是很好用，准备写一个简单的练练手，直到发现一款<a href="https://itunes.apple.com/cn/app/ji-jian-hui-lu-ji-zhi-jian/id851033695?mt=8" target="_blank" rel="external">极简汇率</a>，无论是设计、交互以及流畅性都堪称一流，这么好的 App 居然还是免费的！看了下<a href="http://langqixu.com" target="_blank" rel="external">作者的博客</a>，很巧的是，他的博客也托管在 farbox 上。他还<a href="http://langqixu.com/post/ios-human-interface-guidelines-chinese" target="_blank" rel="external">翻译了苹果的 HID</a>，果断下载学习。</p>
-<p>接下来准备在空闲时间里做一些小的 Demo 练手，在做的过程中学习永远是最快的。</p>
-<p>ps. 今天是七夕，我送了 GF 一把机械键盘。</p>
-
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-          <div class="post-nav">
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2014/pits-on-ios/">本周在 iOS 上踩过的坑主要有</a>
-              
-            </div>
-
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2014/nix-learn-to-drive/">学车记</a>
-              
-            </div>
-          </div>
-        
-
-        
-        
-      </div>
     
   </div>
 
@@ -698,15 +395,6 @@
 <div id="sidebar" class="sidebar">
   <div class="sidebar-inner">
 
-    
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview" data-target="site-overview">
-          站点概览
-        </li>
-      </ul>
     
 
     <div class="site-overview">
@@ -747,14 +435,6 @@
 
     </div>
 
-    
-      <div class="post-toc-wrap sidebar-panel-active">
-        <div class="post-toc-indicator-top post-toc-indicator"></div>
-        <div class="post-toc">
-          
-        </div>
-        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
-      </div>
     
 
   </div>
@@ -974,25 +654,6 @@
   
   
 
-  
-
-    
-      
-    
-
-    <script type="text/javascript">
-      var disqus_shortname = 'nix1024';
-      var disqus_identifier = 'archives/2014/08/index.html';
-      var disqus_url = '';
-
-      (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }());
-    </script>
   
 
 

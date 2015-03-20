@@ -88,7 +88,7 @@
             
           
 
-          <div id="posts" class="posts-expand">
+          <div id="posts" class="posts-collapse">
             
 
   <span class="archive-move-on"></span>
@@ -126,7 +126,9 @@
           
           
             
-              使用 Developer ID 为 Mac app 签名
+              <a class="post-title-link" href="/2015/01/07/sign-your-mac-app-with -developer-id/">
+                使用 Developer ID 为 Mac app 签名
+              </a>
             
           
         </h1>
@@ -135,15 +137,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-01-07
+            01-07
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/sign-your-mac-app-with -developer-id/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/sign-your-mac-app-with -developer-id/"></span>
+            <a href="/2015/01/07/sign-your-mac-app-with -developer-id/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/07/sign-your-mac-app-with -developer-id/"></span>
             </a>
           </span>
           
@@ -152,133 +154,7 @@
     </div>
 
     
-      <div class="post-body">
 
-        
-        
-
-        
-          <h1 id="为何要签名">为何要签名</h1><blockquote>
-<p>对 app 进行代码签名可让用户确信它来自已知来源，且自最后一次签名之后未被修改。在您的 Mac app 或 iOS app 可以使用商店服务，安装到 iOS 设备上进行开发或测试，或者提交到 App Store 之前，必须先使用 Apple 颁布的证书对其进行签名。</p>
-</blockquote>
-<p>在 OS X 的<code>安全性与隐私</code>的设置里有一项设置是<code>允许从以下位置下载的应用程序</code>，默认的设置是<code>Mac App Store 和被认可的开发者</code>。</p>
-<p>也就是说在用户不手动修改设置的情况下，用户无法打开未签名的程序。</p>
-<p><img src="/images/2015-01-07/invalid_code_sign.png" alt="打开未签名程序时的警告"></p>
-<p>下面就来介绍如何使用 Developer ID 为 app 签名。</p>
-<p>注意：本文不适用于发布到 Mac App Store 的签名。</p>
-<a id="more"></a>
-<h1 id="如何签名">如何签名</h1><h2 id="将你的_Apple_ID_添加到_Xcode">将你的 Apple ID 添加到 Xcode</h2><ol>
-<li>打开 Xcode 的 Preferences。</li>
-<li>选择 <code>Accounts</code>。</li>
-<li>点击左下角的加号按钮。</li>
-<li>填入你的 Apple ID。</li>
-</ol>
-<h2 id="加入一个_Program">加入一个 Program</h2><p>在添加 Apple ID 的界面，你可以选择 <code>Join a Program...</code> 来加入一个 program。</p>
-<p>你也可以让 program 的管理员来将你添加到你们公司的 program。</p>
-<h2 id="在_Xcode_中设置_signing_identity">在 Xcode 中设置 signing identity</h2><ol>
-<li>选择你项目的 target。</li>
-<li>选择 <code>General</code>。</li>
-<li>在 <code>Signing</code> 中选择 <code>Developer ID</code>。</li>
-<li>在 <code>Team</code> 中选择你加入的 program。</li>
-</ol>
-<h2 id="创建_Developer_ID_certificate">创建 Developer ID certificate</h2><p>方法一：</p>
-<p>首先在自己的电脑上使用<code>钥匙串访问</code>来创建一个<code>certificate signing request (CSR)</code>。</p>
-<ol>
-<li>打开<code>钥匙串访问</code>，在菜单栏中选择<code>钥匙串访问 &gt; 证书助理 &gt; 从证书颁发机构请求证书</code>。</li>
-<li>填入你的邮件地址和常用名，选择下方的<code>存储到磁盘</code>，点击继续选择文件位置保存即可。</li>
-<li>管理员在 Member Center 里面的<code>Certificates, Identifiers &amp; Profiles</code>页面中，选择<code>Certificates</code>下方的<code>All</code>。</li>
-<li>选择右上角的加号按钮。</li>
-<li>选择<code>Production</code>下方的<code>Developer ID</code>。</li>
-<li>选择证书类型<code>Developer ID Application</code>，点击<code>Continue</code>。</li>
-<li>选择前面生成的 CSR（扩展名是 .certSigningRequest） 文件，点击<code>Continue</code>。</li>
-<li>选择<code>Generate</code>并且下载证书。</li>
-<li>将证书导入到 Keychain 中。</li>
-</ol>
-<p>方法二：</p>
-<ol>
-<li>打开 Xcode 的偏好设置，选择<code>Accounts</code>选项卡，选择加入的 program，点击<code>View Details</code>。</li>
-<li>此时 Xcode 没有找到任何证书，会提示是否要帮你申请证书，此时只要选择以<code>The Developer ID Application</code>开头的选项即可。（也可以点击左边的加号来添加一个<code>Developer ID Distribution</code>）</li>
-<li>等待 program 的管理员来审批。</li>
-</ol>
-<p>验证：</p>
-<p>方法一：</p>
-<p>在 Xcode 的 <code>Preference &gt; Accounts</code> 中选择加入的 program，选择 <code>View Details...</code>，应该能看到一项 <code>Developer ID Application</code>。</p>
-<p>方法二：</p>
-<p>在钥匙串访问中能找到一个名为 <code>Developer ID Application: Your Company Name</code> 的证书。</p>
-<h2 id="签名">签名</h2><p>方法一（使用 Xcode 签名）：</p>
-<ol>
-<li>选择菜单中的 <code>Product &gt; Archive</code>。</li>
-<li>（可选）选择 <code>Validate...</code> 来验证打包。</li>
-<li>点击 <code>Export...</code> </li>
-<li>按照提示选择 <code>Export a Developer ID-signed Application</code>。</li>
-<li>选择一个 team。</li>
-<li>输入文件名，保存即可。</li>
-</ol>
-<p>但是使用 Xcode 签名有可能会失败，下面的签名验证部分会提到。</p>
-<p>方法二（使用命令行）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign --force --verbose=<span class="number">4</span> --sign <span class="string">"Developer ID Application: Your Company Name"</span> Foo.app</span><br></pre></td></tr></table></figure>
-<p>codesign 要求项目中包含的所有框架、库都已经被签名，并且 codesign 不会自动帮你完成，这需要我们单独为每一个库进行签名后再为整个 app 签名。</p>
-<p>签名或验证一个 framework 时使用的路径是<code>MyCustomFramework/Versions/A</code>，比如 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign <span class="operator">-s</span> <span class="string">"Developer ID Application: Your Company Name"</span> ../MyCustomFramework/Versions/A</span><br></pre></td></tr></table></figure>
-<p><strong>签名时不要使用<code>--deep</code>参数。</strong></p>
-<p>如果 framework 签名失败，可能是由于</p>
-<ul>
-<li>Info.plist 文件中的 CFBundleExecutable 值与可执行文件的文件名不一致。</li>
-<li>目录结构不对（比如 QT），framework 的目录结构<strong>必须与下面完全一样。</strong></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MyFramework.framework/</span><br><span class="line">    MyFramework  -&gt; Versions/Current/MyFramework</span><br><span class="line">    Resources    -&gt; Versions/Current/Resources</span><br><span class="line">    Versions/</span><br><span class="line">        A/</span><br><span class="line">            MyFramework</span><br><span class="line">            Resources/</span><br><span class="line">                English.lproj/</span><br><span class="line">                    InfoPlist.strings</span><br><span class="line">                Info.plist</span><br><span class="line">        Current  -&gt; A</span><br></pre></td></tr></table></figure>
-<h2 id="签名验证">签名验证</h2><p>输入下面的命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spctl <span class="operator">-a</span> -v Foo.app</span><br></pre></td></tr></table></figure>
-<p>如果验证通过，则会提示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Foo.app: accepted  </span><br><span class="line"><span class="built_in">source</span>=Developer ID  </span><br><span class="line">origin=Developer ID Application: Your Company Name</span><br></pre></td></tr></table></figure>
-<p>出现下面的提示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Foo.app: rejected  </span><br><span class="line"><span class="built_in">source</span>=obsolete resource envelope</span><br></pre></td></tr></table></figure>
-<p>此时如果用户通过浏览器或者邮箱接收到安装包再打开 app 时就会提示文件已损坏。</p>
-<p>解决方法：</p>
-<p>使用下面的命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign --verify --deep --verbose=<span class="number">3</span> /path/to/signed/app</span><br></pre></td></tr></table></figure>
-<p>找出验证不通过的重新签名，再重新签名整个 app 即可。</p>
-<h1 id="脚本">脚本</h1><p>下面是我用来签名的脚本。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> commands</span><br><span class="line"></span><br><span class="line">APP_PATH = <span class="string">"/path/to/Foo.app"</span></span><br><span class="line">DEVELOPER_ID = <span class="string">"Developer ID Application: Your Awesome Company"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">signWithPath</span><span class="params">(path)</span>:</span></span><br><span class="line">    signCommand = <span class="string">"codesign --force --sign \"%s\" \"%s\""</span> % (DEVELOPER_ID, path)</span><br><span class="line">    retCode, result = commands.getstatusoutput(signCommand)</span><br><span class="line">    <span class="keyword">if</span> retCode != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> result</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"code sign failed"</span></span><br><span class="line">    <span class="keyword">return</span> retCode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validateWithPath</span><span class="params">(path)</span>:</span></span><br><span class="line">    signCommand = <span class="string">"codesign --verify --deep --verbose=3 \"%s\""</span> % path</span><br><span class="line">    retCode, result = commands.getstatusoutput(signCommand)</span><br><span class="line">    <span class="keyword">if</span> retCode == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Accepted!"</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> result</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Rejected!"</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sign</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"&gt; signing frameworks &amp; dylibs..."</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(APP_PATH):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"where's your app?!"</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    frameworkDir = os.path.join(APP_PATH, <span class="string">"Contents/"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># sign dylibs</span></span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(frameworkDir):</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> f.endswith(<span class="string">".dylib"</span>):</span><br><span class="line">                <span class="keyword">print</span> <span class="string">"signing"</span>, f</span><br><span class="line">                dylibPath = os.path.join(root, f)</span><br><span class="line">                signWithPath(dylibPath)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># sign frameworks</span></span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(frameworkDir):</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> dirs:</span><br><span class="line">            <span class="keyword">if</span> d.endswith(<span class="string">".framework"</span>):</span><br><span class="line">                <span class="keyword">print</span> <span class="string">"signing"</span>, d</span><br><span class="line">                frameworkPath = os.path.join(root, d, <span class="string">"Versions/A"</span>)</span><br><span class="line">                signWithPath(frameworkPath)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"&gt; singing app..."</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"singing"</span>, APP_PATH</span><br><span class="line">    signWithPath(APP_PATH)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"&gt; validate code sign..."</span></span><br><span class="line">    <span class="keyword">if</span> validateWithPath(APP_PATH) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Code sign completed!"</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Dohhh!"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sign()</span><br></pre></td></tr></table></figure>
-<h1 id="参考">参考</h1><p><a href="https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html#//apple_ref/doc/uid/TP40012582-CH31-SW30" target="_blank" rel="external">https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html#//apple_ref/doc/uid/TP40012582-CH31-SW30</a></p>
-<p><a href="http://furbo.org/2013/10/17/code-signing-and-mavericks/" target="_blank" rel="external">http://furbo.org/2013/10/17/code-signing-and-mavericks/</a></p>
-<p><a href="https://github.com/sunuslee/sunus-cookbook/blob/master/Cocoa/codesign.md" target="_blank" rel="external">https://github.com/sunuslee/sunus-cookbook/blob/master/Cocoa/codesign.md</a></p>
-
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/os-x/">
-                #OS X
-              </a>
-            
-          </div>
-        
-
-        
-          <div class="post-nav">
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2015/protocol-buffer-for-ios/">Protocol Buffers for iOS</a>
-              
-            </div>
-
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2014/errors-due-to-nested-pop-or-push/">Nested pop/push 导致的问题</a>
-              
-            </div>
-          </div>
-        
-
-        
-        
-      </div>
     
   </div>
 
@@ -303,15 +179,6 @@
 <div id="sidebar" class="sidebar">
   <div class="sidebar-inner">
 
-    
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview" data-target="site-overview">
-          站点概览
-        </li>
-      </ul>
     
 
     <div class="site-overview">
@@ -352,14 +219,6 @@
 
     </div>
 
-    
-      <div class="post-toc-wrap sidebar-panel-active">
-        <div class="post-toc-indicator-top post-toc-indicator"></div>
-        <div class="post-toc">
-          
-        </div>
-        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
-      </div>
     
 
   </div>
@@ -579,25 +438,6 @@
   
   
 
-  
-
-    
-      
-    
-
-    <script type="text/javascript">
-      var disqus_shortname = 'nix1024';
-      var disqus_identifier = 'archives/2015/01/index.html';
-      var disqus_url = '';
-
-      (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }());
-    </script>
   
 
 

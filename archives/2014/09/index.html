@@ -88,7 +88,7 @@
             
           
 
-          <div id="posts" class="posts-expand">
+          <div id="posts" class="posts-collapse">
             
 
   <span class="archive-move-on"></span>
@@ -126,7 +126,9 @@
           
           
             
-              Nested pop/push 导致的问题
+              <a class="post-title-link" href="/2014/09/03/errors-due-to-nested-pop-or-push/">
+                Nested pop/push 导致的问题
+              </a>
             
           
         </h1>
@@ -135,15 +137,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-09-03
+            09-03
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/errors-due-to-nested-pop-or-push/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/errors-due-to-nested-pop-or-push/"></span>
+            <a href="/2014/09/03/errors-due-to-nested-pop-or-push/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/09/03/errors-due-to-nested-pop-or-push/"></span>
             </a>
           </span>
           
@@ -152,63 +154,7 @@
     </div>
 
     
-      <div class="post-body">
 
-        
-        
-
-        
-          <p>有这样一个场景：当一个 ViewControllerA 出现的时候，我们检查某个状态值，如果符合条件就用 <code>pushViewController</code> 或 <code>popViewController</code> 跳转到另一页面。</p>
-<p>很容易想到的方法就是在 ViewControllerA 的 <code>viewDidLoad</code> 或者 <code>viewWillAppear</code> 中来检查状态并跳转。但这时候系统会给出警告：</p>
-<blockquote>
-<p>nested push animation can result in corrupted navigation bar.</p>
-<p>Finishing up a navigation transition in an unexpected state. Navigation Bar subview tree might get corrupted.</p>
-</blockquote>
-<p>或者</p>
-<blockquote>
-<p>Unbalanced calls to begin/end appearance transitions for <uinavigationcontroller: 0x6849b30=""></uinavigationcontroller:></p>
-</blockquote>
-<p>并且可能导致 navigationController 的标题栏出现重影甚至崩溃。</p>
-<a id="more"></a>
-<p>导致这个问题的原因是：<strong>当一个 ViewController 的出现有动画时</strong>，<code>viewWillAppear</code> 和 <code>viewDidAppear</code> 是应该成对出现的，如果在 <code>viewDidAppear</code> 被调用之前 <code>push/popViewController</code> 会导致转换过程在 <code>viewDidAppear</code> 还没被调用时就终止，系统处在一个错误的中间态。</p>
-<p>这里说的动画包括这个 ViewController 被 push 时有动画和下一个 ViewController 被 pop 时有动画。</p>
-<p>解决方法显然有两种，一种是去掉动画；另一种是在<code>viewDidAppear</code>中调用<code>push/popViewController</code>，但是这样会导致动画完成时前一个画面会闪现一下才切换到下一个画面，目前还没有找到避免的方法。</p>
-
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/ios/">
-                #iOS
-              </a>
-            
-          </div>
-        
-
-        
-          <div class="post-nav">
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2015/sign-your-mac-app-with -developer-id/">使用 Developer ID 为 Mac app 签名</a>
-              
-            </div>
-
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2014/arc-on-ios/">OC 中的 ARC</a>
-              
-            </div>
-          </div>
-        
-
-        
-        
-      </div>
     
   </div>
 
@@ -233,15 +179,6 @@
 <div id="sidebar" class="sidebar">
   <div class="sidebar-inner">
 
-    
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview" data-target="site-overview">
-          站点概览
-        </li>
-      </ul>
     
 
     <div class="site-overview">
@@ -282,14 +219,6 @@
 
     </div>
 
-    
-      <div class="post-toc-wrap sidebar-panel-active">
-        <div class="post-toc-indicator-top post-toc-indicator"></div>
-        <div class="post-toc">
-          
-        </div>
-        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
-      </div>
     
 
   </div>
@@ -509,25 +438,6 @@
   
   
 
-  
-
-    
-      
-    
-
-    <script type="text/javascript">
-      var disqus_shortname = 'nix1024';
-      var disqus_identifier = 'archives/2014/09/index.html';
-      var disqus_url = '';
-
-      (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }());
-    </script>
   
 
 
