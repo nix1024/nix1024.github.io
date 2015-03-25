@@ -134,21 +134,19 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install automake</span><br><span class="line">brew install libtool</span><br><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>如果后面的步骤出错了，请确保 /usr/local/bin 目录下有这些工具：automake、autoconf、autoreconf、aclocal、libtool、protoc。其中的 protoc 用来把 .proto 文件编译成 C++、Java 或 Python 代码。</p>
+<p>如果后面的步骤出错了，请确保已经安装了这些工具：automake、autoconf、autoreconf、aclocal、libtool、protoc。其中的 protoc 用来把 .proto 文件编译成 C++、Java 或 Python 代码。</p>
 <ul>
 <li>编译 protoc-gen-objc。protoc-gen-objc 是 protoc 的一个插件，使其能将 .proto 文件编译成 objective-c 代码。</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:alexeyxo/protobuf-objc.git</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> protobuf-objc</span><br><span class="line"></span><br><span class="line">./autogen.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后面的参数保证 configure 能找到 protobuf 相关的头文件和库</span></span><br><span class="line"><span class="comment"># 避免报 protobuf headers are required 错误</span></span><br><span class="line">./configure CXXFLAGS=-I/usr/<span class="built_in">local</span>/include LDFLAGS=-L/usr/<span class="built_in">local</span>/lib</span><br><span class="line"></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<ul>
-<li>将编译好的 protoc-gen-objc 拷贝到 /usr/local/bin 目录下。</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /PATH/TO/protobuf-objc/src/compiler/protoc-gen-objc /usr/local/bin</span><br></pre></td></tr></table></figure>
-<p>这一步确保 protoc 能够找到 protoc-gen-objc，避免报下面的错误：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">protoc-gen-objc: program not found or is not executable</span><br><span class="line">--objc_out: protoc-gen-objc: Plugin failed with status code <span class="number">1</span>.</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:alexeyxo/protobuf-objc.git</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> protobuf-objc</span><br><span class="line"></span><br><span class="line">./autogen.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后面的参数保证 configure 能找到 protobuf 相关的头文件和库</span></span><br><span class="line"><span class="comment"># 避免报 protobuf headers are required 错误</span></span><br><span class="line">./configure CXXFLAGS=-I/usr/<span class="built_in">local</span>/include LDFLAGS=-L/usr/<span class="built_in">local</span>/lib</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 <ul>
 <li>利用 protoc 将 .proto 文件编译成 objective-c 代码。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc message.proto --objc_out=<span class="string">"."</span></span><br></pre></td></tr></table></figure>
+<p>如果出现下面的错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">protoc-gen-objc: program not found or is not executable</span><br><span class="line">--objc_out: protoc-gen-objc: Plugin failed with status code <span class="number">1</span>.</span><br></pre></td></tr></table></figure>
+<p>可以尝试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /PATH/TO/protobuf-objc/src/compiler/protoc-gen-objc /usr/local/bin</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>在 Podfile 中添加<code>pod &#39;ProtocolBuffers&#39;, &#39;1.9.2&#39;</code>然后执行<code>pod install</code>。</p>
 </li>
