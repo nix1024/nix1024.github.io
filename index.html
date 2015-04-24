@@ -104,6 +104,91 @@
           
           
             
+              <a class="post-title-link" href="/2015/04/24/symbolicate-crash-log/">
+                Symbolicate iOS Crash Log
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-04-24
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/24/symbolicate-crash-log/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/04/24/symbolicate-crash-log/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <blockquote>
+<p>本文介绍的是如何处理 Xcode 无法自动 Symbolicate 的 Crash log。</p>
+</blockquote>
+<p>如果你得到这样的 Crash log，你一定想知道其中的 <code>0x4a000 + 37204</code> 究竟对应哪个方法调用。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>   CoreFoundation                  <span class="number">0x2dc73f7e</span> __exceptionPreprocess + <span class="number">126</span></span><br><span class="line"><span class="number">1</span>   libobjc.A.dylib                 <span class="number">0x384eecca</span> objc_exception_throw + <span class="number">34</span></span><br><span class="line"><span class="number">2</span>   CoreFoundation                  <span class="number">0x2dc77912</span> -[NSObject(NSObject) doesNotRecognizeSelector:] + <span class="number">198</span></span><br><span class="line"><span class="number">3</span>   CoreFoundation                  <span class="number">0x2dc761fe</span> ___forwarding___ + <span class="number">702</span></span><br><span class="line"><span class="number">4</span>   CoreFoundation                  <span class="number">0x2dbc5764</span> _CF_forwarding_prep_0 + <span class="number">20</span></span><br><span class="line"><span class="number">5</span>   YourAppName                     <span class="number">0x00053154</span> <span class="number">0x4a000</span> + <span class="number">37204</span></span><br><span class="line"><span class="number">6</span>   UIKit                           <span class="number">0x306f1c52</span> -[UIApplication _sendWillEnterForegroundCallbacks] + <span class="number">90</span></span><br></pre></td></tr></table></figure>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/04/24/symbolicate-crash-log/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/03/18/protocol-buffer-for-ios/">
                 Protocol Buffers for iOS
               </a>
@@ -851,97 +936,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/01/09/bupt-id-card-tut/">
-                北邮办理护照攻略
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-01-09
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/01/09/bupt-id-card-tut/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/09/bupt-id-card-tut/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>最近试图考驾照，但是报名时被告知需要有<strong>北京地址的身份证</strong>。如果已经有北京户口，就要办临时身份证；如果是外地户口，就要办<del>狗日的</del>暂住证。</p>
-<p>办临时身份证或者护照，需要在学校保卫科借户籍卡。于是悲剧开始了。</p>
-<p>大致是这个样子的：</p>
-<ul>
-<li>写申请，找导师签字。（如果是办护照，就需要在<a href="http://www.byr.edu.cn/">北邮人主页</a>提交申请。）</li>
-<li>找辅导员签字。</li>
-<li>到学院办公室盖章。</li>
-<li>到小白楼204的学生处盖章。</li>
-<li>带上学生证、身份证和申请到保卫处借户籍卡。慢着，他们只在上午8:30到11:30可以办理户籍卡借出！</li>
-<li>到北太平庄派出所办理。（如果是护照，<a href="http://bbs.byr.cn/#!article/GoAbroad/291163">这里</a>有一个攻略。万能的北邮人！）</li>
-</ul>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/01/09/bupt-id-card-tut/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/攻略/">
-                #攻略
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -974,7 +968,7 @@
       <p class="site-description motion-element"></p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">

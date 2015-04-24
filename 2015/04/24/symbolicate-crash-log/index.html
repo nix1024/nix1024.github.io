@@ -18,9 +18,9 @@
 
 
 
-	<meta name="keywords" content="Web," />
+	<meta name="keywords" content="iOS," />
 
-  <title> Head First Bootstrap // Nix 的自我修养 </title>
+  <title> Symbolicate iOS Crash Log // Nix 的自我修养 </title>
 </head>
 
 <body>
@@ -91,7 +91,7 @@
           
           
             
-              Head First Bootstrap
+              Symbolicate iOS Crash Log
             
           
         </h1>
@@ -100,15 +100,15 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2013-12-15
+            发表于 2015-04-24
           
         </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2013/12/15/head-first-bootstrap/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/15/head-first-bootstrap/"></span>
+            <a href="/2015/04/24/symbolicate-crash-log/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/04/24/symbolicate-crash-log/"></span>
             </a>
           </span>
           
@@ -124,22 +124,30 @@
 
         
           <blockquote>
-<p>如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。</p>
+<p>本文介绍的是如何处理 Xcode 无法自动 Symbolicate 的 Crash log。</p>
 </blockquote>
-<p>Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合<a href="http://www.ruanyifeng.com/blog/2012/05/responsive_web_design.html" target="_blank" rel="external">响应式设计</a>。要使用Bootstrap，拢共分三步。</p>
+<p>如果你得到这样的 Crash log，你一定想知道其中的 <code>0x4a000 + 37204</code> 究竟对应哪个方法调用。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>   CoreFoundation                  <span class="number">0x2dc73f7e</span> __exceptionPreprocess + <span class="number">126</span></span><br><span class="line"><span class="number">1</span>   libobjc.A.dylib                 <span class="number">0x384eecca</span> objc_exception_throw + <span class="number">34</span></span><br><span class="line"><span class="number">2</span>   CoreFoundation                  <span class="number">0x2dc77912</span> -[NSObject(NSObject) doesNotRecognizeSelector:] + <span class="number">198</span></span><br><span class="line"><span class="number">3</span>   CoreFoundation                  <span class="number">0x2dc761fe</span> ___forwarding___ + <span class="number">702</span></span><br><span class="line"><span class="number">4</span>   CoreFoundation                  <span class="number">0x2dbc5764</span> _CF_forwarding_prep_0 + <span class="number">20</span></span><br><span class="line"><span class="number">5</span>   YourAppName                     <span class="number">0x00053154</span> <span class="number">0x4a000</span> + <span class="number">37204</span></span><br><span class="line"><span class="number">6</span>   UIKit                           <span class="number">0x306f1c52</span> -[UIApplication _sendWillEnterForegroundCallbacks] + <span class="number">90</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h1 id="引入Bootstrap">引入Bootstrap</h1><p>可以在<a href="http://getbootstrap.com/" target="_blank" rel="external">Bootstrap官网</a>下载源码添加到自己的项目中，也可以在HTML中添加Bootcss提供的<a href="http://v3.bootcss.com/getting-started/#download-cdn" target="_blank" rel="external">CDN</a>。</p>
-<p>使用CDN的好处是，服务器会自动选取最近的节点来提供文件的下载；另一方面，当用户之前浏览其他网页的时候如果加载过了这个文件，在访问我们的站点时就会从缓存中读取。</p>
-<h1 id="改造自己的HTML">改造自己的HTML</h1><p>只要为自己的HTML元素<strong>赋上特定的类名</strong>，就可以修改各个元素的外观甚至行为。</p>
-<p>例如，要为按钮设置样式，只需要写下面的代码，</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Standard button --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-default"</span>&gt;</span>Default<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Provides extra visual weight and identifies the primary action in a set of buttons --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span>Primary<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates a successful or positive action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-success"</span>&gt;</span>Success<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Contextual button for informational alert messages --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-info"</span>&gt;</span>Info<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates caution should be taken with this action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-warning"</span>&gt;</span>Warning<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates a dangerous or potentially negative action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-danger"</span>&gt;</span>Danger<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Deemphasize a button by making it look like a link while maintaining button behavior --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-link"</span>&gt;</span>Link<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>就会得到这样的效果：</p>
-<p><img src="/images/2013-12-15/bootstrap-button.png" alt="Bootstrap按钮效果"></p>
-<p>另外，Bootstrap还提供了响应式的导航条，会根据浏览器的分辨率自动调整样式，在移动客户端上会变成弹出式下拉菜单，效果很棒。使用Bootstrap的栅格系统，可以轻松完成页面的布局，并且可以自适应分辨率。</p>
-<p>所有这些，都不需要写一行CSS或JS代码。</p>
-<h1 id="定制Bootstrap">定制Bootstrap</h1><p>当你用完爽过了之后，会发现所有用Bootstrap默认样式做出来的东西都是一副面孔，逼格瞬间下降了。这个时候就需要定制Bootstrap了。当然，已经有很多为Bootstrap开发的主题，比如<a href="http://bootswatch.com/‎" target="_blank" rel="external">Bootswatch</a>。除此之外，还可以通过在<a href="http://v3.bootcss.com/customize/" target="_blank" rel="external">这里</a>自定义LESS变量来定制Bootstrap。设置完毕后下载编译好的CSS和JS文件即可。</p>
-<hr>
-<p>Bootstrap自身提供了200个<strong>字体图标</strong>供我们使用。这些图标并不是图片，而是字体，可以不失真调整大小，自定义颜色、阴影等一切CSS能控制的样式。同样，只需要为<code>&lt;span&gt;</code>赋上特定的类名即可。如果丧心病狂的你认为这200个还不够用的话，我们还有<a href="http://fontawesome.io/" target="_blank" rel="external">Font Awesome</a>，总有一款适合你。</p>
+<p>首先计算 symbol address</p>
+<p>由下面这个公式得来：</p>
+<blockquote>
+<p>slide + stack address - load address = symbol address</p>
+</blockquote>
+<p>在上面的 Crash log 中的第 5 行中，<code>0x4a000</code> 就是 load address，<code>0x4a000 + 37204</code> 是 stack address。</p>
+<p>现在缺少的是 slide。</p>
+<p>下载应用的 .ipa 文件解压，会得到 Payload 目录，在此目录中执行下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -arch armv7 <span class="operator">-l</span> YourAppName.app/YourAppName | grep -B <span class="number">1</span> -A <span class="number">10</span> <span class="string">"LC_SEGM"</span> | grep -B <span class="number">3</span> -A <span class="number">8</span> <span class="string">"__TEXT"</span></span><br></pre></td></tr></table></figure>
+<p>会得到类似下面的结果：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Load <span class="command"><span class="keyword">command</span> <span class="title">1</span></span></span><br><span class="line">      cmd LC_SEGMENT</span><br><span class="line">  cmdsize <span class="number">736</span></span><br><span class="line">  segname __TEXT</span><br><span class="line">   vmaddr <span class="number">0x00004000</span></span><br><span class="line">   vmsize <span class="number">0x00314000</span></span><br><span class="line">  fileoff <span class="number">0</span></span><br><span class="line"> filesize <span class="number">3227648</span></span><br><span class="line">  maxprot <span class="number">0x00000005</span></span><br><span class="line"> initprot <span class="number">0x00000005</span></span><br><span class="line">   nsects <span class="number">10</span></span><br><span class="line">    flags <span class="number">0x0</span></span><br></pre></td></tr></table></figure>
+<p>其中的 vmaddr 即 silde。</p>
+<p>然后计算 symbol address （可以用 Google），在本例中就是：</p>
+<blockquote>
+<p>0x00004000 + 37204 = 0xD154</p>
+</blockquote>
+<p>最后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">atos -arch armv7 -o YourAppName.app/YourAppName <span class="number">0</span>xD154</span><br></pre></td></tr></table></figure>
+<p>就可以得到崩溃中与自己编写的逻辑相关的代码。</p>
 
         
       </div>
@@ -150,8 +158,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/web/">
-                #Web
+              <a href="/tags/ios/">
+                #iOS
               </a>
             
           </div>
@@ -161,13 +169,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2013/12/17/responsive-design-tester/">响应式设计测试工具</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2013/12/09/git-guide/">Git 简易指南</a>
+                <a href="/2015/03/18/protocol-buffer-for-ios/">Protocol Buffers for iOS</a>
               
             </div>
           </div>
@@ -261,7 +267,7 @@
       <div class="post-toc-wrap sidebar-panel-active">
         <div class="post-toc-indicator-top post-toc-indicator"></div>
         <div class="post-toc">
-          <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引入Bootstrap"><span class="nav-number">1.</span> <span class="nav-text">引入Bootstrap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#改造自己的HTML"><span class="nav-number">2.</span> <span class="nav-text">改造自己的HTML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定制Bootstrap"><span class="nav-number">3.</span> <span class="nav-text">定制Bootstrap</span></a></li></ol>
+          
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
       </div>
@@ -801,8 +807,8 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'nix1024';
-      var disqus_identifier = '2013/12/15/head-first-bootstrap/';
-      var disqus_url = 'http://yoursite.com/2013/12/15/head-first-bootstrap/';
+      var disqus_identifier = '2015/04/24/symbolicate-crash-log/';
+      var disqus_url = 'http://yoursite.com/2015/04/24/symbolicate-crash-log/';
 
       (function(){
         var dsq = document.createElement('script');
