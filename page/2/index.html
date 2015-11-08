@@ -1,295 +1,436 @@
 <!doctype html>
-<html class="theme-next use-motion">
+<html class="theme-next   use-motion ">
 <head>
-  
-
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
 
-
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0"/>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
 
 
-    <meta name="keywords" content="Nix,iOS,Dev" />
 
 
 
 
 
-    <link rel="shorticon icon" type="image/x-icon" href="/favicon.png?v=0.3.0" />
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
 
 
 
+
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Nix, iOS" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nix 的自我修养">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nix 的自我修养">
+<meta name="twitter:description">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
 
   <title> Nix 的自我修养 </title>
 </head>
 
-<body>
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
   <div class="container one-column 
    page-home 
 ">
     <div class="headband"></div>
 
-    <div id="header" class="header">
-      <div class="header-inner">
-        <h1 class="site-meta">
-    <a href="/" class="brand">
-        <span class="logo">
-          <i class="icon-logo"></i>
-        </span>
-        <span class="site-title">Nix 的自我修养</span>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Nix 的自我修养</span>
+      <span class="logo-line-after"><i></i></span>
     </a>
-</h1>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
 
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
 
-  <ul id="menu" class="menu">
-    
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
       
-      <li class="menu-item menu-item-home">
-        <a href="/">
-          <i class="menu-item-icon icon-home"></i> <br />
-          Home
-        </a>
-      </li>
-    
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首頁
+          </a>
+        </li>
       
-      <li class="menu-item menu-item-archives">
-        <a href="/archives">
-          <i class="menu-item-icon icon-archives"></i> <br />
-          Archives
-        </a>
-      </li>
-    
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            歸檔
+          </a>
+        </li>
       
-      <li class="menu-item menu-item-tags">
-        <a href="/tags">
-          <i class="menu-item-icon icon-tags"></i> <br />
-          Tags
-        </a>
-      </li>
-    
-  </ul>
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            標籤
+          </a>
+        </li>
+      
 
+      
+      
+    </ul>
+  
 
-      </div>
-    </div>
+  
+</nav>
 
-    <div id="main" class="main">
+ </div>
+    </header>
+
+    <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content">
           
-            
-          
+  <section id="posts" class="posts-expand">
 
-          <div id="posts" class="posts-expand">
-            
+    
+
+    
+    
+      
+      
+
+      
+    
+
+    
+      
+
   
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
+      <header class="post-header">
 
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/08/02/a-boring-saturday/">
-                一个慵懒的周六
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2014-08-02
-          
-        </span>
         
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/08/02/a-boring-saturday/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/02/a-boring-saturday/"></span>
-            </a>
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/08/02/a-boring-saturday/" itemprop="url">
+                  一个慵懒的周六
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2014-08-02T21:42:16+08:00" content="2014-08-02">
+              2014-08-02
+            </time>
           </span>
-          
-        
-      </div>
-    </div>
 
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/08/02/a-boring-saturday/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/02/a-boring-saturday/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
     
-      <div class="post-body">
 
-        
-        
 
+    <div class="post-body">
+
+      
+      
+
+      
         
-          
-            <p>上一次更新博客已经是4月份了。我还在。</p>
+          <p>上一次更新博客已经是4月份了。我还在。</p>
 <p>为了证明这个博客存在的意义并不只是为了找工作时给面试官一个好一些的印象，我决定继续更新下去。</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/08/02/a-boring-saturday/">
-                Read more &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/04/29/nix-learn-to-drive/">
-                学车记
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2014-04-29
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/04/29/nix-learn-to-drive/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/04/29/nix-learn-to-drive/"></span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/08/02/a-boring-saturday/#more" rel="contents">
+              閱讀全文 &raquo;
             </a>
-          </span>
-          
+          </div>
         
-      </div>
+      
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/04/29/nix-learn-to-drive/" itemprop="url">
+                  学车记
+                </a>
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2014-04-29T11:02:54+08:00" content="2014-04-29">
+              2014-04-29
+            </time>
+          </span>
+
           
-            <p>我报的是北京远航驾校，C1，周末速成班，富康，价格4400。从科目一第一次上课到拿到驾照，历时两个月整。</p>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/04/29/nix-learn-to-drive/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/04/29/nix-learn-to-drive/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>我报的是北京远航驾校，C1，周末速成班，富康，价格4400。从科目一第一次上课到拿到驾照，历时两个月整。</p>
 <h2 id="报名">报名</h2><p>报名的方式有很多种：学校代理、直接去报名点、找驾校教练。这里面的水有点深，我是找的学校代理，价格是4400，结果发现有一起学车的4200就能报上周末速成，还是比亚迪，说是赶上活动了，我顿时喷出一口老血。这个只能多打听打听了。</p>
 <p>报名地点是五道口华清嘉园的门口。如果你色觉正常，通常报名点的人会帮你代办体检。而我，就得自己去一趟二炮了。所幸体检过了，乃们以后坐我的车系好安全带就是了。</p>
 <p>至于富康还是比亚迪，我觉得富康也挺好。区别在于：富康的方向盘比较重，车屁股小，便宜100块。如果是力气小的女生，还是选比亚迪吧。<br>如果不差钱，还是选高冷的东方时尚吧，正规，服务质量也好。</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/04/29/nix-learn-to-drive/">
-                Read more &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/01/09/bupt-id-card-tut/">
-                北邮办理护照攻略
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2014-01-09
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/01/09/bupt-id-card-tut/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/09/bupt-id-card-tut/"></span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/04/29/nix-learn-to-drive/#more" rel="contents">
+              閱讀全文 &raquo;
             </a>
-          </span>
-          
+          </div>
         
-      </div>
+      
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/01/09/bupt-id-card-tut/" itemprop="url">
+                  北邮办理护照攻略
+                </a>
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2014-01-09T19:05:57+08:00" content="2014-01-09">
+              2014-01-09
+            </time>
+          </span>
+
           
-            <p>最近试图考驾照，但是报名时被告知需要有<strong>北京地址的身份证</strong>。如果已经有北京户口，就要办临时身份证；如果是外地户口，就要办<del>狗日的</del>暂住证。</p>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/01/09/bupt-id-card-tut/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/09/bupt-id-card-tut/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近试图考驾照，但是报名时被告知需要有<strong>北京地址的身份证</strong>。如果已经有北京户口，就要办临时身份证；如果是外地户口，就要办<del>狗日的</del>暂住证。</p>
 <p>办临时身份证或者护照，需要在学校保卫科借户籍卡。于是悲剧开始了。</p>
 <p>大致是这个样子的：</p>
 <ul>
@@ -300,679 +441,782 @@
 <li>带上学生证、身份证和申请到保卫处借户籍卡。慢着，他们只在上午8:30到11:30可以办理户籍卡借出！</li>
 <li>到北太平庄派出所办理。（如果是护照，<a href="http://bbs.byr.cn/#!article/GoAbroad/291163">这里</a>有一个攻略。万能的北邮人！）</li>
 </ul>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/01/09/bupt-id-card-tut/">
-                Read more &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/攻略/">
-                #攻略
-              </a>
-            
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/01/09/bupt-id-card-tut/#more" rel="contents">
+              閱讀全文 &raquo;
+            </a>
           </div>
         
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
       
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/01/03/vimium/">
-                Vimium
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2014-01-03
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/01/03/vimium/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/03/vimium/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/01/03/vimium/" itemprop="url">
+                  Vimium
+                </a>
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2014-01-03T15:56:34+08:00" content="2014-01-03">
+              2014-01-03
+            </time>
+          </span>
+
           
-            <p>像一个Geek一样使用Chrome吧。</p>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/01/03/vimium/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/03/vimium/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>像一个Geek一样使用Chrome吧。</p>
 <p>这款叫做<a href="https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb">Vimium</a>的插件让你可以在Chrome中使用Vim快捷键！</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/01/03/vimium/">
-                Read more &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/工具/">
-                #工具
-              </a>
-            
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/01/03/vimium/#more" rel="contents">
+              閱讀全文 &raquo;
+            </a>
           </div>
         
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
       
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/01/02/a-crawler/">
-                一只爬虫
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2014-01-02
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/01/02/a-crawler/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/02/a-crawler/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/01/02/a-crawler/" itemprop="url">
+                  一只爬虫
+                </a>
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2014-01-02T18:49:54+08:00" content="2014-01-02">
+              2014-01-02
+            </time>
+          </span>
+
           
-            <p>重新学习python，写了一个爬<a href="http://jandan.net/pic/">煎蛋无聊图</a>的爬虫。</p>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/01/02/a-crawler/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/02/a-crawler/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>重新学习python，写了一个爬<a href="http://jandan.net/pic/">煎蛋无聊图</a>的爬虫。</p>
 <p>这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/01/02/a-crawler/">
-                Read more &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/python/">
-                #Python
-              </a>
-            
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/01/02/a-crawler/#more" rel="contents">
+              閱讀全文 &raquo;
+            </a>
           </div>
         
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
       
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/12/31/happy-new-year/">
-                Happy New Year
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2013-12-31
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/12/31/happy-new-year/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/31/happy-new-year/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/12/31/happy-new-year/" itemprop="url">
+                  Happy New Year
+                </a>
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2013-12-31T23:09:35+08:00" content="2013-12-31">
+              2013-12-31
+            </time>
+          </span>
+
           
-            <p><img src="/images/2013-12-31/new-years-eve.gif" alt="new years eve"></p>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2013/12/31/happy-new-year/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/31/happy-new-year/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p><img src="/images/2013-12-31/new-years-eve.gif" alt="new years eve"></p>
 <p>Google今天的Doodle太好玩了。看了N久。不知道12点时那个站在旁边的4会不会蹦上来。</p>
 <p>新年快乐。</p>
 
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
             
-              <a class="post-title-link" href="/2013/12/29/spec-work/">
-                记一个小网站的诞生
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2013-12-28
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/12/29/spec-work/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/29/spec-work/"></span>
-            </a>
           </span>
-          
         
-      </div>
+      
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/12/29/spec-work/" itemprop="url">
+                  记一个小网站的诞生
+                </a>
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2013-12-29T00:12:01+08:00" content="2013-12-29">
+              2013-12-29
+            </time>
+          </span>
+
           
-            <p>最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。</p>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2013/12/29/spec-work/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/29/spec-work/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。</p>
 <p>很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。</p>
 <p>由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpress，跟Joomla差距应该不大。</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2013/12/29/spec-work/">
-                Read more &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/12/20/wordpress-change-domain/">
-                Wordpress 修改站点域名
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2013-12-20
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/12/20/wordpress-change-domain/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/20/wordpress-change-domain/"></span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2013/12/29/spec-work/#more" rel="contents">
+              閱讀全文 &raquo;
             </a>
-          </span>
-          
+          </div>
         
-      </div>
+      
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/12/20/wordpress-change-domain/" itemprop="url">
+                  Wordpress 修改站点域名
+                </a>
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2013-12-20T19:45:06+08:00" content="2013-12-20">
+              2013-12-20
+            </time>
+          </span>
+
           
-            <p>最近在做一个Wordpress小站，但是发现用域名不能访问，用IP访问不能正确加载CSS、JS和图片，后果可想而知，最重要的是不能登录Wordpress后台了。</p>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2013/12/20/wordpress-change-domain/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/20/wordpress-change-domain/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>最近在做一个Wordpress小站，但是发现用域名不能访问，用IP访问不能正确加载CSS、JS和图片，后果可想而知，最重要的是不能登录Wordpress后台了。</p>
 <p>但是查了下DNS设置是没问题的，可以Ping到正确的IP。后来一番Google才想起来我们伟大祖国母亲<del>再打我一次</del>的备案制度——这个域名还没有备案。Wordpress的资源文件路径中的域名是不能访问的，所以不能加载。而且万网上说一般的备案流程需要20个工作日（干！）。</p>
 <p>为了在这20天内可以用IP访问，可以通过设置Wordpress站点域名的方法来绕行。同样适用于更换域名。</p>
 <p>所需要做的是：登陆phpMyAdmin，将<code>wp-options</code>（默认前缀是<code>wp</code>）中的<code>siteurl</code>字段修改为站点的公网IP即可。</p>
 
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            <a class="post-title-link post-title-link-external" target="_blank" href="http://www.benjaminkeen.com/open-source-projects/smaller-projects/responsive-design-bookmarklet/">
-              响应式设计测试工具
-              <i class="icon-external-link"></i>
-            </a>
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2013-12-17
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/12/17/responsive-design-tester/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/17/responsive-design-tester/"></span>
-            </a>
+            
           </span>
-          
         
-      </div>
+      
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+              <a class="post-title-link post-title-link-external" target="_blank" href="http://www.benjaminkeen.com/open-source-projects/smaller-projects/responsive-design-bookmarklet/" itemprop="url">
+                响应式设计测试工具
+                <i class="fa fa-external-link"></i>
+              </a>
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2013-12-17T16:40:36+08:00" content="2013-12-17">
+              2013-12-17
+            </time>
+          </span>
+
           
-            <p>这是一个测试页面在各个分辨率下效果的工具。</p>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2013/12/17/responsive-design-tester/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/17/responsive-design-tester/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>这是一个测试页面在各个分辨率下效果的工具。</p>
 <p>只需要把它拖到书签栏，浏览到需要测试的页面，点击这个书签即可。</p>
 <p>不用谢。</p>
 
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
             
-              <a href="/tags/web/">
-                #Web
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/12/15/head-first-bootstrap/">
-                Head First Bootstrap
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2013-12-15
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/12/15/head-first-bootstrap/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/15/head-first-bootstrap/"></span>
-            </a>
           </span>
-          
         
-      </div>
+      
     </div>
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <div class="post-body">
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/12/15/head-first-bootstrap/" itemprop="url">
+                  Head First Bootstrap
+                </a>
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2013-12-15T18:54:57+08:00" content="2013-12-15">
+              2013-12-15
+            </time>
+          </span>
+
           
-            <blockquote>
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2013/12/15/head-first-bootstrap/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/15/head-first-bootstrap/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
 <p>如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。</p>
 </blockquote>
 <p>Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合<a href="http://www.ruanyifeng.com/blog/2012/05/responsive_web_design.html">响应式设计</a>。要使用Bootstrap，拢共分三步。</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2013/12/15/head-first-bootstrap/">
-                Read more &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/web/">
-                #Web
-              </a>
-            
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2013/12/15/head-first-bootstrap/#more" rel="contents">
+              閱讀全文 &raquo;
+            </a>
           </div>
         
+      
+    </div>
 
-        
+    <footer class="post-footer">
+      
 
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-  </div>
 
+  </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
+
+
+        </div>
+
+        
+
+
+        
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Nix Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Nix Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
           </div>
 
-          
-            <div class="pagination">
-              <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
-            </div>
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分類</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
           
         </div>
 
         
-<div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-
-<div id="sidebar" class="sidebar">
-  <div class="sidebar-inner">
-
-    
-
-    <div class="site-overview">
-      <div class="site-author motion-element">
-        <img class="site-author-image" src="/images/avatar.jpg" alt="Nix Wang" />
-        <p class="site-author-name">Nix Wang</p>
-      </div>
-      <p class="site-description motion-element"></p>
-      <div class="site-state motion-element">
-        <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">34</span>
-          <span class="site-state-item-name">posts</span>
-        </div>
-        <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">19</span>
-            <span class="site-state-item-name">tags</span>
-        </div>
-        <div class="site-state-item site-state-pages">
-            <span class="site-state-item-count">1</span>
-            <span class="site-state-item-name">pages</span>
-        </div>
-      </div>
-
-      
-
-      <div class="social-info motion-element">
         
-      </div>
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
 
-      
-      
-        <div class="cc-license motion-element">
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
-          </a>
+        <div class="links-of-author motion-element">
+          
         </div>
+
+      </section>
+
       
 
     </div>
-
-    
-
-  </div>
-</div>
+  </aside>
 
 
-      </div>
-    </div>
+      
+    </main>
 
-    <div id="footer" class="footer">
+    <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">
+        <div class="copyright" >
   
-  &copy; &nbsp;  2013 - 
-  2015
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2015</span>
   <span class="with-love">
-    <i class="icon-heart"></i>
+    <i class="icon-next-heart fa fa-heart"></i>
   </span>
-  <span class="author">Nix Wang</span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
 </div>
 
 <div class="theme-info">
-  Theme - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
 </div>
 
 
 
       </div>
-    </div>
+    </footer>
 
     <div class="back-to-top"></div>
   </div>
@@ -983,203 +1227,57 @@
   
 
   
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $(".fancybox").fancybox();
-    });
-  </script>
-
-  <script type="text/javascript">
-  function hasMobileUA () {
-    var nav = window.navigator;
-    var ua = nav.userAgent;
-    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
-
-    return pa.test(ua);
-  }
-
-  function isDesktop () {
-    return screen.width > 991 && !hasMobileUA();
-  }
-
-  function isTablet () {
-    return screen.width < 992 && screen.width > 767 && hasMobileUA();
-  }
-
-  function isMobile () {
-    return screen.width < 767 && hasMobileUA();
-  }
-
-  function escapeSelector (selector) {
-    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
-  }
-</script>
-
-  
-
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
-
-  
-  <script type="text/javascript" id="motion.page.home">
-    $(document).ready(function () {
-      $.Velocity.RunSequence([
-        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
-        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
-        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200, sequenceQueue: false } }
-      ]);
-      $('.menu-item').velocity('transition.slideDownIn', {display: null});
-    });
-  </script>
-
-
-  <script type="text/javascript" id="motion.global">
-  $(document).ready(function () {
-    var body = $('body');
-    var isSidebarVisible = false;
-    var sidebarToggle = $('.sidebar-toggle');
-    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
-    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
-    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
-    var sidebar = $('.sidebar');
-
-    var SIDEBAR_WIDTH = '320px';
-    var SIDEBAR_DISPLAY_DURATION = 300;
-
-    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
-
-    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
-    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
-
-    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
-    var sidebarToogleLine2ndStatusClose = {opacity: 0};
-
-    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
-    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
-
-    sidebatToggleMotion();
-    postsListMotion();
-    backToTopMotion();
-
-
-    $(document)
-      .on('sidebar.isShowing', function () {
-        isDesktop() && body.velocity(
-          {paddingRight: SIDEBAR_WIDTH},
-          SIDEBAR_DISPLAY_DURATION
-        );
-        sidebarContentMotion();
-      })
-      .on('sidebar.isHiding', function () {});
-
-
-    function backToTopMotion () {
-      var b2top = $('.back-to-top');
-      b2top.on('click', function () {
-        body.velocity('scroll');
-      });
-    }
-
-    function sidebarShowMotion () {
-
-      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
-      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
-      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
-
-      sidebar.velocity({width: SIDEBAR_WIDTH}, {
-        display: 'block',
-        duration: SIDEBAR_DISPLAY_DURATION,
-        complete: function () {
-          sidebar.addClass('sidebar-active');
-          sidebar.trigger('sidebar.didShow');
-        }
-      });
-      sidebar.trigger('sidebar.isShowing');
-    }
-
-    function sidebarHideMotion () {
-      isDesktop() && body.velocity({paddingRight: 0});
-      sidebar.velocity('reverse');
-
-      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
-      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
-      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
-
-      sidebar.removeClass('sidebar-active');
-      sidebar.trigger('sidebar.isHiding');
-    };
-
-    function sidebarContentMotion () {
-      $('.sidebar .motion-element').velocity(
-        'transition.slideRightIn',
-        {stagger: 50, drag: true}
-      );
-    }
-
-    function postsListMotion () {
-      var postMotionOptions = postMotionOptions || {stagger: 300, drag: true};
-      $('.post').velocity('transition.slideDownIn', postMotionOptions);
-    }
-
-    function sidebatToggleMotion () {
-      sidebarToggle.on('click', function () {
-        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
-        isSidebarVisible = !isSidebarVisible;
-      });
-
-      sidebarToggle.hover(function () {
-        if (isSidebarVisible) {return}
-        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
-        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
-        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
-      }, function () {
-        if (isSidebarVisible) {return}
-        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
-        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
-        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
-      });
-    }
-  });
-
-</script>
-
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
     
-      
     
+
+  
 
     <script type="text/javascript">
       var disqus_shortname = 'nix1024';
       var disqus_identifier = 'page/2/index.html';
+      var disqus_title = '';
       var disqus_url = '';
 
-      (function(){
+      function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
         dsq.type = 'text/javascript';
         dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }());
+      }
+
+      run_disqus_script('count.js');
+      
     </script>
   
 
 
   
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
 </body>
 </html>

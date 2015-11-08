@@ -1,129 +1,242 @@
 <!doctype html>
-<html class="theme-next use-motion">
+<html class="theme-next   use-motion ">
 <head>
-  
-
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
 
-
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0"/>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
 
-	<meta name="keywords" content="Python," />
 
-  <title> 一只爬虫 // Nix 的自我修养 </title>
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="重新学习python，写了一个爬煎蛋无聊图的爬虫。
+这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一只爬虫">
+<meta property="og:url" content="http://yoursite.com/2014/01/02/a-crawler/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="重新学习python，写了一个爬煎蛋无聊图的爬虫。
+这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一只爬虫">
+<meta name="twitter:description" content="重新学习python，写了一个爬煎蛋无聊图的爬虫。
+这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> 一只爬虫 | Nix 的自我修养 </title>
 </head>
 
-<body>
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
   <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
-    <div id="header" class="header">
-      <div class="header-inner">
-        <h1 class="site-meta">
-    <a href="/" class="brand">
-        <span class="logo">
-          <i class="icon-logo"></i>
-        </span>
-        <span class="site-title">Nix 的自我修养</span>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Nix 的自我修养</span>
+      <span class="logo-line-after"><i></i></span>
     </a>
-</h1>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
 
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
 
-  <ul id="menu" class="menu">
-    
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
       
-      <li class="menu-item menu-item-home">
-        <a href="/">
-          <i class="menu-item-icon icon-home"></i> <br />
-          Home
-        </a>
-      </li>
-    
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首頁
+          </a>
+        </li>
       
-      <li class="menu-item menu-item-archives">
-        <a href="/archives">
-          <i class="menu-item-icon icon-archives"></i> <br />
-          Archives
-        </a>
-      </li>
-    
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            歸檔
+          </a>
+        </li>
       
-      <li class="menu-item menu-item-tags">
-        <a href="/tags">
-          <i class="menu-item-icon icon-tags"></i> <br />
-          Tags
-        </a>
-      </li>
-    
-  </ul>
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            標籤
+          </a>
+        </li>
+      
 
+      
+      
+    </ul>
+  
 
-      </div>
-    </div>
+  
+</nav>
 
-    <div id="main" class="main">
+ </div>
+    </header>
+
+    <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content">
           
-            
-          
 
-          <div id="posts" class="posts-expand">
-            
+  <div id="posts" class="posts-expand">
+    
+
+  
   
 
-  <div class="post post-type-normal ">
-    <div class="post-header">
+  
+  
+  
 
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              一只爬虫
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2014-01-02
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/01/02/a-crawler/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/02/a-crawler/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
-      <div class="post-body">
+      <header class="post-header">
 
         
         
-
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                一只爬虫
+              
+            
+          </h1>
         
-          <p>重新学习python，写了一个爬<a href="http://jandan.net/pic/" target="_blank" rel="external">煎蛋无聊图</a>的爬虫。</p>
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2014-01-02T18:49:54+08:00" content="2014-01-02">
+              2014-01-02
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/01/02/a-crawler/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/01/02/a-crawler/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>重新学习python，写了一个爬<a href="http://jandan.net/pic/" target="_blank" rel="external">煎蛋无聊图</a>的爬虫。</p>
 <p>这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。</p>
 <a id="more"></a>
 <p>其间遇到了一个异常<code>bad character range</code>，放狗一搜，看到stackoverflow上说正则表达式写错了，我改了半天正则表达式，还是不能正确运行。最后知道真相我的眼泪掉下来，我把<code>re.findall</code>的两个参数传反了。</p>
@@ -131,164 +244,200 @@
 <p>下面是代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_img_url</span><span class="params">(page_url)</span>:</span></span><br><span class="line">    socket.setdefaulttimeout(<span class="number">20</span>)   <span class="comment"># 设置超时时间</span></span><br><span class="line">    imgs = []</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        content_in_bytes = urllib.request.urlopen(page_url).read()</span><br><span class="line">        content = str(content_in_bytes.decode(<span class="string">'utf-8'</span>))</span><br><span class="line">        pattern = <span class="string">r'&lt;img src="(.*\.(?:jpg|jpeg|gif))"'</span></span><br><span class="line">        imgs = re.findall(pattern, content)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"parse content failed %r"</span> % str(e))</span><br><span class="line">    <span class="keyword">return</span> imgs</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download_img</span><span class="params">(url, save_path)</span>:</span></span><br><span class="line">    <span class="comment"># 从URL中获取文件名</span></span><br><span class="line">    filename = url.split(<span class="string">"/"</span>)[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        urllib.request.urlretrieve(url, save_path + filename, <span class="keyword">None</span>)</span><br><span class="line">        print(<span class="string">"download succeeded"</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"download failed %r"</span> % str(e))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">jandan_xxoo</span><span class="params">(folder_path, page_no)</span>:</span></span><br><span class="line">    print(<span class="string">"page "</span>, page_no)</span><br><span class="line">    url = <span class="string">r"http://jandan.net/pic/page-"</span> + str(page_no) + <span class="string">'#comments'</span></span><br><span class="line">    path = folderpath + str(page_no) + <span class="string">'\\'</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(path):</span><br><span class="line">        print(<span class="string">"page already downloaded"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        os.mkdir(path)</span><br><span class="line">    imgs = get_img_url(url)</span><br><span class="line">    <span class="keyword">for</span> img <span class="keyword">in</span> imgs:</span><br><span class="line">        download_img(img, path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    folderpath= <span class="string">"E:\\study\\py\\img\\jandan\\"</span></span><br><span class="line">    page_no = <span class="number">3945</span>          <span class="comment"># 从3945页开始下载</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">30</span>):    <span class="comment"># 一共下载30页</span></span><br><span class="line">        jandan_xxoo(folderpath, page_no - i)</span><br></pre></td></tr></table></figure></p>
 <p>代码比较丑陋，有空还是得去看看<a href="http://www.python.org/dev/peps/pep-0008/" target="_blank" rel="external">PEP8</a>，一个python的代码规范。</p>
 <p>既然你都已经看到了这里，估计你也想到了，把url里面的<code>pic</code>换成<code>ooxx</code>就可以批量下载<a href="http://jandan.net/ooxx" target="_blank" rel="external">妹子图</a>了。不用谢。</p>
+</span>
+      
+    </div>
 
-        
-      </div>
-    
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag">#Python</a>
+          
+        </div>
+      
 
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <a href="/tags/python/">
-                #Python
+              <a href="/2013/12/31/happy-new-year/" rel="next" title="Happy New Year">
+                <i class="fa fa-chevron-left"></i> Happy New Year
               </a>
             
           </div>
-        
 
-        
-          <div class="post-nav">
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2014/01/03/vimium/">Vimium</a>
-              
-            </div>
-
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2013/12/31/happy-new-year/">Happy New Year</a>
-              
-            </div>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/03/vimium/" rel="prev" title="Vimium">
+                Vimium <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
-        
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
 
         
+
+
         
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       </div>
     
   </div>
 
 
+      </div>
 
+      
+        
   
-    <div class="comments" id="comments">
-      
-        <div id="disqus_thread">
-          <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        </div>
-      
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
-  
+  </div>
 
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Nix Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Nix Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
           </div>
 
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分類</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
           
         </div>
 
         
-<div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-
-<div id="sidebar" class="sidebar">
-  <div class="sidebar-inner">
-
-    
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-          Table Of Contents
-        </li>
-        <li class="sidebar-nav-overview" data-target="site-overview">
-          Overview
-        </li>
-      </ul>
-    
-
-    <div class="site-overview">
-      <div class="site-author motion-element">
-        <img class="site-author-image" src="/images/avatar.jpg" alt="Nix Wang" />
-        <p class="site-author-name">Nix Wang</p>
-      </div>
-      <p class="site-description motion-element"></p>
-      <div class="site-state motion-element">
-        <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">34</span>
-          <span class="site-state-item-name">posts</span>
-        </div>
-        <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">19</span>
-            <span class="site-state-item-name">tags</span>
-        </div>
-        <div class="site-state-item site-state-pages">
-            <span class="site-state-item-count">1</span>
-            <span class="site-state-item-name">pages</span>
-        </div>
-      </div>
-
-      
-
-      <div class="social-info motion-element">
         
-      </div>
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
 
-      
-      
-        <div class="cc-license motion-element">
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
-          </a>
-        </div>
-      
-
-    </div>
-
-    
-      <div class="post-toc-wrap sidebar-panel-active">
-        <div class="post-toc-indicator-top post-toc-indicator"></div>
-        <div class="post-toc">
+        <div class="links-of-author motion-element">
           
         </div>
-        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
-      </div>
-    
 
-  </div>
-</div>
+      </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目錄</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
 
-      </div>
     </div>
+  </aside>
 
-    <div id="footer" class="footer">
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">
+        <div class="copyright" >
   
-  &copy; &nbsp;  2013 - 
-  2015
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2015</span>
   <span class="with-love">
-    <i class="icon-heart"></i>
+    <i class="icon-next-heart fa fa-heart"></i>
   </span>
-  <span class="author">Nix Wang</span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
 </div>
 
 <div class="theme-info">
-  Theme - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
 </div>
 
 
 
       </div>
-    </div>
+    </footer>
 
     <div class="back-to-top"></div>
   </div>
@@ -299,349 +448,53 @@
   
 
   
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = '2014/01/02/a-crawler/';
+      var disqus_title = '一只爬虫';
+      var disqus_url = 'http://yoursite.com/2014/01/02/a-crawler/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+
+  
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $(".fancybox").fancybox();
-    });
-  </script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
 
-  <script type="text/javascript">
-  function hasMobileUA () {
-    var nav = window.navigator;
-    var ua = nav.userAgent;
-    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
 
-    return pa.test(ua);
-  }
-
-  function isDesktop () {
-    return screen.width > 991 && !hasMobileUA();
-  }
-
-  function isTablet () {
-    return screen.width < 992 && screen.width > 767 && hasMobileUA();
-  }
-
-  function isMobile () {
-    return screen.width < 767 && hasMobileUA();
-  }
-
-  function escapeSelector (selector) {
-    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
-  }
-</script>
-
-  
-
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
   <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
 
-  
-
-  <script type="text/javascript" id="motion.global">
-  $(document).ready(function () {
-    var body = $('body');
-    var isSidebarVisible = false;
-    var sidebarToggle = $('.sidebar-toggle');
-    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
-    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
-    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
-    var sidebar = $('.sidebar');
-
-    var SIDEBAR_WIDTH = '320px';
-    var SIDEBAR_DISPLAY_DURATION = 300;
-
-    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
-
-    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
-    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
-
-    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
-    var sidebarToogleLine2ndStatusClose = {opacity: 0};
-
-    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
-    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
-
-    sidebatToggleMotion();
-    postsListMotion();
-    backToTopMotion();
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
 
 
-    $(document)
-      .on('sidebar.isShowing', function () {
-        isDesktop() && body.velocity(
-          {paddingRight: SIDEBAR_WIDTH},
-          SIDEBAR_DISPLAY_DURATION
-        );
-        sidebarContentMotion();
-      })
-      .on('sidebar.isHiding', function () {});
-
-
-    function backToTopMotion () {
-      var b2top = $('.back-to-top');
-      b2top.on('click', function () {
-        body.velocity('scroll');
-      });
-    }
-
-    function sidebarShowMotion () {
-
-      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
-      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
-      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
-
-      sidebar.velocity({width: SIDEBAR_WIDTH}, {
-        display: 'block',
-        duration: SIDEBAR_DISPLAY_DURATION,
-        complete: function () {
-          sidebar.addClass('sidebar-active');
-          sidebar.trigger('sidebar.didShow');
-        }
-      });
-      sidebar.trigger('sidebar.isShowing');
-    }
-
-    function sidebarHideMotion () {
-      isDesktop() && body.velocity({paddingRight: 0});
-      sidebar.velocity('reverse');
-
-      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
-      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
-      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
-
-      sidebar.removeClass('sidebar-active');
-      sidebar.trigger('sidebar.isHiding');
-    };
-
-    function sidebarContentMotion () {
-      $('.sidebar .motion-element').velocity(
-        'transition.slideRightIn',
-        {stagger: 50, drag: true}
-      );
-    }
-
-    function postsListMotion () {
-      var postMotionOptions = postMotionOptions || {stagger: 300, drag: true};
-      $('.post').velocity('transition.slideDownIn', postMotionOptions);
-    }
-
-    function sidebatToggleMotion () {
-      sidebarToggle.on('click', function () {
-        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
-        isSidebarVisible = !isSidebarVisible;
-      });
-
-      sidebarToggle.hover(function () {
-        if (isSidebarVisible) {return}
-        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
-        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
-        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
-      }, function () {
-        if (isSidebarVisible) {return}
-        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
-        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
-        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
-      });
-    }
-  });
-
-</script>
-
-
-
-
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
   
-<script type="text/javascript" id="bootstrap.scrollspy.custom">
-  /* ========================================================================
-  * Bootstrap: scrollspy.js v3.3.2
-  * http://getbootstrap.com/javascript/#scrollspy
-  * ========================================================================
-  * Copyright 2011-2015 Twitter, Inc.
-  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-  * ======================================================================== */
-
-  /**
-   * Custom by iissnan
-   *
-   * - Add a `clear.bs.scrollspy` event.
-   * - Esacpe targets selector.
-   */
-
-
-  +function ($) {
-    'use strict';
-
-    // SCROLLSPY CLASS DEFINITION
-    // ==========================
-
-    function ScrollSpy(element, options) {
-      this.$body          = $(document.body)
-      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
-      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
-      this.selector       = (this.options.target || '') + ' .nav li > a'
-      this.offsets        = []
-      this.targets        = []
-      this.activeTarget   = null
-      this.scrollHeight   = 0
-
-      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
-      this.refresh()
-      this.process()
-    }
-
-    ScrollSpy.VERSION  = '3.3.2'
-
-    ScrollSpy.DEFAULTS = {
-      offset: 10
-    }
-
-    ScrollSpy.prototype.getScrollHeight = function () {
-      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
-    }
-
-    ScrollSpy.prototype.refresh = function () {
-      var that          = this
-      var offsetMethod  = 'offset'
-      var offsetBase    = 0
-
-      this.offsets      = []
-      this.targets      = []
-      this.scrollHeight = this.getScrollHeight()
-
-      if (!$.isWindow(this.$scrollElement[0])) {
-        offsetMethod = 'position'
-        offsetBase   = this.$scrollElement.scrollTop()
-      }
-
-      this.$body
-        .find(this.selector)
-        .map(function () {
-          var $el   = $(this)
-          var href  = $el.data('target') || $el.attr('href')
-          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
-
-          return ($href
-            && $href.length
-            && $href.is(':visible')
-            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
-        })
-        .sort(function (a, b) { return a[0] - b[0] })
-        .each(function () {
-          that.offsets.push(this[0])
-          that.targets.push(this[1])
-        })
-
-
-    }
-
-    ScrollSpy.prototype.process = function () {
-      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
-      var scrollHeight = this.getScrollHeight()
-      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
-      var offsets      = this.offsets
-      var targets      = this.targets
-      var activeTarget = this.activeTarget
-      var i
-
-      if (this.scrollHeight != scrollHeight) {
-        this.refresh()
-      }
-
-      if (scrollTop >= maxScroll) {
-        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
-      }
-
-      if (activeTarget && scrollTop < offsets[0]) {
-        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
-        this.activeTarget = null
-        return this.clear()
-      }
-
-      for (i = offsets.length; i--;) {
-        activeTarget != targets[i]
-          && scrollTop >= offsets[i]
-          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
-          && this.activate(targets[i])
-      }
-    }
-
-    ScrollSpy.prototype.activate = function (target) {
-      this.activeTarget = target
-
-      this.clear()
-
-      var selector = this.selector +
-        '[data-target="' + target + '"],' +
-        this.selector + '[href="' + target + '"]'
-
-      var active = $(selector)
-        .parents('li')
-        .addClass('active')
-
-      if (active.parent('.dropdown-menu').length) {
-        active = active
-          .closest('li.dropdown')
-          .addClass('active')
-      }
-
-      active.trigger('activate.bs.scrollspy')
-    }
-
-    ScrollSpy.prototype.clear = function () {
-      $(this.selector)
-        .parentsUntil(this.options.target, '.active')
-        .removeClass('active')
-    }
-
-
-    // SCROLLSPY PLUGIN DEFINITION
-    // ===========================
-
-    function Plugin(option) {
-      return this.each(function () {
-        var $this   = $(this)
-        var data    = $this.data('bs.scrollspy')
-        var options = typeof option == 'object' && option
-
-        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
-        if (typeof option == 'string') data[option]()
-      })
-    }
-
-    var old = $.fn.scrollspy
-
-    $.fn.scrollspy             = Plugin
-    $.fn.scrollspy.Constructor = ScrollSpy
-
-
-    // SCROLLSPY NO CONFLICT
-    // =====================
-
-    $.fn.scrollspy.noConflict = function () {
-      $.fn.scrollspy = old
-      return this
-    }
-
-
-    // SCROLLSPY DATA-API
-    // ==================
-
-    $(window).on('load.bs.scrollspy.data-api', function () {
-      $('[data-spy="scroll"]').each(function () {
-        var $spy = $(this)
-        Plugin.call($spy, $spy.data())
-      })
-    })
-
-  }(jQuery);
-</script>
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
 
 
 <script type="text/javascript" id="sidebar.toc.highlight">
@@ -674,7 +527,6 @@
     }
 
     function getTOCMaxHeight () {
-      var $sidebarInner = $('.sidebar-inner');
       var height = $('.sidebar').height() -
                    $tocSelector.position().top -
                    $('.post-toc-indicator-bottom').height();
@@ -696,7 +548,7 @@
       )
     }
 
-    $(document).on('sidebar.didShow', function () {
+    $(document).on('sidebar.motion.complete', function () {
       processTOC();
     });
 
@@ -713,7 +565,6 @@
       element.on('mousewheel DOMMouseScroll', function (event) {
           var oe = event.originalEvent;
           var delta = oe.wheelDelta || -oe.detail;
-          var self = this;
 
           this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
           event.preventDefault();
@@ -723,89 +574,92 @@
     }
 
     function tocOverflowIndicator (indicator, action) {
-      $(indicator).velocity('stop').velocity({
-        opacity: action === 'show' ? 0.4 : 0
-      }, { duration: 100 });
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
     }
 
   });
 </script>
 
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
 
-  <script type="text/javascript" id="sidebar.nav">
-    $(document).ready(function () {
-      var html = $('html');
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
 
-      $('.sidebar-nav li').on('click', function () {
-        var item = $(this);
-        var activeTabClassName = 'sidebar-nav-active';
-        var activePanelClassName = 'sidebar-panel-active';
-        if (item.hasClass(activeTabClassName)) {
-          return;
-        }
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
 
-        var currentTarget = $('.' + activePanelClassName);
-        var target = $('.' + item.data('target'));
-
-        currentTarget.velocity('transition.slideUpOut', 200, function () {
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
           target
             .velocity('stop')
-            .velocity('transition.slideDownIn', 200)
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
             .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
         });
 
-        item.siblings().removeClass(activeTabClassName);
-        item.addClass(activeTabClassName);
-      });
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
 
-      $('.post-toc a').on('click', function (e) {
-        e.preventDefault();
-        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
         html.velocity('stop').velocity('scroll', {
           offset: offset  + 'px',
           mobileHA: false
-        });
-      });
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
 
-      // Expand sidebar on post detail page by default, when post has a toc.
+     // Expand sidebar on post detail page by default, when post has a toc.
       if (false) //($('.post-toc').html().trim().length > 0 && isDesktop()) {
         setTimeout(function () {
           $('.sidebar-toggle').trigger('click');
         }, 800);
       }
-    });
-  </script>
+    };
+  });
+</script>
 
 
 
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
 
+  
   
 
   
   
 
-  
-
-    
-      
-    
-
-    <script type="text/javascript">
-      var disqus_shortname = 'nix1024';
-      var disqus_identifier = '2014/01/02/a-crawler/';
-      var disqus_url = 'http://yoursite.com/2014/01/02/a-crawler/';
-
-      (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }());
-    </script>
-  
-
-
-  
 </body>
 </html>

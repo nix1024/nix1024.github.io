@@ -1,746 +1,688 @@
 <!doctype html>
-<html class="theme-next use-motion">
+<html class="theme-next   use-motion ">
 <head>
-  
-
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
 
-
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0"/>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
 
 
-    <meta name="keywords" content="Nix,iOS,Dev" />
 
 
 
 
 
-    <link rel="shorticon icon" type="image/x-icon" href="/favicon.png?v=0.3.0" />
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
 
 
 
 
-  <title> Archive // Nix 的自我修养 </title>
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Nix, iOS" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nix 的自我修养">
+<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nix 的自我修养">
+<meta name="twitter:description">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> 歸檔 | Nix 的自我修养 </title>
 </head>
 
-<body>
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
   <div class="container one-column  page-archive ">
     <div class="headband"></div>
 
-    <div id="header" class="header">
-      <div class="header-inner">
-        <h1 class="site-meta">
-    <a href="/" class="brand">
-        <span class="logo">
-          <i class="icon-logo"></i>
-        </span>
-        <span class="site-title">Nix 的自我修养</span>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Nix 的自我修养</span>
+      <span class="logo-line-after"><i></i></span>
     </a>
-</h1>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
 
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
 
-  <ul id="menu" class="menu">
-    
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
       
-      <li class="menu-item menu-item-home">
-        <a href="/">
-          <i class="menu-item-icon icon-home"></i> <br />
-          Home
-        </a>
-      </li>
-    
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首頁
+          </a>
+        </li>
       
-      <li class="menu-item menu-item-archives">
-        <a href="/archives">
-          <i class="menu-item-icon icon-archives"></i> <br />
-          Archives
-        </a>
-      </li>
-    
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            歸檔
+          </a>
+        </li>
       
-      <li class="menu-item menu-item-tags">
-        <a href="/tags">
-          <i class="menu-item-icon icon-tags"></i> <br />
-          Tags
-        </a>
-      </li>
-    
-  </ul>
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            標籤
+          </a>
+        </li>
+      
 
+      
+      
+    </ul>
+  
 
-      </div>
-    </div>
+  
+</nav>
 
-    <div id="main" class="main">
+ </div>
+    </header>
+
+    <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content">
           
-            
-          
 
-          <div id="posts" class="posts-collapse">
-            
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  <span class="archive-move-on"></span>
-
-  <span class="archive-page-counter">
-    
-    
-     
-    
-    OK! 34 posts in total. Keep on posting.
-  </span>
-
-  
-
-    
-    
-    
-
-    
+    <span class="archive-page-counter">
       
-      <div class="collection-title">
-        <h2 class="archive-year motion-element" id="archive-year-2013">2013</h2>
-      </div>
-    
-    
+      
+       
+      
+      OK! 目前共計 34 篇文章。 繼續努力。
+    </span>
 
     
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            <a class="post-title-link post-title-link-external" target="_blank" href="http://rogerdudler.github.io/git-guide/index.zh.html">
-              Git 简易指南
-              <i class="icon-external-link"></i>
-            </a>
-          
-        </h1>
       
+
+      
+        
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2013">2013</h2>
+        </div>
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+          <a class="post-title-link post-title-link-external" target="_blank" href="http://rogerdudler.github.io/git-guide/index.zh.html" itemprop="url">
+            Git 简易指南
+            <i class="fa fa-external-link-square"></i>
+          </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            12-09
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/12/09/git-guide/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/09/git-guide/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-12-09T13:13:09+08:00"
+              content="2013-12-09" >
+          12-09
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/12/01/farbox-theme/">
-                FarBox 主题
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/12/01/farbox-theme/" itemprop="url">
+              
+                <span itemprop="name">FarBox 主题</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            11-30
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/12/01/farbox-theme/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/01/farbox-theme/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-12-01T00:45:19+08:00"
+              content="2013-12-01" >
+          12-01
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/11/29/hhkb/">
-                HHKB上手
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/11/29/hhkb/" itemprop="url">
+              
+                <span itemprop="name">HHKB上手</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            11-29
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/11/29/hhkb/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/11/29/hhkb/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-11-29T23:48:28+08:00"
+              content="2013-11-29" >
+          11-29
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/11/28/hello-farbox/">
-                Hello Farbox
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/11/28/hello-farbox/" itemprop="url">
+              
+                <span itemprop="name">Hello Farbox</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            11-28
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/11/28/hello-farbox/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/11/28/hello-farbox/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-11-28T13:31:39+08:00"
+              content="2013-11-28" >
+          11-28
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/07/15/cool-stuff/">
-                一些酷酷的东西
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/07/15/cool-stuff/" itemprop="url">
+              
+                <span itemprop="name">一些酷酷的东西</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            07-15
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/07/15/cool-stuff/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/07/15/cool-stuff/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-07-15T19:35:52+08:00"
+              content="2013-07-15" >
+          07-15
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/06/20/letter-press-game/">
-                Letter Press
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/06/20/letter-press-game/" itemprop="url">
+              
+                <span itemprop="name">Letter Press</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            06-20
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/06/20/letter-press-game/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/06/20/letter-press-game/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-06-20T23:14:43+08:00"
+              content="2013-06-20" >
+          06-20
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/05/28/google-unchained/">
-                Google Unchained
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/05/28/google-unchained/" itemprop="url">
+              
+                <span itemprop="name">Google Unchained</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            05-28
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/05/28/google-unchained/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/05/28/google-unchained/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-05-28T16:40:28+08:00"
+              content="2013-05-28" >
+          05-28
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/05/23/regular-expression/">
-                正则表达式学习笔记
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/05/23/regular-expression/" itemprop="url">
+              
+                <span itemprop="name">正则表达式学习笔记</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            05-23
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/05/23/regular-expression/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/05/23/regular-expression/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-05-23T16:29:35+08:00"
+              content="2013-05-23" >
+          05-23
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/05/23/db-index/">
-                关于数据库索引
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/05/23/db-index/" itemprop="url">
+              
+                <span itemprop="name">关于数据库索引</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            05-23
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/05/23/db-index/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/05/23/db-index/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-05-23T08:42:41+08:00"
+              content="2013-05-23" >
+          05-23
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
 
       
       
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2013/05/21/zheteng/">
-                折腾
-              </a>
-            
-          
-        </h1>
       
+
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2013/05/21/zheteng/" itemprop="url">
+              
+                <span itemprop="name">折腾</span>
+              
+            </a>
+        
+      </h1>
 
       <div class="post-meta">
-        <span class="post-time">
-          
-            05-21
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2013/05/21/zheteng/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/05/21/zheteng/"></span>
-            </a>
-          </span>
-          
-        
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2013-05-21T16:16:16+08:00"
+              content="2013-05-21" >
+          05-21
+        </time>
       </div>
-    </div>
+
+    </header>
+  </article>
+
+
 
     
 
-    
-  </div>
-
-
+  </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
+
+
+
+        </div>
+
+        
+
+
+        
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="Nix Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Nix Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
           </div>
 
-          
-            <div class="pagination">
-              <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo;</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">&raquo;</a>
-            </div>
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分類</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">標籤</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
           
         </div>
 
         
-<div class="sidebar-toggle">
-  <div class="sidebar-toggle-line-wrap">
-    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-  </div>
-</div>
-
-<div id="sidebar" class="sidebar">
-  <div class="sidebar-inner">
-
-    
-
-    <div class="site-overview">
-      <div class="site-author motion-element">
-        <img class="site-author-image" src="/images/avatar.jpg" alt="Nix Wang" />
-        <p class="site-author-name">Nix Wang</p>
-      </div>
-      <p class="site-description motion-element"></p>
-      <div class="site-state motion-element">
-        <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">34</span>
-          <span class="site-state-item-name">posts</span>
-        </div>
-        <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">19</span>
-            <span class="site-state-item-name">tags</span>
-        </div>
-        <div class="site-state-item site-state-pages">
-            <span class="site-state-item-count">1</span>
-            <span class="site-state-item-name">pages</span>
-        </div>
-      </div>
-
-      
-
-      <div class="social-info motion-element">
         
-      </div>
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
 
-      
-      
-        <div class="cc-license motion-element">
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
-          </a>
+        <div class="links-of-author motion-element">
+          
         </div>
+
+      </section>
+
       
 
     </div>
-
-    
-
-  </div>
-</div>
+  </aside>
 
 
-      </div>
-    </div>
+      
+    </main>
 
-    <div id="footer" class="footer">
+    <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">
+        <div class="copyright" >
   
-  &copy; &nbsp;  2013 - 
-  2015
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2015</span>
   <span class="with-love">
-    <i class="icon-heart"></i>
+    <i class="icon-next-heart fa fa-heart"></i>
   </span>
-  <span class="author">Nix Wang</span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
 </div>
 
 <div class="theme-info">
-  Theme - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
 </div>
 
 
 
       </div>
-    </div>
+    </footer>
 
     <div class="back-to-top"></div>
   </div>
@@ -757,162 +699,47 @@
 
 
   
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = 'archives/page/3/index.html';
+      var disqus_title = '';
+      var disqus_url = '';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+    </script>
+  
+
+
+  
+
+  
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $(".fancybox").fancybox();
-    });
-  </script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
 
-  <script type="text/javascript">
-  function hasMobileUA () {
-    var nav = window.navigator;
-    var ua = nav.userAgent;
-    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
 
-    return pa.test(ua);
-  }
-
-  function isDesktop () {
-    return screen.width > 991 && !hasMobileUA();
-  }
-
-  function isTablet () {
-    return screen.width < 992 && screen.width > 767 && hasMobileUA();
-  }
-
-  function isMobile () {
-    return screen.width < 767 && hasMobileUA();
-  }
-
-  function escapeSelector (selector) {
-    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
-  }
-</script>
-
-  
-
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
   <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
 
-  
-
-  <script type="text/javascript" id="motion.global">
-  $(document).ready(function () {
-    var body = $('body');
-    var isSidebarVisible = false;
-    var sidebarToggle = $('.sidebar-toggle');
-    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
-    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
-    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
-    var sidebar = $('.sidebar');
-
-    var SIDEBAR_WIDTH = '320px';
-    var SIDEBAR_DISPLAY_DURATION = 300;
-
-    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
-
-    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
-    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
-
-    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
-    var sidebarToogleLine2ndStatusClose = {opacity: 0};
-
-    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
-    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
-    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
-
-    sidebatToggleMotion();
-    postsListMotion();
-    backToTopMotion();
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
 
 
-    $(document)
-      .on('sidebar.isShowing', function () {
-        isDesktop() && body.velocity(
-          {paddingRight: SIDEBAR_WIDTH},
-          SIDEBAR_DISPLAY_DURATION
-        );
-        sidebarContentMotion();
-      })
-      .on('sidebar.isHiding', function () {});
-
-
-    function backToTopMotion () {
-      var b2top = $('.back-to-top');
-      b2top.on('click', function () {
-        body.velocity('scroll');
-      });
-    }
-
-    function sidebarShowMotion () {
-
-      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
-      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
-      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
-
-      sidebar.velocity({width: SIDEBAR_WIDTH}, {
-        display: 'block',
-        duration: SIDEBAR_DISPLAY_DURATION,
-        complete: function () {
-          sidebar.addClass('sidebar-active');
-          sidebar.trigger('sidebar.didShow');
-        }
-      });
-      sidebar.trigger('sidebar.isShowing');
-    }
-
-    function sidebarHideMotion () {
-      isDesktop() && body.velocity({paddingRight: 0});
-      sidebar.velocity('reverse');
-
-      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
-      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
-      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
-
-      sidebar.removeClass('sidebar-active');
-      sidebar.trigger('sidebar.isHiding');
-    };
-
-    function sidebarContentMotion () {
-      $('.sidebar .motion-element').velocity(
-        'transition.slideRightIn',
-        {stagger: 50, drag: true}
-      );
-    }
-
-    function postsListMotion () {
-      var postMotionOptions = postMotionOptions || {stagger: 300, drag: true};
-      $('.post').velocity('transition.slideDownIn', postMotionOptions);
-    }
-
-    function sidebatToggleMotion () {
-      sidebarToggle.on('click', function () {
-        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
-        isSidebarVisible = !isSidebarVisible;
-      });
-
-      sidebarToggle.hover(function () {
-        if (isSidebarVisible) {return}
-        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
-        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
-        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
-      }, function () {
-        if (isSidebarVisible) {return}
-        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
-        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
-        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
-      });
-    }
-  });
-
-</script>
-
-
-
-
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
   
@@ -922,14 +749,13 @@
   
 
 
-  
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
 
   
   
 
   
-
-
   
+
 </body>
 </html>
