@@ -57,7 +57,7 @@
       <li class="menu-item menu-item-home">
         <a href="/">
           <i class="menu-item-icon icon-home"></i> <br />
-          首页
+          Home
         </a>
       </li>
     
@@ -65,7 +65,7 @@
       <li class="menu-item menu-item-archives">
         <a href="/archives">
           <i class="menu-item-icon icon-archives"></i> <br />
-          归档
+          Archives
         </a>
       </li>
     
@@ -73,7 +73,7 @@
       <li class="menu-item menu-item-tags">
         <a href="/tags">
           <i class="menu-item-icon icon-tags"></i> <br />
-          标签
+          Tags
         </a>
       </li>
     
@@ -104,6 +104,96 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/09/ios-dynamic-update/">
+                iOS 利用 framework 进行动态更新
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            Posted on 2015-11-08
+          
+        </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/11/09/ios-dynamic-update/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/09/ios-dynamic-update/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <h2 id="前言">前言</h2><p>目前 iOS 上的动态更新方案主要有以下 4 种：</p>
+<ul>
+<li>HTML 5</li>
+<li>lua（wax）hotpatch</li>
+<li>react native</li>
+<li>framework</li>
+</ul>
+<p>前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。</p>
+<p>使用 framework 的方式来更新可以不依赖第三方库，使用原生的 OC/Swift 来开发，体验更好，开发成本也更低。</p>
+<p>由于 Apple 不希望开发者绕过 App Store 来更新 app，因此<strong>只有对于不需要上架的应用，才能以 framework 的方式实现 app 的更新。</strong></p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/11/09/ios-dynamic-update/">
+                Read more &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">
+                #iOS
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/04/24/symbolicate-crash-log/">
                 Symbolicate iOS Crash Log
               </a>
@@ -115,7 +205,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-04-24
+            Posted on 2015-04-24
           
         </span>
         
@@ -146,7 +236,7 @@
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>   CoreFoundation                  <span class="number">0x2dc73f7e</span> __exceptionPreprocess + <span class="number">126</span></span><br><span class="line"><span class="number">1</span>   libobjc.A.dylib                 <span class="number">0x384eecca</span> objc_exception_throw + <span class="number">34</span></span><br><span class="line"><span class="number">2</span>   CoreFoundation                  <span class="number">0x2dc77912</span> -[NSObject(NSObject) doesNotRecognizeSelector:] + <span class="number">198</span></span><br><span class="line"><span class="number">3</span>   CoreFoundation                  <span class="number">0x2dc761fe</span> ___forwarding___ + <span class="number">702</span></span><br><span class="line"><span class="number">4</span>   CoreFoundation                  <span class="number">0x2dbc5764</span> _CF_forwarding_prep_0 + <span class="number">20</span></span><br><span class="line"><span class="number">5</span>   YourAppName                     <span class="number">0x00053154</span> <span class="number">0x4a000</span> + <span class="number">37204</span></span><br><span class="line"><span class="number">6</span>   UIKit                           <span class="number">0x306f1c52</span> -[UIApplication _sendWillEnterForegroundCallbacks] + <span class="number">90</span></span><br></pre></td></tr></table></figure>
             <div class="post-more-link text-center">
               <a class="btn" href="/2015/04/24/symbolicate-crash-log/">
-                阅读全文 &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -200,7 +290,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-03-18
+            Posted on 2015-03-18
           
         </span>
         
@@ -236,7 +326,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install automake</span><br><span class="line">brew install libtool</span><br><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure>
             <div class="post-more-link text-center">
               <a class="btn" href="/2015/03/18/protocol-buffer-for-ios/">
-                阅读全文 &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -290,7 +380,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-03-08
+            Posted on 2015-03-08
           
         </span>
         
@@ -375,7 +465,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-01-07
+            Posted on 2015-01-07
           
         </span>
         
@@ -409,7 +499,7 @@
 <p>注意：本文不适用于发布到 Mac App Store 的签名。</p>
             <div class="post-more-link text-center">
               <a class="btn" href="/2015/01/07/sign-your-mac-app-with-developer-id/">
-                阅读全文 &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -463,7 +553,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-09-03
+            Posted on 2014-09-03
           
         </span>
         
@@ -500,7 +590,7 @@
 <p>并且可能导致 navigationController 的标题栏出现重影甚至崩溃。</p>
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/09/03/errors-due-to-nested-pop-or-push/">
-                阅读全文 &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -554,7 +644,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-25
+            Posted on 2014-08-25
           
         </span>
         
@@ -586,7 +676,7 @@
 </ul>
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/08/25/arc-on-ios/">
-                阅读全文 &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -644,7 +734,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-13
+            Posted on 2014-08-13
           
         </span>
         
@@ -676,7 +766,7 @@
 <h2 id="Alcatraz"><a href="https://github.com/supermarin/Alcatraz">Alcatraz</a></h2><p>推荐指数 ★★★★</p>
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/08/13/plugins-and-themes-for-xcode/">
-                阅读全文 &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -730,7 +820,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-10
+            Posted on 2014-08-10
           
         </span>
         
@@ -758,7 +848,7 @@
 <p>在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。</p>
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/08/10/view-controllers-on-ios/">
-                阅读全文 &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -812,7 +902,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-03
+            Posted on 2014-08-03
           
         </span>
         
@@ -839,7 +929,7 @@
             <h2 id="UITableView_相关">UITableView 相关</h2><h3 id="在写_UITableView_的_Demo_时，删除一个_cell_导致程序崩溃">在写 UITableView 的 Demo 时，删除一个 cell 导致程序崩溃</h3><p>在写 dataSource  protocol 中的<code>- (NSInteger)numberOfRowsInSection:(NSInteger)section</code>方法时，采用了 hardcode 方式。这个函数的返回值应该实时计算。</p>
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/08/03/pits-on-ios/">
-                阅读全文 &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -857,80 +947,6 @@
               </a>
             
           </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/08/02/a-boring-saturday/">
-                一个慵懒的周六
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-08-02
-          
-        </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/08/02/a-boring-saturday/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/02/a-boring-saturday/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>上一次更新博客已经是4月份了。我还在。</p>
-<p>为了证明这个博客存在的意义并不只是为了找工作时给面试官一个好一些的印象，我决定继续更新下去。</p>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/08/02/a-boring-saturday/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
         
 
         
@@ -977,16 +993,16 @@
       <p class="site-description motion-element"></p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">33</span>
-          <span class="site-state-item-name">日志</span>
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
         </div>
         <div class="site-state-item site-state-tags">
             <span class="site-state-item-count">19</span>
-            <span class="site-state-item-name">标签</span>
+            <span class="site-state-item-name">tags</span>
         </div>
         <div class="site-state-item site-state-pages">
             <span class="site-state-item-count">1</span>
-            <span class="site-state-item-name">页面</span>
+            <span class="site-state-item-name">pages</span>
         </div>
       </div>
 
@@ -1029,11 +1045,11 @@
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+  Theme - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
 </div>
 
 
