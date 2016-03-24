@@ -265,7 +265,7 @@ I’m dating with a model… and a view, and a controller.
 <li>展示层的逻辑，比如格式化字符串。</li>
 <li>其他不能放入 Model，与 View 无关的逻辑。</li>
 </ul>
-<p>但值得注意的是，View Model 不包含与 View 直接关联的部分。一般来说，只要代码中没有<code>#import &lt;UIKit/UIKit.h&gt;</code>即可。</p>
+<p>原来的 Controller 现在只负责绑定 View 和 ViewModel。值得注意的是，View Model 不包含与 View 直接关联的部分。一般来说，只要代码中没有<code>#import &lt;UIKit/UIKit.h&gt;</code>即可。</p>
 <h3 id="MVVM_的优点">MVVM 的优点</h3><ul>
 <li>MVVM 兼容 MVC，可以先创建一个简单的 View Model，再慢慢迁移。</li>
 <li>MVVM 使得 app 更容易测试，因为 View Model 部分不涉及 UI。</li>
@@ -290,6 +290,10 @@ I’m dating with a model… and a view, and a controller.
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/24/introduce-reactive-cococa/" rel="prev" title="初识 Reactive Cocoa">
+                初识 Reactive Cocoa <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -361,7 +365,7 @@ I’m dating with a model… and a view, and a controller.
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
@@ -375,7 +379,7 @@ I’m dating with a model… and a view, and a controller.
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">標籤</span>
               </a>
           </div>
