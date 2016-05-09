@@ -54,26 +54,26 @@
 
 
 <meta name="description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。
-在类属性的声明中，ARC 相关的修饰词有两个：
+在类属性的声明中，ARC 相关的修饰词有 4 个：
 
 strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。
-weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被自动">
+weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OC 中的 ARC">
 <meta property="og:url" content="http://yoursite.com/2014/08/25/arc-on-ios/index.html">
 <meta property="og:site_name" content="Nix 的自我修养">
 <meta property="og:description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。
-在类属性的声明中，ARC 相关的修饰词有两个：
+在类属性的声明中，ARC 相关的修饰词有 4 个：
 
 strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。
-weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被自动">
+weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC 中的 ARC">
 <meta name="twitter:description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。
-在类属性的声明中，ARC 相关的修饰词有两个：
+在类属性的声明中，ARC 相关的修饰词有 4 个：
 
 strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。
-weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被自动">
+weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
 
 
 
@@ -143,7 +143,7 @@ weak 不会延长对象的生命周期，当weak类型的指针指向的对象�
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            首頁
+            首页
           </a>
         </li>
       
@@ -153,7 +153,7 @@ weak 不会延长对象的生命周期，当weak类型的指针指向的对象�
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            歸檔
+            归档
           </a>
         </li>
       
@@ -163,7 +163,7 @@ weak 不会延长对象的生命周期，当weak类型的指针指向的对象�
             
               <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
             
-            標籤
+            标签
           </a>
         </li>
       
@@ -213,7 +213,7 @@ weak 不会延长对象的生命周期，当weak类型的指针指向的对象�
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-08-25T20:12:11+08:00" content="2014-08-25">
               2014-08-25
             </time>
@@ -246,10 +246,16 @@ weak 不会延长对象的生命周期，当weak类型的指针指向的对象�
 
       
         <span itemprop="articleBody"><h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
-<p>在类属性的声明中，ARC 相关的修饰词有两个：</p>
+<p>在类属性的声明中，ARC 相关的修饰词有 4 个：</p>
 <ul>
 <li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
 <li><code>weak</code> 不会延长对象的生命周期，当<code>weak</code>类型的指针指向的对象被释放时，指针自身会被自动置为<code>nil</code>。</li>
+<li><code>assign</code> 用于 C 原始类型，比如 int。</li>
+<li><code>copy</code> 传入对象时会浅拷贝对象。<ul>
+<li>一般将不可变的 property 设置为 copy，当可变的对象传入时，编译器会自动拷贝一份不可变的版本，以保证其内容不会被修改。如果传入的不可变对象，会增加其引用计数。</li>
+<li>当 property 是一个 block 时通常使用 copy。因为 block 需要在其所在的 scope 之外保留其捕获的状态。不声明也是可以的，但<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW12" target="_blank" rel="external">官方推荐这样使用</a>，以提醒代码阅读者。</li>
+</ul>
+</li>
 </ul>
 <a id="more"></a>
 <p>在 ARC 机制下，指针缺省的类型是<code>strong</code>。</p>
@@ -355,10 +361,10 @@ weak 不会延长对象的生命周期，当weak类型的指针指向的对象�
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目錄
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            本站概覽
+            站点概览
           </li>
         </ul>
       
@@ -372,22 +378,22 @@ weak 不会延长对象的生命周期，当weak类型的指针指向的对象�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">37</span>
-              <span class="site-state-item-name">文章</span>
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             
               <span class="site-state-item-count">0</span>
-              <span class="site-state-item-name">分類</span>
+              <span class="site-state-item-name">分类</span>
               
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
               <span class="site-state-item-count">20</span>
-              <span class="site-state-item-name">標籤</span>
+              <span class="site-state-item-name">标签</span>
               </a>
           </div>
 
@@ -463,11 +469,11 @@ weak 不会延长对象的生命周期，当weak类型的指针指向的对象�
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  主題 -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT
   </a>

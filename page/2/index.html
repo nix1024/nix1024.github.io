@@ -133,7 +133,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            首頁
+            首页
           </a>
         </li>
       
@@ -143,7 +143,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            歸檔
+            归档
           </a>
         </li>
       
@@ -153,7 +153,7 @@
             
               <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
             
-            標籤
+            标签
           </a>
         </li>
       
@@ -207,6 +207,107 @@
             
               
                 
+                <a class="post-title-link" href="/2014/08/16/how-to-switch-between-view-controllers/" itemprop="url">
+                  View Controller 之间的切换
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2014-08-16T10:14:07+08:00" content="2014-08-16">
+              2014-08-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/08/16/how-to-switch-between-view-controllers/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/08/16/how-to-switch-between-view-controllers/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>View Controller 之间的切换主要有三种方式：</p>
+<ul>
+<li>Storyboard 的 segue。如果使用 Storyboard 来构建 App，那么只需要 Ctrl-Drag 即可实现 View Controller 的切换，比如将一个按钮 Ctrl-Drag 到另一个 View Controller 上。如果一个 segue 链接的是两个 View Controller，那么就需要用代码来完成跳转，这个时候需要为 segue 来指定一个 Identifier，通过调用<code>performSegueWithIdentifier:sender:</code>来完成跳转。</li>
+<li><code>pushViewController:animated:</code>方法。这个方法需要当前的 View Controller 在一个 UINavigationController 内部。UINavigationController 内部维护了一个栈来保存其中的所有 View Controller，将新的 View Controller push 到栈内就可以完成跳转。</li>
+<li><code>presentViewController:animated:completion:</code>方法。不同于上一种方法，这个方法并不是将 View Controller push 到栈内，而是维护一个 presenting 和 presented 关系。例如有两个 View Controller 分别叫 A 和 B，如果 A 调用此方法来显示 B，相当于 A <strong>拥有</strong> 了 B。A 中的<code>presentedViewController</code>属性会指向 B，B 的<code>presentingViewController</code>属性会指向 A，这个关系是由系统自动维护的。</li>
+</ul>
+<p>其中的第二种方法和第三种方法是类似的。他们之间的区别更多的是语义上的区别——<code>presentViewController:animated:completion:</code>方法更多的是在强调打断现有的工作流，展现一组新的 View 来完成某个特定的工作，通常需要向用户获取某些信息[^1]。它常常用来显示一个模态的 View，一个模态的 View 通常有下面三个特点[^2]：</p>
+<ul>
+<li>占据整个屏幕，或者 iPad 上的整个 父View 的区域。</li>
+<li>包含了完成一个任务所需的文本和控件。</li>
+<li>通常有一个完成按钮和一个取消按钮，点击它们来表示任务的完成情况，并且退出当前的 View。</li>
+</ul>
+<p>典型的场景：用户登录、添加一项待办事项。</p>
+<p>另外一个值得注意的地方是，在写 App 的时候有必要了解在各个状态下，栈中的 View Controller 都有哪些，以避免重复地 push 同一个 View Controller。并且可以利用 UINavigationController 提供的一系列 pop*ViewController 的方法来快速到达指定的 View Controller。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/08/13/plugins-and-themes-for-xcode/" itemprop="url">
                   Plugins and Themes for Xcode
                 </a>
@@ -217,7 +318,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-08-13T19:53:00+08:00" content="2014-08-13">
               2014-08-13
             </time>
@@ -258,7 +359,7 @@
 <h2 id="Alcatraz"><a href="https://github.com/supermarin/Alcatraz">Alcatraz</a></h2><p>推荐指数 ★★★★</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/08/13/plugins-and-themes-for-xcode/#more" rel="contents">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -310,7 +411,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-08-10T10:38:00+08:00" content="2014-08-10">
               2014-08-10
             </time>
@@ -347,7 +448,7 @@
 <p>在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/08/10/mvc-on-ios/#more" rel="contents">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -399,7 +500,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-08-03T23:03:00+08:00" content="2014-08-03">
               2014-08-03
             </time>
@@ -435,7 +536,7 @@
           <h2 id="UITableView_相关">UITableView 相关</h2><h3 id="在写_UITableView_的_Demo_时，删除一个_cell_导致程序崩溃">在写 UITableView 的 Demo 时，删除一个 cell 导致程序崩溃</h3><p>在写 dataSource  protocol 中的<code>- (NSInteger)numberOfRowsInSection:(NSInteger)section</code>方法时，采用了 hardcode 方式。这个函数的返回值应该实时计算。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/08/03/pits-on-ios/#more" rel="contents">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -487,7 +588,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-08-02T21:42:16+08:00" content="2014-08-02">
               2014-08-02
             </time>
@@ -524,7 +625,7 @@
 <p>为了证明这个博客存在的意义并不只是为了找工作时给面试官一个好一些的印象，我决定继续更新下去。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/08/02/a-boring-saturday/#more" rel="contents">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -576,7 +677,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-04-29T11:02:54+08:00" content="2014-04-29">
               2014-04-29
             </time>
@@ -615,7 +716,7 @@
 <p>至于富康还是比亚迪，我觉得富康也挺好。区别在于：富康的方向盘比较重，车屁股小，便宜100块。如果是力气小的女生，还是选比亚迪吧。<br>如果不差钱，还是选高冷的东方时尚吧，正规，服务质量也好。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/04/29/nix-learn-to-drive/#more" rel="contents">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -667,7 +768,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-01-09T19:05:57+08:00" content="2014-01-09">
               2014-01-09
             </time>
@@ -713,7 +814,7 @@
 </ul>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/01/09/bupt-id-card-tut/#more" rel="contents">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -765,7 +866,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-01-03T15:56:34+08:00" content="2014-01-03">
               2014-01-03
             </time>
@@ -802,7 +903,7 @@
 <p>这款叫做<a href="https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb">Vimium</a>的插件让你可以在Chrome中使用Vim快捷键！</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/01/03/vimium/#more" rel="contents">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -854,7 +955,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2014-01-02T18:49:54+08:00" content="2014-01-02">
               2014-01-02
             </time>
@@ -891,7 +992,7 @@
 <p>这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/01/02/a-crawler/#more" rel="contents">
-              閱讀全文 &raquo;
+              阅读全文 &raquo;
             </a>
           </div>
         
@@ -943,7 +1044,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            發表於
+            发表于
             <time itemprop="dateCreated" datetime="2013-12-31T23:09:35+08:00" content="2013-12-31">
               2013-12-31
             </time>
@@ -984,96 +1085,6 @@
 
             
           </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/12/29/spec-work/" itemprop="url">
-                  记一个小网站的诞生
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            發表於
-            <time itemprop="dateCreated" datetime="2013-12-29T00:12:01+08:00" content="2013-12-29">
-              2013-12-29
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2013/12/29/spec-work/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/29/spec-work/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。</p>
-<p>很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。</p>
-<p>由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpress，跟Joomla差距应该不大。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2013/12/29/spec-work/#more" rel="contents">
-              閱讀全文 &raquo;
-            </a>
-          </div>
         
       
     </div>
@@ -1138,22 +1149,22 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">37</span>
-              <span class="site-state-item-name">文章</span>
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             
               <span class="site-state-item-count">0</span>
-              <span class="site-state-item-name">分類</span>
+              <span class="site-state-item-name">分类</span>
               
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
               <span class="site-state-item-count">20</span>
-              <span class="site-state-item-name">標籤</span>
+              <span class="site-state-item-name">标签</span>
               </a>
           </div>
 
@@ -1212,11 +1223,11 @@
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  主題 -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT
   </a>

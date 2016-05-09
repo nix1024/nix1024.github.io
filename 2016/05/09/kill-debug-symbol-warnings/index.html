@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="密码学," />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -53,36 +53,18 @@
 
 
 
-<meta name="description" content="基本概念密钥密码学（即对称密码学）是指加密解密使用相同的钥匙，钥匙需要保密。
-公钥密码学（即非对称密码学）是指加密解密使用不同的钥匙，通常一个是公开的，叫公钥，另一个保密，叫私钥。他们有下面的特点：
-
-公钥是公开的，密钥是不公开的。
-公钥和私钥不可以（很难）相互推导。
-公钥加密后的数据只能用对应的私钥解密，反之亦然。
-
-由于非对称加密的公钥是公开的，所以非对称加密不能用来对通信内容进行加密，一般仅">
+<meta name="description" content="最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning：
+1warning: (armv7) /Users/USERNAME/Library/Developer/Xcode/DerivedData/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/Build/Intermediates/FRAMEWORKNA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="密码学基本概念">
-<meta property="og:url" content="http://yoursite.com/2013/04/14/basics-of-cryptography/index.html">
+<meta property="og:title" content="消除引入第三方 Framework 导致的 Warning">
+<meta property="og:url" content="http://yoursite.com/2016/05/09/kill-debug-symbol-warnings/index.html">
 <meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="基本概念密钥密码学（即对称密码学）是指加密解密使用相同的钥匙，钥匙需要保密。
-公钥密码学（即非对称密码学）是指加密解密使用不同的钥匙，通常一个是公开的，叫公钥，另一个保密，叫私钥。他们有下面的特点：
-
-公钥是公开的，密钥是不公开的。
-公钥和私钥不可以（很难）相互推导。
-公钥加密后的数据只能用对应的私钥解密，反之亦然。
-
-由于非对称加密的公钥是公开的，所以非对称加密不能用来对通信内容进行加密，一般仅">
+<meta property="og:description" content="最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning：
+1warning: (armv7) /Users/USERNAME/Library/Developer/Xcode/DerivedData/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/Build/Intermediates/FRAMEWORKNA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="密码学基本概念">
-<meta name="twitter:description" content="基本概念密钥密码学（即对称密码学）是指加密解密使用相同的钥匙，钥匙需要保密。
-公钥密码学（即非对称密码学）是指加密解密使用不同的钥匙，通常一个是公开的，叫公钥，另一个保密，叫私钥。他们有下面的特点：
-
-公钥是公开的，密钥是不公开的。
-公钥和私钥不可以（很难）相互推导。
-公钥加密后的数据只能用对应的私钥解密，反之亦然。
-
-由于非对称加密的公钥是公开的，所以非对称加密不能用来对通信内容进行加密，一般仅">
+<meta name="twitter:title" content="消除引入第三方 Framework 导致的 Warning">
+<meta name="twitter:description" content="最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning：
+1warning: (armv7) /Users/USERNAME/Library/Developer/Xcode/DerivedData/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/Build/Intermediates/FRAMEWORKNA">
 
 
 
@@ -94,7 +76,7 @@
   };
 </script>
 
-  <title> 密码学基本概念 | Nix 的自我修养 </title>
+  <title> 消除引入第三方 Framework 导致的 Warning | Nix 的自我修养 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -214,7 +196,7 @@
             
             
               
-                密码学基本概念
+                消除引入第三方 Framework 导致的 Warning
               
             
           </h1>
@@ -223,8 +205,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2013-04-14T22:20:05+08:00" content="2013-04-14">
-              2013-04-14
+            <time itemprop="dateCreated" datetime="2016-05-09T19:38:07+08:00" content="2016-05-09">
+              2016-05-09
             </time>
           </span>
 
@@ -234,8 +216,8 @@
             
               <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2013/04/14/basics-of-cryptography/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/04/14/basics-of-cryptography/" itemprop="commentsCount"></span>
+              <a href="/2016/05/09/kill-debug-symbol-warnings/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/09/kill-debug-symbol-warnings/" itemprop="commentsCount"></span>
               </a>
             </span>
             
@@ -254,49 +236,29 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="基本概念">基本概念</h2><p>密钥密码学（即对称密码学）是指加密解密使用<strong>相同的钥匙</strong>，钥匙需要保密。</p>
-<p>公钥密码学（即非对称密码学）是指加密解密使用<strong>不同的钥匙</strong>，通常一个是公开的，叫<strong>公钥</strong>，另一个保密，叫<strong>私钥</strong>。他们有下面的特点：</p>
+        <span itemprop="articleBody"><p>最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">warning:</span> (armv7) <span class="regexp">/Users/</span>USERNAME<span class="regexp">/Library/</span>Developer<span class="regexp">/Xcode/</span>DerivedData<span class="regexp">/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/</span>Build<span class="regexp">/Intermediates/</span>FRAMEWORKNAME.build<span class="regexp">/Debug-iphoneos/</span>FRAMEWORKNAME.build<span class="regexp">/Objects-normal/</span>armv7/SOMECLASS.o unable to open object <span class="string">file:</span> No such file or directory</span><br></pre></td></tr></table></figure>
+<p>在 Xcode 查看编译过程发现是执行 <code>dsymutil</code> 这条命令时产生的。</p>
+<blockquote>
+<p>dsymutil links the DWARF debug information found in the object files for an executable exe_path by using debug symbols information contained in its symbol table.</p>
+</blockquote>
+<p>众所周知，Xcode 编译的时候会处理两种符号：</p>
 <ul>
-<li>公钥是公开的，密钥是不公开的。</li>
-<li>公钥和私钥不可以（很难）相互推导。</li>
-<li>公钥加密后的数据只能用对应的私钥解密，反之亦然。</li>
+<li>Mach-O 符号：链接器在链接的时候需要处理。</li>
+<li>调试符号：顾名思义，在使用调试器调试用到的符号。</li>
 </ul>
-<p>由于非对称加密的公钥是公开的，所以<strong>非对称加密不能用来对通信内容进行加密，一般仅仅用来确认身份和传输会话密钥</strong>。会话密钥由持有公钥的一方来指定，并使用公钥加密后发送给另一方。<strong>通信内容使用对称加密。</strong></p>
-<a id="more"></a>
-<p>对称加密运算比非对称加密速度要快。</p>
-<p>Hash函数用于对一段信息生成一个指纹，它有如下特性：</p>
-<ul>
-<li>可以用于任意长度的信息。</li>
-<li>对任意长得信息产生定长的Hash值。</li>
-<li>得到Hash值后要得到原文在计算上是不可行的。</li>
-<li>对于不同的原文一定得到不同的Hash值。</li>
-</ul>
-<h2 id="数字签名">数字签名</h2><p>数字签名用于保证发送数据的<strong>完整性</strong>。数字签名具有不可否认性（不可抵赖曾发过该信息），具有法律效力。</p>
-<ul>
-<li>生成：发送者对一段要发送的数据使用Hash函数计算出摘要（Digest），之后再用自己的私钥加密，得到数字签名。</li>
-<li>验证：接收者用发送者的公钥解密，再比对摘要（Digest），如果吻合，即说明<ul>
-<li>数据没有被篡改。</li>
-<li>在<strong>公钥可信</strong>的情况下，可以认定是由发送者本人发出的。</li>
-</ul>
-</li>
-</ul>
-<p>为了确保公钥的可信，就要使用数字证书。</p>
-<h2 id="数字证书">数字证书</h2><p>由证书中心（CA）颁发，用于证明证书中列出的用户合法拥有证书中列出的公开密钥。 </p>
-<ul>
-<li>生成：数字证书主要包括三方面的内容：证书所有者的信息、证书所有者的公开密钥和<strong>证书颁发机构的签名</strong>。</li>
-<li>验证：当接收者使用CA的公钥解密后得到数字证书的指纹与用指纹算法计算出的证书指纹吻合时（即验签成功），就可以确保数字证书的确是由CA颁发，并且没有被篡改。</li>
-</ul>
-<p>辣么，我们只需要保证所使用的CA的公钥是正确的。<br>CA给别人颁发证书的同时，也有自己的证书。这些证书通常预装在操作系统中。</p>
-<h2 id="一个栗子">一个栗子</h2><p>一个客户端(C)和安全服务器(S)通信：</p>
-<ol>
-<li>S把自己的数字证书发给C，数字证书中包含S的公钥和S的名称等相关信息。</li>
-<li>C用证书中心的公钥对证书进行解密，得到证书的指纹，再与用指纹算法对证书计算出来的指纹进行对比，两者吻合，即说明证书中S的公钥是可信的。如果不吻合，则给出警告。</li>
-<li>S发送一条明文信息给C，并附上用自己的私钥加密的密文版本。</li>
-<li>C用证书中S的公钥对密文解密后，比对明文，如果吻合，说明对方确实是S本人。</li>
-<li>C生成一个会话密钥，并指定一个算法，用S的公钥加密后发送给S。</li>
-<li>S使用自己的私钥解密，得到会话密钥（对称加密密钥）和指定算法。</li>
-<li>S和C使用会话密钥进行后续通信。</li>
-</ol>
+<p>为了让发行的安装包更小，通常会在编译的时候将调试符号从可执行文件中去掉。这样，在发生 crash 后得到的 crash log 里面只能得到 16 进制的地址。</p>
+<p>Xcode 提供了一个编译设置项：<code>Debug Information Format</code>，有两个选项：<code>DWARF</code> 和 <code>DWARF with dSYM File</code>。</p>
+<p>其中，<a href="http://dwarfstd.org/" target="_blank" rel="external">DWARF</a> 是一种独立于语言和操作系统的调试文件格式。最初是设计用来配合 ELF（ Executable and Linkable Format，精灵和矮人 :]）工作的。DWARF 不会在可执行文件中包含调试符号，而是仅仅包含对 .o 文件的引用，而这些 .o 文件才真正包含调试符号。</p>
+<p>dSYM 是 Xcode 用来存储调试符号的文件，可以用它来符号化 crash log 或者调试程序。我们需要编译过程中产生的 .o 或者 .dSYM 文件配合才可以调试。</p>
+<p>如果 <code>Debug Information Format</code> 设置成了 <code>DWARF with dSYM File</code>，Xcode 在编译结束时会调用 <code>dsymutil</code>，将 .o 中的符号抽出来生成 .dSYM 文件。</p>
+<p>（生成 .dSYM 文件需要消耗一定的时间，因为 debug 的时候本地有 .o 文件，可以不需要 .dSYM 文件来 debug，所以最好将 debug 版本的 <code>Debug Information Format</code> 设置成 <code>DWARF</code>。）</p>
+<p>回头来看最初的问题。使用</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nm -a <span class="regexp">/path/</span>to<span class="regexp">/foo.framework/</span>foo</span><br></pre></td></tr></table></figure>
+<p>来查看所有的符号，其中就包含了</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">000000005704</span>a7a2 - <span class="number">03</span> <span class="number">0001</span>   OSO <span class="regexp">/Users/U</span>SERNAME<span class="regexp">/Library/</span>Developer<span class="regexp">/Xcode/</span>DerivedData<span class="regexp">/VIVerifyCore-gfjrgtjfcqfqpybbcyouhfavymdn/</span>Build<span class="regexp">/Intermediates/</span>FRAMEWORKNAME.build<span class="regexp">/Debug-iphonesimulator/</span>FRAMEWORKNAME.build<span class="regexp">/Objects-normal/</span>armv7<span class="regexp">/SOMECLASS.o</span></span><br></pre></td></tr></table></figure>
+<p>由此可见，因为引入的 framework 编译时开启了 <code>Generate Debug Symbols</code>，编译出来的二进制文件包含了对一些 .o 文件的引用。这些 .o 文件是 framework 在编译的过程中产生的，framework 的使用方在执行 <code>dsymutil</code> 时找不到它们，于是产生 warning。</p>
+<p>在关闭 <code>Generate Debug Symbols</code> 后重新编译 framework，执行同样的命令，生成的可执行文件中就没有这些引用了。再集成到 App 中，编译就不会有前面提到的 warning。</p>
 </span>
       
     </div>
@@ -305,7 +267,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/密码学/" rel="tag">#密码学</a>
+            <a href="/tags/ios/" rel="tag">#iOS</a>
           
         </div>
       
@@ -314,17 +276,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/03/31/sparrow-push-mail/" rel="next" title="我最喜欢的邮件客户端Sparrow">
-                <i class="fa fa-chevron-left"></i> 我最喜欢的邮件客户端Sparrow
+              <a href="/2016/03/24/introduce-reactive-cococa/" rel="next" title="初识 Reactive Cocoa">
+                <i class="fa fa-chevron-left"></i> 初识 Reactive Cocoa
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/04/18/windows-cryptoapi/" rel="prev" title="Windows CryptoAPI入门">
-                Windows CryptoAPI入门 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -458,7 +416,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字签名"><span class="nav-number">2.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字证书"><span class="nav-number">3.</span> <span class="nav-text">数字证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个栗子"><span class="nav-number">4.</span> <span class="nav-text">一个栗子</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -518,9 +476,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'nix1024';
-      var disqus_identifier = '2013/04/14/basics-of-cryptography/';
-      var disqus_title = '密码学基本概念';
-      var disqus_url = 'http://yoursite.com/2013/04/14/basics-of-cryptography/';
+      var disqus_identifier = '2016/05/09/kill-debug-symbol-warnings/';
+      var disqus_title = '消除引入第三方 Framework 导致的 Warning';
+      var disqus_url = 'http://yoursite.com/2016/05/09/kill-debug-symbol-warnings/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
