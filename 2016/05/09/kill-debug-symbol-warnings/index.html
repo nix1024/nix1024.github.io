@@ -251,7 +251,7 @@
 <p>为了让发行的安装包更小，通常会在编译的时候将调试符号从可执行文件中去掉。这样，在发生 crash 后得到的 crash log 里面只能得到 16 进制的地址。</p>
 <p>Xcode 提供了一个编译设置项：<code>Debug Information Format</code>，有两个选项：<code>DWARF</code> 和 <code>DWARF with dSYM File</code>。</p>
 <p>其中，<a href="http://dwarfstd.org/" target="_blank" rel="external">DWARF</a> 是一种独立于语言和操作系统的调试文件格式。最初是设计用来配合 ELF（ Executable and Linkable Format，精灵和矮人 :]）工作的。DWARF 不会在可执行文件中包含调试符号，而是仅仅包含对 .o 文件的引用，而这些 .o 文件才真正包含调试符号。</p>
-<p>dSYM 是 Xcode 用来存储调试符号的文件，可以用它来符号化 crash log 或者调试程序。我们需要编译过程中产生的 .o 或者 .dSYM 文件配合才可以调试。</p>
+<p>dSYM 是 Xcode 用来存储调试符号的文件，可以用它来符号化 crash log 或者调试程序。</p>
 <p>如果 <code>Debug Information Format</code> 设置成了 <code>DWARF with dSYM File</code>，Xcode 在编译结束时会调用 <code>dsymutil</code>，将 .o 中的符号抽出来生成 .dSYM 文件。</p>
 <p>（生成 .dSYM 文件需要消耗一定的时间，因为 debug 的时候本地有 .o 文件，可以不需要 .dSYM 文件来 debug，所以最好将 debug 版本的 <code>Debug Information Format</code> 设置成 <code>DWARF</code>。）</p>
 <p>回头来看最初的问题。使用</p>
