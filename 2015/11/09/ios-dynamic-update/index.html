@@ -269,7 +269,7 @@ framework
 <p>使用 framework 的方式来更新可以不依赖第三方库，使用原生的 OC/Swift 来开发，体验更好，开发成本也更低。</p>
 <p>由于 Apple 不希望开发者绕过 App Store 来更新 app，因此<strong>只有对于不需要上架的应用，才能以 framework 的方式实现 app 的更新。</strong></p>
 <a id="more"></a>
-<h2 id="主要思路">主要思路</h2><p>将 app 中的某个模块（比如一个 tab）的内容独立成一个 framework 的形式动态加载，在 app 的 main bundle 中，当 app 启动时从服务器上下载新版本的 framework 并加载即可达到动态更新的目的。代码放在了<a href="https://github.com/nix1024/DynamicUpdateDemo" target="_blank" rel="external">这里</a>。</p>
+<h2 id="主要思路">主要思路</h2><p>将 app 中的某个模块（比如一个 tab）的内容独立成一个 framework 的形式动态加载，在 app 的 main bundle 中，当 app 启动时从服务器上下载新版本的 framework 并加载即可达到动态更新的目的。</p>
 <h2 id="实战">实战</h2><p>创建一个普通工程 DynamicUpdateDemo，其包含一个 framework 子工程 Module。也可以将 Module 创建为独立的工程，创建工程的过程不再赘述。</p>
 <h3 id="依赖">依赖</h3><p>在主工程的 Build Phases &gt; Target Dependencies 中添加 Module，并且添加一个 New Copy Files Phase。</p>
 <p><img src="/images/2015-11-09/New Copy Files Phase.png" alt="New Copy Files Phase"></p>
