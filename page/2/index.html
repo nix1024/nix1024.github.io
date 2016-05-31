@@ -52,6 +52,73 @@
 
   
   
+    <h3 class="article-title"><a href="/2014/08/25/arc-on-ios/"><span>OC 中的 ARC</span></a></h3>
+  
+
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2014/08/25/arc-on-ios/" rel="bookmark">
+        <time class="entry-date published" datetime="2014-08-25T12:12:11.000Z">
+          2014-08-25
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
+<p>在类属性的声明中，ARC 相关的修饰词有 4 个：</p>
+<ul>
+<li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
+<li><code>weak</code> 不会延长对象的生命周期，当<code>weak</code>类型的指针指向的对象被释放时，指针自身会被自动置为<code>nil</code>。</li>
+<li><code>assign</code> 用于 C 原始类型，比如 int。</li>
+<li><code>copy</code> 传入对象时会浅拷贝对象。<ul>
+<li>一般将不可变的 property 设置为 copy，当可变的对象传入时，编译器会自动拷贝一份不可变的版本，以保证其内容不会被修改。如果传入的不可变对象，会增加其引用计数。</li>
+<li>当 property 是一个 block 时通常使用 copy。因为 block 需要在其所在的 scope 之外保留其捕获的状态。不声明也是可以的，但<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW12">官方推荐这样使用</a>，以提醒代码阅读者。</li>
+</ul>
+</li>
+</ul>
+      
+    </div>
+    <footer class="article-footer">
+        <div class="article-meta pull-left">
+          
+          
+  
+
+  <span class="post-tags">
+    <i class="icon-tags"></i>
+    <a href="/tags/arc/">ARC</a>, <a href="/tags/ios/">iOS</a>
+  </span>
+
+
+        </div>
+        
+        <div class="article-meta pull-right">
+          <span>
+            <i class="icon-comments"></i>
+            <span>
+              <a href="http://yoursite.com/2014/08/25/arc-on-ios/#comment">评论</a>
+            </span>
+          </span>
+        </div>
+        
+    </footer>
+  </div>
+</article>
+
+
+
+  <article class="post article">
+
+  
+  
     <h3 class="article-title"><a href="/2014/08/16/how-to-switch-between-view-controllers/"><span>View Controller 之间的切换</span></a></h3>
   
 
@@ -562,57 +629,6 @@
             <i class="icon-comments"></i>
             <span>
               <a href="http://yoursite.com/2014/01/02/a-crawler/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2013/12/31/happy-new-year/"><span>Happy New Year</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2013/12/31/happy-new-year/" rel="bookmark">
-        <time class="entry-date published" datetime="2013-12-31T15:09:35.000Z">
-          2013-12-31
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><img src="/images/2013-12-31/new-years-eve.gif" alt="new years eve"></p>
-<p>Google今天的Doodle太好玩了。看了N久。不知道12点时那个站在旁边的4会不会蹦上来。</p>
-<p>新年快乐。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2013/12/31/happy-new-year/#comment">评论</a>
             </span>
           </span>
         </div>

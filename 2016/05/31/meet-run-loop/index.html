@@ -3,8 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Nix 的自我修养</title>
+  <title>初识 Run Loop | Nix 的自我修养</title>
   <meta name="author" content="Nix Wang">
+  
+  <meta name="description" content="Run loopRun loop 类似 Windows 中的消息循环，作用是管理线程，让线程可以接收、处理消息，在没有工作时休眠。
+下图是 run loop 模型：
+
+图片来源
+在图中可以看到：Run loop 是一个死循环，在每个循环开始时会检查是否达到设定的退出时间，然后依次检查监听的各种事件源">
   
   
 
@@ -12,7 +18,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
+  <meta property="og:title" content="初识 Run Loop"/>
   <meta property="og:site_name" content="Nix 的自我修养"/>
 
   
@@ -47,12 +53,11 @@
 
     <article id="content" class="site-content">
       <main id="main" class="site-main posts-loop" role="main">
-        
-  <article class="post article">
+        <article class="post article">
 
   
   
-    <h3 class="article-title"><a href="/2016/05/31/meet-run-loop/"><span>初识 Run Loop</span></a></h3>
+    <h3 class="article-title"><span>初识 Run Loop</span></h3>
   
 
 
@@ -157,586 +162,39 @@
 
         </div>
         
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2016/05/31/meet-run-loop/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
     </footer>
   </div>
 </article>
 
-
-
-  <article class="post article">
-
   
-  
-    <h3 class="article-title"><a href="/2016/05/09/kill-debug-symbol-warnings/"><span>消除引入第三方 Framework 导致的 Warning</span></a></h3>
-  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'nix1024';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
 
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/05/09/kill-debug-symbol-warnings/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-05-09T11:38:07.000Z">
-          2016-05-09
-        </time>
-      </a>
-    </span>
-  </div>
 
 
-  
 
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">warning:</span> (armv7) <span class="regexp">/Users/</span>USERNAME<span class="regexp">/Library/</span>Developer<span class="regexp">/Xcode/</span>DerivedData<span class="regexp">/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/</span>Build<span class="regexp">/Intermediates/</span>FRAMEWORKNAME.build<span class="regexp">/Debug-iphoneos/</span>FRAMEWORKNAME.build<span class="regexp">/Objects-normal/</span>armv7/SOMECLASS.o unable to open object <span class="string">file:</span> No such file or directory</span><br></pre></td></tr></table></figure>
-<p>在 Xcode 查看编译过程发现是执行 <code>dsymutil</code> 这条命令时产生的。</p>
-<blockquote>
-<p>dsymutil links the DWARF debug information found in the object files for an executable exe_path by using debug symbols information contained in its symbol table.</p>
-</blockquote>
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-  
-
-  <span class="post-tags">
-    <i class="icon-tags"></i>
-    <a href="/tags/ios/">iOS</a>
-  </span>
-
-
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2016/05/09/kill-debug-symbol-warnings/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2016/03/24/introduce-reactive-cococa/"><span>初识 Reactive Cocoa</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/24/introduce-reactive-cococa/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-24T00:06:45.000Z">
-          2016-03-24
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>ReactiveCocoa 是一个符合 FRP（Functional Reactive Programming）范式的，操作和转换数据流的框架。</p>
-<p>它可以解决三个问题：</p>
-<ul>
-<li>开发过程中关于界面的状态信息太多，不易维护。</li>
-<li>统一<a href="https://www.objc.io/issues/7-foundation/communication-patterns/">各种消息传递的方式</a>。</li>
-<li>绑定功能可以配合 MVVM 使用。</li>
-</ul>
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-  
-
-  <span class="post-tags">
-    <i class="icon-tags"></i>
-    <a href="/tags/rac/">RAC</a>, <a href="/tags/ios/">iOS</a>
-  </span>
-
-
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2016/03/24/introduce-reactive-cococa/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2016/03/23/model-view-viewmodel-for-ios/"><span>MVVM</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/23/model-view-viewmodel-for-ios/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-23T02:05:45.000Z">
-          2016-03-23
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h2 id="MVC">MVC</h2><blockquote>
-<p>I’m dating with a model… and a view, and a controller.</p>
-</blockquote>
-<p>众所周知，MVC 是开发客户端最经典的设计模式，<a href="/2014/08/10/mvc-on-ios/">iOS 开发也不例外</a>，但是 MVC 有让人无法忽视的严重问题。</p>
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2016/03/23/model-view-viewmodel-for-ios/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2015/11/09/ios-dynamic-update/"><span>iOS 利用 framework 进行动态更新</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2015/11/09/ios-dynamic-update/" rel="bookmark">
-        <time class="entry-date published" datetime="2015-11-08T16:26:58.000Z">
-          2015-11-09
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h2 id="前言">前言</h2><p>目前 iOS 上的动态更新方案主要有以下 4 种：</p>
-<ul>
-<li>HTML 5</li>
-<li>lua（wax）hotpatch</li>
-<li>react native</li>
-<li>framework</li>
-</ul>
-<p>前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。</p>
-<p>使用 framework 的方式来更新可以不依赖第三方库，使用原生的 OC/Swift 来开发，体验更好，开发成本也更低。</p>
-<p>由于 Apple 不希望开发者绕过 App Store 来更新 app，因此<strong>只有对于不需要上架的应用，才能以 framework 的方式实现 app 的更新。</strong></p>
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-  
-
-  <span class="post-tags">
-    <i class="icon-tags"></i>
-    <a href="/tags/ios/">iOS</a>
-  </span>
-
-
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2015/11/09/ios-dynamic-update/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2015/04/24/symbolicate-crash-log/"><span>Symbolicate iOS Crash Log</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2015/04/24/symbolicate-crash-log/" rel="bookmark">
-        <time class="entry-date published" datetime="2015-04-24T02:31:04.000Z">
-          2015-04-24
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <blockquote>
-<p>本文介绍的是如何处理 Xcode 无法自动 Symbolicate 的 Crash log。</p>
-</blockquote>
-<p>如果你得到这样的 Crash log，你一定想知道其中的 <code>0x4a000 + 37204</code> 究竟对应哪个方法调用。</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>   CoreFoundation                  <span class="number">0x2dc73f7e</span> __exceptionPreprocess + <span class="number">126</span></span><br><span class="line"><span class="number">1</span>   libobjc.A.dylib                 <span class="number">0x384eecca</span> objc_exception_throw + <span class="number">34</span></span><br><span class="line"><span class="number">2</span>   CoreFoundation                  <span class="number">0x2dc77912</span> -[NSObject(NSObject) doesNotRecognizeSelector:] + <span class="number">198</span></span><br><span class="line"><span class="number">3</span>   CoreFoundation                  <span class="number">0x2dc761fe</span> ___forwarding___ + <span class="number">702</span></span><br><span class="line"><span class="number">4</span>   CoreFoundation                  <span class="number">0x2dbc5764</span> _CF_forwarding_prep_0 + <span class="number">20</span></span><br><span class="line"><span class="number">5</span>   YourAppName                     <span class="number">0x00053154</span> <span class="number">0x4a000</span> + <span class="number">37204</span></span><br><span class="line"><span class="number">6</span>   UIKit                           <span class="number">0x306f1c52</span> -[UIApplication _sendWillEnterForegroundCallbacks] + <span class="number">90</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-  
-
-  <span class="post-tags">
-    <i class="icon-tags"></i>
-    <a href="/tags/ios/">iOS</a>
-  </span>
-
-
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2015/04/24/symbolicate-crash-log/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2015/03/18/protocol-buffer-for-ios/"><span>Protocol Buffers for iOS</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2015/03/18/protocol-buffer-for-ios/" rel="bookmark">
-        <time class="entry-date published" datetime="2015-03-18T15:29:22.000Z">
-          2015-03-18
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>Protocol Buffers 是 Google 出品的用来序列化/反序列化数据的工具。原生支持 C++、Java、Python。</p>
-<p>如果要在 iOS 上使用 PB，可以直接使用 C++，但是编译过程很麻烦，因此这里使用的是第三方的库。</p>
-<h2 id="安装_Protocol_Buffers">安装 Protocol Buffers</h2><ul>
-<li>安装 homebrew</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>安装 automake、libtool、protobuf。这里安装的 protobuf 是 google 官方版本。</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install automake</span><br><span class="line">brew install libtool</span><br><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-  
-
-  <span class="post-tags">
-    <i class="icon-tags"></i>
-    <a href="/tags/ios/">iOS</a>
-  </span>
-
-
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2015/03/18/protocol-buffer-for-ios/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2015/03/08/mechanical-watch/"><span>简单机械手表原理</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2015/03/08/mechanical-watch/" rel="bookmark">
-        <time class="entry-date published" datetime="2015-03-08T15:18:51.000Z">
-          2015-03-08
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>一直对机械手表内部的结构有些好奇，直到今天看到了一个精美的视频——<a href="http://v.youku.com/v_show/id_XNjUwNzA4NjIw.html?from=y1.2-1-102.3.11-1.1-1-1-10-0" target="_blank" rel="external">基础机械表内部工作原理</a>才明白。</p>
-<p>我们的目标是：</p>
-<ul>
-<li>得到一个固定的转动周期。</li>
-<li>机械手表的动力来自发条（main spring），将存储在发条中的能量<strong>缓慢地</strong>释放出来，才能维持手表长时间地运转。</li>
-</ul>
-<p>为了得到一个固定的转动周期，发明机械手表的人设计了一个部件叫摆轮（balance wheel），摆轮中的游丝（hair spring）可以让摆轮以固定的频率来回摆动。由此可见，游丝是机械手表的心脏，很大程度上决定了机械手表的精度。为什么是来回摆动而不是转动？个人理解是因为游丝本质是一根极细的发条，只能保证在上紧后在相对固定的时间内恢复。</p>
-<p>接下来解决能量释放的问题。</p>
-<p>在机械手表中，能量从发条开始，通过一级级的齿轮传递下去。在传递的过程中，从动轮总是比主动轮转得更快——也就是说离发条越远的齿轮，转动一格时，发条消耗的能量越少。通过控制离发条最远处齿轮的转动，就可以最细粒度地控制发条中能量消耗的速度。</p>
-<p>擒纵（escapement ）是专门来控制最后一级齿轮的转动和停止的。擒纵的设计非常巧妙（名字也翻译得十分精妙），配合摆轮可以让最后一级齿轮以固定的速度转动。</p>
-<p>最后，只要设计好各级齿轮之间的比例，就可以用不同级的齿轮来表示时分秒了。</p>
-<p>因为摆轮、游丝会被地球重力影响，因此有一位宝玑先生发明了陀飞轮：</p>
-<blockquote>
-<p>陀飞轮的原理基本上是把游丝、叉式杠杆和擒纵系统设计在同一轴上运作，陀飞轮在运行时会不断旋转，以减少地心引力所造成的影响。</p>
-</blockquote>
-<p>另外还有两项黑科技：三问和万年历，都是名表才有的配置。</p>
-<p><strong>这些精妙绝伦的设计和加工工艺令人叹为观止，是人类不断追求完美的精神象征，其价值更多的还是体现在文化层面，注定要成为历史。</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2015/03/08/mechanical-watch/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2015/01/07/sign-your-mac-app-with-developer-id/"><span>使用 Developer ID 为 Mac app 签名</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2015/01/07/sign-your-mac-app-with-developer-id/" rel="bookmark">
-        <time class="entry-date published" datetime="2015-01-07T13:00:11.000Z">
-          2015-01-07
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h1 id="为何要签名">为何要签名</h1><blockquote>
-<p>对 app 进行代码签名可让用户确信它来自已知来源，且自最后一次签名之后未被修改。在您的 Mac app 或 iOS app 可以使用商店服务，安装到 iOS 设备上进行开发或测试，或者提交到 App Store 之前，必须先使用 Apple 颁布的证书对其进行签名。</p>
-</blockquote>
-<p>在 OS X 的<code>安全性与隐私</code>的设置里有一项设置是<code>允许从以下位置下载的应用程序</code>，默认的设置是<code>Mac App Store 和被认可的开发者</code>。</p>
-<p>也就是说在用户不手动修改设置的情况下，用户无法打开未签名的程序。</p>
-<p><img src="/images/2015-01-07/invalid_code_sign.png" alt="打开未签名程序时的警告"></p>
-<p>下面就来介绍如何使用 Developer ID 为 app 签名。</p>
-<p>注意：本文不适用于发布到 Mac App Store 的签名。</p>
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-  
-
-  <span class="post-tags">
-    <i class="icon-tags"></i>
-    <a href="/tags/os-x/">OS X</a>
-  </span>
-
-
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2015/01/07/sign-your-mac-app-with-developer-id/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post article">
-
-  
-  
-    <h3 class="article-title"><a href="/2014/09/03/errors-due-to-nested-pop-or-push/"><span>Nested pop/push 导致的问题</span></a></h3>
-  
-
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2014/09/03/errors-due-to-nested-pop-or-push/" rel="bookmark">
-        <time class="entry-date published" datetime="2014-09-03T14:39:00.000Z">
-          2014-09-03
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>有这样一个场景：当一个 ViewControllerA 出现的时候，我们检查某个状态值，如果符合条件就用 <code>pushViewController</code> 或 <code>popViewController</code> 跳转到另一页面。</p>
-<p>很容易想到的方法就是在 ViewControllerA 的 <code>viewDidLoad</code> 或者 <code>viewWillAppear</code> 中来检查状态并跳转。但这时候系统会给出警告：</p>
-<blockquote>
-<p>nested push animation can result in corrupted navigation bar.</p>
-<p>Finishing up a navigation transition in an unexpected state. Navigation Bar subview tree might get corrupted.</p>
-</blockquote>
-<p>或者</p>
-<blockquote>
-<p>Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x6849b30></p>
-</blockquote>
-<p>并且可能导致 navigationController 的标题栏出现重影甚至崩溃。</p>
-      
-    </div>
-    <footer class="article-footer">
-        <div class="article-meta pull-left">
-          
-          
-  
-
-  <span class="post-tags">
-    <i class="icon-tags"></i>
-    <a href="/tags/ios/">iOS</a>
-  </span>
-
-
-        </div>
-        
-        <div class="article-meta pull-right">
-          <span>
-            <i class="icon-comments"></i>
-            <span>
-              <a href="http://yoursite.com/2014/09/03/errors-due-to-nested-pop-or-push/#comment">评论</a>
-            </span>
-          </span>
-        </div>
-        
-    </footer>
-  </div>
-</article>
-
-
-
-
-<nav class="pagination">
-  
-  
-  <a href="/page/2/" class="pagination-next">下一页</a>
-  
-</nav>
       </main>
     </article>
 
