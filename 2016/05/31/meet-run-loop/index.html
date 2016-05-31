@@ -314,7 +314,7 @@
 
 <p><a href="http://asciiflow.com/" target="_blank" rel="external">字符画工具 asciiflow</a></p>
 <p>下面来逐一介绍各个部分。</p>
-<h2 id="Run_Loop_Mode">Run Loop Mode</h2><p>一个 run loop mode 包含了一组 input sources、一组 timer 和一组 run loop 的 observer。Run loop 总是运行在某个 run loop mode 下，这个时候只有这个 run loop mode 中的事件才会被接收和处理，observer 才会被通知。如果一个 input sources 产生的事件并没有被监听就会被 hold 住，直到 run loop 运行在合适的 mode 下。</p>
+<h1 id="Run_Loop_Mode">Run Loop Mode</h1><p>一个 run loop mode 包含了一组 input sources、一组 timer 和一组 run loop 的 observer。Run loop 总是运行在某个 run loop mode 下，这个时候只有这个 run loop mode 中的事件才会被接收和处理，observer 才会被通知。如果一个 input sources 产生的事件并没有被监听就会被 hold 住，直到 run loop 运行在合适的 mode 下。</p>
 <p>在代码中，可以通过名称来指定需要的 mode。然后至少添加一个或者多个 input sources/timer/observer。在大多数情况下，我们只需要将 run loop 运行在默认的 mode 下即可，但是在特定情况下（比如某些对实时性要求比较高的场景）可以通过创建一个自定义的 mode 来过滤一些不需要处理的事件。</p>
 <p>常用的预定义的 mode 有以下几种：</p>
 <ul>
@@ -326,13 +326,13 @@
 <p>Github 上一个开源的查看图片的项目 <a href="https://github.com/mwaterfall/MWPhotoBrowser" target="_blank" rel="external">MWPhotoBrowser</a> 在显示照片列表时有一个 bug：在用户滚动 <code>UICollectionView</code> 的时候，新显示的图片加载不出来。</p>
 <p>原因是：MWPhotoBrowser 内部加载完图片之后会用 <code>performSelector:withObject:afterDelay:</code> 调用 <code>postCompleteNotification</code> 方法抛出一个 <code>MWPHOTO_LOADING_DID_END_NOTIFICATION</code> 消息。这个时候默认使用的是 default mode，因此在 <code>UICollectionView</code> 滚动停止之前，主线程都不会接收到这个消息。解决的方法也很简单，将抛消息这个动作添加到 Common Modes 即可。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self <span class="string">performSelector:</span><span class="annotation">@selector</span>(postCompleteNotification) <span class="string">withObject:</span>nil <span class="string">afterDelay:</span><span class="number">0</span> <span class="string">inModes:</span>@[NSRunLoopCommonModes]];</span><br></pre></td></tr></table></figure>
-<h2 id="Input_Sources">Input Sources</h2><p>Input Sources 分为两类：自定义（source0）和基于 mach port（source1）和。Mac port 是<a href="http://nshipster.com/inter-process-communication/" target="_blank" rel="external">进程间通信</a>的一种方法。两种 source 产生的事件处理方法是一致的，唯一的不同是基于 mach port 的事件是自动触发的，而自定义的事件需要手动触发。</p>
+<h1 id="Input_Sources">Input Sources</h1><p>Input Sources 分为两类：自定义（source0）和基于 mach port（source1）和。Mac port 是<a href="http://nshipster.com/inter-process-communication/" target="_blank" rel="external">进程间通信</a>的一种方法。两种 source 产生的事件处理方法是一致的，唯一的不同是基于 mach port 的事件是自动触发的，而自定义的事件需要手动触发。</p>
 <p>例如调用 <code>performSelector:onThread:</code> 时，系统会添加一个 input source 到指定的线程上，并且在执行完之后将自身从相应的 run loop 中移除。此时对应的线程必须要有一个运行着的 run loop，否则 selector 将不会被执行（还记得主线程的 run loop 会由系统来运行，而我们自己创建的线程需要自己显式运行）。</p>
 <p>一个例子：</p>
 <p>苹果会帮 app 注册一个基于 mach port 的事件源，并设置了一个回调函数 <code>_UIApplicationHandleEventQueue()</code>。当用户每一次点击屏幕上的一个按钮时，系统会通过 mach port 将事件发送给 app，app 通过回调来相应事件。 </p>
-<h2 id="Timer_Source">Timer Source</h2><p>Timer 和其他的 source 一样，是需要添加到某个 mode 中才能被监听。如果在 timer 的触发时间到了，而 run loop 没有在其所在的 mode 下运行时，对应的事件就不会被触发，直到前面的条件满足。</p>
+<h1 id="Timer_Source">Timer Source</h1><p>Timer 和其他的 source 一样，是需要添加到某个 mode 中才能被监听。如果在 timer 的触发时间到了，而 run loop 没有在其所在的 mode 下运行时，对应的事件就不会被触发，直到前面的条件满足。</p>
 <p>如果 timer 的触发时间到了，而 run loop 正在处理其他的事件，那么 timer 的事件就会在 run loop 的下一个循环中处理。因此，timer 并不一定会在指定的时间准时触发。</p>
-<h2 id="Observers">Observers</h2><p>在 run loop 执行的各个阶段，系统还会发送相应的通知，通过注册监听这些消息来做一些额外的工作。可以监听的消息有：</p>
+<h1 id="Observers">Observers</h1><p>在 run loop 执行的各个阶段，系统还会发送相应的通知，通过注册监听这些消息来做一些额外的工作。可以监听的消息有：</p>
 <ul>
 <li>Run loop 的入口。</li>
 <li>Run loop 即将处理一个 timer。</li>
@@ -348,7 +348,7 @@
 <li>监听 run loop 即将休眠的消息，调用 <code>_objc_autoreleasePoolPop()</code> 和 <code>_objc_autoreleasePoolPush()</code> 释放旧的内存池并创建新内存池。</li>
 <li>监听 run loop 退出消息，调用 <code>_objc_autoreleasePoolPop()</code> 来释放内存池。</li>
 </ul>
-<h2 id="运行和停止_Run_Loop">运行和停止 Run Loop</h2><p>在运行后台线程的 run loop 之前，至少需要添加一个 input source 或者 timer，否则 run loop 会在运行后立刻退出。在添加一个 timer 后，每当 timer 触发时线程都会被唤醒，而添加 input source 时，只在对应的事件发生时才会唤醒线程，因此相比较于添加 timer，添加 input source 是一个更高效的方法。</p>
+<h1 id="运行和停止_Run_Loop">运行和停止 Run Loop</h1><p>在运行后台线程的 run loop 之前，至少需要添加一个 input source 或者 timer，否则 run loop 会在运行后立刻退出。在添加一个 timer 后，每当 timer 触发时线程都会被唤醒，而添加 input source 时，只在对应的事件发生时才会唤醒线程，因此相比较于添加 timer，添加 input source 是一个更高效的方法。</p>
 <p>一个例子：</p>
 <p>在 AFNetworking 中创建一个常驻线程的方法是让 run loop 监听一个 port based input source：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)networkRequestThreadEntryPoint:(<span class="keyword">id</span>)__unused object &#123;</span><br><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">[[<span class="built_in">NSThread</span> currentThread] setName:<span class="string">@"AFNetworking"</span>];</span><br><span class="line">NSRunLoop *runLoop = [NSRunLoop currentRunLoop];</span><br><span class="line">[runLoop addPort:[NSMachPort port] forMode:NSDefaultRunLoopMode];</span><br><span class="line">[runLoop run];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSThread</span> *)networkRequestThread &#123;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSThread</span> *_networkRequestThread = <span class="literal">nil</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> oncePredicate;</span><br><span class="line"><span class="built_in">dispatch_once</span>(&amp;oncePredicate, ^&#123;</span><br><span class="line">_networkRequestThread = [[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(networkRequestThreadEntryPoint:) object:<span class="literal">nil</span>];</span><br><span class="line">[_networkRequestThread start];</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">return</span> _networkRequestThread;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -357,14 +357,14 @@
 <p>值得注意的是：NSRunLoop 类不是线程安全的，因此<strong>必须只在一个线程内操作自己对应的 run loop</strong>。</p>
 </blockquote>
 <p>要停止一个 run loop 有两种方法：在运行 run loop 时指定一个超时时间或者显式调用 <code>CFRunLoopStop</code>。</p>
-<h2 id="Run_Loop_的应用场景">Run Loop 的应用场景</h2><p>系统默认会创建并运行一个主线程的 run loop。对于开发者自己创建的线程，用户需要显式地运行这个 run loop。之所以要这样设计是因为是某些情况下 run loop 是不需要运行的：比如你需要执行一个定义好的长期运行的任务。Run loop 适用于交互性比较强的任务：</p>
+<h1 id="Run_Loop_的应用场景">Run Loop 的应用场景</h1><p>系统默认会创建并运行一个主线程的 run loop。对于开发者自己创建的线程，用户需要显式地运行这个 run loop。之所以要这样设计是因为是某些情况下 run loop 是不需要运行的：比如你需要执行一个定义好的长期运行的任务。Run loop 适用于交互性比较强的任务：</p>
 <ul>
 <li>需要使用 mach port 或者其他方式与其他线程通信。</li>
 <li>需要使用 timer。</li>
 <li>需要使用 <code>performSelector</code> 相关的方法。</li>
 <li>需要保证线程不退出来执行一些周期性的任务。</li>
 </ul>
-<h2 id="Ref">Ref</h2><ul>
+<h1 id="Ref">Ref</h1><ul>
 <li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html" target="_blank" rel="external">Run Loops - Apple Developer</a></li>
 <li><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">深入理解RunLoop | Garan no dou</a></li>
 </ul>
@@ -540,7 +540,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Run_Loop_Mode"><span class="nav-number">1.</span> <span class="nav-text">Run Loop Mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input_Sources"><span class="nav-number">2.</span> <span class="nav-text">Input Sources</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Timer_Source"><span class="nav-number">3.</span> <span class="nav-text">Timer Source</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observers"><span class="nav-number">4.</span> <span class="nav-text">Observers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行和停止_Run_Loop"><span class="nav-number">5.</span> <span class="nav-text">运行和停止 Run Loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run_Loop_的应用场景"><span class="nav-number">6.</span> <span class="nav-text">Run Loop 的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Run_Loop_Mode"><span class="nav-number">1.</span> <span class="nav-text">Run Loop Mode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Input_Sources"><span class="nav-number">2.</span> <span class="nav-text">Input Sources</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timer_Source"><span class="nav-number">3.</span> <span class="nav-text">Timer Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Observers"><span class="nav-number">4.</span> <span class="nav-text">Observers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行和停止_Run_Loop"><span class="nav-number">5.</span> <span class="nav-text">运行和停止 Run Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Run_Loop_的应用场景"><span class="nav-number">6.</span> <span class="nav-text">Run Loop 的应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
             
           </div>
         </section>
