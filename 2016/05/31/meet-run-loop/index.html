@@ -93,21 +93,16 @@
 <li>NSEventTrackingRunLoopMode：涉及到用户交互（如鼠标拖动、或者 UIScrollView 滚动）时使用的 mode。</li>
 <li>NSRunLoopCommonModes：Run loop 有个 _commonModeItems 属性，其中保存了一些 input sources/timer/observer，这些 item 是所有的 Common Modes 所共享的。自定义的 mode 也可以将自身标记为 Common Mode。</li>
 </ul>
+<p>一个例子：</p>
+<p>Github 上一个开源的查看图片的项目 <a href="https://github.com/mwaterfall/MWPhotoBrowser" target="_blank" rel="external">MWPhotoBrowser</a> 在显示照片列表时有一个 bug：在用户滚动 <code>UICollectionView</code> 的时候，新显示的图片加载不出来。</p>
+<p>原因是：MWPhotoBrowser 内部加载完图片之后会用 <code>performSelector:withObject:afterDelay:</code> 调用 <code>postCompleteNotification</code> 方法抛出一个 <code>MWPHOTO_LOADING_DID_END_NOTIFICATION</code> 消息。这个时候默认使用的是 default mode，因此在 <code>UICollectionView</code> 滚动停止之前，主线程都不会接收到这个消息。解决的方法也很简单，将抛消息这个动作添加到 Common Modes 即可。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self <span class="string">performSelector:</span><span class="annotation">@selector</span>(postCompleteNotification) <span class="string">withObject:</span>nil <span class="string">afterDelay:</span><span class="number">0</span> <span class="string">inModes:</span>@[NSRunLoopCommonModes]];</span><br></pre></td></tr></table></figure>
 <h2 id="Input_Sources">Input Sources</h2><p>Input Sources 分为两类：自定义（source0）和基于 mach port（source1）和。Mac port 是<a href="http://nshipster.com/inter-process-communication/" target="_blank" rel="external">进程间通信</a>的一种方法。两种 source 产生的事件处理方法是一致的，唯一的不同是基于 mach port 的事件是自动触发的，而自定义的事件需要手动触发。</p>
 <p>例如调用 <code>performSelector:onThread:</code> 时，系统会添加一个 input source 到指定的线程上，并且在执行完之后将自身从相应的 run loop 中移除。此时对应的线程必须要有一个运行着的 run loop，否则 selector 将不会被执行（还记得主线程的 run loop 会由系统来运行，而我们自己创建的线程需要自己显式运行）。</p>
 <p>一个例子：</p>
 <p>苹果会帮 app 注册一个基于 mach port 的事件源，并设置了一个回调函数 <code>_UIApplicationHandleEventQueue()</code>。当用户每一次点击屏幕上的一个按钮时，系统会通过 mach port 将事件发送给 app，app 通过回调来相应事件。 </p>
 <h2 id="Timer_Source">Timer Source</h2><p>Timer 和其他的 source 一样，是需要添加到某个 mode 中才能被监听。如果在 timer 的触发时间到了，而 run loop 没有在其所在的 mode 下运行时，对应的事件就不会被触发，直到前面的条件满足。</p>
 <p>如果 timer 的触发时间到了，而 run loop 正在处理其他的事件，那么 timer 的事件就会在 run loop 的下一个循环中处理。因此，timer 并不一定会在指定的时间准时触发。</p>
-<p>一个例子：</p>
-<p><code>NSTimer</code> 默认运行在 default mode 下，如果用户正在滚动 <code>UIScrollView</code>，此时主线程工作在 <code>UITrackingRunLoopMode</code>，Timer 的事件就不会被处理。如果想要 timer 的事件被处理，有两种方法：</p>
-<ul>
-<li>将 timer 添加到 NSRunLoopCommonModes。</li>
-</ul>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr_selector">[[NSRunLoop currentRunLoop]</span> <span class="tag">addTimer</span><span class="pseudo">:self</span><span class="class">.timer</span> <span class="tag">forMode</span><span class="pseudo">:NSRunLoopCommonModes</span>];</span><br></pre></td></tr></table></figure>
-<ul>
-<li>新建一个线程监听 timer 事件，然后再使用 <code>performSelector:onThread:</code> 通知主线程。</li>
-</ul>
 <h2 id="Observers">Observers</h2><p>在 run loop 执行的各个阶段，系统还会发送相应的通知，通过注册监听这些消息来做一些额外的工作。可以监听的消息有：</p>
 <ul>
 <li>Run loop 的入口。</li>
