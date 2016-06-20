@@ -84,15 +84,15 @@
 
 
 
-<meta name="description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何页面布局。约束是用来描述一">
+<meta name="description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何进行布局。约束是用来描述一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Autolayout 使用小结">
 <meta property="og:url" content="http://yoursite.com/2015/06/20/meet-autolayout/index.html">
 <meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何页面布局。约束是用来描述一">
+<meta property="og:description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何进行布局。约束是用来描述一">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Autolayout 使用小结">
-<meta name="twitter:description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何页面布局。约束是用来描述一">
+<meta name="twitter:description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何进行布局。约束是用来描述一">
 
 
 
@@ -277,7 +277,7 @@
       
 
       
-        <p>Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置<strong>约束（constraints）</strong>来描述<strong>需要什么样的布局</strong>，而不是<strong>如何页面布局</strong>。约束是用来描述一个 view 的布局条件或者两个 view 之间布局关系的对象。通过这种方式有效地<strong>减少</strong>了适配不同屏幕尺寸的工作量。</p>
+        <p>Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置<strong>约束（constraints）</strong>来描述<strong>需要什么样的布局</strong>，而不是<strong>如何进行布局</strong>。约束是用来描述一个 view 的布局条件或者两个 view 之间布局关系的对象。通过这种方式有效地<strong>减少</strong>了适配不同屏幕尺寸的工作量。</p>
 <a id="more"></a>
 <p>常见的约束包括：长度、宽度、长宽比、两个 view 的间距、对齐方式等，非常简单直观。设置方法可以参考<a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithConstraintsinInterfaceBuidler.html" target="_blank" rel="external"> Apple 文档</a>。</p>
 <p>它们的本质是下面的公式：</p>
