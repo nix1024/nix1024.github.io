@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Nix, iOS" />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -84,18 +84,15 @@
 
 
 
-<meta name="description" content="最近在做一个Wordpress小站，但是发现用域名不能访问，用IP访问不能正确加载CSS、JS和图片，后果可想而知，最重要的是不能登录Wordpress后台了。
-但是查了下DNS设置是没问题的，可以Ping到正确的IP。后来一番Google才想起来我们伟大祖国母亲再打我一次的备案制度——这个域名还没有备案。Wordpress的资源文件路径中的域名是不能访问的，所以不能加载。而且万网上说一般的备案流">
+<meta name="description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何页面布局。约束是用来描述一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Wordpress 修改站点域名">
-<meta property="og:url" content="http://yoursite.com/2013/12/20/wordpress-change-domain/index.html">
+<meta property="og:title" content="Autolayout 使用小结">
+<meta property="og:url" content="http://yoursite.com/2015/06/20/meet-autolayout/index.html">
 <meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="最近在做一个Wordpress小站，但是发现用域名不能访问，用IP访问不能正确加载CSS、JS和图片，后果可想而知，最重要的是不能登录Wordpress后台了。
-但是查了下DNS设置是没问题的，可以Ping到正确的IP。后来一番Google才想起来我们伟大祖国母亲再打我一次的备案制度——这个域名还没有备案。Wordpress的资源文件路径中的域名是不能访问的，所以不能加载。而且万网上说一般的备案流">
+<meta property="og:description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何页面布局。约束是用来描述一">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wordpress 修改站点域名">
-<meta name="twitter:description" content="最近在做一个Wordpress小站，但是发现用域名不能访问，用IP访问不能正确加载CSS、JS和图片，后果可想而知，最重要的是不能登录Wordpress后台了。
-但是查了下DNS设置是没问题的，可以Ping到正确的IP。后来一番Google才想起来我们伟大祖国母亲再打我一次的备案制度——这个域名还没有备案。Wordpress的资源文件路径中的域名是不能访问的，所以不能加载。而且万网上说一般的备案流">
+<meta name="twitter:title" content="Autolayout 使用小结">
+<meta name="twitter:description" content="Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置约束（constraints）来描述需要什么样的布局，而不是如何页面布局。约束是用来描述一">
 
 
 
@@ -113,7 +110,7 @@
   };
 </script>
 
-  <title> Wordpress 修改站点域名 | Nix 的自我修养 </title>
+  <title> Autolayout 使用小结 | Nix 的自我修养 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -233,7 +230,7 @@
             
             
               
-                Wordpress 修改站点域名
+                Autolayout 使用小结
               
             
           </h1>
@@ -245,8 +242,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2013-12-20T19:45:06+08:00" content="2013-12-20">
-              2013-12-20
+            <time itemprop="dateCreated" datetime="2015-06-20T15:16:52+08:00" content="2015-06-20">
+              2015-06-20
             </time>
           </span>
 
@@ -256,8 +253,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/12/20/wordpress-change-domain/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/20/wordpress-change-domain/" itemprop="commentsCount"></span>
+                <a href="/2015/06/20/meet-autolayout/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/20/meet-autolayout/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -280,10 +277,31 @@
       
 
       
-        <p>最近在做一个Wordpress小站，但是发现用域名不能访问，用IP访问不能正确加载CSS、JS和图片，后果可想而知，最重要的是不能登录Wordpress后台了。</p>
-<p>但是查了下DNS设置是没问题的，可以Ping到正确的IP。后来一番Google才想起来我们伟大祖国母亲<del>再打我一次</del>的备案制度——这个域名还没有备案。Wordpress的资源文件路径中的域名是不能访问的，所以不能加载。而且万网上说一般的备案流程需要20个工作日（干！）。</p>
-<p>为了在这20天内可以用IP访问，可以通过设置Wordpress站点域名的方法来绕行。同样适用于更换域名。</p>
-<p>所需要做的是：登陆phpMyAdmin，将<code>wp-options</code>（默认前缀是<code>wp</code>）中的<code>siteurl</code>字段修改为站点的公网IP即可。</p>
+        <p>Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置<strong>约束（constraints）</strong>来描述<strong>需要什么样的布局</strong>，而不是<strong>如何页面布局</strong>。约束是用来描述一个 view 的布局条件或者两个 view 之间布局关系的对象。通过这种方式有效地<strong>减少</strong>了适配不同屏幕尺寸的工作量。</p>
+<p>&lt;!- more -&gt;</p>
+<p>常见的约束包括：长度、宽度、长宽比、两个 view 的间距、对齐方式等，非常简单直观。设置方法可以参考<a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithConstraintsinInterfaceBuidler.html" target="_blank" rel="external"> Apple 文档</a>。</p>
+<p>它们的本质是下面的公式：</p>
+<blockquote>
+<p>view1.attribute1 = multiplier * view2.attribute2 + constant</p>
+</blockquote>
+<p>几个值得注意的点：</p>
+<ul>
+<li>优先级</li>
+</ul>
+<p>约束是有优先级的（1 到 1000），当两个条件冲突时系统会优先满足优先级高的约束。约束可以用来描述不相等的关系（大于等于、小于等于），通常配合优先级使用。</p>
+<ul>
+<li>Intrinsic Size</li>
+</ul>
+<p>对于某些 view（如 UILabel、UIButton），系统可以自动根据其内容来计算合适的大小，这个大小就叫 Intrinsic Size。对于这种 view，我们可以只设置能确定其位置的约束，而不用指定宽度和高度的约束。</p>
+<ul>
+<li>Content Hugging Priority</li>
+</ul>
+<p>简单来说就是相对于 Intrinsic Size <strong>抗拒拉伸</strong>的优先级，默认值是 250。如果存在一个约束计算出的 size 比 Intrinsic Size 要大，并且这个约束的优先级比 250 大，则最终尺寸按照这个约束来计算；如果这个约束的优先级比 250 小，则最终尺寸是 Intrinsic Size。</p>
+<ul>
+<li>Compression Resistance Priority</li>
+</ul>
+<p>相反的，Compression Resistance Priority 是相对于 Intrinsic Size <strong>抗拒压缩</strong>的优先级，默认值是 750。</p>
+<p>此外，Apple 提供了两种方式来让开发者设置约束：Interface Builder 和代码方式。为了让用户「更方便地」使用代码来设置约束，苹果还特意发明了一种叫 VFL 的语言，但实际使用起来十分糟糕。如果希望使用代码的方式来设置约束可以试试一个第三方的开源库 <a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a>。</p>
 
       
     </div>
@@ -324,21 +342,27 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag">#iOS</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/12/17/responsive-design-tester/" rel="next" title="响应式设计测试工具">
-                <i class="fa fa-chevron-left"></i> 响应式设计测试工具
+              <a href="/2015/04/24/symbolicate-crash-log/" rel="next" title="Symbolicate iOS Crash Log">
+                <i class="fa fa-chevron-left"></i> Symbolicate iOS Crash Log
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/12/29/spec-work/" rel="prev" title="记一个小网站的诞生">
-                记一个小网站的诞生 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/11/09/ios-dynamic-update/" rel="prev" title="iOS 利用 Framework 进行动态更新">
+                iOS 利用 Framework 进行动态更新 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -586,9 +610,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'nix1024';
-      var disqus_identifier = '2013/12/20/wordpress-change-domain/';
-      var disqus_title = "Wordpress 修改站点域名";
-      var disqus_url = 'http://yoursite.com/2013/12/20/wordpress-change-domain/';
+      var disqus_identifier = '2015/06/20/meet-autolayout/';
+      var disqus_title = "Autolayout 使用小结";
+      var disqus_url = 'http://yoursite.com/2015/06/20/meet-autolayout/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
