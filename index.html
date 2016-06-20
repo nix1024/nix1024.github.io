@@ -824,34 +824,12 @@
 
       
         
-          
-            <p>Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置<strong>约束（constraints）</strong>来描述<strong>需要什么样的布局</strong>，而不是<strong>如何页面布局</strong>。约束是用来描述一个 view 的布局条件或者两个 view 之间布局关系的对象。通过这种方式有效地<strong>减少</strong>了适配不同屏幕尺寸的工作量。</p>
-<p>&lt;!- more -&gt;</p>
-<p>常见的约束包括：长度、宽度、长宽比、两个 view 的间距、对齐方式等，非常简单直观。设置方法可以参考<a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithConstraintsinInterfaceBuidler.html" target="_blank" rel="external"> Apple 文档</a>。</p>
-<p>它们的本质是下面的公式：</p>
-<blockquote>
-<p>view1.attribute1 = multiplier * view2.attribute2 + constant</p>
-</blockquote>
-<p>几个值得注意的点：</p>
-<ul>
-<li>优先级</li>
-</ul>
-<p>约束是有优先级的（1 到 1000），当两个条件冲突时系统会优先满足优先级高的约束。约束可以用来描述不相等的关系（大于等于、小于等于），通常配合优先级使用。</p>
-<ul>
-<li>Intrinsic Size</li>
-</ul>
-<p>对于某些 view（如 UILabel、UIButton），系统可以自动根据其内容来计算合适的大小，这个大小就叫 Intrinsic Size。对于这种 view，我们可以只设置能确定其位置的约束，而不用指定宽度和高度的约束。</p>
-<ul>
-<li>Content Hugging Priority</li>
-</ul>
-<p>简单来说就是相对于 Intrinsic Size <strong>抗拒拉伸</strong>的优先级，默认值是 250。如果存在一个约束计算出的 size 比 Intrinsic Size 要大，并且这个约束的优先级比 250 大，则最终尺寸按照这个约束来计算；如果这个约束的优先级比 250 小，则最终尺寸是 Intrinsic Size。</p>
-<ul>
-<li>Compression Resistance Priority</li>
-</ul>
-<p>相反的，Compression Resistance Priority 是相对于 Intrinsic Size <strong>抗拒压缩</strong>的优先级，默认值是 750。</p>
-<p>此外，Apple 提供了两种方式来让开发者设置约束：Interface Builder 和代码方式。为了让用户「更方便地」使用代码来设置约束，苹果还特意发明了一种叫 VFL 的语言，但实际使用起来十分糟糕。如果希望使用代码的方式来设置约束可以试试一个第三方的开源库 <a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a>。</p>
-
-          
+          <p>Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置<strong>约束（constraints）</strong>来描述<strong>需要什么样的布局</strong>，而不是<strong>如何页面布局</strong>。约束是用来描述一个 view 的布局条件或者两个 view 之间布局关系的对象。通过这种方式有效地<strong>减少</strong>了适配不同屏幕尺寸的工作量。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/06/20/meet-autolayout/#more" rel="contents">
+              閱讀全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
