@@ -292,7 +292,7 @@
 <ul>
 <li>Intrinsic Size</li>
 </ul>
-<p>对于某些 view（如 UILabel、UIButton），系统可以自动根据其内容来计算合适的大小，这个大小就叫 Intrinsic Size。对于这种 view，我们可以只设置能确定其位置的约束，而不用指定宽度和高度的约束。</p>
+<p>对于某些 view（如 UILabel、UIButton），系统可以自动根据其内容来计算合适的大小，这个大小就叫 Intrinsic Size。对于这种 view，我们可以只设置能确定其位置的约束，而不用指定宽度和高度的约束。对于不支持 Intrinsic Size 的 view，也可以通过重写 <code>intrinsicContentSize</code> 方法来支持 Intrinsic Size。</p>
 <ul>
 <li>Content Hugging Priority</li>
 </ul>
