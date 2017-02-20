@@ -98,8 +98,8 @@ iOS 动画（或者所有动画？）的原理简单来讲有两种：
 
 告诉系统动画对象在某几个时刻的状态（关键帧），由系统自动补全这些时刻之间的中间状态，再把所有这些状态平滑地显示出来。这种动画也叫做关键帧动画。
 每隔一段很短的时间，重新绘制一次动画对象。">
-<meta property="og:image" content="/Users/Nix/Blog/source/images/2017-02-13/ca_architecture.png">
-<meta property="og:image" content="/Users/Nix/Blog/source/images/2017-02-13/timing_function.jpg">
+<meta property="og:image" content="/images/2017-02-13/ca_architecture.png">
+<meta property="og:image" content="/images/2017-02-13/timing_function.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS Animation 指北">
 <meta name="twitter:description" content="写在前面iOS 向来以丝般顺滑的过度动画闻名，好的动画可以让用户更好地理解 app，并且可以让 app 更加有趣。有趣很重要。
@@ -299,7 +299,7 @@ iOS 动画（或者所有动画？）的原理简单来讲有两种：
 </ol>
 <a id="more"></a>
 <h2 id="整体架构">整体架构</h2><p>这里是一张 iOS 动画相关 framework 的架构图：</p>
-<p><img src="/Users/Nix/Blog/source/images/2017-02-13/ca_architecture.png" alt="Core Animation 架构"></p>
+<p><img src="/images/2017-02-13/ca_architecture.png" alt="Core Animation 架构"></p>
 <p>从图中可以看到，要实现一个 iOS 动画从上层到底层你会接触到 UIKit、Core Animation、Core Graphics/OpenGL。他们使用的难度依次递增，相应地灵活程度以及能实现效果的复杂程度也越来越高。</p>
 <h2 id="基础知识">基础知识</h2><h3 id="CALayer">CALayer</h3><p>CALayer 是 UIView 背后用来管理显示内容的对象，它维护了一个位图以及位图的状态信息。这个位图可能是开发者用程序绘制的（比如在 <code>drawRect</code> 中），也可能是开发者指定的一张图片。</p>
 <p>Core Animation 的所有功能都是基于 layer 的。当你通过 Core Animation 修改了 layer 的属性，Core Animation 会通过 GPU 来重新渲染位图。</p>
@@ -315,7 +315,7 @@ iOS 动画（或者所有动画？）的原理简单来讲有两种：
 <p>假设我们要完成的是一个物体沿直线从 (0，0) 移动到 (0, 100) 的动画，动画时长是 1s。系统可以以匀速将物体从起点移动到终点，也可以加速或者减速，甚至可以先加速再减速移动到终点，timing function 就是用来描绘这里的加减速。</p>
 <p>看看 iOS 预定义的几种常见的 timing function：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionLinear: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionEaseIn: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionEaseOut: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionEaseInEaseOut: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionDefault: <span class="built_in">String</span></span><br></pre></td></tr></table></figure>
-<p><img src="/Users/Nix/Blog/source/images/2017-02-13/timing_function.jpg" alt="预设的 timing function"></p>
+<p><img src="/images/2017-02-13/timing_function.jpg" alt="预设的 timing function"></p>
 <p>可以看到，这里的横坐标是时间，纵坐标可以看做动画的完成度。</p>
 <p>正如命名描绘的那样，<code>kCAMediaTimingFunctionLinear</code> 是线性增加的，而 <code>kCAMediaTimingFunctionEaseOut</code> 是先快后慢的。</p>
 <p>你甚至还可以通过 <code>init(controlPoints:_:_:_:)</code> 方法，传入两个贝塞尔曲线的控制点来自定义想要的曲线。</p>
