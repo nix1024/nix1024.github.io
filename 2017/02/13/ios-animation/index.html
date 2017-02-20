@@ -1,0 +1,705 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,动画," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="写在前面iOS 向来以丝般顺滑的过度动画闻名，好的动画可以让用户更好地理解 app，并且可以让 app 更加有趣。有趣很重要。
+iOS 动画（或者所有动画？）的原理简单来讲有两种：
+
+告诉系统动画对象在某几个时刻的状态（关键帧），由系统自动补全这些时刻之间的中间状态，再把所有这些状态平滑地显示出来。这种动画也叫做关键帧动画。
+每隔一段很短的时间，重新绘制一次动画对象。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Animation 指北">
+<meta property="og:url" content="http://yoursite.com/2017/02/13/ios-animation/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="写在前面iOS 向来以丝般顺滑的过度动画闻名，好的动画可以让用户更好地理解 app，并且可以让 app 更加有趣。有趣很重要。
+iOS 动画（或者所有动画？）的原理简单来讲有两种：
+
+告诉系统动画对象在某几个时刻的状态（关键帧），由系统自动补全这些时刻之间的中间状态，再把所有这些状态平滑地显示出来。这种动画也叫做关键帧动画。
+每隔一段很短的时间，重新绘制一次动画对象。">
+<meta property="og:image" content="/Users/Nix/Blog/source/images/2017-02-13/ca_architecture.png">
+<meta property="og:image" content="/Users/Nix/Blog/source/images/2017-02-13/timing_function.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Animation 指北">
+<meta name="twitter:description" content="写在前面iOS 向来以丝般顺滑的过度动画闻名，好的动画可以让用户更好地理解 app，并且可以让 app 更加有趣。有趣很重要。
+iOS 动画（或者所有动画？）的原理简单来讲有两种：
+
+告诉系统动画对象在某几个时刻的状态（关键帧），由系统自动补全这些时刻之间的中间状态，再把所有这些状态平滑地显示出来。这种动画也叫做关键帧动画。
+每隔一段很短的时间，重新绘制一次动画对象。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> iOS Animation 指北 | Nix 的自我修养 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Nix 的自我修养</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標籤
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS Animation 指北
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">發表於</span>
+            <time itemprop="dateCreated" datetime="2017-02-13T19:54:55+08:00" content="2017-02-13">
+              2017-02-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/13/ios-animation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/13/ios-animation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面">写在前面</h2><p>iOS 向来以丝般顺滑的过度动画闻名，好的动画可以让用户更好地理解 app，并且可以让 app 更加有趣。有趣很重要。</p>
+<p>iOS 动画（或者所有动画？）的原理简单来讲有两种：</p>
+<ol>
+<li>告诉系统动画对象在某几个时刻的状态（关键帧），由系统自动补全这些时刻之间的中间状态，再把所有这些状态平滑地显示出来。这种动画也叫做关键帧动画。</li>
+<li>每隔一段很短的时间，重新绘制一次动画对象。</li>
+</ol>
+<a id="more"></a>
+<h2 id="整体架构">整体架构</h2><p>这里是一张 iOS 动画相关 framework 的架构图：</p>
+<p><img src="/Users/Nix/Blog/source/images/2017-02-13/ca_architecture.png" alt="Core Animation 架构"></p>
+<p>从图中可以看到，要实现一个 iOS 动画从上层到底层你会接触到 UIKit、Core Animation、Core Graphics/OpenGL。他们使用的难度依次递增，相应地灵活程度以及能实现效果的复杂程度也越来越高。</p>
+<h2 id="基础知识">基础知识</h2><h3 id="CALayer">CALayer</h3><p>CALayer 是 UIView 背后用来管理显示内容的对象，它维护了一个位图以及位图的状态信息。这个位图可能是开发者用程序绘制的（比如在 <code>drawRect</code> 中），也可能是开发者指定的一张图片。</p>
+<p>Core Animation 的所有功能都是基于 layer 的。当你通过 Core Animation 修改了 layer 的属性，Core Animation 会通过 GPU 来重新渲染位图。</p>
+<p>利用 CALayer 的属性可以做很多事情，比如改变位置、大小、形状、透视角度、圆角、透明度等，利用 mask 属性还可以做出很多好玩的效果。这些属性的详细介绍在<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/LayerStyleProperties/LayerStyleProperties.html#//apple_ref/doc/uid/TP40004514-CH10-SW1" target="_blank" rel="external">这里</a>。</p>
+<p>CALayer 有很多有用的子类，常用的有下面几个：</p>
+<ul>
+<li>CAShapeLayer：用于绘制曲线等图形，有两个重要的属性 <code>strokeStart</code> &amp; <code>strokeEnd</code>，灵活使用有奇效。</li>
+<li>CATextLayer：专门用来处理文字的 layer。    </li>
+<li>CAGradientLayer：顾名思义，用来处理渐变。</li>
+</ul>
+<h3 id="Timing_function">Timing function</h3><p>Timing function 用来描绘动画完成度随时间增加的曲线。</p>
+<p>怎么理解这个含义呢，在前面提到的第二种动画实现方式中，我们设置好了关键帧后，系统需要计算出关键帧中间各个时间点的状态。</p>
+<p>假设我们要完成的是一个物体沿直线从 (0，0) 移动到 (0, 100) 的动画，动画时长是 1s。系统可以以匀速将物体从起点移动到终点，也可以加速或者减速，甚至可以先加速再减速移动到终点，timing function 就是用来描绘这里的加减速。</p>
+<p>看看 iOS 预定义的几种常见的 timing function：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionLinear: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionEaseIn: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionEaseOut: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionEaseInEaseOut: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCAMediaTimingFunctionDefault: <span class="built_in">String</span></span><br></pre></td></tr></table></figure>
+<p><img src="/Users/Nix/Blog/source/images/2017-02-13/timing_function.jpg" alt="预设的 timing function"></p>
+<p>可以看到，这里的横坐标是时间，纵坐标可以看做动画的完成度。</p>
+<p>正如命名描绘的那样，<code>kCAMediaTimingFunctionLinear</code> 是线性增加的，而 <code>kCAMediaTimingFunctionEaseOut</code> 是先快后慢的。</p>
+<p>你甚至还可以通过 <code>init(controlPoints:_:_:_:)</code> 方法，传入两个贝塞尔曲线的控制点来自定义想要的曲线。</p>
+<p>这样做的意义是什么呢？因为人们在日常生活中见到的物体的运动几乎没有匀速运动的，比如汽车启动和刹车，比如杯子从桌子上掉落。合理运用 timing function 可以使动画更符合人们的经验，因而显得更加自然。</p>
+<h2 id="UIKit">UIKit</h2><p>UIKit 提供了一系列的基于 block 的 API。比如 <code>UIView.animate()</code> 系列方法。对于 view 的 <a href="https://developer.apple.com/library/content/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html" target="_blank" rel="external">animatable properties</a>， 你只需要在 block 中修改需要对应的参数即可，比如 frame、bounds、alpha 等。</p>
+<p>如果想实现关键帧动画，UIKit 还提供了 <code>UIView.animateKeyframes()</code> 方法。</p>
+<p><strong>UIKit 适用于简单的动画，如移动、旋转、缩放、改变颜色等。</strong></p>
+<h2 id="Core_Animation">Core Animation</h2><p>UIKit 实现动画适用起来非常简单，但是有很大的局限性：如果我想改变 cornerRadius 怎么办？如果我想沿一条曲线移动一个 view 怎么办？</p>
+<p>这个时候就需要使用 Core Animation 了（UIKit 其实也是在 Core Animation 的基础上做了一层封装）。</p>
+<p>Core Animation 分为以下几个部分：</p>
+<h3 id="CABasicAnimation">CABasicAnimation</h3><p>相比于 UIKit，CABasicAnimation 可以对更多的 CALayer 属性进行动画，比如 cornerRadius。完整的列表见<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/Key-ValueCodingExtensions/Key-ValueCodingExtensions.html" target="_blank" rel="external">这里</a>。</p>
+<p>CABasicAnimation 使用起来非常方便：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let verticalAnimation = <span class="function"><span class="title">CABasicAnimation</span><span class="params">(keyPath: <span class="string">"position.y"</span>)</span></span> <span class="comment">// 1</span></span><br><span class="line">verticalAnimation<span class="class">.fromValue</span> = <span class="number">310</span>		<span class="comment">// 2</span></span><br><span class="line">verticalAnimation<span class="class">.toValue</span> = <span class="number">10</span>		<span class="comment">// 3</span></span><br><span class="line">verticalAnimation<span class="class">.timingFunction</span> = <span class="function"><span class="title">CAMediaTimingFunction</span><span class="params">(name: kCAMediaTimingFunctionLinear)</span></span>		<span class="comment">// 4</span></span><br><span class="line">view<span class="class">.layer</span><span class="class">.add</span>(verticalAnimation, forKey: <span class="string">"Fall"</span>)	<span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line">view<span class="class">.layer</span><span class="class">.position</span><span class="class">.y</span> = <span class="number">10</span>		<span class="comment">//6</span></span><br></pre></td></tr></table></figure>
+<p>简单解释一下：</p>
+<ol>
+<li>这里我们创建了一个 CABasicAnimation 实例，要对 layer 的 <code>position.y</code> 属性进行动画。</li>
+<li><code>position.y</code> 的初始值是 310。</li>
+<li><code>position.y</code> 的最终值是 10。</li>
+<li>指定了动画的 timing function，后面会介绍。</li>
+<li>将动画添加到 view 的 layer 上。</li>
+<li>将 layer 的 model layer 属性更改为最终属性。</li>
+</ol>
+<p>什么是 model layer？</p>
+<p>Core Animation 实际维护了三个 layer：model layer、presentation layer 和 render layer，其中的前两个我们平时会接触到，可以分别使用 CALayer 的两个属性 <code>modelLayer</code> 和 <code>presentationLayer</code> 来获得。Render layer 是系统私有的。</p>
+<p>Model layer 的属性是不会变化的，如果你想得到 layer 在动画过程中实时的属性，就需要通过 presentation layer 来获取。</p>
+<h3 id="CAKeyframeAnimation">CAKeyframeAnimation</h3><p>CABasicAnimation 只能让你设置一个初始状态和一个结束状态，如果你的动画需要拆解成几个连贯的动作，CAKeyframeAnimation 可以传入多个不同的值。</p>
+<p>此外，CAKeyframeAnimation 还可以设置 CGPath，也就是说你可以让动画对象沿着曲线移动。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let positionAnimation = <span class="function"><span class="title">CAKeyframeAnimation</span><span class="params">(keyPath: <span class="string">"position"</span>)</span></span></span><br><span class="line">positionAnimation<span class="class">.path</span> = path<span class="class">.cgPath</span></span><br><span class="line">positionAnimation<span class="class">.isRemovedOnCompletion</span> = false</span><br><span class="line">positionAnimation<span class="class">.fillMode</span> = kCAFillModeForwards</span><br><span class="line"></span><br><span class="line">view<span class="class">.layer</span><span class="class">.add</span>(positionAnimation, forKey: <span class="string">"MoveAlongPath"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="CATransition">CATransition</h3><p>CATransition 用来进行 view 的转场动画，具体类型有以下四种：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> kCATransitionFade: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCATransitionMoveIn: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCATransitionPush: <span class="built_in">String</span></span><br><span class="line"><span class="keyword">let</span> kCATransitionReveal: <span class="built_in">String</span></span><br></pre></td></tr></table></figure>
+<p>还有一些私有的类型，不推荐使用。</p>
+<p>CATransition 是 CAAnimation 的子类，使用方法跟 CABasicAnimation 一致。</p>
+<h3 id="CAAnimationGroup">CAAnimationGroup</h3><p>如果我想让物体在移动的同时由不透明动画到透明，就可以使用 CAAnimationGroup，把多个动画组合起来，同时添加到动画对象上。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let animationA = <span class="keyword">...</span></span><br><span class="line">let animationB = <span class="keyword">...</span></span><br><span class="line">let animationC = <span class="keyword">...</span></span><br><span class="line"></span><br><span class="line">let animationGroup = CAAnimationGroup()</span><br><span class="line">animationGroup.animations = [animationA, animationB, animationC];</span><br><span class="line">animationGroup.duration = <span class="number">0.7</span></span><br><span class="line">animationGroup.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)</span><br><span class="line">animationGroup.isRemovedOnCompletion = false</span><br><span class="line">animationGroup.fillMode = kCAFillModeForwards</span><br><span class="line"></span><br><span class="line">view.layer.add(animationGroup, forKey: <span class="string">"GroupAnimation"</span>)</span><br></pre></td></tr></table></figure>
+<p>此外，CAAnimationGroup 还可以设置一个 completion block，在所有动画完成时调用。</p>
+<p><strong>Core Animation 适用于较为复杂的，有多个中间状态或者包含曲线路径的动画。</strong></p>
+<h2 id="Core_Graphics">Core Graphics</h2><p>如果动画复杂到不能够用改变位置、透明度、大小等属性的组合来完成，就需要使用 Core Graphics 了。</p>
+<p>Core Graphics 是一套用来绘图的框架，你可以绘制曲线、填充形状，做任何想做的事情。这个时候采用的就是前面提到的第二种动画方法：每隔一段很短的时间，重新绘制一次动画对象。</p>
+<p><strong>注意，采用 Core Graphics 绘制图形是非常消耗性能的，因为绘制工作由 CPU 完成，而且是在主线程上！</strong>如果是简单的图形可以使用 <code>CAShapeLayer</code>，利用 GPU 绘制。</p>
+<p>如何来保证「每隔一段很短的时间」呢？iOS 为此提供了 CADisplayLink。它可以被看作是一个特殊的 timer，在系统刷新每一帧的时候，调用开发者设置的回调来重新绘制动画对象。iOS 屏幕的刷新频率是 60帧每秒，也就是每隔约 16.7 毫秒调用一次回调。这也意味着，动画中每一帧的绘制都不应该超过 16.7 毫秒。</p>
+<p>那是不是用 NSTimer 也可以达到目的？</p>
+<p>并不是的。CADisplayLink 可以保证每次都是在<strong>屏幕刷新的时刻附近</strong>来调用回调——也就是说，你的每一帧都有约 16.7 毫秒来绘制。NSTimer 不能保证触发时刻都落在屏幕刷新的时刻附近，有可能你的一帧只有 2 毫秒来绘制。</p>
+<p><strong>Core Graphics + CADisplayLink 适用于复杂的，不能使用移动、旋转、形变组合完成的动画。</strong></p>
+<h2 id="大杀器_UIKit_Dynamics">大杀器 UIKit Dynamics</h2><p>UIKit Dynamics 是随 iOS 7 推出的一套 framework，作用是模拟真实事件的物理定律。苹果声称你可以「声明式」地编写动画，你只需要描述要做什么，而不必说明怎么做，一切都由系统帮你完成。</p>
+<h2 id="Ref">Ref</h2><ul>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/Introduction/Introduction.html" target="_blank" rel="external">Core Animation Programming Guide</a></li>
+<li><a href="https://www.objc.io/issues/12-animations/animations-explained/" target="_blank" rel="external">Animations Explained</a></li>
+<li><a href="https://developer.apple.com/videos/play/wwdc2011/421/" target="_blank" rel="external">Core Animation Essentials</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>给鸡排饭加个蛋</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag">#iOS</a>
+          
+            <a href="/tags/动画/" rel="tag">#动画</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/31/meet-run-loop/" rel="next" title="初识 Run Loop">
+                <i class="fa fa-chevron-left"></i> 初识 Run Loop
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Nix Wang" />
+          <p class="site-author-name" itemprop="name">Nix Wang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">標籤</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体架构"><span class="nav-number">2.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">3.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CALayer"><span class="nav-number">3.1.</span> <span class="nav-text">CALayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timing_function"><span class="nav-number">3.2.</span> <span class="nav-text">Timing function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIKit"><span class="nav-number">4.</span> <span class="nav-text">UIKit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Core_Animation"><span class="nav-number">5.</span> <span class="nav-text">Core Animation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CABasicAnimation"><span class="nav-number">5.1.</span> <span class="nav-text">CABasicAnimation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAKeyframeAnimation"><span class="nav-number">5.2.</span> <span class="nav-text">CAKeyframeAnimation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CATransition"><span class="nav-number">5.3.</span> <span class="nav-text">CATransition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAAnimationGroup"><span class="nav-number">5.4.</span> <span class="nav-text">CAAnimationGroup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Core_Graphics"><span class="nav-number">6.</span> <span class="nav-text">Core Graphics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大杀器_UIKit_Dynamics"><span class="nav-number">7.</span> <span class="nav-text">大杀器 UIKit Dynamics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'nix1024';
+      var disqus_identifier = '2017/02/13/ios-animation/';
+      var disqus_title = "iOS Animation 指北";
+      var disqus_url = 'http://yoursite.com/2017/02/13/ios-animation/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
