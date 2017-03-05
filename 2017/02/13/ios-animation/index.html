@@ -301,8 +301,7 @@ iOS 动画（或者所有动画？）的原理简单来讲有两种：
 <h2 id="整体架构">整体架构</h2><p>这里是一张 iOS 动画相关 framework 的架构图：</p>
 <p><img src="/images/2017-02-13/ca_architecture.png" alt="Core Animation 架构"></p>
 <p>从图中可以看到，要实现一个 iOS 动画从上层到底层你会接触到 UIKit、Core Animation、Core Graphics/OpenGL。他们使用的难度依次递增，相应地灵活程度以及能实现效果的复杂程度也越来越高。</p>
-<h2 id="基础知识">基础知识</h2><h3 id="CALayer">CALayer</h3><p>CALayer 是 UIView 背后用来管理显示内容的对象，它维护了一个位图以及位图的状态信息。这个位图可能是开发者用程序绘制的（比如在 <code>drawRect</code> 中），也可能是开发者指定的一张图片。</p>
-<p>Core Animation 的所有功能都是基于 layer 的。当你通过 Core Animation 修改了 layer 的属性，Core Animation 会通过 GPU 来重新渲染位图。</p>
+<h2 id="基础知识">基础知识</h2><h3 id="CALayer">CALayer</h3><p>CALayer 是 UIView 背后用来管理显示内容的对象，它维护了一个位图以及位图的状态信息。Core Animation 的所有功能都是基于 layer 的。当你通过 Core Animation 修改了 layer 的属性时，Core Animation 会通过 GPU 来重新渲染位图，因为是硬件渲染，因此速度非常快。</p>
 <p>利用 CALayer 的属性可以做很多事情，比如改变位置、大小、形状、透视角度、圆角、透明度等，利用 mask 属性还可以做出很多好玩的效果。这些属性的详细介绍在<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/LayerStyleProperties/LayerStyleProperties.html#//apple_ref/doc/uid/TP40004514-CH10-SW1" target="_blank" rel="external">这里</a>。</p>
 <p>CALayer 有很多有用的子类，常用的有下面几个：</p>
 <ul>
@@ -426,6 +425,10 @@ iOS 动画（或者所有动画？）的原理简单来讲有两种：
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/03/05/airplay-without-bonjour/" rel="prev" title="跨子网、不依赖组播的 AirPlay 镜像">
+                跨子网、不依赖组播的 AirPlay 镜像 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -499,7 +502,7 @@ iOS 动画（或者所有动画？）的原理简单来讲有两种：
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
@@ -509,7 +512,7 @@ iOS 动画（或者所有动画？）的原理简单来讲有两种：
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">標籤</span>
               </a>
             </div>
