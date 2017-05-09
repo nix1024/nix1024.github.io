@@ -5,11 +5,14 @@
   
 
 
-<html class="theme-next pisces use-motion">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
 
 
 
@@ -27,9 +30,12 @@
 
 
 
+
+
+
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -63,9 +69,9 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="AirPlay,Bonjour,iOS," />
@@ -77,7 +83,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
 
 
 
@@ -103,26 +109,46 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
 
 
 
-<script type="text/javascript" id="hexo.configuration">
+<script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
+    root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: 0,
+      userId: '0',
       author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
 </script>
 
-  <title> 跨子网、不依赖多播的 AirPlay 镜像 | Nix 的自我修养 </title>
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/05/airplay-without-bonjour/"/>
+
+
+
+
+
+  <title>跨子网、不依赖多播的 AirPlay 镜像 | Nix 的自我修养</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
+
+
+
+
 
 
 
@@ -138,29 +164,33 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Nix 的自我修养</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nix 的自我修养</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
   </div>
-  <p class="site-subtitle"></p>
-</div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
 <nav class="site-nav">
@@ -175,7 +205,7 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首頁
+            首页
           </a>
         </li>
       
@@ -185,7 +215,7 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            歸檔
+            归档
           </a>
         </li>
       
@@ -195,7 +225,7 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            標籤
+            标签
           </a>
         </li>
       
@@ -206,6 +236,8 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
 
   
 </nav>
+
+
 
  </div>
     </header>
@@ -220,38 +252,49 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
     
 
   
-  
 
   
   
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/airplay-without-bonjour/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
 
     
       <header class="post-header">
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                跨子网、不依赖多播的 AirPlay 镜像
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">跨子网、不依赖多播的 AirPlay 镜像</h1>
         
 
         <div class="post-meta">
           <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">發表於</span>
-            <time itemprop="dateCreated" datetime="2017-03-05T18:36:38+08:00" content="2017-03-05">
-              2017-03-05
-            </time>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T18:36:38+08:00">
+                2017-03-05
+              </time>
+            
+
+            
+
+            
           </span>
 
           
@@ -259,24 +302,30 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
           
             
               <span class="post-comments-count">
-                &nbsp; | &nbsp;
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
                 <a href="/2017/03/05/airplay-without-bonjour/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/05/airplay-without-bonjour/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/03/05/airplay-without-bonjour/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
-
-          
           
 
           
+
+          
+
+          
+
         </div>
       </header>
     
-
 
     <div class="post-body" itemprop="articleBody">
 
@@ -287,18 +336,19 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
         <p>AirPlay 是苹果的一个私有标准，可以用来将 iDevice（iPhone、iPad、iPod） 上的音视频流或者镜像投射到 Apple TV 上。尽管 AirPlay 协议是私有的，但国内主流的机顶盒，如天猫魔盒、小米盒子等都对其提供了支持。</p>
 <p>AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 的机顶盒）与 iDevice 处在同一子网内才能工作。之所以有这个限制，是因为 AirPlay 的服务发现部分基于 <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/NetServices/Introduction.html#//apple_ref/doc/uid/10000119i" target="_blank" rel="external">Bonjour</a>。</p>
 <a id="more"></a>
-<h2 id="Bonjour_简介">Bonjour 简介</h2><p>Bonjour 是苹果开发的一种「零配置网络架构」，使得同一局域网内的设备能够相互发现彼此提供的服务，而不需要用户配置 IP 等信息。想象一下，将一台打印机接到局域网内，然后在电脑上就可以直接选择这台打印机。</p>
+<h2 id="Bonjour_简介">Bonjour 简介</h2><p>Bonjour 是苹果开发的一种「零配置网络架构」，使得同一局域网内的主机能够相互发现彼此提供的服务，而不需要用户配置 IP 等信息。想象一下，将一台打印机接到局域网内，然后在电脑上就可以直接选择这台打印机。</p>
 <p>Bonjour 为了实现「零配置」，做了三件微小的工作：</p>
 <ul>
 <li>分配地址</li>
 </ul>
-<p>当网络中没有 DHCP 服务器时（如 Ad Hoc 网络），设备会随机选择一个 IP，并且测试这个 IP 有没有被占用，如果被占用就再随机选择一个 IP。</p>
+<p>虽然是零配置网络，但实际主机之间的通信还是基于 TCP/IP，于是我们需要分配 IP 地址。传统的 IP 分配方式有两种：静态分配和 DHCP。</p>
+<p>苹果增加了另外一种方式：在没有 DHCP 服务器时（如 Ad Hoc 网络），Bonjour 会为主机自动指定随机的一个 IP 地址，然后检测是否有冲突，如果有冲突就再随机指定一个。这样的好处是不依赖路由器，在去中心化的 Ad-hoc 网络中也能正常工作。</p>
 <ul>
 <li>命名</li>
 </ul>
-<p>Bonjour 为服务（DNS service）指定一个唯一的类似 foo._airplay._tcp.local. 的名字，名字中间的字段表示服务的类型（_airplay）和传输协议（_tcp），后面的服务发现都基于这个名字。类似的，设备（也叫 host，跟西部世界没关系 :]）也有唯一的名字，如 magicbox.local.，与服务不同的是，设备的名字没有类型和传输协议。具体命名规则见<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/NetServices/Articles/domainnames.html#//apple_ref/doc/uid/TP40002460-SW1" target="_blank" rel="external">这里</a>。</p>
-<p>当一台设备（host）接入局域网时，Bonjour 会自动生成一个局域网内唯一的名字。虽然 host 有了唯一的名字，但实际通信的时候还是需要 IP 地址，名字与 IP 地址的映射依靠 mDNS 来完成。</p>
-<p>mDNS（multicast DNS） 不同于常见的 DNS，它是局域网内依赖多播（multicast）工作的 DNS 协议。他不需要独立的 DNS 服务器，当需要解析一个名字时，会向多播地址（224.0.0.251）的 5353 端口来发送查询请求，收到该请求的设备如果发现自己是要找的对象，就会发送回复。macOS、iOS 以及安装了 Bonjour 服务的 Windows 都会有一个  mDNSResponder 进程专门处理这些请求。开发者只需要将自己的服务注册到系统中，mDNSResponder 会自动完成服务发现工作，不需要处理具体的协议细节。</p>
+<p>Bonjour 为服务（DNS service）指定一个唯一的类似 foo._airplay._tcp.local. 的名字，名字中间的字段表示服务的类型（_airplay）和传输协议（_tcp），后面的服务发现都基于这个名字。类似的，主机（也叫 host，跟西部世界没关系 :]）也有唯一的名字，如 magicbox.local.，与服务不同的是，主机的名字没有类型和传输协议。具体命名规则见<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/NetServices/Articles/domainnames.html#//apple_ref/doc/uid/TP40002460-SW1" target="_blank" rel="external">这里</a>。</p>
+<p>当一台主机（host）接入局域网时，Bonjour 会自动生成一个局域网内唯一的名字。虽然 host 有了唯一的名字，但实际通信的时候还是需要 IP 地址，名字与 IP 地址的映射依靠 mDNS 来完成。</p>
+<p>mDNS（multicast DNS） 不同于常见的 DNS，它是局域网内依赖多播（multicast）工作的 DNS 协议。他不需要独立的 DNS 服务器，当需要解析一个名字时，会向多播地址（224.0.0.251）的 5353 端口来发送查询请求，收到该请求的主机如果发现自己是要找的对象，就会发送回复。macOS、iOS 以及安装了 Bonjour 服务的 Windows 都会有一个 mDNSResponder 进程专门处理这些请求。开发者只需要将自己的服务注册到系统中，mDNSResponder 会自动完成服务发现工作，不需要处理具体的协议细节。</p>
 <ul>
 <li>自动发现服务</li>
 </ul>
@@ -310,7 +360,7 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
 <p>来查看两种类型的服务。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_airplay._tcp                                   PTR     zzzzzzz._airplay._tcp</span><br><span class="line">zzzzzzz._airplay._tcp                           SRV     0 0 7200 MagicBox_M16S-8f144d951aed0c2f.local. ; <span class="operator"><span class="keyword">Replace</span> <span class="keyword">with</span> unicast FQDN <span class="keyword">of</span> target host</span><br><span class="line">zzzzzzz._airplay._tcp                           TXT     <span class="string">"deviceid=b5:b7:1b:56:da:b9"</span> <span class="string">"features=0x4A7FFFF7,0xE"</span> <span class="string">"srcvers=220.68"</span> <span class="string">"flags=0x4"</span> <span class="string">"vv=2"</span> <span class="string">"model=HappyCast3,1"</span> <span class="string">"pw=0"</span> <span class="string">"rhd=3.0.0.0"</span> <span class="string">"pk=eb41e959a9ceea6a5d942c032492fdd60b14f6da148bcab48277fdbbfff18816"</span> <span class="string">"pi=2e388006-13ba-4041-9a67-25dd4a43d536"</span></span><br><span class="line"></span><br><span class="line">_raop._tcp                                      PTR     b5b71b56dab9@zzzzzzz._raop._tcp</span><br><span class="line">b5b71b56dab9@zzzzzzz._raop._tcp                 SRV     <span class="number">0</span> <span class="number">0</span> <span class="number">6200</span> MagicBox_M16S-<span class="number">8</span>f144d951aed0c2f.<span class="keyword">local</span>. ;</span> <span class="operator"><span class="keyword">Replace</span> <span class="keyword">with</span> unicast FQDN <span class="keyword">of</span> target host</span><br><span class="line">b5b71b56dab9@zzzzzzz._raop._tcp                 TXT     <span class="string">"ch=2"</span> <span class="string">"cn=0,1,2,3"</span> <span class="string">"da=true"</span> <span class="string">"et=0,3,5"</span> <span class="string">"vv=2"</span> <span class="string">"ft=0x4A7FFFF7,0xE"</span> <span class="string">"am=HappyCast2,1"</span> <span class="string">"md=0,1,2"</span> <span class="string">"rhd=3.0.0.0"</span> <span class="string">"pw=false"</span> <span class="string">"sr=44100"</span> <span class="string">"ss=16"</span> <span class="string">"sv=false"</span> <span class="string">"tp=UDP"</span> <span class="string">"txtvers=1"</span> <span class="string">"sf=0x4"</span> <span class="string">"vs=220.68"</span> <span class="string">"vn=65537"</span> <span class="string">"pk=eb41e959a9ceea6a5d942c032492fdd60b14f6da148bcab48277fdbbfff18816"</span></span></span><br></pre></td></tr></table></figure>
 <p>可以看到，两种服务分别有三条 DNS 记录：第一条是 PTR 类型的，由服务类型指向服务名；第二条是 SRV 类型的，由服务名指向主机名；第三条是 TXT 类型的，是一些服务参数。</p>
-<p>具体的参数含义可以参考这个<a href="https://nto.github.io/AirPlay.html" target="_blank" rel="external">非官方的 AirPlay 文档</a>。</p>
+<p>TXT 记录中具体的参数含义可以参考这个<a href="https://nto.github.io/AirPlay.html" target="_blank" rel="external">非官方的 AirPlay 文档</a>。</p>
 <p>使用 Wireshark 抓包可以看到：</p>
 <p>当点击右上角 AirPlay Icon 时，Mac 首先发出 query，查找 _airplay._tcp. 和 _raop._tcp. 类型的服务。</p>
 <p><img src="/images/2017-03-05/mdns-query.png" alt="mDNS query"></p>
@@ -372,6 +422,7 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
     <div>
       
         
+
       
     </div>
 
@@ -403,17 +454,28 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
       
     </div>
 
+    <div>
+      
+        
+
+      
+    </div>
+
     <footer class="post-footer">
       
         <div class="post-tags">
           
-            <a href="/tags/airplay/" rel="tag">#AirPlay</a>
+            <a href="/tags/airplay/" rel="tag"># AirPlay</a>
           
-            <a href="/tags/bonjour/" rel="tag">#Bonjour</a>
+            <a href="/tags/bonjour/" rel="tag"># Bonjour</a>
           
-            <a href="/tags/ios/" rel="tag">#iOS</a>
+            <a href="/tags/ios/" rel="tag"># iOS</a>
           
         </div>
+      
+
+      
+        
       
 
       
@@ -425,6 +487,8 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
               </a>
             
           </div>
+
+          <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
@@ -455,7 +519,7 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
       <div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
     
@@ -482,37 +546,44 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目錄
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            本站概覽
+            站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
                alt="Nix Wang" />
           <p class="site-author-name" itemprop="name">Nix Wang</p>
-          <p class="site-description motion-element" itemprop="description"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
         </div>
         <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">44</span>
-              <span class="site-state-item-name">文章</span>
-            </a>
-          </div>
 
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
           
 
           
+
+          
+            
+            
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">23</span>
-                <span class="site-state-item-name">標籤</span>
+                <span class="site-state-item-name">标签</span>
               </a>
             </div>
           
@@ -528,7 +599,7 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
         
         
           <div class="cc-license motion-element" itemprop="license">
-            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
               <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
             </a>
           </div>
@@ -537,19 +608,29 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
         
         
 
+        
+
+
       </section>
 
       
+      <!--noindex-->
         <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
+
             
               
             
+
             
               <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bonjour_简介"><span class="nav-number">1.</span> <span class="nav-text">Bonjour 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AirPlay_的服务发现过程"><span class="nav-number">2.</span> <span class="nav-text">AirPlay 的服务发现过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让_Bonjour_跨子网工作"><span class="nav-number">3.</span> <span class="nav-text">让 Bonjour 跨子网工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
+
           </div>
         </section>
+      <!--/noindex-->
+      
+
       
 
     </div>
@@ -572,16 +653,18 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
   <span class="author" itemprop="copyrightHolder">Nix Wang</span>
 </div>
 
+
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  主題 -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
 </div>
+
 
         
 
@@ -589,9 +672,13 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
       </div>
     </footer>
 
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
   </div>
 
   
@@ -614,89 +701,113 @@ AirPlay 有一个很大的局限性：只能在 Apple TV（或者支持 AirPlay 
 
 
 
-  
-  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
 
 
 
-  
-  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
-
-
-
-  
-
-
-
-  
-
-    <script type="text/javascript">
-      var disqus_shortname = 'nix1024';
-      var disqus_identifier = '2017/03/05/airplay-without-bonjour/';
-      var disqus_title = "跨子网、不依赖多播的 AirPlay 镜像";
-      var disqus_url = 'http://yoursite.com/2017/03/05/airplay-without-bonjour/';
-
-      function run_disqus_script(disqus_script){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }
-
-      run_disqus_script('count.js');
-      
-        run_disqus_script('embed.js');
-      
-    </script>
-  
 
 
 
 
   
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
   
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/03/05/airplay-without-bonjour/';
+          this.page.identifier = '2017/03/05/airplay-without-bonjour/';
+          this.page.title = '跨子网、不依赖多播的 AirPlay 镜像';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nix1024.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
   
 
   
