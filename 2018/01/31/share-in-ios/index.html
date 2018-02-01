@@ -106,9 +106,9 @@
 相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。
 
 如果你的 app 面向国外用户，UIActivityViewCo">
-<meta property="og:image" content="images/2018-01-31/wechat_share.jpg">
-<meta property="og:image" content="images/2018-01-31/UIActivityViewController.jpeg">
-<meta property="og:image" content="images/2018-01-31/conformance_hierarchy.gif">
+<meta property="og:image" content="/images/2018-01-31/wechat_share.jpg">
+<meta property="og:image" content="/images/2018-01-31/UIActivityViewController.jpeg">
+<meta property="og:image" content="/images/2018-01-31/conformance_hierarchy.gif">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 中的分享">
 <meta name="twitter:description" content="分享内容国内主流 app 的分享功能都是自定义的，类似下面
@@ -345,10 +345,10 @@
 
       
         <h2 id="分享内容">分享内容</h2><p>国内主流 app 的分享功能都是自定义的，类似下面</p>
-<p><img src="images/2018-01-31/wechat_share.jpg" alt="wechat_share"></p>
+<p><img src="/images/2018-01-31/wechat_share.jpg" alt="wechat_share"></p>
 <p>这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。</p>
 <p>相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。</p>
-<p><img src="images/2018-01-31/UIActivityViewController.jpeg" alt="UIActivityViewController"></p>
+<p><img src="/images/2018-01-31/UIActivityViewController.jpeg" alt="UIActivityViewController"></p>
 <p>如果你的 app 面向国外用户，UIActivityViewController 了解一下。：）</p>
 <a id="more"></a>
 <p>UIActivityViewController 使用起来非常方便，首先初始化一个实例：</p>
@@ -376,7 +376,7 @@
 <h2 id="打开分享的文件">打开分享的文件</h2><p>但是如果想用你的 app 打开某个文件，也就是出现在 UIActivityViewController 分享界面中，还需要做额外的一些工作。</p>
 <p>在开始之前，你需要了解 <a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html#//apple_ref/doc/uid/TP40001319" target="_blank" rel="external">UTI（Uniform Type Identifiers）</a> 的概念。</p>
 <p>简单来讲，UTI 是苹果定义的用来区分文件类型的标志符。同样是文本文件，不同文件的后缀名可能是 txt、text、html，但实际上一个纯文本编辑器都能打开它们。如果系统遇到一个陌生的文件后缀，也可以通过 UTI 来正确识别，并且知道哪些应用可以用来打开这个文件。</p>
-<p><img src="images/2018-01-31/conformance_hierarchy.gif" alt="Conformance Hierarchy"></p>
+<p><img src="/images/2018-01-31/conformance_hierarchy.gif" alt="Conformance Hierarchy"></p>
 <p>可以看到 UTI 本身是个树形结构，类似于类的继承关系，所有的 UTI 都符合（Conforms To）<code>public.data</code>，可以理解成所有 UTI 最终都是 <code>public.data</code> 的子 UTI。</p>
 <p>现在要做的就是在 Xcode 的 Info.plist 中的 Document Type 里添加要支持的 UTI，具体步骤参见<a href="https://developer.apple.com/library/content/qa/qa1587/_index.html" target="_blank" rel="external">官方文档</a>。可以根据 Apple 已经<a href="https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1" target="_blank" rel="external">定义好的 UTI 列表</a>添加对应的 UTI。</p>
 <p>这样，当用户分享特定文件时就可以看到你的 app 了，如何获取内容呢？</p>
