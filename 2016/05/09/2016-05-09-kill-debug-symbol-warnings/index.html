@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>消除引入第三方 Framework 导致的 Warning | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning： 1warning: (armv7) /Users/USERNAME/Library/Developer/Xcode/DerivedData/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/Build/Intermediates/FRAMEWORKNA">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消除引入第三方 Framework 导致的 Warning">
+<meta property="og:url" content="http://yoursite.com/2016/05/09/2016-05-09-kill-debug-symbol-warnings/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning： 1warning: (armv7) /Users/USERNAME/Library/Developer/Xcode/DerivedData/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/Build/Intermediates/FRAMEWORKNA">
+<meta property="og:updated_time" content="2016-05-16T09:20:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="消除引入第三方 Framework 导致的 Warning">
+<meta name="twitter:description" content="最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning： 1warning: (armv7) /Users/USERNAME/Library/Developer/Xcode/DerivedData/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/Build/Intermediates/FRAMEWORKNA">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-05-09-kill-debug-symbol-warnings" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/09/2016-05-09-kill-debug-symbol-warnings/" class="article-date">
+  <time datetime="2016-05-09T11:38:07.000Z" itemprop="datePublished">2016-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      消除引入第三方 Framework 导致的 Warning
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">warning: (armv7) /Users/USERNAME/Library/Developer/Xcode/DerivedData/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/Build/Intermediates/FRAMEWORKNAME.build/Debug-iphoneos/FRAMEWORKNAME.build/Objects-normal/armv7/SOMECLASS.o unable to open object file: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>在 Xcode 查看编译过程发现是执行 <code>dsymutil</code> 这条命令时产生的。</p>
+<blockquote>
+<p>dsymutil links the DWARF debug information found in the object files for an executable exe_path by using debug symbols information contained in its symbol table.</p>
+</blockquote>
+<a id="more"></a>
+<p>众所周知，Xcode 编译的时候会处理两种符号：</p>
+<ul>
+<li>Mach-O 符号：链接器在链接的时候需要处理。</li>
+<li>调试符号：顾名思义，在使用调试器调试用到的符号。</li>
+</ul>
+<p>为了让发行的安装包更小，通常会在编译的时候将调试符号从可执行文件中去掉。这样，在发生 crash 后得到的 crash log 里面只能得到 16 进制的地址。</p>
+<p>Xcode 提供了一个编译设置项：<code>Debug Information Format</code>，有两个选项：<code>DWARF</code> 和 <code>DWARF with dSYM File</code>。</p>
+<p>其中，<a href="http://dwarfstd.org/" target="_blank" rel="noopener">DWARF</a> 是一种独立于语言和操作系统的调试文件格式。最初是设计用来配合 ELF（ Executable and Linkable Format，精灵和矮人 :]）工作的。DWARF 不会在可执行文件中包含调试符号，而是仅仅包含对 .o 文件的引用，而这些 .o 文件才真正包含调试符号。</p>
+<p>dSYM 是 Xcode 用来存储调试符号的文件，可以用它来符号化 crash log 或者调试程序。</p>
+<p>如果 <code>Debug Information Format</code> 设置成了 <code>DWARF with dSYM File</code>，Xcode 在编译结束时会调用 <code>dsymutil</code>，将 .o 中的符号抽出来生成 .dSYM 文件。</p>
+<p>（生成 .dSYM 文件需要消耗一定的时间，因为 debug 的时候本地有 .o 文件，可以不需要 .dSYM 文件来 debug，所以最好将 debug 版本的 <code>Debug Information Format</code> 设置成 <code>DWARF</code>。）</p>
+<p>回头来看最初的问题。使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nm -a /path/to/foo.framework/foo</span><br></pre></td></tr></table></figure>
+<p>来查看所有的符号，其中就包含了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">000000005704a7a2 - 03 0001   OSO /Users/USERNAME/Library/Developer/Xcode/DerivedData/VIVerifyCore-gfjrgtjfcqfqpybbcyouhfavymdn/Build/Intermediates/FRAMEWORKNAME.build/Debug-iphonesimulator/FRAMEWORKNAME.build/Objects-normal/armv7/SOMECLASS.o</span><br></pre></td></tr></table></figure>
+<p>由此可见，因为引入的 framework 编译时开启了 <code>Generate Debug Symbols</code>，编译出来的二进制文件包含了对一些 .o 文件的引用。这些 .o 文件是 framework 在编译的过程中产生的，framework 的使用方在执行 <code>dsymutil</code> 时找不到它们，于是产生 warning。</p>
+<p>在关闭 <code>Generate Debug Symbols</code> 后重新编译 framework，执行同样的命令，生成的可执行文件中就没有这些引用了。再集成到 App 中，编译就不会有前面提到的 warning。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/09/2016-05-09-kill-debug-symbol-warnings/" data-id="cjd5o3sv80025i4jcodnvme7b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/31/2016-05-31-meet-run-loop/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          初识 Run Loop
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/24/2016-03-24-introduce-reactive-cococa/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">初识 Reactive Cocoa</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARC/">ARC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AirPlay/">AirPlay</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/App/">App</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bonjour/">Bonjour</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FuckGFW/">FuckGFW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game/">Game</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAC/">RAC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE/">RE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/">Workflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具控/">工具控</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折腾/">折腾</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/攻略/">攻略</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机械键盘/">机械键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/玩物/">玩物</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARC/" style="font-size: 10px;">ARC</a> <a href="/tags/AirPlay/" style="font-size: 10px;">AirPlay</a> <a href="/tags/App/" style="font-size: 13.33px;">App</a> <a href="/tags/Bonjour/" style="font-size: 10px;">Bonjour</a> <a href="/tags/Crypto/" style="font-size: 10px;">Crypto</a> <a href="/tags/FuckGFW/" style="font-size: 10px;">FuckGFW</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/RAC/" style="font-size: 10px;">RAC</a> <a href="/tags/RE/" style="font-size: 10px;">RE</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Workflow/" style="font-size: 10px;">Workflow</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/动画/" style="font-size: 10px;">动画</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具控/" style="font-size: 13.33px;">工具控</a> <a href="/tags/折腾/" style="font-size: 10px;">折腾</a> <a href="/tags/攻略/" style="font-size: 10px;">攻略</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/机械键盘/" style="font-size: 10px;">机械键盘</a> <a href="/tags/玩物/" style="font-size: 13.33px;">玩物</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/02/2018-02-02-share-in-workflow/">Workflow 添加到主屏幕是如何实现的</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/31/2018-01-31-share-in-ios/">iOS 中的分享</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/05/2017-03-05-airplay-without-bonjour/">跨子网、不依赖多播的 AirPlay 镜像</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/13/2017-02-13-ios-animation/">iOS Animation 指北</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/20/2016-07-20-aop-and-its-application/">AOP 及应用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

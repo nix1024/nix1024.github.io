@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 的 MVC | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前一直在听斯坦福大学的公开课： iOS 7应用开发，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。 在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 的 MVC">
+<meta property="og:url" content="http://yoursite.com/2014/08/10/2014-08-10-mvc-on-ios/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="之前一直在听斯坦福大学的公开课： iOS 7应用开发，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。 在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。">
+<meta property="og:image" content="http://yoursite.com/images/2014-08-10/ios_mvc.jpg">
+<meta property="og:updated_time" content="2016-03-23T02:13:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 的 MVC">
+<meta name="twitter:description" content="之前一直在听斯坦福大学的公开课： iOS 7应用开发，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。 在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。">
+<meta name="twitter:image" content="http://yoursite.com/images/2014-08-10/ios_mvc.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2014-08-10-mvc-on-ios" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/10/2014-08-10-mvc-on-ios/" class="article-date">
+  <time datetime="2014-08-10T02:38:00.000Z" itemprop="datePublished">2014-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS 的 MVC
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前一直在听斯坦福大学的公开课： <a href="http://v.163.com/special/opencourse/ios7.html" target="_blank" rel="noopener">iOS 7应用开发</a>，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。</p>
+<p>在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。</p>
+<a id="more"></a>
+<h1 id="iOS_中的_MVC">iOS 中的 MVC</h1><p>所谓的 MVC 是指：</p>
+<ul>
+<li>Model: 数据的拥有者，实现具体的业务逻辑。</li>
+<li>View: 具体的用户界面，如按钮、列表、图片。</li>
+<li>Controller: 负责将 View 中用户的动作传达给 Model，将 Model 的数据通过 View 展现出来。</li>
+</ul>
+<p>通常 iOS 的每个场景（scene）都由一个 ViewController 来管理，这个 ViewController 可以是库中原生的，更多情况下是我们自定义的，但是都继承自 UIViewController。顾名思义，ViewController 包含了 MVC 中的 Controller 和 View，其中的 View 一般是系统提供的 UIButton、UILabel 等类的实例。而 Model 一般都是我们自定义的类。</p>
+<h1 id="MVC_之间的交互">MVC 之间的交互</h1><p><img src="/images/2014-08-10/ios_mvc.jpg" alt="白胡子老头的 Keynote"></p>
+<h2 id="View_与_Controller">View 与 Controller</h2><p>View 与 Controller 的关系是十分紧密的，他们之间可以双向通信。</p>
+<p><strong>Controller 可以直接操作 View。</strong>在使用 Storyboard 进行界面设计时，我们可以直接拖拽现有的控件（View），再通过 Controller—Drag 就可以为各种 控件生成一种类似于句柄的 outlet来作为 ViewController 的属性，ViewController 通过 outlet 来对 View 进行操作，设置其外观、状态或者行为等等。如果是通过纯代码来编写界面，ViewController 类中就包含了控件的实例，直接通过这些实例的指针进行操作即可。</p>
+<p><strong>View 可以通过特殊的方式来发消息给 Controller。</strong>因为系统自定义的 View 并不知道当用户进行操作之后，Controller 需要做些什么，为了减少耦合性，采用了一些特殊的方式来与 Controller 进行通信。通信的方式有：</p>
+<ul>
+<li>IBAction。通过 Controller—Drag，XCode 会自动生成事件的响应方法。也可以使用<code>(void)addTarget:(id)target action:(SEL)action</code>方法来注册事件的响应方法。</li>
+<li>DataSource。当系统的某些 View 在呈现时需要我们提供相应的数据。我们必须为 View 指定 DataSource，并实现相应的 DataSourceProtocol（所谓的 Protocol 是指预先定义好的一组回调函数，其中的部分是必须实现的，部分是可选的。）最典型的是 UITableView，我们必须告诉系统这个 TableView 有多少行，每行的 Cell 内容是什么。</li>
+<li>Delegate。它也是一组 Protocol，系统会在特定事件（如网页的跳转、网页加载）发生的前后来调用这些方法。View 可以在不知道某个类的细节的情况下，把该类设置成自己的 Delegate，只要目标类实现了 Protocol 中的必须实现的方法。这些 Protocol 中的方法的命名是有规律的，通常会包含三种关键字：<ul>
+<li>will: 表示这个方法会在某种事件<strong>发生前</strong>调用。</li>
+<li>did: 表示这个方法会在某种事件<strong>发生后</strong>调用。</li>
+<li>should: 通常用来确定<strong>该不该让某件事发生</strong>。如<code>webView:shouldStartLoadWithRequest:navigationType:</code>，它的返回值是布尔型，当返回 NO 时，WebView 将不会加载内容。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Model_与_Controller">Model 与 Controller</h2><p><strong>Controller 直接向 Model 请求数据。</strong>一般将 Model 的类作为 Controller 的属性，直接调用相应的实例方法或者类方法即可。</p>
+<p><strong>Model 通过 Notification 和 KVO 将数据的变化通知给 Controller。</strong>KVO 是指 Key-value observing，是一种观察者模式的实现，可以使得 Controller 在 Model 的数据变化时能够得到通知。Notification 是另外一种系统提供的通知机制，与 KVO 的直接通知到观察者对象不同，系统提供了一个 NotificationCenter 来广播通知。两者都可以实现一对一或一对多的关系。</p>
+<h2 id="Model_与_View">Model 与 View</h2><p>他们不能相互发送信息。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/08/10/2014-08-10-mvc-on-ios/" data-id="cjd5o3su8001bi4jcja54kwki" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/08/13/2014-08-13-plugins-and-themes-for-xcode/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Plugins and Themes for Xcode
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/08/03/2014-08-03-pits-on-ios/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">本周在 iOS 上踩过的坑主要有</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARC/">ARC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AirPlay/">AirPlay</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/App/">App</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bonjour/">Bonjour</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FuckGFW/">FuckGFW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game/">Game</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAC/">RAC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE/">RE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/">Workflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具控/">工具控</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折腾/">折腾</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/攻略/">攻略</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机械键盘/">机械键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/玩物/">玩物</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARC/" style="font-size: 10px;">ARC</a> <a href="/tags/AirPlay/" style="font-size: 10px;">AirPlay</a> <a href="/tags/App/" style="font-size: 13.33px;">App</a> <a href="/tags/Bonjour/" style="font-size: 10px;">Bonjour</a> <a href="/tags/Crypto/" style="font-size: 10px;">Crypto</a> <a href="/tags/FuckGFW/" style="font-size: 10px;">FuckGFW</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/RAC/" style="font-size: 10px;">RAC</a> <a href="/tags/RE/" style="font-size: 10px;">RE</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Workflow/" style="font-size: 10px;">Workflow</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/动画/" style="font-size: 10px;">动画</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具控/" style="font-size: 13.33px;">工具控</a> <a href="/tags/折腾/" style="font-size: 10px;">折腾</a> <a href="/tags/攻略/" style="font-size: 10px;">攻略</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/机械键盘/" style="font-size: 10px;">机械键盘</a> <a href="/tags/玩物/" style="font-size: 13.33px;">玩物</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/02/2018-02-02-share-in-workflow/">Workflow 添加到主屏幕是如何实现的</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/31/2018-01-31-share-in-ios/">iOS 中的分享</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/05/2017-03-05-airplay-without-bonjour/">跨子网、不依赖多播的 AirPlay 镜像</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/13/2017-02-13-ios-animation/">iOS Animation 指北</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/20/2016-07-20-aop-and-its-application/">AOP 及应用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

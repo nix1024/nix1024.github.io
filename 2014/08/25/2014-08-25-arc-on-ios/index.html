@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>OC 中的 ARC | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。 在类属性的声明中，ARC 相关的修饰词有 4 个：  strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。 weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
+<meta name="keywords" content="iOS,ARC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OC 中的 ARC">
+<meta property="og:url" content="http://yoursite.com/2014/08/25/2014-08-25-arc-on-ios/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。 在类属性的声明中，ARC 相关的修饰词有 4 个：  strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。 weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
+<meta property="og:updated_time" content="2016-04-18T09:54:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OC 中的 ARC">
+<meta name="twitter:description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。 在类属性的声明中，ARC 相关的修饰词有 4 个：  strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。 weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2014-08-25-arc-on-ios" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/25/2014-08-25-arc-on-ios/" class="article-date">
+  <time datetime="2014-08-25T12:12:11.000Z" itemprop="datePublished">2014-08-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OC 中的 ARC
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
+<p>在类属性的声明中，ARC 相关的修饰词有 4 个：</p>
+<ul>
+<li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
+<li><code>weak</code> 不会延长对象的生命周期，当<code>weak</code>类型的指针指向的对象被释放时，指针自身会被自动置为<code>nil</code>。</li>
+<li><code>assign</code> 用于 C 原始类型，比如 int。</li>
+<li><code>copy</code> 传入对象时会浅拷贝对象。<ul>
+<li>一般将不可变的 property 设置为 copy，当可变的对象传入时，编译器会自动拷贝一份不可变的版本，以保证其内容不会被修改。如果传入的不可变对象，会增加其引用计数。</li>
+<li>当 property 是一个 block 时通常使用 copy。因为 block 需要在其所在的 scope 之外保留其捕获的状态。不声明也是可以的，但<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW12" target="_blank" rel="noopener">官方推荐这样使用</a>，以提醒代码阅读者。</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<p>在 ARC 机制下，指针缺省的类型是<code>strong</code>。</p>
+<p>在声明局部变量时，有四个 ARC 相关的修饰词，他们的用法跟 const 类似。</p>
+<ul>
+<li><code>__strong</code> 缺省值。用法同<code>strong</code>。</li>
+<li><code>__weak</code> 用法同<code>weak</code>。</li>
+<li><code>__unsafe_unretained</code> 类似于<code>weak</code>，但其指向的对象被释放时，其值不会被置为<code>nil</code>。应该是由于兼容性的原因而存在，通常不建议使用。</li>
+<li><code>__autoreleasing</code> 用来修饰一个以引用（id *）方式传入的参数，当函数返回值时被释放。</li>
+</ul>
+<p>上面的修饰词正确的使用方法是</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
+<p>修饰词放在其他位置也可以编译通过，但是严格来说是不正确的。</p>
+<h2 id="循环引用以及避免方法">循环引用以及避免方法</h2><p>当两个对象使用<code>strong</code>指针互相引用时，就会出现双方都不会被释放的情况，经常出现在使用 block 的地方。</p>
+<p>例如下面的代码就存在循环引用：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">	[<span class="keyword">self</span> doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>在属性的生命中，类的对象含有一个 strong 类型的指针指向 block，在 block 中又存在 self （默认是 strong 类型）来引用类的对象，这样两者在生命周期结束时都不会被释放。</p>
+<p>解决方法：通过使用<code>__weak</code>修饰词来得到一个指向 self 的 weak 指针来打破循环引用。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">MyClass *__<span class="keyword">weak</span> weakSelf = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">        MyClass *__<span class="keyword">strong</span> strongSelf = weakSelf;</span><br><span class="line">	[strongSelf doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>block 内部的 strong 指针是为了保证在 block 执行的过程中，对象不会被释放掉。其实也可以先判断一下 weakSelf 是否为空。</p>
+<p><strong>但不应在所有使用 block 的情况下都采用 weakSelf</strong>，因为只要类中不存在指向 block 的 strong 指针，就不会存在循环引用。而滥用weakSelf 可能会导致某些情况下 self 被释放后才调用 block，此时 block 中的代码不会被执行，往往不是我们期望的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/08/25/2014-08-25-arc-on-ios/" data-id="cjd5o3suj001gi4jc9w02s8w2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARC/">ARC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/09/03/2014-09-03-errors-due-to-nested-pop-or-push/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Nested pop/push 导致的问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/08/16/2014-08-16-how-to-switch-between-view-controllers/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">View Controller 之间的切换</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARC/">ARC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AirPlay/">AirPlay</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/App/">App</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bonjour/">Bonjour</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FuckGFW/">FuckGFW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game/">Game</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAC/">RAC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE/">RE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/">Workflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具控/">工具控</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折腾/">折腾</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/攻略/">攻略</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机械键盘/">机械键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/玩物/">玩物</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARC/" style="font-size: 10px;">ARC</a> <a href="/tags/AirPlay/" style="font-size: 10px;">AirPlay</a> <a href="/tags/App/" style="font-size: 13.33px;">App</a> <a href="/tags/Bonjour/" style="font-size: 10px;">Bonjour</a> <a href="/tags/Crypto/" style="font-size: 10px;">Crypto</a> <a href="/tags/FuckGFW/" style="font-size: 10px;">FuckGFW</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/RAC/" style="font-size: 10px;">RAC</a> <a href="/tags/RE/" style="font-size: 10px;">RE</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Workflow/" style="font-size: 10px;">Workflow</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/动画/" style="font-size: 10px;">动画</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具控/" style="font-size: 13.33px;">工具控</a> <a href="/tags/折腾/" style="font-size: 10px;">折腾</a> <a href="/tags/攻略/" style="font-size: 10px;">攻略</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/机械键盘/" style="font-size: 10px;">机械键盘</a> <a href="/tags/玩物/" style="font-size: 13.33px;">玩物</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/02/2018-02-02-share-in-workflow/">Workflow 添加到主屏幕是如何实现的</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/31/2018-01-31-share-in-ios/">iOS 中的分享</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/05/2017-03-05-airplay-without-bonjour/">跨子网、不依赖多播的 AirPlay 镜像</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/13/2017-02-13-ios-animation/">iOS Animation 指北</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/20/2016-07-20-aop-and-its-application/">AOP 及应用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

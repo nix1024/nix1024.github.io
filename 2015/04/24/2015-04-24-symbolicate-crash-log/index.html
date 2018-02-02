@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Symbolicate iOS Crash Log | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文介绍的是如何处理 Xcode 无法自动 Symbolicate 的 Crash log。  如果你得到这样的 Crash log，你一定想知道其中的 0x4a000 + 37204 究竟对应哪个方法调用。 12345670   CoreFoundation                  0x2dc73f7e __exceptionPreprocess + 1261   libobjc.A">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Symbolicate iOS Crash Log">
+<meta property="og:url" content="http://yoursite.com/2015/04/24/2015-04-24-symbolicate-crash-log/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文介绍的是如何处理 Xcode 无法自动 Symbolicate 的 Crash log。  如果你得到这样的 Crash log，你一定想知道其中的 0x4a000 + 37204 究竟对应哪个方法调用。 12345670   CoreFoundation                  0x2dc73f7e __exceptionPreprocess + 1261   libobjc.A">
+<meta property="og:updated_time" content="2015-04-24T02:36:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Symbolicate iOS Crash Log">
+<meta name="twitter:description" content="本文介绍的是如何处理 Xcode 无法自动 Symbolicate 的 Crash log。  如果你得到这样的 Crash log，你一定想知道其中的 0x4a000 + 37204 究竟对应哪个方法调用。 12345670   CoreFoundation                  0x2dc73f7e __exceptionPreprocess + 1261   libobjc.A">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2015-04-24-symbolicate-crash-log" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/24/2015-04-24-symbolicate-crash-log/" class="article-date">
+  <time datetime="2015-04-24T02:31:04.000Z" itemprop="datePublished">2015-04-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Symbolicate iOS Crash Log
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文介绍的是如何处理 Xcode 无法自动 Symbolicate 的 Crash log。</p>
+</blockquote>
+<p>如果你得到这样的 Crash log，你一定想知道其中的 <code>0x4a000 + 37204</code> 究竟对应哪个方法调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0   CoreFoundation                  0x2dc73f7e __exceptionPreprocess + 126</span><br><span class="line">1   libobjc.A.dylib                 0x384eecca objc_exception_throw + 34</span><br><span class="line">2   CoreFoundation                  0x2dc77912 -[NSObject(NSObject) doesNotRecognizeSelector:] + 198</span><br><span class="line">3   CoreFoundation                  0x2dc761fe ___forwarding___ + 702</span><br><span class="line">4   CoreFoundation                  0x2dbc5764 _CF_forwarding_prep_0 + 20</span><br><span class="line">5   YourAppName                     0x00053154 0x4a000 + 37204</span><br><span class="line">6   UIKit                           0x306f1c52 -[UIApplication _sendWillEnterForegroundCallbacks] + 90</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>首先计算 symbol address</p>
+<p>由下面这个公式得来：</p>
+<blockquote>
+<p>slide + stack address - load address = symbol address</p>
+</blockquote>
+<p>在上面的 Crash log 中的第 5 行中，<code>0x4a000</code> 就是 load address，<code>0x4a000 + 37204</code> 是 stack address。</p>
+<p>现在缺少的是 slide。</p>
+<p>下载应用的 .ipa 文件解压，会得到 Payload 目录，在此目录中执行下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -arch armv7 -l YourAppName.app/YourAppName | grep -B 1 -A 10 <span class="string">"LC_SEGM"</span> | grep -B 3 -A 8 <span class="string">"__TEXT"</span></span><br></pre></td></tr></table></figure>
+<p>会得到类似下面的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Load command 1</span><br><span class="line">      cmd LC_SEGMENT</span><br><span class="line">  cmdsize 736</span><br><span class="line">  segname __TEXT</span><br><span class="line">   vmaddr 0x00004000</span><br><span class="line">   vmsize 0x00314000</span><br><span class="line">  fileoff 0</span><br><span class="line"> filesize 3227648</span><br><span class="line">  maxprot 0x00000005</span><br><span class="line"> initprot 0x00000005</span><br><span class="line">   nsects 10</span><br><span class="line">    flags 0x0</span><br></pre></td></tr></table></figure>
+<p>其中的 vmaddr 即 silde。</p>
+<p>然后计算 symbol address （可以用 Google），在本例中就是：</p>
+<blockquote>
+<p>0x00004000 + 37204 = 0xD154</p>
+</blockquote>
+<p>最后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">atos -arch armv7 -o YourAppName.app/YourAppName 0xD154</span><br></pre></td></tr></table></figure>
+<p>就可以得到崩溃中与自己编写的逻辑相关的代码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/24/2015-04-24-symbolicate-crash-log/" data-id="cjd5o3suv001pi4jciz0rz5fn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/06/20/2015-06-20-meet-autolayout/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Autolayout 使用小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/18/2015-03-18-protocol-buffer-for-ios/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Protocol Buffers for iOS</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARC/">ARC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AirPlay/">AirPlay</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/App/">App</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bonjour/">Bonjour</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crypto/">Crypto</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FuckGFW/">FuckGFW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game/">Game</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS-X/">OS X</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAC/">RAC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE/">RE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/">Workflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具控/">工具控</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折腾/">折腾</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/攻略/">攻略</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机械键盘/">机械键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/玩物/">玩物</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARC/" style="font-size: 10px;">ARC</a> <a href="/tags/AirPlay/" style="font-size: 10px;">AirPlay</a> <a href="/tags/App/" style="font-size: 13.33px;">App</a> <a href="/tags/Bonjour/" style="font-size: 10px;">Bonjour</a> <a href="/tags/Crypto/" style="font-size: 10px;">Crypto</a> <a href="/tags/FuckGFW/" style="font-size: 10px;">FuckGFW</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/RAC/" style="font-size: 10px;">RAC</a> <a href="/tags/RE/" style="font-size: 10px;">RE</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Workflow/" style="font-size: 10px;">Workflow</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/动画/" style="font-size: 10px;">动画</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/工具控/" style="font-size: 13.33px;">工具控</a> <a href="/tags/折腾/" style="font-size: 10px;">折腾</a> <a href="/tags/攻略/" style="font-size: 10px;">攻略</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/机械键盘/" style="font-size: 10px;">机械键盘</a> <a href="/tags/玩物/" style="font-size: 13.33px;">玩物</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/02/2018-02-02-share-in-workflow/">Workflow 添加到主屏幕是如何实现的</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/31/2018-01-31-share-in-ios/">iOS 中的分享</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/05/2017-03-05-airplay-without-bonjour/">跨子网、不依赖多播的 AirPlay 镜像</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/13/2017-02-13-ios-animation/">iOS Animation 指北</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/20/2016-07-20-aop-and-its-application/">AOP 及应用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
