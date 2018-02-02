@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="OS X," />
+
+
+<meta name="description" content="为何要签名 对 app 进行代码签名可让用户确信它来自已知来源，且自最后一次签名之后未被修改。在您的 Mac app 或 iOS app 可以使用商店服务，安装到 iOS 设备上进行开发或测试，或者提交到 App Store 之前，必须先使用 Apple 颁布的证书对其进行签名。  在 OS X 的安全性与隐私的设置里有一项设置是允许从以下位置下载的应用程序，默认的设置是Mac App Store">
+<meta name="keywords" content="OS X">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Developer ID 为 Mac app 签名">
+<meta property="og:url" content="http://yoursite.com/2015/01/07/sign-your-mac-app-with-developer-id/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="为何要签名 对 app 进行代码签名可让用户确信它来自已知来源，且自最后一次签名之后未被修改。在您的 Mac app 或 iOS app 可以使用商店服务，安装到 iOS 设备上进行开发或测试，或者提交到 App Store 之前，必须先使用 Apple 颁布的证书对其进行签名。  在 OS X 的安全性与隐私的设置里有一项设置是允许从以下位置下载的应用程序，默认的设置是Mac App Store">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/2015-01-07/invalid_code_sign.png">
+<meta property="og:updated_time" content="2015-03-18T02:26:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Developer ID 为 Mac app 签名">
+<meta name="twitter:description" content="为何要签名 对 app 进行代码签名可让用户确信它来自已知来源，且自最后一次签名之后未被修改。在您的 Mac app 或 iOS app 可以使用商店服务，安装到 iOS 设备上进行开发或测试，或者提交到 App Store 之前，必须先使用 Apple 颁布的证书对其进行签名。  在 OS X 的安全性与隐私的设置里有一项设置是允许从以下位置下载的应用程序，默认的设置是Mac App Store">
+<meta name="twitter:image" content="http://yoursite.com/images/2015-01-07/invalid_code_sign.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/01/07/sign-your-mac-app-with-developer-id/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>使用 Developer ID 为 Mac app 签名 | Nix 的自我修养</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nix 的自我修养</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/01/07/sign-your-mac-app-with-developer-id/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用 Developer ID 为 Mac app 签名</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-01-07T21:00:11+08:00">2015-01-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/01/07/sign-your-mac-app-with-developer-id/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/01/07/sign-your-mac-app-with-developer-id/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="为何要签名">为何要签名</h1><blockquote>
+<p>对 app 进行代码签名可让用户确信它来自已知来源，且自最后一次签名之后未被修改。在您的 Mac app 或 iOS app 可以使用商店服务，安装到 iOS 设备上进行开发或测试，或者提交到 App Store 之前，必须先使用 Apple 颁布的证书对其进行签名。</p>
+</blockquote>
+<p>在 OS X 的<code>安全性与隐私</code>的设置里有一项设置是<code>允许从以下位置下载的应用程序</code>，默认的设置是<code>Mac App Store 和被认可的开发者</code>。</p>
+<p>也就是说在用户不手动修改设置的情况下，用户无法打开未签名的程序。</p>
+<p><img src="/images/2015-01-07/invalid_code_sign.png" alt="打开未签名程序时的警告"></p>
+<p>下面就来介绍如何使用 Developer ID 为 app 签名。</p>
+<p>注意：本文不适用于发布到 Mac App Store 的签名。</p>
+<a id="more"></a>
+<h1 id="如何签名">如何签名</h1><h2 id="将你的_Apple_ID_添加到_Xcode">将你的 Apple ID 添加到 Xcode</h2><ol>
+<li>打开 Xcode 的 Preferences。</li>
+<li>选择 <code>Accounts</code>。</li>
+<li>点击左下角的加号按钮。</li>
+<li>填入你的 Apple ID。</li>
+</ol>
+<h2 id="加入一个_Program">加入一个 Program</h2><p>在添加 Apple ID 的界面，你可以选择 <code>Join a Program...</code> 来加入一个 program。</p>
+<p>你也可以让 program 的管理员来将你添加到你们公司的 program。</p>
+<h2 id="在_Xcode_中设置_signing_identity">在 Xcode 中设置 signing identity</h2><ol>
+<li>选择你项目的 target。</li>
+<li>选择 <code>General</code>。</li>
+<li>在 <code>Signing</code> 中选择 <code>Developer ID</code>。</li>
+<li>在 <code>Team</code> 中选择你加入的 program。</li>
+</ol>
+<h2 id="创建_Developer_ID_certificate">创建 Developer ID certificate</h2><p>方法一：</p>
+<p>首先在自己的电脑上使用<code>钥匙串访问</code>来创建一个<code>certificate signing request (CSR)</code>。</p>
+<ol>
+<li>打开<code>钥匙串访问</code>，在菜单栏中选择<code>钥匙串访问 &gt; 证书助理 &gt; 从证书颁发机构请求证书</code>。</li>
+<li>填入你的邮件地址和常用名，选择下方的<code>存储到磁盘</code>，点击继续选择文件位置保存即可。</li>
+<li>管理员在 Member Center 里面的<code>Certificates, Identifiers &amp; Profiles</code>页面中，选择<code>Certificates</code>下方的<code>All</code>。</li>
+<li>选择右上角的加号按钮。</li>
+<li>选择<code>Production</code>下方的<code>Developer ID</code>。</li>
+<li>选择证书类型<code>Developer ID Application</code>，点击<code>Continue</code>。</li>
+<li>选择前面生成的 CSR（扩展名是 .certSigningRequest） 文件，点击<code>Continue</code>。</li>
+<li>选择<code>Generate</code>并且下载证书。</li>
+<li>将证书导入到 Keychain 中。</li>
+</ol>
+<p>方法二：</p>
+<ol>
+<li>打开 Xcode 的偏好设置，选择<code>Accounts</code>选项卡，选择加入的 program，点击<code>View Details</code>。</li>
+<li>此时 Xcode 没有找到任何证书，会提示是否要帮你申请证书，此时只要选择以<code>The Developer ID Application</code>开头的选项即可。（也可以点击左边的加号来添加一个<code>Developer ID Distribution</code>）</li>
+<li>等待 program 的管理员来审批。</li>
+</ol>
+<p>验证：</p>
+<p>方法一：</p>
+<p>在 Xcode 的 <code>Preference &gt; Accounts</code> 中选择加入的 program，选择 <code>View Details...</code>，应该能看到一项 <code>Developer ID Application</code>。</p>
+<p>方法二：</p>
+<p>在钥匙串访问中能找到一个名为 <code>Developer ID Application: Your Company Name</code> 的证书。</p>
+<h2 id="签名">签名</h2><p>方法一（使用 Xcode 签名）：</p>
+<ol>
+<li>选择菜单中的 <code>Product &gt; Archive</code>。</li>
+<li>（可选）选择 <code>Validate...</code> 来验证打包。</li>
+<li>点击 <code>Export...</code> </li>
+<li>按照提示选择 <code>Export a Developer ID-signed Application</code>。</li>
+<li>选择一个 team。</li>
+<li>输入文件名，保存即可。</li>
+</ol>
+<p>但是使用 Xcode 签名有可能会失败，下面的签名验证部分会提到。</p>
+<p>方法二（使用命令行）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign --force --verbose=4 --sign <span class="string">"Developer ID Application: Your Company Name"</span> Foo.app</span><br></pre></td></tr></table></figure>
+<p>codesign 要求项目中包含的所有框架、库都已经被签名，并且 codesign 不会自动帮你完成，这需要我们单独为每一个库进行签名后再为整个 app 签名。</p>
+<p>签名或验证一个 framework 时使用的路径是<code>MyCustomFramework/Versions/A</code>，比如 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign -s <span class="string">"Developer ID Application: Your Company Name"</span> ../MyCustomFramework/Versions/A</span><br></pre></td></tr></table></figure>
+<p><strong>签名时不要使用<code>--deep</code>参数。</strong></p>
+<p>如果 framework 签名失败，可能是由于</p>
+<ul>
+<li>Info.plist 文件中的 CFBundleExecutable 值与可执行文件的文件名不一致。</li>
+<li>目录结构不对（比如 QT），framework 的目录结构<strong>必须与下面完全一样。</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MyFramework.framework/</span><br><span class="line">    MyFramework  -&gt; Versions/Current/MyFramework</span><br><span class="line">    Resources    -&gt; Versions/Current/Resources</span><br><span class="line">    Versions/</span><br><span class="line">        A/</span><br><span class="line">            MyFramework</span><br><span class="line">            Resources/</span><br><span class="line">                English.lproj/</span><br><span class="line">                    InfoPlist.strings</span><br><span class="line">                Info.plist</span><br><span class="line">        Current  -&gt; A</span><br></pre></td></tr></table></figure>
+<h2 id="签名验证">签名验证</h2><p>输入下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spctl -a -v Foo.app</span><br></pre></td></tr></table></figure>
+<p>如果验证通过，则会提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Foo.app: accepted  </span><br><span class="line"><span class="built_in">source</span>=Developer ID  </span><br><span class="line">origin=Developer ID Application: Your Company Name</span><br></pre></td></tr></table></figure>
+<p>出现下面的提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Foo.app: rejected  </span><br><span class="line"><span class="built_in">source</span>=obsolete resource envelope</span><br></pre></td></tr></table></figure>
+<p>此时如果用户通过浏览器或者邮箱接收到安装包再打开 app 时就会提示文件已损坏。</p>
+<p>解决方法：</p>
+<p>使用下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign --verify --deep --verbose=3 /path/to/signed/app</span><br></pre></td></tr></table></figure>
+<p>找出验证不通过的重新签名，再重新签名整个 app 即可。</p>
+<h1 id="脚本">脚本</h1><p>下面是我用来签名的脚本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> commands</span><br><span class="line"></span><br><span class="line">APP_PATH = <span class="string">"/path/to/Foo.app"</span></span><br><span class="line">DEVELOPER_ID = <span class="string">"Developer ID Application: Your Awesome Company"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">signWithPath</span><span class="params">(path)</span>:</span></span><br><span class="line">    signCommand = <span class="string">"codesign --force --sign \"%s\" \"%s\""</span> % (DEVELOPER_ID, path)</span><br><span class="line">    retCode, result = commands.getstatusoutput(signCommand)</span><br><span class="line">    <span class="keyword">if</span> retCode != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> result</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"code sign failed"</span></span><br><span class="line">    <span class="keyword">return</span> retCode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validateWithPath</span><span class="params">(path)</span>:</span></span><br><span class="line">    signCommand = <span class="string">"codesign --verify --deep --verbose=3 \"%s\""</span> % path</span><br><span class="line">    retCode, result = commands.getstatusoutput(signCommand)</span><br><span class="line">    <span class="keyword">if</span> retCode == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Accepted!"</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> result</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Rejected!"</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sign</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"&gt; signing frameworks &amp; dylibs..."</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(APP_PATH):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"where's your app?!"</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    frameworkDir = os.path.join(APP_PATH, <span class="string">"Contents/"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># sign dylibs</span></span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(frameworkDir):</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> f.endswith(<span class="string">".dylib"</span>):</span><br><span class="line">                <span class="keyword">print</span> <span class="string">"signing"</span>, f</span><br><span class="line">                dylibPath = os.path.join(root, f)</span><br><span class="line">                signWithPath(dylibPath)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># sign frameworks</span></span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(frameworkDir):</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> dirs:</span><br><span class="line">            <span class="keyword">if</span> d.endswith(<span class="string">".framework"</span>):</span><br><span class="line">                <span class="keyword">print</span> <span class="string">"signing"</span>, d</span><br><span class="line">                frameworkPath = os.path.join(root, d, <span class="string">"Versions/A"</span>)</span><br><span class="line">                signWithPath(frameworkPath)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"&gt; singing app..."</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"singing"</span>, APP_PATH</span><br><span class="line">    signWithPath(APP_PATH)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"&gt; validate code sign..."</span></span><br><span class="line">    <span class="keyword">if</span> validateWithPath(APP_PATH) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Code sign completed!"</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Dohhh!"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sign()</span><br></pre></td></tr></table></figure>
+<h1 id="参考">参考</h1><p><a href="https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html#//apple_ref/doc/uid/TP40012582-CH31-SW30" target="_blank" rel="noopener">https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html#//apple_ref/doc/uid/TP40012582-CH31-SW30</a></p>
+<p><a href="http://furbo.org/2013/10/17/code-signing-and-mavericks/" target="_blank" rel="noopener">http://furbo.org/2013/10/17/code-signing-and-mavericks/</a></p>
+<p><a href="https://github.com/sunuslee/sunus-cookbook/blob/master/Cocoa/codesign.md" target="_blank" rel="noopener">https://github.com/sunuslee/sunus-cookbook/blob/master/Cocoa/codesign.md</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/os-x/" rel="tag"># OS X</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/03/errors-due-to-nested-pop-or-push/" rel="next" title="Nested pop/push 导致的问题">
+                <i class="fa fa-chevron-left"></i> Nested pop/push 导致的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/03/08/mechanical-watch/" rel="prev" title="简单机械手表原理">
+                简单机械手表原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为何要签名"><span class="nav-number">1.</span> <span class="nav-text">为何要签名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何签名"><span class="nav-number">2.</span> <span class="nav-text">如何签名</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#将你的_Apple_ID_添加到_Xcode"><span class="nav-number">2.1.</span> <span class="nav-text">将你的 Apple ID 添加到 Xcode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入一个_Program"><span class="nav-number">2.2.</span> <span class="nav-text">加入一个 Program</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在_Xcode_中设置_signing_identity"><span class="nav-number">2.3.</span> <span class="nav-text">在 Xcode 中设置 signing identity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建_Developer_ID_certificate"><span class="nav-number">2.4.</span> <span class="nav-text">创建 Developer ID certificate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#签名"><span class="nav-number">2.5.</span> <span class="nav-text">签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#签名验证"><span class="nav-number">2.6.</span> <span class="nav-text">签名验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本"><span class="nav-number">3.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2015/01/07/sign-your-mac-app-with-developer-id/';
+        this.page.identifier = '2015/01/07/sign-your-mac-app-with-developer-id/';
+        this.page.title = '使用 Developer ID 为 Mac app 签名';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nix1024.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

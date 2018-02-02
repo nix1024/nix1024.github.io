@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="iOS,RAC," />
+
+
+<meta name="description" content="ReactiveCocoa 是一个符合 FRP（Functional Reactive Programming）范式的，操作和转换数据流的框架。 它可以解决三个问题：  开发过程中关于界面的状态信息太多，不易维护。 统一各种消息传递的方式。 绑定功能可以配合 MVVM 使用。">
+<meta name="keywords" content="iOS,RAC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识 Reactive Cocoa">
+<meta property="og:url" content="http://yoursite.com/2016/03/24/introduce-reactive-cococa/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="ReactiveCocoa 是一个符合 FRP（Functional Reactive Programming）范式的，操作和转换数据流的框架。 它可以解决三个问题：  开发过程中关于界面的状态信息太多，不易维护。 统一各种消息传递的方式。 绑定功能可以配合 MVVM 使用。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-03-31T08:48:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识 Reactive Cocoa">
+<meta name="twitter:description" content="ReactiveCocoa 是一个符合 FRP（Functional Reactive Programming）范式的，操作和转换数据流的框架。 它可以解决三个问题：  开发过程中关于界面的状态信息太多，不易维护。 统一各种消息传递的方式。 绑定功能可以配合 MVVM 使用。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/24/introduce-reactive-cococa/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>初识 Reactive Cocoa | Nix 的自我修养</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nix 的自我修养</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/24/introduce-reactive-cococa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初识 Reactive Cocoa</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-24T08:06:45+08:00">2016-03-24</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/24/introduce-reactive-cococa/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/03/24/introduce-reactive-cococa/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ReactiveCocoa 是一个符合 FRP（Functional Reactive Programming）范式的，操作和转换数据流的框架。</p>
+<p>它可以解决三个问题：</p>
+<ul>
+<li>开发过程中关于界面的状态信息太多，不易维护。</li>
+<li>统一<a href="https://www.objc.io/issues/7-foundation/communication-patterns/" target="_blank" rel="noopener">各种消息传递的方式</a>。</li>
+<li>绑定功能可以配合 MVVM 使用。</li>
+</ul>
+<a id="more"></a>
+<h2 id="基本概念">基本概念</h2><p>简而言之，Singal 以 stream 的方式将 event 发送给 Observer。</p>
+<h3 id="Event">Event</h3><p>Event 代表值发生变化，或者有用户操作，分为 4 种：</p>
+<ul>
+<li>Next：signal 产生了新的值。</li>
+<li>Failed：signal 执行发生了错误，不再产生新的值。</li>
+<li>Completed：signal 执行结束，不再产生新的值。</li>
+<li>Interrupted：signal 被中止，不再产生新的值。</li>
+</ul>
+<h3 id="Singal">Singal</h3><p>Signal 类似于一个 event 源头，event 通过 signal 传递。用户只能通过 subscribe 来开始<strong>有序地、被动地</strong>获取 signal 里面的值。一一个 signal 的生命周期通常是一个或多个 Next event，然后以 Failed、Completed 和 Interrupted 中的一种 event 结束，不受 subscriber 的影响。</p>
+<p>用户可以使用基本操作符对 Signal 进行一些操作，如过滤（filter）、映射（map）等。</p>
+<h3 id="Observer">Observer</h3><p>通过 subscribe 一个 signal 来接受 event 的对象。</p>
+<h3 id="RACCommand">RACCommand</h3><p>通常用来执行一个 UI 事件发生后要处理的任务。</p>
+<h3 id="RACSubject">RACSubject</h3><p>一个 signal 的子类，是一个可以手动发送 Next、Failed 等事件的 signal。通常用来将 non-RAC 的代码 bridge 成 RAC 的代码。</p>
+<h2 id="基本操作">基本操作</h2><h3 id="添加副作用">添加副作用</h3><ul>
+<li><code>-subscribe...:</code></li>
+</ul>
+<p>用来订阅一个 signal 的 Next、Failed、Completed 和 Interrupted 事件中的一种或几种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RACSignal *letters = [@&quot;A B C D E F G H I&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence.signal;</span><br><span class="line"></span><br><span class="line">// Outputs: A B C D E F G H I</span><br><span class="line">[letters subscribeNext:^(NSString *x) &#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, x);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-do...:</code></li>
+</ul>
+<p>用来添加副作用，当 Next、Failed、Completed 和 Interrupted 事件中的一种发生时执行 <code>do...</code> 中的 block。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">__block unsigned subscriptions = 0;</span><br><span class="line"></span><br><span class="line">RACSignal *loggingSignal = [RACSignal createSignal:^ RACDisposable * (id&lt;RACSubscriber&gt; subscriber) &#123;</span><br><span class="line">    subscriptions++;</span><br><span class="line">    [subscriber sendCompleted];</span><br><span class="line">    return nil;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">// Does not output anything yet</span><br><span class="line">loggingSignal = [loggingSignal doCompleted:^&#123;</span><br><span class="line">    NSLog(@&quot;about to complete subscription %u&quot;, subscriptions);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">// Outputs:</span><br><span class="line">// about to complete subscription 1</span><br><span class="line">// subscription 1</span><br><span class="line">[loggingSignal subscribeCompleted:^&#123;</span><br><span class="line">    NSLog(@&quot;subscription %u&quot;, subscriptions);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h3 id="转换_stream">转换 stream</h3><ul>
+<li><code>-map:</code></li>
+</ul>
+<p>将一个 stream 中的值转换成其他的值，组成一个新的 stream。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RACSequence *letters = [@&quot;A B C D E F G H I&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence;</span><br><span class="line"></span><br><span class="line">// Contains: AA BB CC DD EE FF GG HH II</span><br><span class="line">RACSequence *mapped = [letters map:^(NSString *value) &#123;</span><br><span class="line">    return [value stringByAppendingString:value];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-filter:</code></li>
+</ul>
+<p>用来过滤 stream 中的值，传入的 block 返回一个 BOOL，来决定是否将值放入新的 stream 中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RACSequence *numbers = [@&quot;1 2 3 4 5 6 7 8 9&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence;</span><br><span class="line"></span><br><span class="line">// Contains: 2 4 6 8</span><br><span class="line">RACSequence *filtered = [numbers filter:^ BOOL (NSString *value) &#123;</span><br><span class="line">    return (value.intValue % 2) == 0;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h3 id="组合_stream">组合 stream</h3><ul>
+<li><code>-concat:</code></li>
+</ul>
+<p>将一个 stream 的值追加到另一个 stream 的值后面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RACSequence *letters = [@&quot;A B C D E F G H I&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence;</span><br><span class="line">RACSequence *numbers = [@&quot;1 2 3 4 5 6 7 8 9&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence;</span><br><span class="line"></span><br><span class="line">// Contains: A B C D E F G H I 1 2 3 4 5 6 7 8 9</span><br><span class="line">RACSequence *concatenated = [letters concat:numbers];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-flatten:</code></li>
+</ul>
+<p>如果一个 signal 的 stream 中的值也是一个 stream，<code>-flatten:</code> 会将子 stream 中的值取出，组成一个新的 stream。组合的效果可能是 concat：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RACSequence *letters = [@&quot;A B C D E F G H I&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence;</span><br><span class="line">RACSequence *numbers = [@&quot;1 2 3 4 5 6 7 8 9&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence;</span><br><span class="line">RACSequence *sequenceOfSequences = @[ letters, numbers ].rac_sequence;</span><br><span class="line"></span><br><span class="line">// Contains: A B C D E F G H I 1 2 3 4 5 6 7 8 9</span><br><span class="line">RACSequence *flattened = [sequenceOfSequences flatten];</span><br></pre></td></tr></table></figure>
+<p>或者 merge：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">RACSubject *letters = [RACSubject subject];</span><br><span class="line">RACSubject *numbers = [RACSubject subject];</span><br><span class="line">RACSignal *signalOfSignals = [RACSignal createSignal:^ RACDisposable * (id&lt;RACSubscriber&gt; subscriber) &#123;</span><br><span class="line">    [subscriber sendNext:letters];</span><br><span class="line">    [subscriber sendNext:numbers];</span><br><span class="line">    [subscriber sendCompleted];</span><br><span class="line">    return nil;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">RACSignal *flattened = [signalOfSignals flatten];</span><br><span class="line"></span><br><span class="line">// Outputs: A 1 B C 2</span><br><span class="line">[flattened subscribeNext:^(NSString *x) &#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, x);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[letters sendNext:@&quot;A&quot;];</span><br><span class="line">[numbers sendNext:@&quot;1&quot;];</span><br><span class="line">[letters sendNext:@&quot;B&quot;];</span><br><span class="line">[letters sendNext:@&quot;C&quot;];</span><br><span class="line">[numbers sendNext:@&quot;2&quot;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-flattenMap:</code></li>
+</ul>
+<p>当一个 stream 的值也是 stream 时，将子 stream 中的值转换后，组成一个新的 stream。</p>
+<p><code>-flattenMap:</code> = <code>-map:</code> + <code>-flatten:</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">RACSequence *numbers = [@&quot;1 2 3 4 5 6 7 8 9&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence;</span><br><span class="line"></span><br><span class="line">// Contains: 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9</span><br><span class="line">RACSequence *extended = [numbers flattenMap:^(NSString *num) &#123;</span><br><span class="line">    return @[ num, num ].rac_sequence;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">// Contains: 1_ 3_ 5_ 7_ 9_</span><br><span class="line">RACSequence *edited = [numbers flattenMap:^(NSString *num) &#123;</span><br><span class="line">    if (num.intValue % 2 == 0) &#123;</span><br><span class="line">        return [RACSequence empty];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSString *newNum = [num stringByAppendingString:@&quot;_&quot;];</span><br><span class="line">        return [RACSequence return:newNum]; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h3 id="组合_signal">组合 signal</h3><ul>
+<li><code>-then:</code></li>
+</ul>
+<p>当一个 signal 执行完成之后，subscriber 后续只会收到新返回的 signal 的值，如同订阅了新的 signal 一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">RACSignal *letters = [@&quot;A B C D E F G H I&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence.signal;</span><br><span class="line"></span><br><span class="line">// The new signal only contains: 1 2 3 4 5 6 7 8 9</span><br><span class="line">//</span><br><span class="line">// But when subscribed to, it also outputs: A B C D E F G H I</span><br><span class="line">RACSignal *sequenced = [[letters</span><br><span class="line">    doNext:^(NSString *letter) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, letter);</span><br><span class="line">    &#125;]</span><br><span class="line">    then:^&#123;</span><br><span class="line">        return [@&quot;1 2 3 4 5 6 7 8 9&quot; componentsSeparatedByString:@&quot; &quot;].rac_sequence.signal;</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>+merge:</code></li>
+</ul>
+<p>将多个 signal 合并为一个，一旦任一合并前的 signal 中产生新的值，新的 signal <strong>立即产生同样的值</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">RACSubject *letters = [RACSubject subject];</span><br><span class="line">RACSubject *numbers = [RACSubject subject];</span><br><span class="line">RACSignal *merged = [RACSignal merge:@[ letters, numbers ]];</span><br><span class="line"></span><br><span class="line">// Outputs: A 1 B C 2</span><br><span class="line">[merged subscribeNext:^(NSString *x) &#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, x);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[letters sendNext:@&quot;A&quot;];</span><br><span class="line">[numbers sendNext:@&quot;1&quot;];</span><br><span class="line">[letters sendNext:@&quot;B&quot;];</span><br><span class="line">[letters sendNext:@&quot;C&quot;];</span><br><span class="line">[numbers sendNext:@&quot;2&quot;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>+combineLatest:</code> 和 <code>+combineLatest:reduce:</code></li>
+</ul>
+<p>将多个 signal 合并成一个。与 <code>+merge:</code> 不同的是，这两个方法产生的新的 signal 只有在所有的合并前 signal <strong>至少产生一个新的值</strong>时，才将<strong>所有的值</strong>（以元组的方式）返回。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">RACSubject *letters = [RACSubject subject];</span><br><span class="line">RACSubject *numbers = [RACSubject subject];</span><br><span class="line">RACSignal *combined = [RACSignal</span><br><span class="line">    combineLatest:@[ letters, numbers ]</span><br><span class="line">    reduce:^(NSString *letter, NSString *number) &#123;</span><br><span class="line">        return [letter stringByAppendingString:number];</span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line">// Outputs: B1 B2 C2 C3</span><br><span class="line">[combined subscribeNext:^(id x) &#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, x);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[letters sendNext:@&quot;A&quot;];</span><br><span class="line">[letters sendNext:@&quot;B&quot;];</span><br><span class="line">[numbers sendNext:@&quot;1&quot;];</span><br><span class="line">[numbers sendNext:@&quot;2&quot;];</span><br><span class="line">[letters sendNext:@&quot;C&quot;];</span><br><span class="line">[numbers sendNext:@&quot;3&quot;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-switchToLatest</code></li>
+</ul>
+<p>用来处理由 signal 组成的 signal （signal-of-signals），总是返回最新的外层 signal 中的最新的 signal 的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">RACSubject *letters = [RACSubject subject];</span><br><span class="line">RACSubject *numbers = [RACSubject subject];</span><br><span class="line">RACSubject *signalOfSignals = [RACSubject subject];</span><br><span class="line"></span><br><span class="line">RACSignal *switched = [signalOfSignals switchToLatest];</span><br><span class="line"></span><br><span class="line">// Outputs: A B 1 D</span><br><span class="line">[switched subscribeNext:^(NSString *x) &#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, x);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[signalOfSignals sendNext:letters];</span><br><span class="line">[letters sendNext:@&quot;A&quot;];</span><br><span class="line">[letters sendNext:@&quot;B&quot;];</span><br><span class="line"></span><br><span class="line">[signalOfSignals sendNext:numbers];</span><br><span class="line">[letters sendNext:@&quot;C&quot;];</span><br><span class="line">[numbers sendNext:@&quot;1&quot;];</span><br><span class="line"></span><br><span class="line">[signalOfSignals sendNext:letters];</span><br><span class="line">[numbers sendNext:@&quot;2&quot;];</span><br><span class="line">[letters sendNext:@&quot;D&quot;];</span><br></pre></td></tr></table></figure>
+<h3 id="其他">其他</h3><ul>
+<li><code>take:(NSUInteger)n</code></li>
+</ul>
+<p>仅仅值的<strong>前 n 次</strong>的变化会继续传递下去。</p>
+<ul>
+<li><code>distinctUntilChanged</code></li>
+</ul>
+<p>仅当 signal 的值与上一次不同时才会继续传递下去。</p>
+<ul>
+<li><code>throttle:(NSTimeInterval)interval</code></li>
+</ul>
+<p>在 interval 的时间内发生的值的变化仅传递最后一个。</p>
+<h2 id="统一消息传递机制">统一消息传递机制</h2><p>ReactiveCocoa 统一了 iOS 中几乎所有的消息传递方式：</p>
+<ul>
+<li>Blocks</li>
+<li>Delegates</li>
+<li>Notifications</li>
+<li>Errors</li>
+<li>Target-Action</li>
+<li>KVO</li>
+<li>Method Overriding</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line">// Blocks -&gt; Signal</span><br><span class="line"></span><br><span class="line">// Groups code that happens on subscriptions, returns a single value when block</span><br><span class="line">// executes. defer is a general pattern to turn a function into a signal.</span><br><span class="line">//</span><br><span class="line">// This can be used to enclose a long-running function into an</span><br><span class="line">// async signal.</span><br><span class="line"></span><br><span class="line">[RACSignal defer:^ &#123;</span><br><span class="line">  // Test for sending a value and completing</span><br><span class="line">  return [RACSignal return:@(arc4random())];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">// The same thing as above can be done (more explicitly)</span><br><span class="line">// with createSignal</span><br><span class="line"></span><br><span class="line">[RACSignal createSignal:^(id(&lt;RACSubscriber&gt; subscriber) &#123;</span><br><span class="line">  // Perform per-subscription side effects.</span><br><span class="line">  [subscription sendNext:@(arc4random())];</span><br><span class="line">  [subscription sendCompleted];</span><br><span class="line">  return nil;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">// Blocks -&gt; Signal</span><br><span class="line"></span><br><span class="line">// AFNetworking Example:</span><br><span class="line"></span><br><span class="line">[RACSignal createSignal:^(id&lt;RACSubscriber&gt; subscriber) &#123;</span><br><span class="line">  [manager GET:URLString parameters:params</span><br><span class="line">    success:^(AFHTTPRequestOperation *op, id response) &#123;</span><br><span class="line">      [subscriber sendNext:response];</span><br><span class="line">      [subscriber sendCompleted];</span><br><span class="line">    &#125;</span><br><span class="line">    failure:^(AFHTTPRequestOperation *op, NSError *e) &#123;</span><br><span class="line">      [subscriber:sendError:e];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">// Using disposables w/ operations to cancel</span><br><span class="line"></span><br><span class="line">[RACSignal createSignal:^(id&lt;RACSubscriber&gt; subscriber) &#123;</span><br><span class="line">  NSOperation *operation = [manager GET:URLString parameters:params</span><br><span class="line">    success:^(AFHTTPRequestOperation *op, id response) &#123;</span><br><span class="line">      [subscriber sendNext:response];</span><br><span class="line">      [subscriber sendCompleted];</span><br><span class="line">    &#125; failure:^(AFHTTPRequestOperation *op, NSError *error) &#123;</span><br><span class="line">      [subscriber sendError:e];</span><br><span class="line">    &#125;];</span><br><span class="line">  return [RACDisposable disposableWithBlock:^ &#123;</span><br><span class="line">    [operation cancel];</span><br><span class="line">  &#125;];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Core Data : switchToLatest on a search request : automatically cancel old requests.</span><br><span class="line"></span><br><span class="line">[RACSignal createSignal:^(id&lt;RACSubscriber&gt; subscriber) &#123;</span><br><span class="line">  RACDisposable *disposable = [RACDisposable new];</span><br><span class="line"></span><br><span class="line">  [managedObjectContext performBlock:^ &#123;</span><br><span class="line">    if (disposable.disposed) return;</span><br><span class="line"></span><br><span class="line">    NSError *error;</span><br><span class="line">    NSArray *results = [moc performFetch:fetchRequest error:&amp;error];</span><br><span class="line"></span><br><span class="line">    if (results != nil) &#123;</span><br><span class="line">      [subscriber sendNext:results];</span><br><span class="line">      [subscriber sendCompleted];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      [subscriber sendError:error];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;];</span><br><span class="line">  return disposable;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Delegates : creating a signal version of a delegate.</span><br><span class="line"></span><br><span class="line">// Shows the general pattern of wrapping delegate callbacks into</span><br><span class="line">// signals. Also how to perform side-effect actions based on the</span><br><span class="line">// subscriber count. In this example, CL is turned on when the</span><br><span class="line">// first subscriber subscribes and turned off after all subscribers</span><br><span class="line">// have unsubscribed.</span><br><span class="line">//</span><br><span class="line">// Notice we are setting `self` as the CL delegate but the</span><br><span class="line">// delegate methods are not implemented - rather subscribed</span><br><span class="line">// to via rac_signalForSelector. This translates</span><br><span class="line">// delegate callbacks into signal values.</span><br><span class="line"></span><br><span class="line">// reduceEach is like map. In this case, we use it to return only</span><br><span class="line">// the values in the tuple that matter (the locations / error object).</span><br><span class="line"></span><br><span class="line">// flattenMap takes a value and creates a signal from it.</span><br><span class="line"></span><br><span class="line">CLLocationManager *locationManager = ...</span><br><span class="line">locationManager.delegate = self; //</span><br><span class="line">static volatile int32_t subscriberCount = 0;</span><br><span class="line"></span><br><span class="line">[RACSignal createSignal:^(id&lt;RACSubscriber&gt; subscriber) &#123;</span><br><span class="line">  RACSignal *locations = [[self rac_signalForSeletor:(@selector(...didUpdateLocations:)</span><br><span class="line">    fromProtocol:@protocol(CLLocationManagerDelegate)]</span><br><span class="line">    reduceEach^(id _, NSArray *locations) &#123;</span><br><span class="line">      return locations;</span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line">  RACSignal *error = [[self rac_signalForSeletor:(@selector(...didFailWithError:)</span><br><span class="line">    fromProtocol:@protocol(CLLocationManagerDelegate)]</span><br><span class="line">    reduceEach^(id _, NSError *error) &#123;</span><br><span class="line">      return error;</span><br><span class="line">    &#125;]</span><br><span class="line">    filter:^BOOL (NSError *error) &#123;</span><br><span class="line">      // Documentation says CL will keep trying after kCLErrorLocationUnknown</span><br><span class="line">      return error.code != kCLErrorLocationUnknown;</span><br><span class="line">    &#125;]</span><br><span class="line">    flattenMap:^(NSError *error)&#123;</span><br><span class="line">      return [RACSignal error:error]; // create a new signal that will send error.</span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line">    RACDisposable *disposable = [[RACSignal</span><br><span class="line">      merge:@[ locations, error ]]</span><br><span class="line">      subscribe:subscriber];</span><br><span class="line"></span><br><span class="line">    // manage side effects if you have multiple subscribers</span><br><span class="line">    if (OSAtomicIncrement32(&amp;subscriberCount) == 1) &#123;</span><br><span class="line">      [locationManager startUpdatingLocation];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      [subscriber sendNext:locationManager.location];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [RACDisposable disposableWithBlock:^&#123;</span><br><span class="line">      [disposable dispose];</span><br><span class="line">      if (OSAtomicDecrement32(&amp;subscriberCount) == 0) &#123;</span><br><span class="line">        [locationManager stopUpdateLocation];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// KVO</span><br><span class="line"></span><br><span class="line">RACSignal *isReachable = [RACObserve(reachabilityManager, networkReachabilityStatus)</span><br><span class="line">  map:^(NSNumber *networkReachabilityStatus) &#123;</span><br><span class="line">    switch (networkReachabilityStatus.intValue) &#123;</span><br><span class="line">      case AFNetworkReachabilityStatusReachableViaWWAN:</span><br><span class="line">      case AFNetworkReachabilityStatusReachableViaWiFi:</span><br><span class="line">        return @YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return @NO;</span><br><span class="line">  &#125;];</span><br><span class="line"></span><br><span class="line">// Notifications</span><br><span class="line"></span><br><span class="line">RACSignal *isForeground = [RACSignal merge:@[</span><br><span class="line">  [[defaultCenter rac_addObserverForName:WillEnterForeground ...]</span><br><span class="line">    mapReplace:@YES]</span><br><span class="line">  [[defaultCenter rac_addObserverForName:DidEnterBackground ...]</span><br><span class="line">    mapReplace:@NO]</span><br><span class="line">]];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Listens to the foreground. When isForeground == @YES, sends values from</span><br><span class="line">// the &quot;didBecomeActive&quot; signal. You can use this from a VM</span><br><span class="line">// to *not* bind to UIApplicationDelegate</span><br><span class="line">RACSignal *hasLaunchedActive = [RACSignal</span><br><span class="line">  if:isForeground</span><br><span class="line">  then:[defaultCenter rac_addObserverForName:DidBecomeActive]</span><br><span class="line">  else:[RACSignal empty]];</span><br></pre></td></tr></table></figure>
+<h2 id="UIView_Categories">UIView Categories</h2><p>ReactiveCocoa 提供了许多 UIView 的 Category 用来快速将 UI 的事件、属性转换成 signal。例如 <code>rac_textSignal</code> 是 UITextField 的 text 属性转换成的信号；<code>rac_buttonClickedSignal</code> 是 UIAlertView 的按钮点击的信号。</p>
+<p>我们订阅这些信号就可以摆脱各种 Delegate。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@&quot;&quot; message:@&quot;Alert&quot; delegate:nil cancelButtonTitle:@&quot;YES&quot; otherButtonTitles:@&quot;NO&quot;, nil];</span><br><span class="line">[[alertView rac_buttonClickedSignal] subscribeNext:^(NSNumber *indexNumber) &#123;</span><br><span class="line">    if ([indexNumber intValue] == 1) &#123;</span><br><span class="line">        NSLog(@&quot;NO&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;YES&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line">[alertView show];</span><br></pre></td></tr></table></figure>
+<h2 id="宏">宏</h2><p>ReactiveCocoa 提供了一些非常方便的宏。</p>
+<ul>
+<li><code>RACObserve(self, status)</code>：将 status 转换成一个 signal，当其值发生变化时触发事件。作用与 KVO 相同。</li>
+<li><code>RAC(self.textField, text)</code>：将某个对象的某个属性绑定到一个 signal 的值上。</li>
+<li><code>@weakify(self)</code> 和 <code>@strongify(self)</code> 用于避免循环引用。</li>
+</ul>
+<h2 id="Ref">Ref</h2><p><a href="http://www.infoq.com/cn/articles/functional-reactive-programming" target="_blank" rel="noopener">http://www.infoq.com/cn/articles/functional-reactive-programming</a><br><a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank" rel="noopener">https://github.com/ReactiveCocoa/ReactiveCocoa</a><br><a href="http://www.sprynthesis.com/2014/06/15/why-reactivecocoa/" target="_blank" rel="noopener">http://www.sprynthesis.com/2014/06/15/why-reactivecocoa/</a><br><a href="http://www.infoq.com/cn/articles/reactivecocoa-ios-new-develop-framework" target="_blank" rel="noopener">http://www.infoq.com/cn/articles/reactivecocoa-ios-new-develop-framework</a><br><a href="https://medium.com/@syshen/reactivecocoa-in-practice-4f04119efc68#.z0m1z8h1q" target="_blank" rel="noopener">https://medium.com/@syshen/reactivecocoa-in-practice-4f04119efc68#.z0m1z8h1q</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag"># iOS</a>
+          
+            <a href="/tags/rac/" rel="tag"># RAC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/23/model-view-viewmodel-for-ios/" rel="next" title="MVVM">
+                <i class="fa fa-chevron-left"></i> MVVM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/09/kill-debug-symbol-warnings/" rel="prev" title="消除引入第三方 Framework 导致的 Warning">
+                消除引入第三方 Framework 导致的 Warning <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Event"><span class="nav-number">1.1.</span> <span class="nav-text">Event</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Singal"><span class="nav-number">1.2.</span> <span class="nav-text">Singal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observer"><span class="nav-number">1.3.</span> <span class="nav-text">Observer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RACCommand"><span class="nav-number">1.4.</span> <span class="nav-text">RACCommand</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RACSubject"><span class="nav-number">1.5.</span> <span class="nav-text">RACSubject</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">2.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加副作用"><span class="nav-number">2.1.</span> <span class="nav-text">添加副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换_stream"><span class="nav-number">2.2.</span> <span class="nav-text">转换 stream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合_stream"><span class="nav-number">2.3.</span> <span class="nav-text">组合 stream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合_signal"><span class="nav-number">2.4.</span> <span class="nav-text">组合 signal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.5.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统一消息传递机制"><span class="nav-number">3.</span> <span class="nav-text">统一消息传递机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIView_Categories"><span class="nav-number">4.</span> <span class="nav-text">UIView Categories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏"><span class="nav-number">5.</span> <span class="nav-text">宏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2016/03/24/introduce-reactive-cococa/';
+        this.page.identifier = '2016/03/24/introduce-reactive-cococa/';
+        this.page.title = '初识 Reactive Cocoa';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nix1024.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

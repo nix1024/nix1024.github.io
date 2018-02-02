@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="iOS,ARC," />
+
+
+<meta name="description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。 在类属性的声明中，ARC 相关的修饰词有 4 个：  strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。 weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
+<meta name="keywords" content="iOS,ARC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OC 中的 ARC">
+<meta property="og:url" content="http://yoursite.com/2014/08/25/arc-on-ios/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。 在类属性的声明中，ARC 相关的修饰词有 4 个：  strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。 weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-04-18T09:54:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OC 中的 ARC">
+<meta name="twitter:description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。 在类属性的声明中，ARC 相关的修饰词有 4 个：  strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。 weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/08/25/arc-on-ios/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>OC 中的 ARC | Nix 的自我修养</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nix 的自我修养</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/08/25/arc-on-ios/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OC 中的 ARC</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-25T20:12:11+08:00">2014-08-25</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/08/25/arc-on-ios/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2014/08/25/arc-on-ios/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
+<p>在类属性的声明中，ARC 相关的修饰词有 4 个：</p>
+<ul>
+<li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
+<li><code>weak</code> 不会延长对象的生命周期，当<code>weak</code>类型的指针指向的对象被释放时，指针自身会被自动置为<code>nil</code>。</li>
+<li><code>assign</code> 用于 C 原始类型，比如 int。</li>
+<li><code>copy</code> 传入对象时会浅拷贝对象。<ul>
+<li>一般将不可变的 property 设置为 copy，当可变的对象传入时，编译器会自动拷贝一份不可变的版本，以保证其内容不会被修改。如果传入的不可变对象，会增加其引用计数。</li>
+<li>当 property 是一个 block 时通常使用 copy。因为 block 需要在其所在的 scope 之外保留其捕获的状态。不声明也是可以的，但<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW12" target="_blank" rel="noopener">官方推荐这样使用</a>，以提醒代码阅读者。</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<p>在 ARC 机制下，指针缺省的类型是<code>strong</code>。</p>
+<p>在声明局部变量时，有四个 ARC 相关的修饰词，他们的用法跟 const 类似。</p>
+<ul>
+<li><code>__strong</code> 缺省值。用法同<code>strong</code>。</li>
+<li><code>__weak</code> 用法同<code>weak</code>。</li>
+<li><code>__unsafe_unretained</code> 类似于<code>weak</code>，但其指向的对象被释放时，其值不会被置为<code>nil</code>。应该是由于兼容性的原因而存在，通常不建议使用。</li>
+<li><code>__autoreleasing</code> 用来修饰一个以引用（id *）方式传入的参数，当函数返回值时被释放。</li>
+</ul>
+<p>上面的修饰词正确的使用方法是</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
+<p>修饰词放在其他位置也可以编译通过，但是严格来说是不正确的。</p>
+<h2 id="循环引用以及避免方法">循环引用以及避免方法</h2><p>当两个对象使用<code>strong</code>指针互相引用时，就会出现双方都不会被释放的情况，经常出现在使用 block 的地方。</p>
+<p>例如下面的代码就存在循环引用：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">	[<span class="keyword">self</span> doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>在属性的生命中，类的对象含有一个 strong 类型的指针指向 block，在 block 中又存在 self （默认是 strong 类型）来引用类的对象，这样两者在生命周期结束时都不会被释放。</p>
+<p>解决方法：通过使用<code>__weak</code>修饰词来得到一个指向 self 的 weak 指针来打破循环引用。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">MyClass *__<span class="keyword">weak</span> weakSelf = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">        MyClass *__<span class="keyword">strong</span> strongSelf = weakSelf;</span><br><span class="line">	[strongSelf doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>block 内部的 strong 指针是为了保证在 block 执行的过程中，对象不会被释放掉。其实也可以先判断一下 weakSelf 是否为空。</p>
+<p><strong>但不应在所有使用 block 的情况下都采用 weakSelf</strong>，因为只要类中不存在指向 block 的 strong 指针，就不会存在循环引用。而滥用weakSelf 可能会导致某些情况下 self 被释放后才调用 block，此时 block 中的代码不会被执行，往往不是我们期望的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag"># iOS</a>
+          
+            <a href="/tags/arc/" rel="tag"># ARC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/08/16/how-to-switch-between-view-controllers/" rel="next" title="View Controller 之间的切换">
+                <i class="fa fa-chevron-left"></i> View Controller 之间的切换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/09/03/errors-due-to-nested-pop-or-push/" rel="prev" title="Nested pop/push 导致的问题">
+                Nested pop/push 导致的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARC_简介"><span class="nav-number">1.</span> <span class="nav-text">ARC 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环引用以及避免方法"><span class="nav-number">2.</span> <span class="nav-text">循环引用以及避免方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2014/08/25/arc-on-ios/';
+        this.page.identifier = '2014/08/25/arc-on-ios/';
+        this.page.title = 'OC 中的 ARC';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nix1024.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

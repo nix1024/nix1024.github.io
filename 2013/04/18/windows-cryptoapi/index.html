@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="Crypto," />
+
+
+<meta name="description" content="CryptoAPI为开发者提供在Windows下使用PKI的API。CryptoAPI包括编码、解码、加密、解密、Hash、数字证书管理和证书存储等功能。">
+<meta name="keywords" content="Crypto">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows CryptoAPI入门">
+<meta property="og:url" content="http://yoursite.com/2013/04/18/windows-cryptoapi/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="CryptoAPI为开发者提供在Windows下使用PKI的API。CryptoAPI包括编码、解码、加密、解密、Hash、数字证书管理和证书存储等功能。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2015-03-17T17:25:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows CryptoAPI入门">
+<meta name="twitter:description" content="CryptoAPI为开发者提供在Windows下使用PKI的API。CryptoAPI包括编码、解码、加密、解密、Hash、数字证书管理和证书存储等功能。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2013/04/18/windows-cryptoapi/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>Windows CryptoAPI入门 | Nix 的自我修养</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nix 的自我修养</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/04/18/windows-cryptoapi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Windows CryptoAPI入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-04-18T20:51:17+08:00">2013-04-18</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/04/18/windows-cryptoapi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/04/18/windows-cryptoapi/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>CryptoAPI为开发者提供在Windows下使用PKI的API。CryptoAPI包括编码、解码、加密、解密、Hash、数字证书管理和证书存储等功能。</p>
+<a id="more"></a>
+<h2 id="常用API">常用API</h2><h3 id="CSP相关">CSP相关</h3><p>一个CSP是实现加密操作的独立模块，要实现加密，至少需要一个CSP。每个CSP对CryptAPI的实现是不同的，使用的算法不同，有些包含了对硬件的支持。</p>
+<ul>
+<li><code>CryptAcquireContext</code> 获得指定CSP的密钥容器的句柄</li>
+<li><code>CryptReleaseContext</code> 释放由<code>CryptAcquireContext</code>得到的句柄</li>
+</ul>
+<h3 id="密钥相关">密钥相关</h3><p>用来创建和销毁密钥，也可以使用一个已有的密钥</p>
+<ul>
+<li><code>CryptDeriveKey</code> 从一个密码中派生一个密钥</li>
+<li><code>CryptDestoryKey</code> 销毁密钥</li>
+<li><code>CryptDuplicateKey</code> 制作一个密钥和密钥状态的精确复制</li>
+<li><code>CryptGenKey</code> 创建一个随机密钥</li>
+<li><code>CryptImportKey</code> 把一个密钥BLOB传送到CSP中</li>
+</ul>
+<h3 id="加解密相关">加解密相关</h3><p>用来加解密数据，需要指定一个密钥，这个密钥可以是由<code>CryptGenKey</code>、<code>CryptDuplicateKey</code>、<code>CryptImportKey</code>产生。</p>
+<ul>
+<li><code>CryptEncrypt</code> 使用指定加密密钥来加密一段信息</li>
+<li><code>CryptDecrypt</code> 使用指定加密密钥来解密一段密文</li>
+</ul>
+<h3 id="哈希和数字签名函数">哈希和数字签名函数</h3><p>用来计算Hash、创建和校验数字签名。</p>
+<ul>
+<li><code>CryptCreateHash</code> 创建一个空哈希对象</li>
+<li><code>CryptDestoryHash</code> 销毁一个哈希对象</li>
+<li><code>CryptDuplicateHash</code> 复制一个哈希对象</li>
+<li><code>CryptGetHashParam</code> 得到一个哈希对象参数</li>
+<li><code>CryptHashData</code> 对一块数据进行哈希，把它加到指定的哈希对象中</li>
+<li><code>CryptHashSessionKey</code> 对一个会话密钥进行哈希，把它加到指定的哈希对象中</li>
+<li><code>CryptSetHashParam</code> 设置一个哈希对象的参数</li>
+<li><code>CryptSignHash</code> 对一个哈希对象进行签名</li>
+<li><code>CryptVerifySignature</code> 校验一个数字签名</li>
+</ul>
+<h3 id="示例">示例</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wincrypt.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (lib, <span class="meta-string">"advapi32"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HCRYPTPROV hCryptProv;</span><br><span class="line">    HCRYPTHASH hCryptHash;</span><br><span class="line">    HCRYPTKEY hCryptKey;</span><br><span class="line"></span><br><span class="line">    CryptAcquireContext(&amp;hCryptProv,            <span class="comment">// CSP句柄的指针</span></span><br><span class="line">                        <span class="literal">NULL</span>,                   <span class="comment">// 密钥容器名称</span></span><br><span class="line">                        MS_DEF_PROV,            <span class="comment">// CSP名称（如果为NULL，就使用默认的CSP）</span></span><br><span class="line">                        PROV_RSA_FULL,          <span class="comment">// CSP类型</span></span><br><span class="line">                        CRYPT_VERIFYCONTEXT);   <span class="comment">// 此选项指出应用程序不需要使用公钥/私钥对</span></span><br><span class="line"></span><br><span class="line">    CryptCreateHash(hCryptProv,     <span class="comment">// CSP句柄</span></span><br><span class="line">                    CALG_MD5,       <span class="comment">// Hash算法的标识符</span></span><br><span class="line">                    <span class="number">0</span>,              <span class="comment">// 如果哈希算法是密钥哈希，如HMAC或MAC算法，就用此密钥句柄传递密钥</span></span><br><span class="line">                    <span class="number">0</span>,              <span class="comment">// 保留，必须为0</span></span><br><span class="line">                    &amp;hCryptHash);   <span class="comment">// 哈希对象的句柄指针</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> szPassword[] = <span class="string">"FSD@#fds23"</span>; <span class="comment">// 加密密码</span></span><br><span class="line">    DWORD dwLen = <span class="built_in">strlen</span>(szPassword);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算密码的Hash值</span></span><br><span class="line">    CryptHashData(hCryptHash,</span><br><span class="line">                    (BYTE*)szPassword, </span><br><span class="line">                    dwLen,</span><br><span class="line">                    <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据密码的Hash值派生一个密钥</span></span><br><span class="line">    CryptDeriveKey(hCryptProv,      <span class="comment">// CSP句柄</span></span><br><span class="line">                    CALG_RC4,       <span class="comment">// 要产生密钥的对称加密算法</span></span><br><span class="line">                    hCryptHash,     <span class="comment">// 哈希对象的句柄</span></span><br><span class="line">                    <span class="number">0</span>,              <span class="comment">// 密钥类型</span></span><br><span class="line">                    &amp;hCryptKey);    <span class="comment">// 输出密钥句柄指针</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 待加密数据</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> szData[] = <span class="string">"important data"</span>;</span><br><span class="line"></span><br><span class="line">    DWORD dwLenIn = <span class="built_in">strlen</span>(szData);</span><br><span class="line">    DWORD dwLenOut = dwLenIn;</span><br><span class="line"></span><br><span class="line">    CryptEncrypt(hCryptKey,         <span class="comment">// 密钥句柄</span></span><br><span class="line">                <span class="number">0</span>,                  <span class="comment">// 如果在加密的同时需要计算Hash值，传入一个Hash对象句柄</span></span><br><span class="line">                TRUE,               <span class="comment">// 标识是否是最后一次加密操作</span></span><br><span class="line">                <span class="number">0</span>,                  <span class="comment">// 保留，必须为0</span></span><br><span class="line">                (BYTE*)szData,      <span class="comment">// 要被加密的数据</span></span><br><span class="line">                &amp;dwLenOut,          <span class="comment">// [in/out] 传入需要加密的数据长度，传出已经加密的数据长度</span></span><br><span class="line">                dwLenIn);           <span class="comment">// 指出szData的Buffer长度</span></span><br><span class="line"></span><br><span class="line">    CryptDecrypt(hCryptKey,         <span class="comment">// CSP句柄</span></span><br><span class="line">                <span class="number">0</span>,                  <span class="comment">// 如果在加密的同时需要计算Hash值，传入一个Hash对象句柄</span></span><br><span class="line">                TRUE,               <span class="comment">// 标识是否是最后一个解密操作</span></span><br><span class="line">                <span class="number">0</span>,                  <span class="comment">// 保留，必须为0</span></span><br><span class="line">                (BYTE*)szData,      <span class="comment">// [in/out] 需要解密数据的地址</span></span><br><span class="line">                &amp;dwLenOut);         <span class="comment">// [in/out] 传入需要解密的数据长度，传出已经解密的数据长度</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 清理工作</span></span><br><span class="line">    CryptDestroyKey(hCryptKey);</span><br><span class="line">    CryptDestroyHash(hCryptHash);</span><br><span class="line">    CryptReleaseContext(hCryptProv, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际应用时</p>
+<ul>
+<li>应该加上每个步骤成功与否的检查、错误处理。</li>
+<li>当要加解密的数据很长时，通常会把数据分多个块进行加解密，此时就需要计算是否是最后一个块，改变传入的参数。</li>
+<li>如果要使用文件来保存、处理加解密后的数据，可以使用Base64编码，使得数据全部都是可见字符，以防止文件写入时遇到某些不可见字符被截断。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/crypto/" rel="tag"># Crypto</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/04/14/basics-of-cryptography/" rel="next" title="密码学基本概念">
+                <i class="fa fa-chevron-left"></i> 密码学基本概念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/05/21/zheteng/" rel="prev" title="折腾">
+                折腾 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用API"><span class="nav-number">1.</span> <span class="nav-text">常用API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSP相关"><span class="nav-number">1.1.</span> <span class="nav-text">CSP相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#密钥相关"><span class="nav-number">1.2.</span> <span class="nav-text">密钥相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加解密相关"><span class="nav-number">1.3.</span> <span class="nav-text">加解密相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希和数字签名函数"><span class="nav-number">1.4.</span> <span class="nav-text">哈希和数字签名函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">1.5.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2013/04/18/windows-cryptoapi/';
+        this.page.identifier = '2013/04/18/windows-cryptoapi/';
+        this.page.title = 'Windows CryptoAPI入门';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nix1024.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
