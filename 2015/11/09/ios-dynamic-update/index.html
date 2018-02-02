@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -33,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,59 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
 
 
 
-<meta name="description" content="前言目前 iOS 上的动态更新方案主要有以下 4 种：
 
-HTML 5
-lua（wax）hotpatch
-react native
-framework
 
-前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。
-使用 framework 的方式来更新可以不依赖第三方库，使用原生">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS 利用 Framework 进行动态更新">
-<meta property="og:url" content="http://yoursite.com/2015/11/09/ios-dynamic-update/index.html">
-<meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="前言目前 iOS 上的动态更新方案主要有以下 4 种：
 
-HTML 5
-lua（wax）hotpatch
-react native
-framework
-
-前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。
-使用 framework 的方式来更新可以不依赖第三方库，使用原生">
-<meta property="og:image" content="/images/2015-11-09/New Copy Files Phase.png">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 利用 Framework 进行动态更新">
-<meta name="twitter:description" content="前言目前 iOS 上的动态更新方案主要有以下 4 种：
-
-HTML 5
-lua（wax）hotpatch
-react native
-framework
-
-前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。
-使用 framework 的方式来更新可以不依赖第三方库，使用原生">
 
 
 
@@ -132,13 +76,13 @@ framework
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -150,18 +94,45 @@ framework
 </script>
 
 
+  
+
+
+
+
+  
+  <meta name="keywords" content="iOS," />
+
+
+<meta name="description" content="前言目前 iOS 上的动态更新方案主要有以下 4 种：  HTML 5 lua（wax）hotpatch react native framework  前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。 使用 framework 的方式来更新可以不依赖第三方库，使用原生">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 利用 Framework 进行动态更新">
+<meta property="og:url" content="http://yoursite.com/2015/11/09/ios-dynamic-update/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="前言目前 iOS 上的动态更新方案主要有以下 4 种：  HTML 5 lua（wax）hotpatch react native framework  前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。 使用 framework 的方式来更新可以不依赖第三方库，使用原生">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/2015-11-09/New%20Copy%20Files%20Phase.png">
+<meta property="og:updated_time" content="2016-06-04T03:18:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 利用 Framework 进行动态更新">
+<meta name="twitter:description" content="前言目前 iOS 上的动态更新方案主要有以下 4 种：  HTML 5 lua（wax）hotpatch react native framework  前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。 使用 framework 的方式来更新可以不依赖第三方库，使用原生">
+<meta name="twitter:image" content="http://yoursite.com/images/2015-11-09/New%20Copy%20Files%20Phase.png">
+
+
+
+
+
 
   <link rel="canonical" href="http://yoursite.com/2015/11/09/ios-dynamic-update/"/>
 
 
 
-
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
   <title>iOS 利用 Framework 进行动态更新 | Nix 的自我修养</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
   
 
 
@@ -172,21 +143,47 @@ framework
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -220,31 +217,13 @@ framework
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
@@ -256,9 +235,15 @@ framework
 </nav>
 
 
+  
+
+
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -275,7 +260,13 @@ framework
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/11/09/ios-dynamic-update/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -303,13 +294,12 @@ framework
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-09T00:26:58+08:00">
-                2015-11-09
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-09T00:26:58+08:00">2015-11-09</time>
             
 
+            
             
 
             
@@ -318,17 +308,6 @@ framework
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/11/09/ios-dynamic-update/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/11/09/ios-dynamic-update/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -345,6 +324,9 @@ framework
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -368,9 +350,9 @@ framework
 <p><img src="/images/2015-11-09/New Copy Files Phase.png" alt="New Copy Files Phase"></p>
 <p>这样，打包时会将生成的 Module.framework 添加到 main bundle 的根目录下。</p>
 <h3 id="加载">加载</h3><p>主要的代码如下：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIViewController</span> *)loadFrameworkNamed:(<span class="built_in">NSString</span> *)bundleName &#123;</span><br><span class="line">    <span class="built_in">NSArray</span>* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *documentDirectory = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">if</span> ([paths count] != <span class="number">0</span>) &#123;</span><br><span class="line">        documentDirectory = [paths objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSFileManager</span> *manager = [<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line">    <span class="built_in">NSString</span> *bundlePath = [documentDirectory stringByAppendingPathComponent:[bundleName stringByAppendingString:<span class="string">@".framework"</span>]];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Check if new bundle exists</span></span><br><span class="line">    <span class="keyword">if</span> (![manager fileExistsAtPath:bundlePath]) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"No framework update"</span>);</span><br><span class="line">        bundlePath = [[<span class="built_in">NSBundle</span> mainBundle]</span><br><span class="line">                      pathForResource:bundleName ofType:<span class="string">@"framework"</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Check if default bundle exists</span></span><br><span class="line">        <span class="keyword">if</span> (![manager fileExistsAtPath:bundlePath]) &#123;</span><br><span class="line">            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:<span class="string">@"Oooops"</span> message:<span class="string">@"Framework not found"</span> delegate:<span class="literal">nil</span> cancelButtonTitle:<span class="string">@"OK"</span> otherButtonTitles:<span class="literal">nil</span>, <span class="literal">nil</span>];</span><br><span class="line">            [alertView show];</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Load bundle</span></span><br><span class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSBundle</span> *frameworkBundle = [<span class="built_in">NSBundle</span> bundleWithPath:bundlePath];</span><br><span class="line">    <span class="keyword">if</span> (frameworkBundle &amp;&amp; [frameworkBundle loadAndReturnError:&amp;error]) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Load framework successfully"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Failed to load framework with err: %@"</span>,error);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Load class</span></span><br><span class="line">    Class PublicAPIClass = NSClassFromString(<span class="string">@"PublicAPI"</span>);</span><br><span class="line">    <span class="keyword">if</span> (!PublicAPIClass) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Unable to load class"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSObject</span> *publicAPIObject = [PublicAPIClass new];</span><br><span class="line">    <span class="keyword">return</span> [publicAPIObject performSelector:<span class="keyword">@selector</span>(mainViewController)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">- (UIViewController *)loadFrameworkNamed:(NSString *)bundleName &#123;</span><br><span class="line">    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);</span><br><span class="line">    NSString *documentDirectory = nil;</span><br><span class="line">    if ([paths count] != 0) &#123;</span><br><span class="line">        documentDirectory = [paths objectAtIndex:0];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSFileManager *manager = [NSFileManager defaultManager];</span><br><span class="line">    NSString *bundlePath = [documentDirectory stringByAppendingPathComponent:[bundleName stringByAppendingString:@&quot;.framework&quot;]];</span><br><span class="line">    </span><br><span class="line">    // Check if new bundle exists</span><br><span class="line">    if (![manager fileExistsAtPath:bundlePath]) &#123;</span><br><span class="line">        NSLog(@&quot;No framework update&quot;);</span><br><span class="line">        bundlePath = [[NSBundle mainBundle]</span><br><span class="line">                      pathForResource:bundleName ofType:@&quot;framework&quot;];</span><br><span class="line">        </span><br><span class="line">        // Check if default bundle exists</span><br><span class="line">        if (![manager fileExistsAtPath:bundlePath]) &#123;</span><br><span class="line">            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@&quot;Oooops&quot; message:@&quot;Framework not found&quot; delegate:nil cancelButtonTitle:@&quot;OK&quot; otherButtonTitles:nil, nil];</span><br><span class="line">            [alertView show];</span><br><span class="line">            return nil;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // Load bundle</span><br><span class="line">    NSError *error = nil;</span><br><span class="line">    NSBundle *frameworkBundle = [NSBundle bundleWithPath:bundlePath];</span><br><span class="line">    if (frameworkBundle &amp;&amp; [frameworkBundle loadAndReturnError:&amp;error]) &#123;</span><br><span class="line">        NSLog(@&quot;Load framework successfully&quot;);</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        NSLog(@&quot;Failed to load framework with err: %@&quot;,error);</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // Load class</span><br><span class="line">    Class PublicAPIClass = NSClassFromString(@&quot;PublicAPI&quot;);</span><br><span class="line">    if (!PublicAPIClass) &#123;</span><br><span class="line">        NSLog(@&quot;Unable to load class&quot;);</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSObject *publicAPIObject = [PublicAPIClass new];</span><br><span class="line">    return [publicAPIObject performSelector:@selector(mainViewController)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码先尝试在 Document 目录下寻找更新后的 framework，如果没有找到，再在 main bundle 中寻找默认的 framework。<br>其中的关键是利用 OC 的动态特性 <code>NSClassFromString</code> 和 <code>performSelector</code> 加载 framework 的类并且执行其方法。</p>
-<h3 id="Framework_和_Host_工程资源共用">Framework 和 Host 工程资源共用</h3><h4 id="第三方库">第三方库</h4><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class XXX <span class="keyword">is</span> implemented <span class="keyword">in</span> both XXX <span class="keyword">and</span> XXX. One <span class="keyword">of</span> the two will be used. Which one <span class="keyword">is</span> <span class="literal">undefined</span>.</span><br></pre></td></tr></table></figure>
+<h3 id="Framework_和_Host_工程资源共用">Framework 和 Host 工程资源共用</h3><h4 id="第三方库">第三方库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class XXX is implemented in both XXX and XXX. One of the two will be used. Which one is undefined.</span><br></pre></td></tr></table></figure>
 <p>这是当 framework 工程和 host 工程链接了相同的第三方库或者类造成的。</p>
 <p>为了让打出的 framework 中不包含 host 工程中已包含的三方库（如 cocoapods 工程编译出的 .a 文件），可以这样：</p>
 <ul>
@@ -378,29 +360,29 @@ framework
 <li>在 framework 的 <code>Build Settings &gt; Other Linker Flags</code> 添加 <code>-undefined dynamic_lookup</code>。<strong>必须保证 host 工程编译出的二进制文件中包含这些符号。</strong></li>
 </ul>
 <h4 id="类文件">类文件</h4><p>尝试过在 framework 中引用 host 工程中已有的文件，通过 <code>Build Settings &gt; Header Search Paths</code> 中添加相应的目录，Xcode 在编译的时候可以成功（因为添加了 <code>-undefined dynamic_lookup</code>），并且 Debug 版本是可以正常运行的，但是 Release  版本动态加载时会提示找不到符号：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Error Domain=NSCocoaErrorDomain Code=<span class="number">3588</span> <span class="string">"The bundle “YourFramework” couldn’t be loaded."</span> (dlopen(<span class="regexp">/var/</span>mobile<span class="regexp">/Containers/</span>Bundle<span class="regexp">/Application/</span><span class="number">5691</span>FB75-<span class="number">408</span>A-<span class="number">4</span>D9A-<span class="number">9347</span>-BC7B90D343C1<span class="regexp">/YourApp.app/</span>YourFramework.framework/YourFramework, <span class="number">265</span>): Symbol not <span class="string">found:</span> _OBJC_CLASS_$_BorderedView</span><br><span class="line">	  Referenced <span class="string">from:</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Containers/</span>Bundle<span class="regexp">/Application/</span><span class="number">5691</span>FB75-<span class="number">408</span>A-<span class="number">4</span>D9A-<span class="number">9347</span>-BC7B90D343C1<span class="regexp">/YourApp.app/</span>YourFramework.framework/YourFramework</span><br><span class="line">	  Expected <span class="string">in:</span> flat namespace</span><br><span class="line">	 <span class="keyword">in</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Containers/</span>Bundle<span class="regexp">/Application/</span><span class="number">5691</span>FB75-<span class="number">408</span>A-<span class="number">4</span>D9A-<span class="number">9347</span>-BC7B90D343C1<span class="regexp">/YourApp.app/</span>YourFramework.framework<span class="regexp">/YourFramework) UserInfo=0x174276900 &#123;NSLocalizedFailureReason=The bundle couldn’t be loaded., NSLocalizedRecoverySuggestion=Try reinstalling the bundle., NSFilePath=/</span>var<span class="regexp">/mobile/</span>Containers<span class="regexp">/Bundle/</span>Application<span class="regexp">/5691FB75-408A-4D9A-9347-BC7B90D343C1/</span>YourApp.app<span class="regexp">/YourFramework.framework/</span>YourFramework, NSDebugDescription=dlopen(<span class="regexp">/var/</span>mobile<span class="regexp">/Containers/</span>Bundle<span class="regexp">/Application/</span><span class="number">5691</span>FB75-<span class="number">408</span>A-<span class="number">4</span>D9A-<span class="number">9347</span>-BC7B90D343C1<span class="regexp">/YourApp.app/</span>YourFramework.framework/YourFramework, <span class="number">265</span>): Symbol not <span class="string">found:</span> _OBJC_CLASS_$_BorderedView</span><br><span class="line">	  Referenced <span class="string">from:</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Containers/</span>Bundle<span class="regexp">/Application/</span><span class="number">5691</span>FB75-<span class="number">408</span>A-<span class="number">4</span>D9A-<span class="number">9347</span>-BC7B90D343C1<span class="regexp">/YourApp.app/</span>YourFramework.framework/YourFramework</span><br><span class="line">	  Expected <span class="string">in:</span> flat namespace</span><br><span class="line">	 <span class="keyword">in</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Containers/</span>Bundle<span class="regexp">/Application/</span><span class="number">5691</span>FB75-<span class="number">408</span>A-<span class="number">4</span>D9A-<span class="number">9347</span>-BC7B90D343C1<span class="regexp">/YourApp.app/</span>YourFramework.framework<span class="regexp">/YourFramework, NSBundlePath=/</span>var<span class="regexp">/mobile/</span>Containers<span class="regexp">/Bundle/</span>Application<span class="regexp">/5691FB75-408A-4D9A-9347-BC7B90D343C1/</span>YourApp.app/YourFramework.framework, NSLocalizedDescription=The bundle “YourFramework” couldn’t be loaded.&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Error Domain=NSCocoaErrorDomain Code=3588 &quot;The bundle “YourFramework” couldn’t be loaded.&quot; (dlopen(/var/mobile/Containers/Bundle/Application/5691FB75-408A-4D9A-9347-BC7B90D343C1/YourApp.app/YourFramework.framework/YourFramework, 265): Symbol not found: _OBJC_CLASS_$_BorderedView</span><br><span class="line">	  Referenced from: /var/mobile/Containers/Bundle/Application/5691FB75-408A-4D9A-9347-BC7B90D343C1/YourApp.app/YourFramework.framework/YourFramework</span><br><span class="line">	  Expected in: flat namespace</span><br><span class="line">	 in /var/mobile/Containers/Bundle/Application/5691FB75-408A-4D9A-9347-BC7B90D343C1/YourApp.app/YourFramework.framework/YourFramework) UserInfo=0x174276900 &#123;NSLocalizedFailureReason=The bundle couldn’t be loaded., NSLocalizedRecoverySuggestion=Try reinstalling the bundle., NSFilePath=/var/mobile/Containers/Bundle/Application/5691FB75-408A-4D9A-9347-BC7B90D343C1/YourApp.app/YourFramework.framework/YourFramework, NSDebugDescription=dlopen(/var/mobile/Containers/Bundle/Application/5691FB75-408A-4D9A-9347-BC7B90D343C1/YourApp.app/YourFramework.framework/YourFramework, 265): Symbol not found: _OBJC_CLASS_$_BorderedView</span><br><span class="line">	  Referenced from: /var/mobile/Containers/Bundle/Application/5691FB75-408A-4D9A-9347-BC7B90D343C1/YourApp.app/YourFramework.framework/YourFramework</span><br><span class="line">	  Expected in: flat namespace</span><br><span class="line">	 in /var/mobile/Containers/Bundle/Application/5691FB75-408A-4D9A-9347-BC7B90D343C1/YourApp.app/YourFramework.framework/YourFramework, NSBundlePath=/var/mobile/Containers/Bundle/Application/5691FB75-408A-4D9A-9347-BC7B90D343C1/YourApp.app/YourFramework.framework, NSLocalizedDescription=The bundle “YourFramework” couldn’t be loaded.&#125;</span><br></pre></td></tr></table></figure>
 <p>因为 Debug 版本暴露了所有自定义类的符号以便于调试，因此你的 framework 可以找到相应的符号，而 Release 版本则不会。</p>
 <p>目前能想到的方法只有将相同的文件拷贝一份到 framework 工程里，并且更改类名。</p>
 <h3 id="访问_Framework_中的图片">访问 Framework 中的图片</h3><p>在 storyboard/xib 中可以直接访问图片，代码中访问的方法如下：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"YourFramework.framework/imageName"</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIImage *image = [UIImage imageNamed:@&quot;YourFramework.framework/imageName&quot;]</span><br></pre></td></tr></table></figure>
 <p><strong>注意：使用代码方式访问的图片不可以放在 xcassets 中，否则得到的将是 nil。并且文件名必须以 @2x/@3x 结尾，大小写敏感。</strong>因为 <code>imageNamed:</code> 默认在 main bundle 中查找图片。</p>
-<h2 id="常见错误">常见错误</h2><h3 id="Architecture">Architecture</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dlopen(<span class="regexp">/path/</span>to/framework, <span class="number">9</span>): no suitable image found.  Did <span class="string">find:</span></span><br><span class="line"><span class="regexp">/path/</span>to/<span class="string">framework:</span> mach-o, but wrong architecture</span><br></pre></td></tr></table></figure>
+<h2 id="常见错误">常见错误</h2><h3 id="Architecture">Architecture</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dlopen(/path/to/framework, 9): no suitable image found.  Did find:</span><br><span class="line">/path/to/framework: mach-o, but wrong architecture</span><br></pre></td></tr></table></figure>
 <p>这是说 framework 不支持当前机器的架构。<br>通过</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -info <span class="regexp">/path/</span>to<span class="regexp">/MyFramework.framework/My</span>Framework</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -info /path/to/MyFramework.framework/MyFramework</span><br></pre></td></tr></table></figure>
 <p>可以查看 framework 支持的 CPU 架构。</p>
 <p>碰到这种错误，一般是因为编译 framework 的时候，scheme 选择的是模拟器，应该选择<strong>iOS Device</strong>。</p>
 <p>此外，如果没有选择<strong>iOS Device</strong>，编译完成后，Products 目录下的 .framework 文件名会一直是红色，只有在 Derived Data 目录下才能找到编译生成的 .framework 文件。</p>
 <h3 id="签名">签名</h3><p><strong>系统在加载动态库时，会检查 framework 的签名，签名中必须包含 TeamIdentifier 并且 framework 和 host app 的 TeamIdentifier 必须一致</strong>。</p>
 <p>如果不一致，否则会报下面的错误：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error loading <span class="regexp">/path/</span>to<span class="regexp">/framework: dlopen(/</span>path<span class="regexp">/to/</span>framework, <span class="number">265</span>): no suitable image found. Did <span class="string">find:</span></span><br><span class="line"><span class="regexp">/path/</span>to/<span class="string">framework:</span> mmap() error <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error loading /path/to/framework: dlopen(/path/to/framework, 265): no suitable image found. Did find:</span><br><span class="line">/path/to/framework: mmap() error 1</span><br></pre></td></tr></table></figure>
 <p>此外，如果用来打包的证书是 iOS 8 发布之前生成的，则打出的包验证的时候会没有 TeamIdentifier 这一项。这时在加载 framework 的时候会报下面的错误：</p>
-<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[deny-mmap] <span class="keyword">mapped</span> file <span class="keyword">has</span> no team identifier <span class="keyword">and</span> <span class="keyword">is</span> <span class="keyword">not</span> a <span class="keyword">platform</span> binary:</span><br><span class="line">/<span class="keyword">private</span>/<span class="keyword">var</span>/mobile/Containers/Bundle/Application/<span class="number">5</span>D8FB2F7-<span class="number">1083</span>-<span class="number">4564</span>-<span class="number">94</span>B2-<span class="number">0</span>CB7DC75C9D1/YourAppNameHere.app/Frameworks/YourFramework.framework/YourFramework</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[deny-mmap] mapped file has no team identifier and is not a platform binary:</span><br><span class="line">/private/var/mobile/Containers/Bundle/Application/5D8FB2F7-1083-4564-94B2-0CB7DC75C9D1/YourAppNameHere.app/Frameworks/YourFramework.framework/YourFramework</span><br></pre></td></tr></table></figure>
 <p>可以通过 <code>codesign</code> 命令来验证。</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign -dv /path/<span class="keyword">to</span>/YourApp.app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign -dv /path/to/YourApp.app</span><br></pre></td></tr></table></figure>
 <p>如果证书太旧，输出的结果如下：</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">Executable=</span>/path/to/YourApp.app/YourApp</span><br><span class="line"><span class="variable">Identifier=</span>com.company.yourapp</span><br><span class="line"><span class="variable">Format=</span>bundle <span class="keyword">with</span> Mach-O thin (armv7)</span><br><span class="line">CodeDirectory <span class="variable">v=</span><span class="number">20100</span> <span class="variable">size=</span><span class="number">221748</span> <span class="variable">flags=</span><span class="number">0</span>x0(none) <span class="variable">hashes=</span><span class="number">11079</span>+<span class="number">5</span> <span class="variable">location=</span>embedded</span><br><span class="line">Signature <span class="variable">size=</span><span class="number">4321</span></span><br><span class="line">Signed <span class="variable">Time=</span><span class="number">2015</span>年<span class="number">10</span>月<span class="number">21</span>日 上午<span class="number">10</span>:<span class="number">18</span>:<span class="number">37</span></span><br><span class="line">Info.plist <span class="variable">entries=</span><span class="number">42</span></span><br><span class="line"><span class="variable">TeamIdentifier=</span>not set</span><br><span class="line">Sealed Resources <span class="variable">version=</span><span class="number">2</span> <span class="variable">rules=</span><span class="number">12</span> <span class="variable">files=</span><span class="number">2451</span></span><br><span class="line">Internal requirements <span class="variable">count=</span><span class="number">1</span> <span class="variable">size=</span><span class="number">188</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Executable=/path/to/YourApp.app/YourApp</span><br><span class="line">Identifier=com.company.yourapp</span><br><span class="line">Format=bundle with Mach-O thin (armv7)</span><br><span class="line">CodeDirectory v=20100 size=221748 flags=0x0(none) hashes=11079+5 location=embedded</span><br><span class="line">Signature size=4321</span><br><span class="line">Signed Time=2015年10月21日 上午10:18:37</span><br><span class="line">Info.plist entries=42</span><br><span class="line">TeamIdentifier=not set</span><br><span class="line">Sealed Resources version=2 rules=12 files=2451</span><br><span class="line">Internal requirements count=1 size=188</span><br></pre></td></tr></table></figure>
 <p>注意其中的 <code>TeamIdentifier=not set</code>。</p>
-<p>采用 swift 加载 libswiftCore.dylib 这个动态库的时候也会遇到这个问题，对此<a href="https://developer.apple.com/library/ios/qa/qa1886/_index.html" target="_blank" rel="external">Apple 官方</a>的解释是：</p>
+<p>采用 swift 加载 libswiftCore.dylib 这个动态库的时候也会遇到这个问题，对此<a href="https://developer.apple.com/library/ios/qa/qa1886/_index.html" target="_blank" rel="noopener">Apple 官方</a>的解释是：</p>
 <blockquote>
 <p>To correct this problem, you will need to sign your app using code signing certificates with the Subject Organizational Unit (OU) set to your Team ID. All Enterprise and standard iOS developer certificates that are created after iOS 8 was released have the new Team ID field in the proper place to allow Swift language apps to run.</p>
 <p> If you are an in-house Enterprise developer you will need to be careful that you do not revoke a distribution certificate that was used to sign an app any one of your Enterprise employees is still using as any apps that were signed with that enterprise distribution certificate will stop working immediately. </p>
@@ -409,62 +391,58 @@ framework
 <p>等等，我们就跪在这里了吗？！</p>
 <p>现在企业证书的有效期是三年，当证书过期时，其打包的应用就不能运行，那企业应用怎么来更替证书呢？</p>
 <p><strong>Apple 为每个账号提供了两个证书，这两个证书可以同时生效，这样在正在使用的证书过期之前，可以使用另外一个证书打包发布，让用户升级到新版本。</strong></p>
-<p>也就是说，可以使用另外一个证书来打包应用，并且可以覆盖安装使用旧证书打包的应用。详情可以看 <a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/DistributingEnterpriseProgramApps/DistributingEnterpriseProgramApps.html#//apple_ref/doc/uid/TP40012582-CH33-SW1" target="_blank" rel="external">Apple 文档</a>。</p>
+<p>也就是说，可以使用另外一个证书来打包应用，并且可以覆盖安装使用旧证书打包的应用。详情可以看 <a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/DistributingEnterpriseProgramApps/DistributingEnterpriseProgramApps.html#//apple_ref/doc/uid/TP40012582-CH33-SW1" target="_blank" rel="noopener">Apple 文档</a>。</p>
 <blockquote>
 <p>You are responsible for managing your team’s certificates and provisioning profiles. Apple Developer Enterprise Program certificates expire after three years and provisioning profiles expire after one year.</p>
 <p>Before a distribution certificate expires, create an additional distribution certificate, described in Creating Additional Enterprise Distribution Certificates. You cannot renew an expired certificate. Instead, replace the expired certificate with the new certificate, described in Replacing Expired Certificates.</p>
 <p>If a distribution provisioning profile expires, verify that you have a valid distribution certificate and renew the provisioning profile, described in Renewing Expired Provisioning Profiles.</p>
 </blockquote>
-<h2 id="参考">参考</h2><p><a href="http://devguo.com/blog/2015/06/16/iosdong-tai-geng-xin-frameworkshi-xian/" target="_blank" rel="external">http://devguo.com/blog/2015/06/16/iosdong-tai-geng-xin-frameworkshi-xian/</a></p>
-<p><a href="http://stackoverflow.com/questions/25909870/xcode-6-and-embedded-frameworks-only-supported-in-ios8" target="_blank" rel="external">http://stackoverflow.com/questions/25909870/xcode-6-and-embedded-frameworks-only-supported-in-ios8</a></p>
-<p><a href="http://blog.csdn.net/like7xiaoben/article/details/44081257" target="_blank" rel="external">http://blog.csdn.net/like7xiaoben/article/details/44081257</a></p>
-<p><a href="https://www.apperian.com/mam-blog/impact-ios-8-app-wrapping/" target="_blank" rel="external">https://www.apperian.com/mam-blog/impact-ios-8-app-wrapping/</a></p>
-<p><a href="http://stackoverflow.com/questions/9216485/how-to-manage-enterprise-distribution-certificate-expiration" target="_blank" rel="external">http://stackoverflow.com/questions/9216485/how-to-manage-enterprise-distribution-certificate-expiration</a></p>
+<h2 id="参考">参考</h2><p><a href="http://devguo.com/blog/2015/06/16/iosdong-tai-geng-xin-frameworkshi-xian/" target="_blank" rel="noopener">http://devguo.com/blog/2015/06/16/iosdong-tai-geng-xin-frameworkshi-xian/</a></p>
+<p><a href="http://stackoverflow.com/questions/25909870/xcode-6-and-embedded-frameworks-only-supported-in-ios8" target="_blank" rel="noopener">http://stackoverflow.com/questions/25909870/xcode-6-and-embedded-frameworks-only-supported-in-ios8</a></p>
+<p><a href="http://blog.csdn.net/like7xiaoben/article/details/44081257" target="_blank" rel="noopener">http://blog.csdn.net/like7xiaoben/article/details/44081257</a></p>
+<p><a href="https://www.apperian.com/mam-blog/impact-ios-8-app-wrapping/" target="_blank" rel="noopener">https://www.apperian.com/mam-blog/impact-ios-8-app-wrapping/</a></p>
+<p><a href="http://stackoverflow.com/questions/9216485/how-to-manage-enterprise-distribution-certificate-expiration" target="_blank" rel="noopener">http://stackoverflow.com/questions/9216485/how-to-manage-enterprise-distribution-certificate-expiration</a></p>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
 
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>给鸡排饭加个蛋</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
   </div>
+</div>
 
+      </div>
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -476,7 +454,7 @@ framework
       
 
       
-        
+      
       
 
       
@@ -504,6 +482,10 @@ framework
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -517,18 +499,8 @@ framework
           </div>
           
 
+  
 
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
 
 
         </div>
@@ -544,72 +516,128 @@ framework
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="Nix Wang" />
-          <p class="site-author-name" itemprop="name">Nix Wang</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
               <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
           
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">47</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
           
 
+          
+
+          
+
+          
+          
+
+          
           
 
           
             
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
+          
           
 
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -642,30 +670,40 @@ framework
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2013 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -676,6 +714,8 @@ framework
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -696,7 +736,6 @@ framework
 
 
 
-  
 
 
 
@@ -709,82 +748,60 @@ framework
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
 
 
 
   
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
 
-    
-      <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
-    
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2015/11/09/ios-dynamic-update/';
-          this.page.identifier = '2015/11/09/ios-dynamic-update/';
-          this.page.title = 'iOS 利用 Framework 进行动态更新';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://nix1024.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
 
   
-
 
 
 
@@ -809,12 +826,23 @@ framework
 
 
 
+
+
   
 
 
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
   
 
   

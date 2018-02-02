@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -33,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,34 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Nix, iOS" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nix 的自我修养">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
-<meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nix 的自我修养">
-<meta name="twitter:description">
+
+
+
 
 
 
@@ -107,13 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -125,18 +94,38 @@
 </script>
 
 
+  
+
+
+
+
+  
+  <meta name="keywords" content="Nix, iOS" />
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nix 的自我修养">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nix 的自我修养">
+
+
+
+
+
 
   <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
-
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
   <title>Nix 的自我修养</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
   
 
 
@@ -147,10 +136,36 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -158,12 +173,11 @@
   
 
   <div class="container sidebar-position-left 
-   page-home 
- ">
+  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -197,31 +211,13 @@
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
@@ -233,9 +229,15 @@
 </nav>
 
 
+  
+
+
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -252,7 +254,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/02/ios-gotchas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -282,13 +290,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-02T14:56:16+08:00">
-                2015-09-02
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-09-02T14:56:16+08:00">2015-09-02</time>
             
 
+            
             
 
             
@@ -297,17 +304,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/09/02/ios-gotchas/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/09/02/ios-gotchas/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -324,6 +320,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -331,30 +330,27 @@
 
       
         
-          <h2 id="怎样不显示_UITableView_末尾的空白行？">怎样不显示 UITableView 末尾的空白行？</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];</span><br></pre></td></tr></table></figure>
-<h2 id="Autolayout_如何动画？">Autolayout 如何动画？</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[containerView layoutIfNeeded]; // Ensures that all pending layout operations have been completed&#10;[UIView animateWithDuration:1.0 animations:^&#123;&#10;     // Make all constraint changes here&#10;     [containerView layoutIfNeeded]; // Forces the layout of the subtree animation block and then captures all of the frame changes&#10;&#125;];</span><br></pre></td></tr></table></figure>
+          <h2 id="怎样不显示_UITableView_末尾的空白行？">怎样不显示 UITableView 末尾的空白行？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];</span><br></pre></td></tr></table></figure>
+<h2 id="Autolayout_如何动画？">Autolayout 如何动画？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[containerView layoutIfNeeded]; // Ensures that all pending layout operations have been completed</span><br><span class="line">[UIView animateWithDuration:1.0 animations:^&#123;</span><br><span class="line">     // Make all constraint changes here</span><br><span class="line">     [containerView layoutIfNeeded]; // Forces the layout of the subtree animation block and then captures all of the frame changes</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/09/02/ios-gotchas/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2015/09/02/ios-gotchas/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -368,6 +364,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -380,7 +380,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/06/23/tldr-too-simple-too-naive/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -410,13 +416,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-23T14:33:42+08:00">
-                2015-06-23
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-23T14:33:42+08:00">2015-06-23</time>
             
 
+            
             
 
             
@@ -425,17 +430,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/06/23/tldr-too-simple-too-naive/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/06/23/tldr-too-simple-too-naive/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -452,6 +446,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -459,29 +456,26 @@
 
       
         
-          <p>读了一位前辈<a href="http://tech.glowing.com/cn/advices-to-junior-developers/">给年轻人的一点建议</a>以更好地利用时间，最大化长期收益。</p>
+          <p>读了一位前辈<a href="http://tech.glowing.com/cn/advices-to-junior-developers/" target="_blank" rel="noopener">给年轻人的一点建议</a>以更好地利用时间，最大化长期收益。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/06/23/tldr-too-simple-too-naive/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2015/06/23/tldr-too-simple-too-naive/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -495,6 +489,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -507,7 +505,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/06/20/meet-autolayout/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -537,13 +541,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-20T15:16:52+08:00">
-                2015-06-20
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-20T15:16:52+08:00">2015-06-20</time>
             
 
+            
             
 
             
@@ -552,17 +555,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/06/20/meet-autolayout/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/06/20/meet-autolayout/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -579,6 +571,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -589,26 +584,23 @@
           <p>Apple 近几年来推出了各种屏幕尺寸的 iPhone、iPad，以前只在 Android 上存在的不同屏幕尺寸的 UI 适配问题在 iOS 上也日益突出。为了解决这个问题，Apple 为开发者提供了 AutoLayout。区别于以往的手动计算 frame 的方式，AutoLayout 让开发者只需要通过设置<strong>约束（constraints）</strong>来描述<strong>需要什么样的布局</strong>，而不是<strong>如何进行布局</strong>。约束是用来描述一个 view 的布局条件或者两个 view 之间布局关系的对象。通过这种方式有效地<strong>减少</strong>了适配不同屏幕尺寸的工作量。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/06/20/meet-autolayout/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2015/06/20/meet-autolayout/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -622,6 +614,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -634,7 +630,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/04/24/symbolicate-crash-log/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -664,13 +666,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-24T10:31:04+08:00">
-                2015-04-24
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-24T10:31:04+08:00">2015-04-24</time>
             
 
+            
             
 
             
@@ -679,17 +680,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/04/24/symbolicate-crash-log/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/04/24/symbolicate-crash-log/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -706,6 +696,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -717,29 +710,26 @@
 <p>本文介绍的是如何处理 Xcode 无法自动 Symbolicate 的 Crash log。</p>
 </blockquote>
 <p>如果你得到这样的 Crash log，你一定想知道其中的 <code>0x4a000 + 37204</code> 究竟对应哪个方法调用。</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>   CoreFoundation                  <span class="number">0x2dc73f7e</span> __exceptionPreprocess + <span class="number">126</span></span><br><span class="line"><span class="number">1</span>   libobjc.A.dylib                 <span class="number">0x384eecca</span> objc_exception_throw + <span class="number">34</span></span><br><span class="line"><span class="number">2</span>   CoreFoundation                  <span class="number">0x2dc77912</span> -[NSObject(NSObject) doesNotRecognizeSelector:] + <span class="number">198</span></span><br><span class="line"><span class="number">3</span>   CoreFoundation                  <span class="number">0x2dc761fe</span> ___forwarding___ + <span class="number">702</span></span><br><span class="line"><span class="number">4</span>   CoreFoundation                  <span class="number">0x2dbc5764</span> _CF_forwarding_prep_0 + <span class="number">20</span></span><br><span class="line"><span class="number">5</span>   YourAppName                     <span class="number">0x00053154</span> <span class="number">0x4a000</span> + <span class="number">37204</span></span><br><span class="line"><span class="number">6</span>   UIKit                           <span class="number">0x306f1c52</span> -[UIApplication _sendWillEnterForegroundCallbacks] + <span class="number">90</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0   CoreFoundation                  0x2dc73f7e __exceptionPreprocess + 126</span><br><span class="line">1   libobjc.A.dylib                 0x384eecca objc_exception_throw + 34</span><br><span class="line">2   CoreFoundation                  0x2dc77912 -[NSObject(NSObject) doesNotRecognizeSelector:] + 198</span><br><span class="line">3   CoreFoundation                  0x2dc761fe ___forwarding___ + 702</span><br><span class="line">4   CoreFoundation                  0x2dbc5764 _CF_forwarding_prep_0 + 20</span><br><span class="line">5   YourAppName                     0x00053154 0x4a000 + 37204</span><br><span class="line">6   UIKit                           0x306f1c52 -[UIApplication _sendWillEnterForegroundCallbacks] + 90</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/04/24/symbolicate-crash-log/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2015/04/24/symbolicate-crash-log/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -753,6 +743,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -765,7 +759,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/03/18/protocol-buffer-for-ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -795,13 +795,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-18T23:29:22+08:00">
-                2015-03-18
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-18T23:29:22+08:00">2015-03-18</time>
             
 
+            
             
 
             
@@ -810,17 +809,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/03/18/protocol-buffer-for-ios/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/03/18/protocol-buffer-for-ios/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -837,6 +825,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -849,33 +840,30 @@
 <h2 id="安装_Protocol_Buffers">安装 Protocol Buffers</h2><ul>
 <li>安装 homebrew</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>安装 automake、libtool、protobuf。这里安装的 protobuf 是 google 官方版本。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install automake</span><br><span class="line">brew install libtool</span><br><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/03/18/protocol-buffer-for-ios/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2015/03/18/protocol-buffer-for-ios/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -889,6 +877,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -901,7 +893,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/03/08/mechanical-watch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -931,13 +929,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-08T23:18:51+08:00">
-                2015-03-08
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-08T23:18:51+08:00">2015-03-08</time>
             
 
+            
             
 
             
@@ -946,17 +943,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/03/08/mechanical-watch/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/03/08/mechanical-watch/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -973,6 +959,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -980,29 +969,26 @@
 
       
         
-          <p>一直对机械手表内部的结构有些好奇，直到今天看到了一个精美的视频——<a href="http://v.youku.com/v_show/id_XNjUwNzA4NjIw.html?from=y1.2-1-102.3.11-1.1-1-1-10-0">基础机械表内部工作原理</a>才明白。</p>
+          <p>一直对机械手表内部的结构有些好奇，直到今天看到了一个精美的视频——<a href="http://v.youku.com/v_show/id_XNjUwNzA4NjIw.html?from=y1.2-1-102.3.11-1.1-1-1-10-0" target="_blank" rel="noopener">基础机械表内部工作原理</a>才明白。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/03/08/mechanical-watch/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2015/03/08/mechanical-watch/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1016,6 +1002,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1028,7 +1018,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/01/07/sign-your-mac-app-with-developer-id/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1058,13 +1054,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-01-07T21:00:11+08:00">
-                2015-01-07
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-01-07T21:00:11+08:00">2015-01-07</time>
             
 
+            
             
 
             
@@ -1073,17 +1068,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/01/07/sign-your-mac-app-with-developer-id/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/01/07/sign-your-mac-app-with-developer-id/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1100,6 +1084,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1117,26 +1104,23 @@
 <p>注意：本文不适用于发布到 Mac App Store 的签名。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/01/07/sign-your-mac-app-with-developer-id/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2015/01/07/sign-your-mac-app-with-developer-id/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1150,6 +1134,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1162,7 +1150,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/09/03/errors-due-to-nested-pop-or-push/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1192,13 +1186,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-09-03T22:39:00+08:00">
-                2014-09-03
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-03T22:39:00+08:00">2014-09-03</time>
             
 
+            
             
 
             
@@ -1207,17 +1200,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/09/03/errors-due-to-nested-pop-or-push/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/09/03/errors-due-to-nested-pop-or-push/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1234,6 +1216,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1249,31 +1234,28 @@
 </blockquote>
 <p>或者</p>
 <blockquote>
-<p>Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x6849b30></p>
+<p>Unbalanced calls to begin/end appearance transitions for <uinavigationcontroller: 0x6849b30=""></uinavigationcontroller:></p>
 </blockquote>
 <p>并且可能导致 navigationController 的标题栏出现重影甚至崩溃。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/09/03/errors-due-to-nested-pop-or-push/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/09/03/errors-due-to-nested-pop-or-push/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1287,6 +1269,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1299,7 +1285,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/08/25/arc-on-ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1329,13 +1321,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-08-25T20:12:11+08:00">
-                2014-08-25
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-25T20:12:11+08:00">2014-08-25</time>
             
 
+            
             
 
             
@@ -1344,17 +1335,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/08/25/arc-on-ios/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/08/25/arc-on-ios/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1371,6 +1351,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1386,32 +1369,29 @@
 <li><code>assign</code> 用于 C 原始类型，比如 int。</li>
 <li><code>copy</code> 传入对象时会浅拷贝对象。<ul>
 <li>一般将不可变的 property 设置为 copy，当可变的对象传入时，编译器会自动拷贝一份不可变的版本，以保证其内容不会被修改。如果传入的不可变对象，会增加其引用计数。</li>
-<li>当 property 是一个 block 时通常使用 copy。因为 block 需要在其所在的 scope 之外保留其捕获的状态。不声明也是可以的，但<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW12">官方推荐这样使用</a>，以提醒代码阅读者。</li>
+<li>当 property 是一个 block 时通常使用 copy。因为 block 需要在其所在的 scope 之外保留其捕获的状态。不声明也是可以的，但<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW12" target="_blank" rel="noopener">官方推荐这样使用</a>，以提醒代码阅读者。</li>
 </ul>
 </li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/08/25/arc-on-ios/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/08/25/arc-on-ios/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1425,6 +1405,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1437,7 +1421,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/08/16/how-to-switch-between-view-controllers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1467,13 +1457,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-08-16T10:14:07+08:00">
-                2014-08-16
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-16T10:14:07+08:00">2014-08-16</time>
             
 
+            
             
 
             
@@ -1482,17 +1471,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/08/16/how-to-switch-between-view-controllers/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/08/16/how-to-switch-between-view-controllers/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1509,6 +1487,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1536,18 +1517,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1561,6 +1539,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1577,9 +1559,6 @@
           </div>
           
 
-
-          
-
         </div>
         
           
@@ -1593,63 +1572,119 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="Nix Wang" />
-          <p class="site-author-name" itemprop="name">Nix Wang</p>
-           
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
               <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
           
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">47</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
           
 
+          
+
+          
+
+          
+          
+
+          
           
 
           
             
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
+          
           
 
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -1666,30 +1701,40 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2013 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -1700,6 +1745,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -1720,7 +1767,6 @@
 
 
 
-  
 
 
 
@@ -1733,41 +1779,43 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
 
 
 
@@ -1776,23 +1824,11 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
 
 
 
   
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
 
 
 
@@ -1817,12 +1853,23 @@
 
 
 
+
+
   
 
 
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
   
 
   

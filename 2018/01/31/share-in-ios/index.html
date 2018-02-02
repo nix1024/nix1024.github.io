@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -33,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,45 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
 
 
 
-<meta name="description" content="分享内容国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。
-相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。
 
-如果你的 app 面向国外用户，UIActivityViewControll">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS 中的分享">
-<meta property="og:url" content="http://yoursite.com/2018/01/31/share-in-ios/index.html">
-<meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="分享内容国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。
-相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。
 
-如果你的 app 面向国外用户，UIActivityViewControll">
-<meta property="og:image" content="/images/2018-01-31/UIActivityViewController.jpeg">
-<meta property="og:image" content="/images/2018-01-31/conformance_hierarchy.gif">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 中的分享">
-<meta name="twitter:description" content="分享内容国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。
-相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。
 
-如果你的 app 面向国外用户，UIActivityViewControll">
 
 
 
@@ -118,13 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -136,18 +94,46 @@
 </script>
 
 
+  
+
+
+
+
+  
+  <meta name="keywords" content="iOS," />
+
+
+<meta name="description" content="分享内容国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。 相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。  如果你的 app 面向国外用户，UIActivityViewControll">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 中的分享">
+<meta property="og:url" content="http://yoursite.com/2018/01/31/share-in-ios/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="分享内容国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。 相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。  如果你的 app 面向国外用户，UIActivityViewControll">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/2018-01-31/UIActivityViewController.jpeg">
+<meta property="og:image" content="http://yoursite.com/images/2018-01-31/conformance_hierarchy.gif">
+<meta property="og:updated_time" content="2018-02-02T06:34:23.542Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 中的分享">
+<meta name="twitter:description" content="分享内容国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。 相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。  如果你的 app 面向国外用户，UIActivityViewControll">
+<meta name="twitter:image" content="http://yoursite.com/images/2018-01-31/UIActivityViewController.jpeg">
+
+
+
+
+
 
   <link rel="canonical" href="http://yoursite.com/2018/01/31/share-in-ios/"/>
 
 
 
-
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
   <title>iOS 中的分享 | Nix 的自我修养</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
   
 
 
@@ -158,21 +144,47 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -206,31 +218,13 @@
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
@@ -242,9 +236,15 @@
 </nav>
 
 
+  
+
+
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -261,7 +261,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/31/share-in-ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -289,13 +295,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-31T20:10:38+08:00">
-                2018-01-31
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-31T20:10:38+08:00">2018-01-31</time>
             
 
+            
             
 
             
@@ -304,17 +309,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/31/share-in-ios/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/01/31/share-in-ios/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -331,6 +325,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -343,13 +340,13 @@
 <p>如果你的 app 面向国外用户，UIActivityViewController 了解一下。：）</p>
 <a id="more"></a>
 <p>UIActivityViewController 使用起来非常方便，首先初始化一个实例：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">init</span><span class="params">(activityItems: [Any],  applicationActivities: [UIActivity]?)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init(activityItems: [Any],  applicationActivities: [UIActivity]?)</span><br></pre></td></tr></table></figure>
 <p>其中，<code>activityItems</code> 是你要分享的内容，可以是字符串、URL或者图片等内容。但是接受分享的应用能接受的文件类型不一样，我们还可以通过自定义 <code>activityItems</code> 来实现以不同形式分享到不同应用的功能。</p>
 <p>要自定 <code>activityItems</code>，只需实现 <code>UIActivityItemSource</code> ，它有两个必选方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">activityViewControllerPlaceholderItem</span><span class="params">(<span class="number">_</span> activityViewController: UIActivityViewController)</span> -&gt; <span class="title">Any</span></span><br><span class="line"></span><br><span class="line"><span class="title">func</span> <span class="title">activityViewController</span><span class="params">(<span class="number">_</span> activityViewController: UIActivityViewController, </span><br><span class="line">        itemForActivityType activityType: UIActivityType?)</span> -&gt; <span class="title">Any</span>?</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -&gt; Any</span><br><span class="line"></span><br><span class="line">func activityViewController(_ activityViewController: UIActivityViewController, </span><br><span class="line">        itemForActivityType activityType: UIActivityType?) -&gt; Any?</span><br></pre></td></tr></table></figure>
 <p>其中第一个方法返回一个 placeholder，官方文档是这样解释的</p>
 <blockquote>
-<p>For example, the placeholder could be a <a href="https://developer.apple.com/documentation/uikit/uiimage" target="_blank" rel="external"><code>UIImage</code></a> object but the actual value could be an <a href="https://developer.apple.com/documentation/foundation/nsdata" target="_blank" rel="external"><code>NSData</code></a> object with PDF information.</p>
+<p>For example, the placeholder could be a <a href="https://developer.apple.com/documentation/uikit/uiimage" target="_blank" rel="noopener"><code>UIImage</code></a> object but the actual value could be an <a href="https://developer.apple.com/documentation/foundation/nsdata" target="_blank" rel="noopener"><code>NSData</code></a> object with PDF information.</p>
 </blockquote>
 <p>个人理解是比如 PDF 渲染速度较慢，UIActivityViewController 会先查询 placeholder 显示出来。</p>
 <p>第二个方法返回的就是实际要分享的内容，可以根据不同的 UIActivityType 返回不同类型的数据。比如拷贝到剪贴板返回字符串，分享到微信返回图片。如果分享的是一个自定义文件，返回文件的 URL 即可。</p>
@@ -365,14 +362,14 @@
 <p>最后 present 设置完毕的 UIActivityViewController。</p>
 <p>至此，分享功能就介绍完了。</p>
 <h2 id="打开分享的文件">打开分享的文件</h2><p>但是如果想用你的 app 打开某个文件，也就是出现在 UIActivityViewController 分享界面中，还需要做额外的一些工作。</p>
-<p>在开始之前，你需要了解 <a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html#//apple_ref/doc/uid/TP40001319" target="_blank" rel="external">UTI（Uniform Type Identifiers）</a> 的概念。</p>
+<p>在开始之前，你需要了解 <a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html#//apple_ref/doc/uid/TP40001319" target="_blank" rel="noopener">UTI（Uniform Type Identifiers）</a> 的概念。</p>
 <p>简单来讲，UTI 是苹果定义的用来区分文件类型的标志符。同样是文本文件，不同文件的后缀名可能是 txt、text、html，但实际上一个纯文本编辑器都能打开它们。如果系统遇到一个陌生的文件后缀，也可以通过 UTI 来正确识别，并且知道哪些应用可以用来打开这个文件。</p>
 <p><img src="/images/2018-01-31/conformance_hierarchy.gif" alt="Conformance Hierarchy"></p>
 <p>可以看到 UTI 本身是个树形结构，类似于类的继承关系，所有的 UTI 都符合（Conforms To）<code>public.data</code>，可以理解成所有 UTI 最终都是 <code>public.data</code> 的子 UTI。</p>
-<p>现在要做的就是在 Xcode 的 Info.plist 中的 Document Type 里添加要支持的 UTI，具体步骤参见<a href="https://developer.apple.com/library/content/qa/qa1587/_index.html" target="_blank" rel="external">官方文档</a>。可以根据 Apple 已经<a href="https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1" target="_blank" rel="external">定义好的 UTI 列表</a>添加对应的 UTI。</p>
+<p>现在要做的就是在 Xcode 的 Info.plist 中的 Document Type 里添加要支持的 UTI，具体步骤参见<a href="https://developer.apple.com/library/content/qa/qa1587/_index.html" target="_blank" rel="noopener">官方文档</a>。可以根据 Apple 已经<a href="https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1" target="_blank" rel="noopener">定义好的 UTI 列表</a>添加对应的 UTI。</p>
 <p>这样，当用户分享特定文件时就可以看到你的 app 了，如何获取内容呢？</p>
 <p>AppDelegate 有个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:])</span> -&gt; <span class="title">Bool</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -&gt; Bool</span><br></pre></td></tr></table></figure>
 <p>当系统通过你的 app 打开文件时会调用这个方法，其中的 <code>url</code> 就是文件的 URL，可以通过这个 URL 来获取文件内容。</p>
 <h2 id="自定义文件类型">自定义文件类型</h2><p>如果你的 app 会生成自定义格式，那么你需要声明一个自定义的 UTI，Exported UTI 了解一下。</p>
 <p>要声明一个自定义的 UTI 需要以下几个信息：</p>
@@ -388,56 +385,52 @@
 <li>要保证自定义 UTTypeIdentifier 的唯一性，可以使用  </li>
 </ul>
 <p>官方的一个示例：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">key</span>&gt;</span>UTExportedTypeDeclarations<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">array</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">key</span>&gt;</span>UTTypeIdentifier<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">string</span>&gt;</span>public.jpeg<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">key</span>&gt;</span>UTTypeReferenceURL<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">string</span>&gt;</span>http://www.w3.org/Graphics/JPEG/<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">key</span>&gt;</span>UTTypeDescription<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">string</span>&gt;</span>JPEG image<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">key</span>&gt;</span>UTTypeIconFile<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">string</span>&gt;</span>public.jpeg.icns<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">key</span>&gt;</span>UTTypeConformsTo<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">array</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">string</span>&gt;</span>public.image<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">string</span>&gt;</span>public.data<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">key</span>&gt;</span>UTTypeTagSpecification<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dict</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">key</span>&gt;</span>com.apple.ostype<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">string</span>&gt;</span>JPEG<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">key</span>&gt;</span>public.filename-extension<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">array</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">string</span>&gt;</span>jpeg<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">string</span>&gt;</span>jpg<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">array</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">key</span>&gt;</span>public.mime-type<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">string</span>&gt;</span>image/jpeg<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="title">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">array</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>具体的添加方法，参见<a href="https://developer.apple.com/library/content/qa/qa1587/_index.html" target="_blank" rel="external">官方文档</a>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;UTExportedTypeDeclarations&lt;/key&gt;</span><br><span class="line">&lt;array&gt;</span><br><span class="line">    &lt;dict&gt;</span><br><span class="line">        &lt;key&gt;UTTypeIdentifier&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;public.jpeg&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;UTTypeReferenceURL&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;http://www.w3.org/Graphics/JPEG/&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;UTTypeDescription&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;JPEG image&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;UTTypeIconFile&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;public.jpeg.icns&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;UTTypeConformsTo&lt;/key&gt;</span><br><span class="line">        &lt;array&gt;</span><br><span class="line">            &lt;string&gt;public.image&lt;/string&gt;</span><br><span class="line">            &lt;string&gt;public.data&lt;/string&gt;</span><br><span class="line">        &lt;/array&gt;</span><br><span class="line">        &lt;key&gt;UTTypeTagSpecification&lt;/key&gt;</span><br><span class="line">        &lt;dict&gt;</span><br><span class="line">            &lt;key&gt;com.apple.ostype&lt;/key&gt;</span><br><span class="line">            &lt;string&gt;JPEG&lt;/string&gt;</span><br><span class="line">            &lt;key&gt;public.filename-extension&lt;/key&gt;</span><br><span class="line">            &lt;array&gt;</span><br><span class="line">                &lt;string&gt;jpeg&lt;/string&gt;</span><br><span class="line">                &lt;string&gt;jpg&lt;/string&gt;</span><br><span class="line">            &lt;/array&gt;</span><br><span class="line">            &lt;key&gt;public.mime-type&lt;/key&gt;</span><br><span class="line">            &lt;string&gt;image/jpeg&lt;/string&gt;</span><br><span class="line">         &lt;/dict&gt;</span><br><span class="line">    &lt;/dict&gt;</span><br><span class="line">&lt;/array&gt;</span><br></pre></td></tr></table></figure>
+<p>具体的添加方法，参见<a href="https://developer.apple.com/library/content/qa/qa1587/_index.html" target="_blank" rel="noopener">官方文档</a>。</p>
 <h1 id="参考">参考</h1><ul>
-<li><a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_declare/understand_utis_declare.html#//apple_ref/doc/uid/TP40001319-CH204-SW1" target="_blank" rel="external">Declaring New Uniform Type Identifiers</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_declare/understand_utis_declare.html#//apple_ref/doc/uid/TP40001319-CH204-SW1" target="_blank" rel="noopener">Declaring New Uniform Type Identifiers</a></li>
 </ul>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
 
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>给鸡排饭加个蛋</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
   </div>
+</div>
 
+      </div>
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -449,7 +442,7 @@
       
 
       
-        
+      
       
 
       
@@ -477,6 +470,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -490,18 +487,8 @@
           </div>
           
 
+  
 
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
 
 
         </div>
@@ -517,72 +504,128 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="Nix Wang" />
-          <p class="site-author-name" itemprop="name">Nix Wang</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
               <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
           
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">47</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
           
 
+          
+
+          
+
+          
+          
+
+          
           
 
           
             
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
+          
           
 
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -615,30 +658,40 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2013 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -649,6 +702,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -669,7 +724,6 @@
 
 
 
-  
 
 
 
@@ -682,82 +736,60 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
 
 
 
   
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
 
-    
-      <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
-    
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/01/31/share-in-ios/';
-          this.page.identifier = '2018/01/31/share-in-ios/';
-          this.page.title = 'iOS 中的分享';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://nix1024.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
 
   
-
 
 
 
@@ -782,12 +814,23 @@
 
 
 
+
+
   
 
 
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
   
 
   

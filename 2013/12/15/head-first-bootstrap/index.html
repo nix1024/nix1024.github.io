@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -33,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,41 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Web," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
 
 
 
-<meta name="description" content="如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。
 
-Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合响应式设计。要使用Bootstrap，拢共分三步。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Head First Bootstrap">
-<meta property="og:url" content="http://yoursite.com/2013/12/15/head-first-bootstrap/index.html">
-<meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。
 
-Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合响应式设计。要使用Bootstrap，拢共分三步。">
-<meta property="og:image" content="/images/2013-12-15/bootstrap-button.png">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Head First Bootstrap">
-<meta name="twitter:description" content="如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。
 
-Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合响应式设计。要使用Bootstrap，拢共分三步。">
 
 
 
@@ -114,13 +76,13 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -132,18 +94,45 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
 </script>
 
 
+  
+
+
+
+
+  
+  <meta name="keywords" content="Web," />
+
+
+<meta name="description" content="如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。  Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合响应式设计。要使用Bootstrap，拢共分三步。">
+<meta name="keywords" content="Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Head First Bootstrap">
+<meta property="og:url" content="http://yoursite.com/2013/12/15/head-first-bootstrap/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。  Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合响应式设计。要使用Bootstrap，拢共分三步。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/2013-12-15/bootstrap-button.png">
+<meta property="og:updated_time" content="2015-03-18T02:07:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Head First Bootstrap">
+<meta name="twitter:description" content="如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。  Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合响应式设计。要使用Bootstrap，拢共分三步。">
+<meta name="twitter:image" content="http://yoursite.com/images/2013-12-15/bootstrap-button.png">
+
+
+
+
+
 
   <link rel="canonical" href="http://yoursite.com/2013/12/15/head-first-bootstrap/"/>
 
 
 
-
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
   <title>Head First Bootstrap | Nix 的自我修养</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
   
 
 
@@ -154,21 +143,47 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -202,31 +217,13 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
@@ -238,9 +235,15 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
 </nav>
 
 
+  
+
+
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -257,7 +260,13 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/12/15/head-first-bootstrap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -285,13 +294,12 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-12-15T18:54:57+08:00">
-                2013-12-15
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-12-15T18:54:57+08:00">2013-12-15</time>
             
 
+            
             
 
             
@@ -300,17 +308,6 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2013/12/15/head-first-bootstrap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/12/15/head-first-bootstrap/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -327,6 +324,9 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -336,65 +336,61 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
         <blockquote>
 <p>如果你像痛恨GFW一样痛恨丑陋的页面，但自己却是CSS渣或设计无能，那么Bootstrap就是你的救星。</p>
 </blockquote>
-<p>Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合<a href="http://www.ruanyifeng.com/blog/2012/05/responsive_web_design.html" target="_blank" rel="external">响应式设计</a>。要使用Bootstrap，拢共分三步。</p>
+<p>Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发Web2.0风格的页面，并且符合<a href="http://www.ruanyifeng.com/blog/2012/05/responsive_web_design.html" target="_blank" rel="noopener">响应式设计</a>。要使用Bootstrap，拢共分三步。</p>
 <a id="more"></a>
-<h1 id="引入Bootstrap">引入Bootstrap</h1><p>可以在<a href="http://getbootstrap.com/" target="_blank" rel="external">Bootstrap官网</a>下载源码添加到自己的项目中，也可以在HTML中添加Bootcss提供的<a href="http://v3.bootcss.com/getting-started/#download-cdn" target="_blank" rel="external">CDN</a>。</p>
+<h1 id="引入Bootstrap">引入Bootstrap</h1><p>可以在<a href="http://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap官网</a>下载源码添加到自己的项目中，也可以在HTML中添加Bootcss提供的<a href="http://v3.bootcss.com/getting-started/#download-cdn" target="_blank" rel="noopener">CDN</a>。</p>
 <p>使用CDN的好处是，服务器会自动选取最近的节点来提供文件的下载；另一方面，当用户之前浏览其他网页的时候如果加载过了这个文件，在访问我们的站点时就会从缓存中读取。</p>
 <h1 id="改造自己的HTML">改造自己的HTML</h1><p>只要为自己的HTML元素<strong>赋上特定的类名</strong>，就可以修改各个元素的外观甚至行为。</p>
 <p>例如，要为按钮设置样式，只需要写下面的代码，</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Standard button --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-default"</span>&gt;</span>Default<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Provides extra visual weight and identifies the primary action in a set of buttons --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span>Primary<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates a successful or positive action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-success"</span>&gt;</span>Success<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Contextual button for informational alert messages --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-info"</span>&gt;</span>Info<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates caution should be taken with this action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-warning"</span>&gt;</span>Warning<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates a dangerous or potentially negative action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-danger"</span>&gt;</span>Danger<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Deemphasize a button by making it look like a link while maintaining button behavior --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn btn-link"</span>&gt;</span>Link<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Standard button --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-default"</span>&gt;</span>Default<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Provides extra visual weight and identifies the primary action in a set of buttons --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span>&gt;</span>Primary<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates a successful or positive action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-success"</span>&gt;</span>Success<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Contextual button for informational alert messages --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-info"</span>&gt;</span>Info<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates caution should be taken with this action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-warning"</span>&gt;</span>Warning<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Indicates a dangerous or potentially negative action --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-danger"</span>&gt;</span>Danger<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Deemphasize a button by making it look like a link while maintaining button behavior --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-link"</span>&gt;</span>Link<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>就会得到这样的效果：</p>
 <p><img src="/images/2013-12-15/bootstrap-button.png" alt="Bootstrap按钮效果"></p>
 <p>另外，Bootstrap还提供了响应式的导航条，会根据浏览器的分辨率自动调整样式，在移动客户端上会变成弹出式下拉菜单，效果很棒。使用Bootstrap的栅格系统，可以轻松完成页面的布局，并且可以自适应分辨率。</p>
 <p>所有这些，都不需要写一行CSS或JS代码。</p>
-<h1 id="定制Bootstrap">定制Bootstrap</h1><p>当你用完爽过了之后，会发现所有用Bootstrap默认样式做出来的东西都是一副面孔，逼格瞬间下降了。这个时候就需要定制Bootstrap了。当然，已经有很多为Bootstrap开发的主题，比如<a href="http://bootswatch.com/‎" target="_blank" rel="external">Bootswatch</a>。除此之外，还可以通过在<a href="http://v3.bootcss.com/customize/" target="_blank" rel="external">这里</a>自定义LESS变量来定制Bootstrap。设置完毕后下载编译好的CSS和JS文件即可。</p>
+<h1 id="定制Bootstrap">定制Bootstrap</h1><p>当你用完爽过了之后，会发现所有用Bootstrap默认样式做出来的东西都是一副面孔，逼格瞬间下降了。这个时候就需要定制Bootstrap了。当然，已经有很多为Bootstrap开发的主题，比如<a href="http://bootswatch.com/‎" target="_blank" rel="noopener">Bootswatch</a>。除此之外，还可以通过在<a href="http://v3.bootcss.com/customize/" target="_blank" rel="noopener">这里</a>自定义LESS变量来定制Bootstrap。设置完毕后下载编译好的CSS和JS文件即可。</p>
 <hr>
-<p>Bootstrap自身提供了200个<strong>字体图标</strong>供我们使用。这些图标并不是图片，而是字体，可以不失真调整大小，自定义颜色、阴影等一切CSS能控制的样式。同样，只需要为<code>&lt;span&gt;</code>赋上特定的类名即可。如果丧心病狂的你认为这200个还不够用的话，我们还有<a href="http://fontawesome.io/" target="_blank" rel="external">Font Awesome</a>，总有一款适合你。</p>
+<p>Bootstrap自身提供了200个<strong>字体图标</strong>供我们使用。这些图标并不是图片，而是字体，可以不失真调整大小，自定义颜色、阴影等一切CSS能控制的样式。同样，只需要为<code>&lt;span&gt;</code>赋上特定的类名即可。如果丧心病狂的你认为这200个还不够用的话，我们还有<a href="http://fontawesome.io/" target="_blank" rel="noopener">Font Awesome</a>，总有一款适合你。</p>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
 
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>给鸡排饭加个蛋</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
   </div>
+</div>
 
+      </div>
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -406,7 +402,7 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
       
 
       
-        
+      
       
 
       
@@ -434,6 +430,10 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -447,18 +447,8 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
           </div>
           
 
+  
 
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
 
 
         </div>
@@ -474,72 +464,128 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="Nix Wang" />
-          <p class="site-author-name" itemprop="name">Nix Wang</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
               <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
           
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">47</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
           
 
+          
+
+          
+
+          
+          
+
+          
           
 
           
             
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
+          
           
 
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -572,30 +618,40 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2013 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -606,6 +662,8 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -626,7 +684,6 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
 
 
 
-  
 
 
 
@@ -639,82 +696,60 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
 
 
 
   
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
 
-    
-      <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
-    
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2013/12/15/head-first-bootstrap/';
-          this.page.identifier = '2013/12/15/head-first-bootstrap/';
-          this.page.title = 'Head First Bootstrap';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://nix1024.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
 
   
-
 
 
 
@@ -739,12 +774,23 @@ Bootstrap是Twitter开发的一套前端开发库，使用它可以快速开发W
 
 
 
+
+
   
 
 
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
   
 
   

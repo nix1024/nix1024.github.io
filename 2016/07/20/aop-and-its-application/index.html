@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -33,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,40 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Nix, iOS" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
 
 
 
-<meta name="description" content="什么是 AOPWikipedia 上的 AOP 定义：
 
-In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so">
-<meta property="og:type" content="article">
-<meta property="og:title" content="AOP 及应用">
-<meta property="og:url" content="http://yoursite.com/2016/07/20/aop-and-its-application/index.html">
-<meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="什么是 AOPWikipedia 上的 AOP 定义：
 
-In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AOP 及应用">
-<meta name="twitter:description" content="什么是 AOPWikipedia 上的 AOP 定义：
 
-In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so">
 
 
 
@@ -113,13 +76,13 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -131,18 +94,42 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 </script>
 
 
+  
+
+
+
+
+  
+  <meta name="keywords" content="Nix, iOS" />
+
+
+<meta name="description" content="什么是 AOPWikipedia 上的 AOP 定义：  In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AOP 及应用">
+<meta property="og:url" content="http://yoursite.com/2016/07/20/aop-and-its-application/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="什么是 AOPWikipedia 上的 AOP 定义：  In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-02T07:47:02.117Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AOP 及应用">
+<meta name="twitter:description" content="什么是 AOPWikipedia 上的 AOP 定义：  In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so">
+
+
+
+
+
 
   <link rel="canonical" href="http://yoursite.com/2016/07/20/aop-and-its-application/"/>
 
 
 
-
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
   <title>AOP 及应用 | Nix 的自我修养</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
   
 
 
@@ -153,21 +140,47 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -201,31 +214,13 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
@@ -237,9 +232,15 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 </nav>
 
 
+  
+
+
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -256,7 +257,13 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/20/aop-and-its-application/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -284,13 +291,12 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-20T14:10:08+08:00">
-                2016-07-20
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T14:10:08+08:00">2016-07-20</time>
             
 
+            
             
 
             
@@ -299,17 +305,6 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/07/20/aop-and-its-application/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/07/20/aop-and-its-application/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -326,6 +321,9 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -337,6 +335,7 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 <p>In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a “pointcut” specification, such as “log all function calls when the function’s name begins with ‘set’”. This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality. AOP forms a basis for aspect-oriented software development.</p>
 </blockquote>
 <p>AOP（Aspect Oriented Programming，国内多译作「面向切面编程」），它是在不修改原有代码的前提下给程序添加功能的一种技术。这样可以将一些重复而又与主要业务逻辑无关的代码抽离出来，减少了耦合性，增加了代码复用性。</p>
+<a id="more"></a>
 <p>一些相关术语：</p>
 <ul>
 <li>Cross-cutting concerns：多个业务逻辑共有的非核心的逻辑（比如记录日志）。</li>
@@ -353,9 +352,9 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 <li>使用 method swizzling 将所有的 <code>viewWillAppear:</code> 方法替换成原有逻辑加上写日志的逻辑——也就是 AOP 的方式。</li>
 </ul>
 <p>显然，对比一下这三种方式，毫无疑问最后一种方式不需要修改已有代码，并且后期维护、增加新逻辑更方便。</p>
-<p>iOS 有一个著名的开源库：<a href="https://github.com/steipete/Aspects" target="_blank" rel="external">Aspects</a>，它利用 method swizzling 封装出 API 让你可以在一个类的方法执行之前、之后（Pointcut）执行附加的逻辑（Advice）。</p>
+<p>iOS 有一个著名的开源库：<a href="https://github.com/steipete/Aspects" target="_blank" rel="noopener">Aspects</a>，它利用 method swizzling 封装出 API 让你可以在一个类的方法执行之前、之后（Pointcut）执行附加的逻辑（Advice）。</p>
 <p>利用 Aspect，想要做到在所有的 view controller 显示时记录日志只需要这样：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[UIViewController aspect_hookSelector:@selector<span class="list">(<span class="keyword">viewWillAppear:</span>)</span> withOptions:AspectPositionAfter usingBlock:^<span class="list">(<span class="keyword">id&lt;AspectInfo&gt;</span> aspectInfo, BOOL animated)</span> <span class="collection">&#123;</span><br><span class="line">NSLog<span class="list">(@<span class="string">"View Controller %@ will appear animated: %tu"</span>, aspectInfo.instance, animated)</span><span class="comment">;</span></span><br><span class="line">&#125;</span> error:NULL]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[UIViewController aspect_hookSelector:@selector(viewWillAppear:) withOptions:AspectPositionAfter usingBlock:^(id&lt;AspectInfo&gt; aspectInfo, BOOL animated) &#123;</span><br><span class="line">NSLog(@&quot;View Controller %@ will appear animated: %tu&quot;, aspectInfo.instance, animated);</span><br><span class="line">&#125; error:NULL];</span><br></pre></td></tr></table></figure>
 <p>这样的好处很明显：</p>
 <ul>
 <li>降低了程序的耦合度：你不需要修改业务代码就可以增加功能。</li>
@@ -363,60 +362,56 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 </ul>
 <p>当然，上面只是一种实现方式而已，重要的是 AOP 的思想。</p>
 <h2 id="参考">参考</h2><ul>
-<li><a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming" target="_blank" rel="external">Aspect-oriented programming</a></li>
-<li><a href="http://astrocoder.com/aspect-oriented-programming-aop-in-the-net-world-using-castle-windsor/" target="_blank" rel="external">Aspect Oriented Programming (AOP) in the .net world using Castle Windsor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming" target="_blank" rel="noopener">Aspect-oriented programming</a></li>
+<li><a href="http://astrocoder.com/aspect-oriented-programming-aop-in-the-net-world-using-castle-windsor/" target="_blank" rel="noopener">Aspect Oriented Programming (AOP) in the .net world using Castle Windsor</a></li>
 </ul>
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
 
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>给鸡排饭加个蛋</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
   </div>
+</div>
 
+      </div>
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
 
       
-        
+      
       
 
       
@@ -444,6 +439,10 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -457,18 +456,8 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
           </div>
           
 
+  
 
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
 
 
         </div>
@@ -484,72 +473,128 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="Nix Wang" />
-          <p class="site-author-name" itemprop="name">Nix Wang</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
               <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
           
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">47</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
           
 
+          
+
+          
+
+          
+          
+
+          
           
 
           
             
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
+          
           
 
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -582,30 +627,40 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2013 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -616,6 +671,8 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -636,7 +693,6 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 
 
 
-  
 
 
 
@@ -649,82 +705,60 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
 
 
 
   
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
 
-    
-      <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
-    
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2016/07/20/aop-and-its-application/';
-          this.page.identifier = '2016/07/20/aop-and-its-application/';
-          this.page.title = 'AOP 及应用';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://nix1024.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
 
   
-
 
 
 
@@ -749,12 +783,23 @@ In computing, aspect-oriented programming (AOP) is a programming paradigm that a
 
 
 
+
+
   
 
 
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
   
 
   

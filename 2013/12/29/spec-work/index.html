@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -33,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,41 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Nix, iOS" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
 
 
 
-<meta name="description" content="最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。
-很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。
-由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpre">
-<meta property="og:type" content="article">
-<meta property="og:title" content="记一个小网站的诞生">
-<meta property="og:url" content="http://yoursite.com/2013/12/29/spec-work/index.html">
-<meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。
-很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。
-由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpre">
-<meta property="og:image" content="/images/2013-12-29/doraemon-css.png">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一个小网站的诞生">
-<meta name="twitter:description" content="最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。
-很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。
-由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpre">
+
+
+
 
 
 
@@ -114,13 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -132,18 +94,44 @@
 </script>
 
 
+  
+
+
+
+
+  
+  <meta name="keywords" content="Nix, iOS" />
+
+
+<meta name="description" content="最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。 很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。 由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpre">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一个小网站的诞生">
+<meta property="og:url" content="http://yoursite.com/2013/12/29/spec-work/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。 很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。 由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpre">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/2013-12-29/doraemon-css.png">
+<meta property="og:updated_time" content="2015-03-18T02:07:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一个小网站的诞生">
+<meta name="twitter:description" content="最近经萌萌介绍，接了一个做网站的活。那人要求很低，说是只需要静态页面，但是后期能自己添加东西就行。由于之前折腾过Joomla，就斗胆接下来了。 很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。 由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpre">
+<meta name="twitter:image" content="http://yoursite.com/images/2013-12-29/doraemon-css.png">
+
+
+
+
+
 
   <link rel="canonical" href="http://yoursite.com/2013/12/29/spec-work/"/>
 
 
 
-
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
   <title>记一个小网站的诞生 | Nix 的自我修养</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
   
 
 
@@ -154,21 +142,47 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -202,31 +216,13 @@
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
@@ -238,9 +234,15 @@
 </nav>
 
 
+  
+
+
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -257,7 +259,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/12/29/spec-work/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -285,13 +293,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-12-29T00:12:01+08:00">
-                2013-12-29
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-12-29T00:12:01+08:00">2013-12-29</time>
             
 
+            
             
 
             
@@ -300,17 +307,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2013/12/29/spec-work/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/12/29/spec-work/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -327,6 +323,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -337,11 +336,11 @@
 <p>很快，萌萌把网站内容等材料发过来了。我一看，这尼玛就是坑爹啊！网站Logo丑就不说了，内容还是全抄别人的，连人家的公司名都没有改全！图片质量很渣，还有水印！顿时信心大增。</p>
 <p>由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpress，跟Joomla差距应该不大。</p>
 <a id="more"></a>
-<h1 id="第一夜">第一夜</h1><p>主机用的是阿里云而不是之前用的虚拟主机，还需要自己搭环境。拿到账号密码，找了一个<a href="http://115.28.161.33/article/70.html" target="_blank" rel="external">教程</a>，从硬盘格式化开始，按部就班地来。</p>
+<h1 id="第一夜">第一夜</h1><p>主机用的是阿里云而不是之前用的虚拟主机，还需要自己搭环境。拿到账号密码，找了一个<a href="http://115.28.161.33/article/70.html" target="_blank" rel="noopener">教程</a>，从硬盘格式化开始，按部就班地来。</p>
 <p>安装配置Apache、MySql、vsftp、Wordpress、phpMyAdmin，尤其是vsftp，弄得我焦头烂额，Linux渣伤不起。后来回宿舍，哥们提醒，直接用scp就OK了，压根不用这玩意，我顿时一口老血喷出。再后来发现，ftp还是需要配置的，因为在wordpress后台安装主题或插件时需要用到。</p>
 <h1 id="第二夜">第二夜</h1><p>找模板。</p>
-<p>模板要配色清爽，简单大气，还要高度可自定义。找了好久才找到<a href="http://www.themesandco.com/customizr/" target="_blank" rel="external">Customizr</a>。看名字就知道好改。简单了解了下Wordpress的“仪表盘”（就是后台页面），把网站的内容都填了进去。看到网站就这么搭起来了，心中暗爽。</p>
-<p>回来给Show给小伙伴看的时候掉链子了，发现域名不能用，于是有了<a href="http://nixwang.com/post/2013-12-20-wordpress-change-domain" target="_blank" rel="external">这么一出</a>。</p>
+<p>模板要配色清爽，简单大气，还要高度可自定义。找了好久才找到<a href="http://www.themesandco.com/customizr/" target="_blank" rel="noopener">Customizr</a>。看名字就知道好改。简单了解了下Wordpress的“仪表盘”（就是后台页面），把网站的内容都填了进去。看到网站就这么搭起来了，心中暗爽。</p>
+<p>回来给Show给小伙伴看的时候掉链子了，发现域名不能用，于是有了<a href="http://nixwang.com/post/2013-12-20-wordpress-change-domain" target="_blank" rel="noopener">这么一出</a>。</p>
 <h1 id="第三夜">第三夜</h1><p>找图片。</p>
 <p>首页的大Slider需要三张大图，于是在Google之。此时脑中立马浮现出一群衣冠楚楚的老外（一定要有个黑人在里面），傻呵呵地握手看着镜头傻笑的场面，就是这货没跑了，总觉得这些老板就好这口。另外还找了几张小图片，是那种抽象立体小人。当然这里的图片用的都是盗版的，鄙视我吧。</p>
 <p>另外还用我仅有的一点点CSS知识改了下排版。</p>
@@ -355,54 +354,50 @@
 
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
 
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>给鸡排饭加个蛋</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
   </div>
+</div>
 
+      </div>
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
 
       
-        
+      
       
 
       
@@ -430,6 +425,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -443,18 +442,8 @@
           </div>
           
 
+  
 
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
 
 
         </div>
@@ -470,72 +459,128 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="Nix Wang" />
-          <p class="site-author-name" itemprop="name">Nix Wang</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
               <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
           
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">47</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
           
 
+          
+
+          
+
+          
+          
+
+          
           
 
           
             
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
+          
           
 
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -568,30 +613,40 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2013 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -602,6 +657,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -622,7 +679,6 @@
 
 
 
-  
 
 
 
@@ -635,82 +691,60 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
 
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
 
 
 
   
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
 
-    
-      <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
-    
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2013/12/29/spec-work/';
-          this.page.identifier = '2013/12/29/spec-work/';
-          this.page.title = '记一个小网站的诞生';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://nix1024.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
 
   
-
 
 
 
@@ -735,12 +769,23 @@
 
 
 
+
+
   
 
 
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
   
 
   

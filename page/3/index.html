@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -33,36 +40,7 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
 
 
 
@@ -71,34 +49,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Nix, iOS" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nix 的自我修养">
-<meta property="og:url" content="http://yoursite.com/page/3/index.html">
-<meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nix 的自我修养">
-<meta name="twitter:description">
+
+
+
 
 
 
@@ -107,13 +76,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -125,18 +94,38 @@
 </script>
 
 
+  
+
+
+
+
+  
+  <meta name="keywords" content="Nix, iOS" />
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nix 的自我修养">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nix 的自我修养">
+
+
+
+
+
 
   <link rel="canonical" href="http://yoursite.com/page/3/"/>
 
 
 
-
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
   <title>Nix 的自我修养</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
   
 
 
@@ -147,10 +136,36 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -158,12 +173,11 @@
   
 
   <div class="container sidebar-position-left 
-   page-home 
- ">
+  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner"> <div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -197,31 +211,13 @@
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
 
@@ -233,9 +229,15 @@
 </nav>
 
 
+  
+
+
 
  </div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
@@ -252,7 +254,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/08/13/plugins-and-themes-for-xcode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -282,13 +290,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-08-13T19:53:00+08:00">
-                2014-08-13
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-13T19:53:00+08:00">2014-08-13</time>
             
 
+            
             
 
             
@@ -297,17 +304,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/08/13/plugins-and-themes-for-xcode/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/08/13/plugins-and-themes-for-xcode/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -324,6 +320,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -336,29 +335,26 @@
 </blockquote>
 <p>快来看我发现的 Xcode 插件们！</p>
 <h1 id="插件">插件</h1><p>Xcode 下的插件安装一般都是下载源码编译一次就 OK 了。<br>如果想卸载插件，只需要到<code>~/Library/Application Support/Developer/Shared/Xcode/Plug-ins</code>目录下删除相应的文件即可。</p>
-<h2 id="Alcatraz"><a href="https://github.com/supermarin/Alcatraz">Alcatraz</a></h2><p>推荐指数 ★★★★</p>
+<h2 id="Alcatraz"><a href="https://github.com/supermarin/Alcatraz" target="_blank" rel="noopener">Alcatraz</a></h2><p>推荐指数 ★★★★</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/08/13/plugins-and-themes-for-xcode/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/08/13/plugins-and-themes-for-xcode/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -372,6 +368,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -384,7 +384,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/08/10/mvc-on-ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -414,13 +420,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-08-10T10:38:00+08:00">
-                2014-08-10
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-10T10:38:00+08:00">2014-08-10</time>
             
 
+            
             
 
             
@@ -429,17 +434,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/08/10/mvc-on-ios/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/08/10/mvc-on-ios/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -456,6 +450,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -463,30 +460,27 @@
 
       
         
-          <p>之前一直在听斯坦福大学的公开课： <a href="http://v.163.com/special/opencourse/ios7.html">iOS 7应用开发</a>，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。</p>
+          <p>之前一直在听斯坦福大学的公开课： <a href="http://v.163.com/special/opencourse/ios7.html" target="_blank" rel="noopener">iOS 7应用开发</a>，讲课的是一个非常犀利的白胡子老头，在一个个实例中讲解 iOS 开发，是绝佳的 iOS 入门课程。</p>
 <p>在第一节课中就讲了 iOS 中的 MVC，之前一直不太熟悉，回想起来，白胡子老头的总结还是很精准的。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/08/10/mvc-on-ios/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/08/10/mvc-on-ios/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -500,6 +494,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -512,7 +510,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/08/03/pits-on-ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -542,13 +546,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-08-03T23:03:00+08:00">
-                2014-08-03
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-03T23:03:00+08:00">2014-08-03</time>
             
 
+            
             
 
             
@@ -557,17 +560,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/08/03/pits-on-ios/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/08/03/pits-on-ios/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -584,6 +576,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -594,26 +589,23 @@
           <h2 id="UITableView_相关">UITableView 相关</h2><h3 id="在写_UITableView_的_Demo_时，删除一个_cell_导致程序崩溃">在写 UITableView 的 Demo 时，删除一个 cell 导致程序崩溃</h3><p>在写 dataSource  protocol 中的<code>- (NSInteger)numberOfRowsInSection:(NSInteger)section</code>方法时，采用了 hardcode 方式。这个函数的返回值应该实时计算。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/08/03/pits-on-ios/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/08/03/pits-on-ios/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -627,6 +619,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -639,7 +635,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/08/02/a-boring-saturday/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -669,13 +671,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-08-02T21:42:16+08:00">
-                2014-08-02
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-02T21:42:16+08:00">2014-08-02</time>
             
 
+            
             
 
             
@@ -684,17 +685,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/08/02/a-boring-saturday/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/08/02/a-boring-saturday/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -711,6 +701,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -722,26 +715,23 @@
 <p>为了证明这个博客存在的意义并不只是为了找工作时给面试官一个好一些的印象，我决定继续更新下去。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/08/02/a-boring-saturday/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/08/02/a-boring-saturday/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -755,6 +745,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -767,7 +761,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/04/29/nix-learn-to-drive/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -797,13 +797,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-04-29T11:02:54+08:00">
-                2014-04-29
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-04-29T11:02:54+08:00">2014-04-29</time>
             
 
+            
             
 
             
@@ -812,17 +811,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/04/29/nix-learn-to-drive/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/04/29/nix-learn-to-drive/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -839,6 +827,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -852,26 +843,23 @@
 <p>至于富康还是比亚迪，我觉得富康也挺好。区别在于：富康的方向盘比较重，车屁股小，便宜100块。如果是力气小的女生，还是选比亚迪吧。<br>如果不差钱，还是选高冷的东方时尚吧，正规，服务质量也好。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/04/29/nix-learn-to-drive/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/04/29/nix-learn-to-drive/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -885,6 +873,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -897,7 +889,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/01/09/bupt-id-card-tut/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -927,13 +925,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-09T19:05:57+08:00">
-                2014-01-09
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-01-09T19:05:57+08:00">2014-01-09</time>
             
 
+            
             
 
             
@@ -942,17 +939,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/01/09/bupt-id-card-tut/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/01/09/bupt-id-card-tut/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -969,6 +955,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -980,35 +969,32 @@
 <p>办临时身份证或者护照，需要在学校保卫科借户籍卡。于是悲剧开始了。</p>
 <p>大致是这个样子的：</p>
 <ul>
-<li>写申请，找导师签字。（如果是办护照，就需要在<a href="http://www.byr.edu.cn/">北邮人主页</a>提交申请。）</li>
+<li>写申请，找导师签字。（如果是办护照，就需要在<a href="http://www.byr.edu.cn/" target="_blank" rel="noopener">北邮人主页</a>提交申请。）</li>
 <li>找辅导员签字。</li>
 <li>到学院办公室盖章。</li>
 <li>到小白楼204的学生处盖章。</li>
 <li>带上学生证、身份证和申请到保卫处借户籍卡。慢着，他们只在上午8:30到11:30可以办理户籍卡借出！</li>
-<li>到北太平庄派出所办理。（如果是护照，<a href="http://bbs.byr.cn/#!article/GoAbroad/291163">这里</a>有一个攻略。万能的北邮人！）</li>
+<li>到北太平庄派出所办理。（如果是护照，<a href="http://bbs.byr.cn/#!article/GoAbroad/291163" target="_blank" rel="noopener">这里</a>有一个攻略。万能的北邮人！）</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/01/09/bupt-id-card-tut/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/01/09/bupt-id-card-tut/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1022,6 +1008,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1034,7 +1024,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/01/03/vimium/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1064,13 +1060,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-03T15:56:34+08:00">
-                2014-01-03
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-01-03T15:56:34+08:00">2014-01-03</time>
             
 
+            
             
 
             
@@ -1079,17 +1074,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/01/03/vimium/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/01/03/vimium/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1106,6 +1090,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1114,29 +1101,26 @@
       
         
           <p>像一个Geek一样使用Chrome吧。</p>
-<p>这款叫做<a href="https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb">Vimium</a>的插件让你可以在Chrome中使用Vim快捷键！</p>
+<p>这款叫做<a href="https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb" target="_blank" rel="noopener">Vimium</a>的插件让你可以在Chrome中使用Vim快捷键！</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/01/03/vimium/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/01/03/vimium/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1150,6 +1134,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1162,7 +1150,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/01/02/a-crawler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1192,13 +1186,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-01-02T18:49:54+08:00">
-                2014-01-02
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-01-02T18:49:54+08:00">2014-01-02</time>
             
 
+            
             
 
             
@@ -1207,17 +1200,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/01/02/a-crawler/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/01/02/a-crawler/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1234,6 +1216,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1241,30 +1226,27 @@
 
       
         
-          <p>重新学习python，写了一个爬<a href="http://jandan.net/pic/">煎蛋无聊图</a>的爬虫。</p>
+          <p>重新学习python，写了一个爬<a href="http://jandan.net/pic/" target="_blank" rel="noopener">煎蛋无聊图</a>的爬虫。</p>
 <p>这里用的是python3。python3把urllib和urllib2合并成了urllib，对于我这种喜欢吹毛求疵的人来说简直是再好不过了。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2014/01/02/a-crawler/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2014/01/02/a-crawler/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1278,6 +1260,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1290,7 +1276,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/12/31/happy-new-year/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1320,13 +1312,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-12-31T23:09:35+08:00">
-                2013-12-31
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-12-31T23:09:35+08:00">2013-12-31</time>
             
 
+            
             
 
             
@@ -1335,17 +1326,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2013/12/31/happy-new-year/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/12/31/happy-new-year/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1362,6 +1342,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1378,18 +1361,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1403,6 +1383,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1415,7 +1399,13 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/12/29/spec-work/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1445,13 +1435,12 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-12-29T00:12:01+08:00">
-                2013-12-29
-              </time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-12-29T00:12:01+08:00">2013-12-29</time>
             
 
+            
             
 
             
@@ -1460,17 +1449,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2013/12/29/spec-work/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/12/29/spec-work/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -1487,6 +1465,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1499,26 +1480,23 @@
 <p>由于静态页面制作起来比较麻烦，而且后期还不好编辑、添加内容，这次决定用Wordpress，跟Joomla差距应该不大。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2013/12/29/spec-work/#далее" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2013/12/29/spec-work/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1532,6 +1510,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1548,9 +1530,6 @@
           </div>
           
 
-
-          
-
         </div>
         
           
@@ -1564,63 +1543,119 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="Nix Wang" />
-          <p class="site-author-name" itemprop="name">Nix Wang</p>
-           
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
               <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
+          </div>
 
           
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">47</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
           
 
+          
+
+          
+
+          
+          
+
+          
           
 
           
             
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
+          
           
 
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -1637,30 +1672,40 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2013 - 
-  <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
 
 
         
+
+
+
+
+
+
 
         
       </div>
@@ -1671,6 +1716,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -1691,7 +1738,6 @@
 
 
 
-  
 
 
 
@@ -1704,41 +1750,43 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
 
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
 
 
 
@@ -1747,23 +1795,11 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
 
 
 
   
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
 
 
 
@@ -1788,12 +1824,23 @@
 
 
 
+
+
   
 
 
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
   
 
   
