@@ -276,6 +276,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/11/09/ios-dynamic-update/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/11/09/ios-dynamic-update/" itemprop="url">iOS 利用 Framework 进行动态更新</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-09T00:26:58+08:00">2015-11-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/09/ios-dynamic-update/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/11/09/ios-dynamic-update/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/11/09/ios-dynamic-update/" class="leancloud_visitors" data-flag-title="iOS 利用 Framework 进行动态更新">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言">前言</h2><p>目前 iOS 上的动态更新方案主要有以下 4 种：</p>
+<ul>
+<li>HTML 5</li>
+<li>lua（wax）hotpatch</li>
+<li>react native</li>
+<li>framework</li>
+</ul>
+<p>前面三种都是通过在应用内搭建一个运行环境来实现动态更新（HTML 5 是原生支持），在用户体验、与系统交互上有一定的限制，对开发者的要求也更高（至少得熟悉 lua 或者 js）。</p>
+<p>使用 framework 的方式来更新可以不依赖第三方库，使用原生的 OC/Swift 来开发，体验更好，开发成本也更低。</p>
+<p>由于 Apple 不希望开发者绕过 App Store 来更新 app，因此<strong>只有对于不需要上架的应用，才能以 framework 的方式实现 app 的更新。</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/11/09/ios-dynamic-update/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/09/02/ios-gotchas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1626,162 +1782,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/08/16/how-to-switch-between-view-controllers/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nix Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nix 的自我修养">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2014/08/16/how-to-switch-between-view-controllers/" itemprop="url">View Controller 之间的切换</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-16T10:14:07+08:00">2014-08-16</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2014/08/16/how-to-switch-between-view-controllers/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2014/08/16/how-to-switch-between-view-controllers/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2014/08/16/how-to-switch-between-view-controllers/" class="leancloud_visitors" data-flag-title="View Controller 之间的切换">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>View Controller 之间的切换主要有三种方式：</p>
-<ul>
-<li>Storyboard 的 segue。如果使用 Storyboard 来构建 App，那么只需要 Ctrl-Drag 即可实现 View Controller 的切换，比如将一个按钮 Ctrl-Drag 到另一个 View Controller 上。如果一个 segue 链接的是两个 View Controller，那么就需要用代码来完成跳转，这个时候需要为 segue 来指定一个 Identifier，通过调用<code>performSegueWithIdentifier:sender:</code>来完成跳转。</li>
-<li><code>pushViewController:animated:</code>方法。这个方法需要当前的 View Controller 在一个 UINavigationController 内部。UINavigationController 内部维护了一个栈来保存其中的所有 View Controller，将新的 View Controller push 到栈内就可以完成跳转。</li>
-<li><code>presentViewController:animated:completion:</code>方法。不同于上一种方法，这个方法并不是将 View Controller push 到栈内，而是维护一个 presenting 和 presented 关系。例如有两个 View Controller 分别叫 A 和 B，如果 A 调用此方法来显示 B，相当于 A <strong>拥有</strong> 了 B。A 中的<code>presentedViewController</code>属性会指向 B，B 的<code>presentingViewController</code>属性会指向 A，这个关系是由系统自动维护的。</li>
-</ul>
-<p>其中的第二种方法和第三种方法是类似的。他们之间的区别更多的是语义上的区别——<code>presentViewController:animated:completion:</code>方法更多的是在强调打断现有的工作流，展现一组新的 View 来完成某个特定的工作，通常需要向用户获取某些信息[^1]。它常常用来显示一个模态的 View，一个模态的 View 通常有下面三个特点[^2]：</p>
-<ul>
-<li>占据整个屏幕，或者 iPad 上的整个 父View 的区域。</li>
-<li>包含了完成一个任务所需的文本和控件。</li>
-<li>通常有一个完成按钮和一个取消按钮，点击它们来表示任务的完成情况，并且退出当前的 View。</li>
-</ul>
-<p>典型的场景：用户登录、添加一项待办事项。</p>
-<p>另外一个值得注意的地方是，在写 App 的时候有必要了解在各个状态下，栈中的 View Controller 都有哪些，以避免重复地 push 同一个 View Controller。并且可以利用 UINavigationController 提供的一系列 pop*ViewController 的方法来快速到达指定的 View Controller。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1833,7 +1833,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1896,7 +1896,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">24</span>
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
