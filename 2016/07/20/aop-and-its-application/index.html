@@ -110,7 +110,7 @@
 <meta property="og:site_name" content="Nix 的自我修养">
 <meta property="og:description" content="什么是 AOPWikipedia 上的 AOP 定义：  In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-02T07:47:02.117Z">
+<meta property="og:updated_time" content="2018-02-02T07:47:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AOP 及应用">
 <meta name="twitter:description" content="什么是 AOPWikipedia 上的 AOP 定义：  In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so">
@@ -215,6 +215,12 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
         </li>
       
         
@@ -824,6 +830,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'daX0gVJMRnUuyeEgXRpxSaUC-gzGzoHsz',
+        appKey: 'i9hFvVvJ3DXS71Is5Q6VFGG5',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 

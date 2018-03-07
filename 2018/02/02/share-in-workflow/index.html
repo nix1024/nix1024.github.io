@@ -112,7 +112,7 @@
 <meta property="og:description" content="大名鼎鼎的 iOS 平台的 Workflow 是一款将各个 app 打通，实现自动化完成一系列动作的应用，类似于 macOS 上 Automator。如果你还没有试过，强烈推荐你体验一下。这个 app 已经被苹果收购，可以免费下载。 我发现 Workflow 有个保存到主屏幕的功能挺有意思，研究了一下。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/2018-02-02/Share%20Workflow.png">
-<meta property="og:updated_time" content="2018-02-02T07:43:46.852Z">
+<meta property="og:updated_time" content="2018-02-02T07:43:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Workflow 添加到主屏幕是如何实现的">
 <meta name="twitter:description" content="大名鼎鼎的 iOS 平台的 Workflow 是一款将各个 app 打通，实现自动化完成一系列动作的应用，类似于 macOS 上 Automator。如果你还没有试过，强烈推荐你体验一下。这个 app 已经被苹果收购，可以免费下载。 我发现 Workflow 有个保存到主屏幕的功能挺有意思，研究了一下。">
@@ -218,6 +218,12 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
         </li>
       
         
@@ -793,6 +799,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'daX0gVJMRnUuyeEgXRpxSaUC-gzGzoHsz',
+        appKey: 'i9hFvVvJ3DXS71Is5Q6VFGG5',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 

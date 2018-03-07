@@ -113,7 +113,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/2018-01-31/UIActivityViewController.jpeg">
 <meta property="og:image" content="http://yoursite.com/images/2018-01-31/conformance_hierarchy.gif">
-<meta property="og:updated_time" content="2018-02-02T06:34:23.542Z">
+<meta property="og:updated_time" content="2018-02-02T06:34:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 中的分享">
 <meta name="twitter:description" content="分享内容国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。 相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。  如果你的 app 面向国外用户，UIActivityViewControll">
@@ -219,6 +219,12 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
         </li>
       
         
@@ -855,6 +861,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'daX0gVJMRnUuyeEgXRpxSaUC-gzGzoHsz',
+        appKey: 'i9hFvVvJ3DXS71Is5Q6VFGG5',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
