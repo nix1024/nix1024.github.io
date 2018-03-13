@@ -100,30 +100,28 @@
 
 
   
-  <meta name="keywords" content="iOS," />
+  <meta name="keywords" content="ML," />
 
 
-<meta name="description" content="Run loop 类似 Windows 中的消息循环，作用是管理线程，让线程可以接收、处理消息，在没有工作时休眠。 下图是 run loop 模型：  图片来源">
-<meta name="keywords" content="iOS">
+<meta name="description" content="通过前面的学习，我们知道了机器学习的大致过程，现在要解决的问题是：如何得到训练样本？ 假如数据库中有一堆数据，把这些数据转化成训练模型需要的特征的过程被称作表示法（representation）。">
+<meta name="keywords" content="ML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初识 Run Loop">
-<meta property="og:url" content="http://yoursite.com/2016/05/31/meet-run-loop/index.html">
+<meta property="og:title" content="TensorFlow 学习笔记（三）—— 表示法">
+<meta property="og:url" content="http://yoursite.com/2018/03/14/machine-learning-3/index.html">
 <meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="Run loop 类似 Windows 中的消息循环，作用是管理线程，让线程可以接收、处理消息，在没有工作时休眠。 下图是 run loop 模型：  图片来源">
+<meta property="og:description" content="通过前面的学习，我们知道了机器学习的大致过程，现在要解决的问题是：如何得到训练样本？ 假如数据库中有一堆数据，把这些数据转化成训练模型需要的特征的过程被称作表示法（representation）。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/2016-05-31/runloop.jpg">
-<meta property="og:updated_time" content="2016-05-31T08:51:45.000Z">
+<meta property="og:updated_time" content="2018-03-13T08:41:39.596Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初识 Run Loop">
-<meta name="twitter:description" content="Run loop 类似 Windows 中的消息循环，作用是管理线程，让线程可以接收、处理消息，在没有工作时休眠。 下图是 run loop 模型：  图片来源">
-<meta name="twitter:image" content="http://yoursite.com/images/2016-05-31/runloop.jpg">
+<meta name="twitter:title" content="TensorFlow 学习笔记（三）—— 表示法">
+<meta name="twitter:description" content="通过前面的学习，我们知道了机器学习的大致过程，现在要解决的问题是：如何得到训练样本？ 假如数据库中有一堆数据，把这些数据转化成训练模型需要的特征的过程被称作表示法（representation）。">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/05/31/meet-run-loop/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/14/machine-learning-3/"/>
 
 
 
@@ -132,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>初识 Run Loop | Nix 的自我修养</title>
+  <title>TensorFlow 学习笔记（三）—— 表示法 | Nix 的自我修养</title>
   
 
 
@@ -282,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/31/meet-run-loop/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/machine-learning-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nix Wang">
@@ -299,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">初识 Run Loop</h1>
+          <h1 class="post-title" itemprop="name headline">TensorFlow 学习笔记（三）—— 表示法</h1>
         
 
         <div class="post-meta">
@@ -311,7 +309,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-31T15:34:51+08:00">2016-05-31</time>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-14T14:40:55+08:00">2018-03-14</time>
             
 
             
@@ -329,9 +327,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/05/31/meet-run-loop/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/14/machine-learning-3/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/05/31/meet-run-loop/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/14/machine-learning-3/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -339,7 +337,7 @@
 
           
           
-             <span id="/2016/05/31/meet-run-loop/" class="leancloud_visitors" data-flag-title="初识 Run Loop">
+             <span id="/2018/03/14/machine-learning-3/" class="leancloud_visitors" data-flag-title="TensorFlow 学习笔记（三）—— 表示法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -370,87 +368,56 @@
       
 
       
-        <p>Run loop 类似 Windows 中的消息循环，作用是管理线程，让线程可以接收、处理消息，在没有工作时休眠。</p>
-<p>下图是 run loop 模型：</p>
-<p><img src="/images/2016-05-31/runloop.jpg" alt="Run loop 模型"></p>
-<p><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html" target="_blank" rel="noopener">图片来源</a></p>
+        <p>通过前面的学习，我们知道了机器学习的大致过程，现在要解决的问题是：如何得到训练样本？</p>
+<p>假如数据库中有一堆数据，把这些数据转化成训练模型需要的特征的过程被称作表示法（representation）。</p>
 <a id="more"></a>
-<p>在图中可以看到：Run loop 是一个死循环，在每个循环开始时会检查是否达到设定的退出时间，然后依次检查监听的各种事件源（input source/performSelector/timer)是否有新事件产生，如果有就执行相应的回调。当一次循环结束时就会让线程休眠，直到被 Timer 或者其他事件源唤醒。</p>
-<p><strong>线程与 run loop 是一一对应的，一个 run Loop 包含了多个 run loop mode，每个 mode 又包含了多个事件源。</strong>它们之间的关系如下图。</p>
-<pre>
-+--------+  +---------------------------------------------------+
-|        |  |                      Run Loop                     |
-|        |  | +------------------+   +------------------+       |
-|        |  | |  Run Loop Mode   |   |  Run Loop Mode   |       |
-|        |  | | +--------------+ |   | +--------------+ |       |
-|        |  | | | Input Source | |   | | Input Source | |       |
-|        |  | | +--------------+ |   | +--------------+ |       |
-| Thread |  | | +--------------+ |   | +--------------+ |  ...  |
-|        |  | | |     Timer    | |   | |     Timer    | |       |
-|        |  | | +--------------+ |   | +--------------+ |       |
-|        |  | | +--------------+ |   | +--------------+ |       |
-|        |  | | |   Observer   | |   | |   Observer   | |       |
-|        |  | | +--------------+ |   | +--------------+ |       |
-|        |  | +------------------+   +------------------+       |
-+--------+  +---------------------------------------------------+
-</pre>
-
-<p><a href="http://asciiflow.com/" target="_blank" rel="noopener">字符画工具 asciiflow</a></p>
-<p>下面来逐一介绍各个部分。</p>
-<h1 id="Run_Loop_Mode">Run Loop Mode</h1><p>一个 run loop mode 包含了一组 input sources、一组 timer 和一组 run loop 的 observer。Run loop 总是运行在某个 run loop mode 下，这个时候只有这个 run loop mode 中的事件才会被接收和处理，observer 才会被通知。如果一个 input sources 产生的事件并没有被监听就会被 hold 住，直到 run loop 运行在合适的 mode 下。</p>
-<p>在代码中，可以通过名称来指定需要的 mode。然后至少添加一个或者多个 input sources/timer/observer。在大多数情况下，我们只需要将 run loop 运行在默认的 mode 下即可，但是在特定情况下（比如某些对实时性要求比较高的场景）可以通过创建一个自定义的 mode 来过滤一些不需要处理的事件。</p>
-<p>常用的预定义的 mode 有以下几种：</p>
-<ul>
-<li>NSDefaultRunLoopMode：默认的 mode，通常情况下都使用它。</li>
-<li>NSEventTrackingRunLoopMode：涉及到用户交互（如鼠标拖动、或者 UIScrollView 滚动）时使用的 mode。</li>
-<li>NSRunLoopCommonModes：Run loop 有个 _commonModeItems 属性，其中保存了一些 input sources/timer/observer，这些 item 是所有的 Common Modes 所共享的。自定义的 mode 也可以将自身标记为 Common Mode。</li>
-</ul>
-<p>一个例子：</p>
-<p>Github 上一个开源的查看图片的项目 <a href="https://github.com/mwaterfall/MWPhotoBrowser" target="_blank" rel="noopener">MWPhotoBrowser</a> 在显示照片列表时有一个 bug：在用户滚动 <code>UICollectionView</code> 的时候，新显示的图片加载不出来。</p>
-<p>原因是：MWPhotoBrowser 内部加载完图片之后会用 <code>performSelector:withObject:afterDelay:</code> 调用 <code>postCompleteNotification</code> 方法抛出一个 <code>MWPHOTO_LOADING_DID_END_NOTIFICATION</code> 消息。这个时候默认使用的是 default mode，因此在 <code>UICollectionView</code> 滚动停止之前，主线程都不会接收到这个消息。解决的方法也很简单，将抛消息这个动作添加到 Common Modes 即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self performSelector:@selector(postCompleteNotification) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];</span><br></pre></td></tr></table></figure>
-<h1 id="Input_Sources">Input Sources</h1><p>Input Sources 分为两类：自定义（source0）和基于 mach port（source1）和。Mac port 是<a href="http://nshipster.com/inter-process-communication/" target="_blank" rel="noopener">进程间通信</a>的一种方法。两种 source 产生的事件处理方法是一致的，唯一的不同是基于 mach port 的事件是自动触发的，而自定义的事件需要手动触发。</p>
-<p>例如调用 <code>performSelector:onThread:</code> 时，系统会添加一个 input source 到指定的线程上，并且在执行完之后将自身从相应的 run loop 中移除。此时对应的线程必须要有一个运行着的 run loop，否则 selector 将不会被执行（还记得主线程的 run loop 会由系统来运行，而我们自己创建的线程需要自己显式运行）。</p>
-<p>一个例子：</p>
-<p>苹果会帮 app 注册一个基于 mach port 的事件源，并设置了一个回调函数 <code>_UIApplicationHandleEventQueue()</code>。当用户每一次点击屏幕上的一个按钮时，系统会通过 mach port 将事件发送给 app，app 通过回调来相应事件。 </p>
-<h1 id="Timer_Source">Timer Source</h1><p>Timer 和其他的 source 一样，是需要添加到某个 mode 中才能被监听。如果在 timer 的触发时间到了，而 run loop 没有在其所在的 mode 下运行时，对应的事件就不会被触发，直到前面的条件满足。</p>
-<p>如果 timer 的触发时间到了，而 run loop 正在处理其他的事件，那么 timer 的事件就会在 run loop 的下一个循环中处理。因此，timer 并不一定会在指定的时间准时触发。</p>
-<h1 id="Observers">Observers</h1><p>在 run loop 执行的各个阶段，系统还会发送相应的通知，通过注册监听这些消息来做一些额外的工作。可以监听的消息有：</p>
-<ul>
-<li>Run loop 的入口。</li>
-<li>Run loop 即将处理一个 timer。</li>
-<li>Run loop 即将处理一个 input source。</li>
-<li>Run loop 即将休眠。</li>
-<li>Run loop 被唤醒（还没有处理任何事件）。</li>
-<li>Run loop 即将退出。</li>
-</ul>
-<p>一个例子：</p>
-<p>在 ARC 环境下，一个 autorelease 对象会在一次 run loop 循环周期的结束时释放。苹果是这样实现的：</p>
-<ul>
-<li>监听 run loop 的入口消息，调用 <code>_wrapRunLoopWithAutoreleasePoolHandler()</code> 创建新的内存池。</li>
-<li>监听 run loop 即将休眠的消息，调用 <code>_objc_autoreleasePoolPop()</code> 和 <code>_objc_autoreleasePoolPush()</code> 释放旧的内存池并创建新内存池。</li>
-<li>监听 run loop 退出消息，调用 <code>_objc_autoreleasePoolPop()</code> 来释放内存池。</li>
-</ul>
-<h1 id="运行和停止_Run_Loop">运行和停止 Run Loop</h1><p>在运行后台线程的 run loop 之前，至少需要添加一个 input source 或者 timer，否则 run loop 会在运行后立刻退出。在添加一个 timer 后，每当 timer 触发时线程都会被唤醒，而添加 input source 时，只在对应的事件发生时才会唤醒线程，因此相比较于添加 timer，添加 input source 是一个更高效的方法。</p>
-<p>一个例子：</p>
-<p>在 AFNetworking 中创建一个常驻线程的方法是让 run loop 监听一个 port based input source：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+ (void)networkRequestThreadEntryPoint:(id)__unused object &#123;</span><br><span class="line">@autoreleasepool &#123;</span><br><span class="line">[[NSThread currentThread] setName:@&quot;AFNetworking&quot;];</span><br><span class="line">NSRunLoop *runLoop = [NSRunLoop currentRunLoop];</span><br><span class="line">[runLoop addPort:[NSMachPort port] forMode:NSDefaultRunLoopMode];</span><br><span class="line">[runLoop run];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (NSThread *)networkRequestThread &#123;</span><br><span class="line">static NSThread *_networkRequestThread = nil;</span><br><span class="line">static dispatch_once_t oncePredicate;</span><br><span class="line">dispatch_once(&amp;oncePredicate, ^&#123;</span><br><span class="line">_networkRequestThread = [[NSThread alloc] initWithTarget:self selector:@selector(networkRequestThreadEntryPoint:) object:nil];</span><br><span class="line">[_networkRequestThread start];</span><br><span class="line">&#125;);</span><br><span class="line">return _networkRequestThread;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里添加的 input source 并没有实际作用，只是为了让线程不退出而已。在真正需要处理任务的时候使用 <code>performSelector:onThread:</code> 来把任务丢到这个线程。</p>
+<h1 id="特征工程（Feature_Engineering）">特征工程（Feature Engineering）</h1><p>在机器学习过程中，大量的时间不是用来写代码，而是花在特征工程上。</p>
 <blockquote>
-<p>值得注意的是：NSRunLoop 类不是线程安全的，因此<strong>必须只在一个线程内操作自己对应的 run loop</strong>。</p>
+<p>有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。</p>
 </blockquote>
-<p>要停止一个 run loop 有两种方法：在运行 run loop 时指定一个超时时间或者显式调用 <code>CFRunLoopStop</code>。</p>
-<h1 id="Run_Loop_的应用场景">Run Loop 的应用场景</h1><p>系统默认会创建并运行一个主线程的 run loop。对于开发者自己创建的线程，用户需要显式地运行这个 run loop。之所以要这样设计是因为是某些情况下 run loop 是不需要运行的：比如你需要执行一个定义好的长期运行的任务。Run loop 适用于交互性比较强的任务：</p>
+<p>特征工程指确定哪些特征可能在训练模型方面非常有用，然后将日志文件及其他来源的原始数据转换为所需的特征。因为机器学习能处理的是数值，因此转换的结果是由<strong>实数</strong>组成的<strong>特征矢量</strong>。</p>
+<p>在实际操作中我们手头的数据类型多种多样，要根据不同类型做不同的处理：</p>
+<h2 id="数值">数值</h2><p>不需要做处理。</p>
+<h2 id="字符串">字符串</h2><p>我们自然会想到使用枚举值来代替字符串。比如有个字段名是街道名，包含三个值：文一西路、常二路、文二路，我们会想到用 1， 2， 3 来表示三个值。但是这样有一个问题：学习算法会认为这三个值是有顺序或者有大小区别的。</p>
+<p>因此我们对于<strong>无序的</strong>字符串，会使用<strong>独热编码(one-hot encoding)</strong>来转化。</p>
+<blockquote>
+<p>独热编码即 One-Hot 编码，又称一位有效编码，其方法是使用 N 位状态寄存器来对 N 个状态进行编码，每个状态都由他独立的寄存器位，并且在任意时候，其中只有一位有效。</p>
+</blockquote>
+<p>对于前面的例子，转化结果如下：</p>
+<p>[“文一西路”, “常二路”, “文二路”] =&gt; [[1, 0, 0], [0, 1, 0], [0, 0, 1]]</p>
+<h2 id="枚举值">枚举值</h2><p>比如有一组用户喜欢的水果数据，可能的值有苹果、香蕉、桃。类似于字符串，我们用三个布尔值组合起来表示。与独热编码不同的是：我们允许其中的多个值同时为真（用户同时喜欢苹果和香蕉）。</p>
+<h1 id="挑选特征">挑选特征</h1><p>知道了如何转换特征之后，我们要知道如何挑选合适的特征，合适的特征应该是什么样的呢？</p>
 <ul>
-<li>需要使用 mach port 或者其他方式与其他线程通信。</li>
-<li>需要使用 timer。</li>
-<li>需要使用 <code>performSelector</code> 相关的方法。</li>
-<li>需要保证线程不退出来执行一些周期性的任务。</li>
+<li>不能太过独特：比如每个用户的 ID 都是不同的，学习算法无法从中学习任何规律。</li>
+<li>含义明确：数据容易让人理解，不能超出常识范围。比如温度值为 -300 度显然是无效的数据。</li>
+<li>不包含 magic number：我们写程序的时候可能会设置一些 magic number 来表示一些不同的状态，比如用 -1 表示数据不存在。这样的数据不应该直接放到特征向量中，而应该拆分成两个值，一个表示数据是否存在，一个表示实际的数据。</li>
+<li>数据上游应该稳定：不应该选取可能随时间变化的值来作为特征。</li>
 </ul>
-<h1 id="Ref">Ref</h1><ul>
-<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html" target="_blank" rel="noopener">Run Loops - Apple Developer</a></li>
-<li><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">深入理解RunLoop | Garan no dou</a></li>
+<h1 id="清理数据">清理数据</h1><p>在把样本提供给学习算法训练之前，需要对数据进行一些加工，让训练的速度更快、模型的预测更准确。</p>
+<h2 id="无效数据">无效数据</h2><p>从数据源得到的数据并不一定是完全准确的，也不一定是适合机器学习算法的，常见的错误有：</p>
+<ul>
+<li>遗漏数据。</li>
+<li>重复样本。</li>
+<li>错误的标签。</li>
+<li>错误的特征值。</li>
 </ul>
+<p>统计一下数据的最大、最小值、均值等数据可能会快速找到这些无效的数据。</p>
+<h2 id="缩放特征值">缩放特征值</h2><p>缩放是指将浮点特征值从自然范围（例如 100 到 900）转换为标准范围（例如 0 到 1 或 -1 到 +1）。</p>
+<p>缩放的好处是：</p>
+<ul>
+<li>可以让梯度下降法更快收敛。</li>
+<li>避免学习算法因为精度或者数值范围问题得到奇怪的结果。</li>
+<li>帮助模型为每个特征确定合适的权重。如果没有进行特征缩放，则模型会对范围较大的特征投入过多精力。</li>
+</ul>
+<h2 id="处理极端离群值">处理极端离群值</h2><p>对于某些明显偏离正常范围的值，我们可以：</p>
+<ul>
+<li>对每个值取对数。</li>
+<li>设置最大值，超过最大值数据的都调整为最大值。</li>
+</ul>
+<h2 id="分箱（Bucketing）">分箱（Bucketing）</h2><blockquote>
+<p>将一个特征（通常是连续特征）转换成多个二元特征（称为桶或箱），通常是根据值区间进行转换。例如，您可以将温度区间分割为离散分箱，而不是将温度表示成单个连续的浮点特征。假设温度数据可精确到小数点后一位，则可以将介于 0.0 到 15.0 度之间的所有温度都归入一个分箱，将介于 15.1 到 30.0 度之间的所有温度归入第二个分箱，并将介于 30.1 到 50.0 度之间的所有温度归入第三个分箱。</p>
+</blockquote>
+<p>这样的好处是可以减少运算量。</p>
 
       
     </div>
@@ -497,7 +464,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ios/" rel="tag"># iOS</a>
+            <a href="/tags/ml/" rel="tag"># ML</a>
           
         </div>
       
@@ -510,8 +477,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/09/kill-debug-symbol-warnings/" rel="next" title="消除引入第三方 Framework 导致的 Warning">
-                <i class="fa fa-chevron-left"></i> 消除引入第三方 Framework 导致的 Warning
+              <a href="/2018/03/12/machine-learning-2/" rel="next" title="TensorFlow 学习笔记（二）—— 初步使用">
+                <i class="fa fa-chevron-left"></i> TensorFlow 学习笔记（二）—— 初步使用
               </a>
             
           </div>
@@ -519,10 +486,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/20/aop-and-its-application/" rel="prev" title="AOP 及应用">
-                AOP 及应用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -709,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Run_Loop_Mode"><span class="nav-number">1.</span> <span class="nav-text">Run Loop Mode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Input_Sources"><span class="nav-number">2.</span> <span class="nav-text">Input Sources</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timer_Source"><span class="nav-number">3.</span> <span class="nav-text">Timer Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Observers"><span class="nav-number">4.</span> <span class="nav-text">Observers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行和停止_Run_Loop"><span class="nav-number">5.</span> <span class="nav-text">运行和停止 Run Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Run_Loop_的应用场景"><span class="nav-number">6.</span> <span class="nav-text">Run Loop 的应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征工程（Feature_Engineering）"><span class="nav-number">1.</span> <span class="nav-text">特征工程（Feature Engineering）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数值"><span class="nav-number">1.1.</span> <span class="nav-text">数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.2.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举值"><span class="nav-number">1.3.</span> <span class="nav-text">枚举值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挑选特征"><span class="nav-number">2.</span> <span class="nav-text">挑选特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#清理数据"><span class="nav-number">3.</span> <span class="nav-text">清理数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无效数据"><span class="nav-number">3.1.</span> <span class="nav-text">无效数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缩放特征值"><span class="nav-number">3.2.</span> <span class="nav-text">缩放特征值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理极端离群值"><span class="nav-number">3.3.</span> <span class="nav-text">处理极端离群值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分箱（Bucketing）"><span class="nav-number">3.4.</span> <span class="nav-text">分箱（Bucketing）</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -869,9 +832,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://yoursite.com/2016/05/31/meet-run-loop/';
-        this.page.identifier = '2016/05/31/meet-run-loop/';
-        this.page.title = '初识 Run Loop';
+        this.page.url = 'http://yoursite.com/2018/03/14/machine-learning-3/';
+        this.page.identifier = '2018/03/14/machine-learning-3/';
+        this.page.title = 'TensorFlow 学习笔记（三）—— 表示法';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
