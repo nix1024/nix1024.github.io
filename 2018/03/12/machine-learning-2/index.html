@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="ML," />
+
+
+<meta name="description" content="TensorFlow 简介 TensorFlow™ 是一个使用数据流图进行数值计算的开源软件库。图中的节点代表数学运算， 而图中的边则代表在这些节点之间传递的多维数组（张量）。这种灵活的架构可让您使用一个 API 将计算工作部署到桌面设备、服务器或者移动设备中的一个或多个 CPU 或 GPU。 TensorFlow 最初是由 Google 机器智能研究部门的 Google Brain 团队中的研究">
+<meta name="keywords" content="ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 学习笔记（二）">
+<meta property="og:url" content="http://yoursite.com/2018/03/12/machine-learning-2/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="TensorFlow 简介 TensorFlow™ 是一个使用数据流图进行数值计算的开源软件库。图中的节点代表数学运算， 而图中的边则代表在这些节点之间传递的多维数组（张量）。这种灵活的架构可让您使用一个 API 将计算工作部署到桌面设备、服务器或者移动设备中的一个或多个 CPU 或 GPU。 TensorFlow 最初是由 Google 机器智能研究部门的 Google Brain 团队中的研究">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/12/machine-learning-2/images/2018-03-12/TensorFlow结构.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/12/machine-learning-2/images/2018-03-12/overfitting.png">
+<meta property="og:updated_time" content="2018-03-13T03:10:23.689Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow 学习笔记（二）">
+<meta name="twitter:description" content="TensorFlow 简介 TensorFlow™ 是一个使用数据流图进行数值计算的开源软件库。图中的节点代表数学运算， 而图中的边则代表在这些节点之间传递的多维数组（张量）。这种灵活的架构可让您使用一个 API 将计算工作部署到桌面设备、服务器或者移动设备中的一个或多个 CPU 或 GPU。 TensorFlow 最初是由 Google 机器智能研究部门的 Google Brain 团队中的研究">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/12/machine-learning-2/images/2018-03-12/TensorFlow结构.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/12/machine-learning-2/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>TensorFlow 学习笔记（二） | Nix 的自我修养</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39883395-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-39883395-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nix 的自我修养</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/12/machine-learning-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow 学习笔记（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-12T20:03:25+08:00">2018-03-12</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/12/machine-learning-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/12/machine-learning-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/03/12/machine-learning-2/" class="leancloud_visitors" data-flag-title="TensorFlow 学习笔记（二）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="TensorFlow_简介">TensorFlow 简介</h1><blockquote>
+<p>TensorFlow™ 是一个使用数据流图进行数值计算的开源软件库。图中的节点代表数学运算， 而图中的边则代表在这些节点之间传递的多维数组（张量）。这种灵活的架构可让您使用一个 API 将计算工作部署到桌面设备、服务器或者移动设备中的一个或多个 CPU 或 GPU。 TensorFlow 最初是由 Google 机器智能研究部门的 Google Brain 团队中的研究人员和工程师开发的，用于进行机器学习和深度神经网络研究， 但它是一个非常基础的系统，因此也可以应用于众多其他领域。</p>
+</blockquote>
+<h1 id="TensorFlow_结构">TensorFlow 结构</h1><p><a href="https:#www.tensorflow.org/install/install_mac" target="_blank" rel="noopener">安装文档</a></p>
+<p>你可以直接在 Google 的 <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Colaboratory</a> 直接运行代码，也可以在本地 tf 目录通过<code>source bin/activate</code> 激活 tf 环境后在 python 中运行代码。</p>
+<p><img src="images/2018-03-12/TensorFlow结构.png" alt="TensorFlow结构"></p>
+<p>其中 tf.estimator 抽象级别比较高，使用起来很方便但缺乏灵活性。</p>
+<p>一份线性回归的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line"># Set up a linear classifier.</span><br><span class="line">classifier = tf.estimator.LinearClassifier()</span><br><span class="line"></span><br><span class="line"># Train the model on some example data.</span><br><span class="line">classifier.train(input_fn=train_input_fn, steps=2000)</span><br><span class="line"></span><br><span class="line"># Use it to predict.</span><br><span class="line">predictions = classifier.predict(input_fn=predict_input_fn)</span><br></pre></td></tr></table></figure>
+<p>在了解 TensorFlow 的使用之前，我们先需要了解在 TensorFlow 中数据的表现形式。TensorFlow 中数据常常用 pandas 来进行输入和处理。</p>
+<h1 id="Pandas">Pandas</h1><blockquote>
+<p>pandas 是一种列存数据分析 API。它是用于处理和分析输入数据的强大工具，很多机器学习框架都支持将 pandas 数据结构作为输入。</p>
+</blockquote>
+<h2 id="基本概念">基本概念</h2><ul>
+<li>DataFrame：类似数据库表，包含行和列。</li>
+<li>Series：类似数据库表中的一行数据。</li>
+</ul>
+<h2 id="基本使用">基本使用</h2><h3 id="导入数据">导入数据</h3><p>Pandas 使用起来非常简单，你可以直接初始化 Series 然后加上列名初始化一个 DataFrame：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">city_names = pd.Series([&apos;San Francisco&apos;, &apos;San Jose&apos;, &apos;Sacramento&apos;])</span><br><span class="line">population = pd.Series([852469, 1015785, 485199])</span><br><span class="line"></span><br><span class="line">pd.DataFrame(&#123; &apos;City name&apos;: city_names, &apos;Population&apos;: population &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>还可以直接从 csv 文件导入数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">california_housing_dataframe = pd.read_csv(&quot;https:#storage.googleapis.com/mledu-datasets/california_housing_train.csv&quot;, sep=&quot;,&quot;)</span><br></pre></td></tr></table></figure>
+<p>DataFrame 有一些实用方法：</p>
+<ul>
+<li><code>describe()</code>：查看数据集的总体信息。</li>
+<li><code>head()</code>：查看数据集的前几条数据。</li>
+</ul>
+<p>假设我们有一组这样的数据：</p>
+<pre><code><span class="string">| City name | Population</span>
+</code></pre><p>——|—————-|—————-<br>0|San Francisco|852469<br>1|San Jose|1015785<br>2|Sacramento|485199</p>
+<p>以此为例子来演示使用 Pandas 处理数据。</p>
+<h3 id="读数据">读数据</h3><p>可以用 Python 中的 dict/list 相关方法来访问 DataFrame 的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">city_names = pd.Series([&apos;San Francisco&apos;, &apos;San Jose&apos;, &apos;Sacramento&apos;]) # 初始化 Series</span><br><span class="line">population = pd.Series([852469, 1015785, 485199]) # 初始化 Series</span><br><span class="line">cities = pd.DataFrame(&#123; &apos;City name&apos;: city_names, &apos;Population&apos;: population &#125;) # 初始化 DataFrame</span><br><span class="line">cities[&apos;City name&apos;] # 使用下标来获取某一列的数据，返回类型是 Series</span><br><span class="line">cities[&apos;City name&apos;][1] # 使用下标来访问 Series 中特定位置的数据，返回类型是具体数据的类型</span><br><span class="line">cities[0:2] # 使用下标访问某一范围的数据，返回类型是 DataFrame</span><br></pre></td></tr></table></figure>
+<h3 id="加工数据">加工数据</h3><p>看一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cities[&apos;Is wide and has saint name&apos;] = (cities[&apos;Area square miles&apos;] &gt; 50) &amp; cities[&apos;City name&apos;].apply(lambda name: name.startswith(&apos;San&apos;)) # 为 cities 增加一列，列名叫 `Is wide and has saint name`，类型是 bool，条件是面积大于 50 且 名字以 San 开头</span><br></pre></td></tr></table></figure>
+<p>由此可以看出：</p>
+<ul>
+<li>可以直接对 Series 进行数学运算，得到的仍是 Series。</li>
+<li>可以通过 <code>apply</code> 方法转换（类似 map）Series 的内容。</li>
+<li>两个 Series 也可以进行运算，得出的结果仍然是 Series。</li>
+<li>可以通过下标直接将 Series 赋值到 DataFrame 中。</li>
+</ul>
+<p>最终得到下面的数据：</p>
+<pre><code>|City <span class="property">name</span>|    Population|Area square miles |Population density |Is wide <span class="keyword">and</span> has saint <span class="property">name</span>
+</code></pre><p>——-|———|———|————-|———|—-<br>0|    San Francisco|    852469    |46.87    |18187.945381|False<br>1|    San Jose    |1015785    |176.53    |5754.177760|True<br>2|    Sacramento    |485199    |97.92    |4955.055147 |False</p>
+<h3 id="索引">索引</h3><p>创建一个 DataFrame 后，pandas 会为<strong>每个 DataFrame 行及 Series 数据项</strong>创建索引，并且<strong>一个 DataFrame 行/Series 数据项的索引值不会因为自身的顺序变化而变化</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">city_names.index	# Series 数据项的索引</span><br><span class="line"># 输出：RangeIndex(start=0, stop=3, step=1)</span><br><span class="line"></span><br><span class="line">cities.index 	# DataFrame 行的索引</span><br><span class="line"># 输出：RangeIndex(start=0, stop=3, step=1)</span><br></pre></td></tr></table></figure>
+<p>我们可以使用 <code>reindex</code> 来修改 DataFrame 中数据的顺序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cities.reindex([2, 0, 1])</span><br></pre></td></tr></table></figure>
+<p>更进一步的，我们还可以通过 Numpy 中的随机方法 <code>random.permutation</code> 获取随机的索引来重新排列 DataFrame 中的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">cities.reindex(np.random.permutation(cities.index))</span><br></pre></td></tr></table></figure>
+<p>主意 <code>reindex</code> 方法参数中的索引可以不包含所有索引，甚至可以包含不存在的索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cities.reindex([0, 4, 5, 2]) # 不存在的索引项，数据会以 NaN 填充</span><br></pre></td></tr></table></figure>
+<h1 id="初步使用_TensorFlow">初步使用 TensorFlow</h1><h2 id="使用步骤">使用步骤</h2><p>使用 TensorFlow 的步骤如下（以线性回归问题为例）：</p>
+<ol>
+<li>准备数据：使用 pandas 导入数据并做初步的处理，比如过滤异常数据、随机排序。</li>
+<li>构建模型：定义特征列（feature column）和目标。使用 TensorFlow Estimate API 提供的 <code>LinearRegressor</code> 接口可以方便地处理线性回归问题。</li>
+<li>配置线性回归：使用 <code>tf.train.GradientDescentOptimizer</code> 来进行梯度下降法（内部实现是小批量随机梯度下降法）训练模型，并使用 <code>tf.contrib.estimator.clip_gradients_by_norm</code> 来进行裁剪，确保数值稳定性以及防止梯度爆炸。</li>
+<li>定义输入函数：输入函数用来返回每次迭代的输入数据，告诉 TensorFlow 如何预处理数据、批的大小、是否需要随机处理以及重复。</li>
+<li>训练模型：使用 <code>linear_regressor.train</code> 来训练模型。</li>
+<li>评估模型：使用 <code>linear_regressor.predict</code> 来进行预测，然后通过计算均方根误差（RMSE）来评估模型的效果。通过不断调整得到合适的超参数来达到最佳的训练效果。</li>
+</ol>
+<h2 id="调整超参数">调整超参数</h2><p>常用的超参数包括学习速率、步数、批次大小等：</p>
+<ul>
+<li>步数（steps）：是指训练迭代的总次数。</li>
+<li>批次大小（batch size）：是指单步的样本数量（随机选择）。例如，SGD 的批量大小为 1。</li>
+</ul>
+<p>有一些经验法则：</p>
+<blockquote>
+<ul>
+<li>训练误差应该稳步减小，刚开始是急剧减小，最终应随着训练收敛达到平稳状态。</li>
+<li>如果训练尚未收敛，尝试运行更长的时间。</li>
+<li>如果训练误差减小速度过慢，则提高学习速率也许有助于加快其减小速度。<ul>
+<li>但有时如果学习速率过高，训练误差的减小速度反而会变慢。</li>
+</ul>
+</li>
+<li>如果训练误差变化很大，尝试降低学习速率。<ul>
+<li>较低的学习速率和较大的步数/较大的批量大小通常是不错的组合。</li>
+</ul>
+</li>
+<li>批量大小过小也会导致不稳定情况。不妨先尝试 100 或 1000 等较大的值，然后逐渐减小值的大小，直到出现性能降低的情况。<br>重申一下，<strong>切勿严格遵循这些经验法则，因为效果取决于数据</strong>。请始终进行试验和验证。</li>
+</ul>
+</blockquote>
+<h2 id="合成特征和离群值">合成特征和离群值</h2><p>合成特征是指除了使用已有的特征外，我们还可以将多个特征进行组合计算得到新的特征作为输入以达到更好的训练效果。例如我们已经有某个城市住房总套数、总人口数据以及房价数据，我们可以直接使用房子总数或者总人口数作为输入数据，还可以使用人均住房套数（住房总套数 / 总人口）作为输入数据。</p>
+<p>所谓离群值是数据中明显偏离正常范围的值。所谓「偏离正常范围」可以表现为将数据反映在图表上之后可以看到某些点明显「不合群」。我们可以通过 pandas 设置一个合理的范围预先将这些数据做过滤。</p>
+<h2 id="泛化（Generalization）与过拟合（Overfitting）">泛化（Generalization）与过拟合（Overfitting）</h2><p>泛化指的是模型依据训练时采用的数据，针对以前未见过的新数据做出正确预测的能力。</p>
+<p>泛化能力大小与过拟合有关，Quora 上有一个<a href="https://www.quora.com/What-is-generalization-in-machine-learning" target="_blank" rel="noopener">回答</a>很好地解释了过拟合的概念：</p>
+<blockquote>
+<p>A machine learning algorithm is used to fit a model to data. Training the model is kind of like infancy for humans… examples are presented to the model and the model tweaks its internal parameters to better understand the data. Once training is over, the model is unleashed upon new data and then uses what it has learned to explain that data. </p>
+<p>Now here’s where problems can emerge. If you overtrain the model on the training data, then it will be able to identify all the relevant information in the training data, but will fail miserably when presented with the new data. We then say that the model is incapable of generalizing, or that it is overfitting the training data. </p>
+</blockquote>
+<p>简而言之就是模型对现有的数据解释很好，但是对新的数据预测效果很差。这个时候我们说这个模型不能泛化，或者过拟合（overfitting）了训练数据。</p>
+<p>来看一个例子：我们有一个财富与幸福程度的模型。随着训练时间的增加（从左到右），模型复杂程度越来越高，对训练数据拟合程度越来越好（训练错误越来越少），但训练后期对新数据的预测错误却在增加。</p>
+<p><img src="images/2018-03-12/overfitting.png" alt="TensorFlow结构"></p>
+<p>因此，过度的训练会导致过拟合，模型的预测能力反而会下降。这也符合<a href="https://zh.wikipedia.org/wiki/%E5%A5%A5%E5%8D%A1%E5%A7%86%E5%89%83%E5%88%80" target="_blank" rel="noopener">奥卡姆剃刀原理</a>：</p>
+<blockquote>
+<p>如果关于同一个问题有许多种理论，每一种都能作出同样准确的预言，那么应该挑选其中使用假定最少的。尽管越复杂的方法通常能做出越好的预言，但是在不考虑预言能力（即结果大致相同）的情况下，假设越少越好。</p>
+</blockquote>
+<h2 id="训练集（Training_Set）和测试集（Test_Set）">训练集（Training Set）和测试集（Test Set）</h2><p>那如何知道我们的模型对新数据能够做出相对准确的数据而没有过拟合呢？</p>
+<p>答案是我们可以把已有的数据分为<strong>训练集</strong>和<strong>测试集</strong>，用训练集中的数据来训练模型，使用测试集中的数据来测试模型，如果<strong>对于训练集和测试集得到的预测效果一样好则可以认为模型对于新的数据也能做出准确的判断</strong>。</p>
+<p>测试集应该满足两个条件：</p>
+<ul>
+<li>样本数足够大。</li>
+<li>与整个数据集特征相同。如果预测房价时测试集中的数据只有城市中心区域的数据，那测试结果肯定是不准确的。</li>
+</ul>
+<p>值得注意的是，一定不要使用测试集的数据来训练模型。这样你会发现模型对测试集的预测准确率惊人地高，但这样的结果是没有意义的。</p>
+<h2 id="验证集（Validation_Set）">验证集（Validation Set）</h2><p>如果仅仅把数据分为训练集和测试集，那么我们会很自然地根据测试集的测试结果来调整超参数，这样会导致一个结果：对测试集的数据过拟合。</p>
+<p>为了避免这样的情况，我们把数据集分为三个部分，训练集、测试集和验证集，根据在验证集上的测试结果对超参数进行调整，测试集仅仅用来测试。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ml/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/07/machine-learning/" rel="next" title="TensorFlow 学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> TensorFlow 学习笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TensorFlow_简介"><span class="nav-number">1.</span> <span class="nav-text">TensorFlow 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TensorFlow_结构"><span class="nav-number">2.</span> <span class="nav-text">TensorFlow 结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pandas"><span class="nav-number">3.</span> <span class="nav-text">Pandas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">3.2.</span> <span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导入数据"><span class="nav-number">3.2.1.</span> <span class="nav-text">导入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读数据"><span class="nav-number">3.2.2.</span> <span class="nav-text">读数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加工数据"><span class="nav-number">3.2.3.</span> <span class="nav-text">加工数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">3.2.4.</span> <span class="nav-text">索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初步使用_TensorFlow"><span class="nav-number">4.</span> <span class="nav-text">初步使用 TensorFlow</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用步骤"><span class="nav-number">4.1.</span> <span class="nav-text">使用步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整超参数"><span class="nav-number">4.2.</span> <span class="nav-text">调整超参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合成特征和离群值"><span class="nav-number">4.3.</span> <span class="nav-text">合成特征和离群值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛化（Generalization）与过拟合（Overfitting）"><span class="nav-number">4.4.</span> <span class="nav-text">泛化（Generalization）与过拟合（Overfitting）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练集（Training_Set）和测试集（Test_Set）"><span class="nav-number">4.5.</span> <span class="nav-text">训练集（Training Set）和测试集（Test Set）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证集（Validation_Set）"><span class="nav-number">4.6.</span> <span class="nav-text">验证集（Validation Set）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2018/03/12/machine-learning-2/';
+        this.page.identifier = '2018/03/12/machine-learning-2/';
+        this.page.title = 'TensorFlow 学习笔记（二）';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nix1024.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("daX0gVJMRnUuyeEgXRpxSaUC-gzGzoHsz", "i9hFvVvJ3DXS71Is5Q6VFGG5");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

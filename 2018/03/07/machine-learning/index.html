@@ -106,7 +106,7 @@
 <meta name="description" content="本文是谷歌机器学习速成课程的学习笔记。 简介 机器学习是人工智能的一个分支。机器学习是实现人工智能的一个途径，即以机器学习为手段解决人工智能中的问题。  机器学习有下面优势：  可以增加编程效率。比如可以快速开发拼写纠正程序，而不是通过研究语法来实现逻辑。 可以制作更通用的工具。如果已经使用机器学习编写了针对一种语言的拼写纠正程序，那么只要通过提供相应的数据就可以快速实现针对另一种语言的拼写纠正程">
 <meta name="keywords" content="ML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习笔记（一）">
+<meta property="og:title" content="TensorFlow 学习笔记（一）">
 <meta property="og:url" content="http://yoursite.com/2018/03/07/machine-learning/index.html">
 <meta property="og:site_name" content="Nix 的自我修养">
 <meta property="og:description" content="本文是谷歌机器学习速成课程的学习笔记。 简介 机器学习是人工智能的一个分支。机器学习是实现人工智能的一个途径，即以机器学习为手段解决人工智能中的问题。  机器学习有下面优势：  可以增加编程效率。比如可以快速开发拼写纠正程序，而不是通过研究语法来实现逻辑。 可以制作更通用的工具。如果已经使用机器学习编写了针对一种语言的拼写纠正程序，那么只要通过提供相应的数据就可以快速实现针对另一种语言的拼写纠正程">
@@ -118,9 +118,9 @@
 <meta property="og:image" content="http://yoursite.com/images/2018-03-07/next.png">
 <meta property="og:image" content="http://yoursite.com/images/2018-03-07/学习速率过低.png">
 <meta property="og:image" content="http://yoursite.com/images/2018-03-07/学习速率过高.png">
-<meta property="og:updated_time" content="2018-03-07T15:07:33.287Z">
+<meta property="og:updated_time" content="2018-03-12T03:02:39.480Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习笔记（一）">
+<meta name="twitter:title" content="TensorFlow 学习笔记（一）">
 <meta name="twitter:description" content="本文是谷歌机器学习速成课程的学习笔记。 简介 机器学习是人工智能的一个分支。机器学习是实现人工智能的一个途径，即以机器学习为手段解决人工智能中的问题。  机器学习有下面优势：  可以增加编程效率。比如可以快速开发拼写纠正程序，而不是通过研究语法来实现逻辑。 可以制作更通用的工具。如果已经使用机器学习编写了针对一种语言的拼写纠正程序，那么只要通过提供相应的数据就可以快速实现针对另一种语言的拼写纠正程">
 <meta name="twitter:image" content="http://yoursite.com/images/2018-03-07/linear%20regression.png">
 
@@ -138,7 +138,7 @@
     sidebar: "",
   };
 </script>
-  <title>机器学习笔记（一） | Nix 的自我修养</title>
+  <title>TensorFlow 学习笔记（一） | Nix 的自我修养</title>
   
 
 
@@ -305,7 +305,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">机器学习笔记（一）</h1>
+          <h1 class="post-title" itemprop="name headline">TensorFlow 学习笔记（一）</h1>
         
 
         <div class="post-meta">
@@ -345,7 +345,7 @@
 
           
           
-             <span id="/2018/03/07/machine-learning/" class="leancloud_visitors" data-flag-title="机器学习笔记（一）">
+             <span id="/2018/03/07/machine-learning/" class="leancloud_visitors" data-flag-title="TensorFlow 学习笔记（一）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -392,24 +392,25 @@
 <p>監督式學習，是一個機器學習中的方法，可以由訓練資料中學到或建立一個模式（函數/ learning model），並依此模式推測新的实例。</p>
 </blockquote>
 <p>如果想教会机器识别垃圾邮件，首先给机器提供大量邮件并且告诉机器：「这是垃圾邮件」或者「这不是垃圾邮件」。通过大量的「训练」之后，机器就可以预测一封从未见过的邮件是不是垃圾邮件。</p>
-<h2 id="标签">标签</h2><p>标签是我们需要机器判断的事物，如一封邮件「是不是垃圾邮件」。</p>
-<h2 id="特征">特征</h2><p>特征是机器识别对象的某种性质，如一封邮件的标题、发件人地址、包含某个特定短语。</p>
-<h2 id="样本">样本</h2><p>样本是数据的特定实例，如一封邮件。样本分为两类：</p>
+<h2 id="标签（Label）">标签（Label）</h2><p>标签是我们需要机器判断的事物，是机器学习预测的答案或结果。如一封邮件「是不是垃圾邮件」。</p>
+<h2 id="特征（Feature）">特征（Feature）</h2><p>特征是机器识别对象的某种性质，是机器学习预测的输入变量。如一封邮件的标题、发件人地址、包含某个特定短语。</p>
+<h2 id="样本（Example）">样本（Example）</h2><p>样本是数据的特定实例，如一封邮件。样本分为两类：</p>
 <ul>
 <li>有标签样本：同时包含特征和标签，如一封垃圾邮件或一封正常邮件。</li>
 <li>无标签样本：仅仅包含特征而没有标签，如一封邮件但我们并不知道是否是垃圾邮件。</li>
 </ul>
 <p>我们通过有标签样本来训练我们的模型，然后使用训练好的模型来预测无标签样本的标签。</p>
-<h2 id="模型">模型</h2><p>模型定义特征与标签之间的关系。模型的生命周期分为两个阶段：</p>
+<h2 id="模型（Model）">模型（Model）</h2><p>模型定义特征与标签之间的关系。模型的生命周期分为两个阶段：</p>
 <ul>
 <li>训练/学习：通过提供大量的样本，让模型学习特征与标签之间的关系。</li>
 <li>推断：训练完毕后，模型便可以预测无标签样本的标签。</li>
 </ul>
 <h2 id="回归与分类">回归与分类</h2><ul>
-<li>回归模型用来预测连续值：如房价、点击概率。</li>
-<li>分类模型用来预测离散值：如判断邮件是不是垃圾邮件，图片中包含的内容是猫还是狗。</li>
+<li>回归模型（regression model）用来预测连续值：如房价、点击概率。</li>
+<li>分类模型（classification model）用来预测离散值：如判断邮件是不是垃圾邮件，图片中包含的内容是猫还是狗。</li>
 </ul>
-<h1 id="线性回归">线性回归</h1><p>在某些情况下，特征和标签之间是简单的线性关系，如气温和蟋蟀鸣叫次数：</p>
+<p>完整的<a href="https://developers.google.com/machine-learning/glossary" target="_blank" rel="noopener">术语列表</a>。</p>
+<h1 id="线性回归（Linear_Regression）">线性回归（Linear Regression）</h1><p>在某些情况下，特征和标签之间是简单的线性关系，如气温和蟋蟀鸣叫次数：</p>
 <p><img src="/images/2018-03-07/linear regression.png" alt="线性回归"></p>
 <p>所谓线性关系，就是我们可以通过画一条直线来近似表示两者之间的关系。初中数学告诉我们，可以用下面的公司来表示：</p>
 <p>$$y = mx + b$$</p>
@@ -424,7 +425,7 @@
 </ul>
 <p>实际应用中一个模型可能包含多个特征：</p>
 <p>$$y’ = b + \omega_1x_1 + \omega_2x_2 + \omega_3x_3$$</p>
-<h2 id="训练与损失">训练与损失</h2><p>在训练过程中，模型预测得出的值与实际值是有损失的。比如下面两个模型</p>
+<h2 id="训练（Training）与损失（Loss）">训练（Training）与损失（Loss）</h2><p>在训练过程中，模型预测得出的值与实际值是有损失的。比如下面两个模型</p>
 <p><img src="/images/2018-03-07/loss.png" alt="损失"></p>
 <p>图中蓝线表示预测，红色箭头表示损失。不难看出左边的模型损失比较大，换句话说，右边的模型预测更准确。</p>
 <p>如何衡量不同模型的准确程度？中学数学中有一个方差的概念：</p>
@@ -445,18 +446,18 @@
 <p>$$y’ = b + \omega_1x_1$$</p>
 <p>我们需要确认的参数是 $b$ 和 $\omega_1$。于是机器学习系统会随机产生两个值带入进入，计算其损失值（比如使用前面提到的方差计算法），然后根据得出的损失值不断调整这两个参数代入模型，<strong>直到损失不再变化或者变化及其缓慢为止</strong>。这个时候可以说模型已经<strong>收敛</strong>。</p>
 <p>因此最关键的部分是<strong>如何计算参数更新</strong>。</p>
-<h2 id="梯度下降法">梯度下降法</h2><p>对于回归问题，所产生的损失与权重的图形始终是凸形。</p>
+<h2 id="梯度下降法（Gradient_Descent）">梯度下降法（Gradient Descent）</h2><p>对于回归问题，所产生的损失与权重的图形始终是凸形。</p>
 <p><img src="/images/2018-03-07/convex.png" alt="回归问题产生的损失与权重图为凸形"></p>
 <p>因此我们总是能找到一个 $\omega$ 使得损失最小。当然我们可以通过枚举所有的 $\omega$ 来找到使损失最小的值，但这样的计算代价往往不能接受。我们通常使用<strong>梯度下降法</strong>。</p>
 <p>首先我们随机取一个起点，然后计算损失曲线在起点处的梯度。梯度是偏导数的矢量，指向损失函数增长最快的方向，那么沿着梯度相反的方向来调整权重就可以快速降低损失。</p>
 <p><img src="/images/2018-03-07/next.png" alt="回归问题产生的损失与权重图为凸形"></p>
 <p>通过在起点上增加梯度调整到下一个点，然后一步一步逼近使损失的最小值。</p>
-<h2 id="学习速率">学习速率</h2><p>前面我们了解到，我们通过向梯度相反的方向来调整参数，其中调整速度的快慢被称作学习速率（也叫步长）。梯度是矢量，具有方向和大小，假设梯度的大小是 0.25，学习速率是 0.1，那么下一个参数的值就是当前的值加上 0.025。</p>
+<h2 id="学习速率（Learning_Rate）">学习速率（Learning Rate）</h2><p>前面我们了解到，我们通过向梯度相反的方向来调整参数，其中调整速度的快慢被称作学习速率（也叫步长）。梯度是矢量，具有方向和大小，假设梯度的大小是 0.25，学习速率是 0.1，那么下一个参数的值就是当前的值加上 0.025。</p>
 <p>学习速率过高或者过低都会有问题：</p>
 <p><img src="/images/2018-03-07/学习速率过低.png" alt="学习速率过低"></p>
 <p>学习速率过低会大大增加计算量。</p>
 <p><img src="/images/2018-03-07/学习速率过高.png" alt="学习速率过高"><br>学习速率过高则有可能会错过最低点。</p>
-<p>因此如何设置恰当的学习速率是非常关键的。这种用来调整机器学习算法的值被称作<strong>超参数</strong>。</p>
+<p>因此如何设置恰当的学习速率是非常关键的。这种用来调整机器学习算法的值被称作<strong>超参数（hyperparameter）</strong>。</p>
 <h2 id="随机梯度下降法">随机梯度下降法</h2><p>在梯度下降法中，<strong>批量</strong>指的是用于在单次迭代中计算梯度的样本总数。在每一次迭代中，我们对选择样本有三种策略：</p>
 <ul>
 <li>批量梯度下降法（Batch Gradient Descent）：每次迭代计算整个数据集的损失。这样做的好处是可以得到全局最优解，坏处是计算量非常大，并且因为超大批量的数据包含了大量冗余数据，使用起来并不一定比大批量数据好。</li>
@@ -531,6 +532,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/12/machine-learning-2/" rel="prev" title="TensorFlow 学习笔记（二）">
+                TensorFlow 学习笔记（二） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -618,7 +623,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-count">49</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -719,7 +724,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#术语"><span class="nav-number">2.</span> <span class="nav-text">术语</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#监督式机器学习（Supervised_Learning）"><span class="nav-number">2.1.</span> <span class="nav-text">监督式机器学习（Supervised Learning）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签"><span class="nav-number">2.2.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征"><span class="nav-number">2.3.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样本"><span class="nav-number">2.4.</span> <span class="nav-text">样本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">2.5.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归与分类"><span class="nav-number">2.6.</span> <span class="nav-text">回归与分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归"><span class="nav-number">3.</span> <span class="nav-text">线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练与损失"><span class="nav-number">3.1.</span> <span class="nav-text">训练与损失</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#降低损失"><span class="nav-number">4.</span> <span class="nav-text">降低损失</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代方法"><span class="nav-number">4.1.</span> <span class="nav-text">迭代方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降法"><span class="nav-number">4.2.</span> <span class="nav-text">梯度下降法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习速率"><span class="nav-number">4.3.</span> <span class="nav-text">学习速率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机梯度下降法"><span class="nav-number">4.4.</span> <span class="nav-text">随机梯度下降法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#术语"><span class="nav-number">2.</span> <span class="nav-text">术语</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#监督式机器学习（Supervised_Learning）"><span class="nav-number">2.1.</span> <span class="nav-text">监督式机器学习（Supervised Learning）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签（Label）"><span class="nav-number">2.2.</span> <span class="nav-text">标签（Label）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征（Feature）"><span class="nav-number">2.3.</span> <span class="nav-text">特征（Feature）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样本（Example）"><span class="nav-number">2.4.</span> <span class="nav-text">样本（Example）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型（Model）"><span class="nav-number">2.5.</span> <span class="nav-text">模型（Model）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归与分类"><span class="nav-number">2.6.</span> <span class="nav-text">回归与分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归（Linear_Regression）"><span class="nav-number">3.</span> <span class="nav-text">线性回归（Linear Regression）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练（Training）与损失（Loss）"><span class="nav-number">3.1.</span> <span class="nav-text">训练（Training）与损失（Loss）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#降低损失"><span class="nav-number">4.</span> <span class="nav-text">降低损失</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代方法"><span class="nav-number">4.1.</span> <span class="nav-text">迭代方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降法（Gradient_Descent）"><span class="nav-number">4.2.</span> <span class="nav-text">梯度下降法（Gradient Descent）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习速率（Learning_Rate）"><span class="nav-number">4.3.</span> <span class="nav-text">学习速率（Learning Rate）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机梯度下降法"><span class="nav-number">4.4.</span> <span class="nav-text">随机梯度下降法</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -881,7 +886,7 @@
       var disqus_config = function () {
         this.page.url = 'http://yoursite.com/2018/03/07/machine-learning/';
         this.page.identifier = '2018/03/07/machine-learning/';
-        this.page.title = '机器学习笔记（一）';
+        this.page.title = 'TensorFlow 学习笔记（一）';
       };
       function loadComments () {
         var d = document, s = d.createElement('script');
