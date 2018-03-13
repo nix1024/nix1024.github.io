@@ -111,13 +111,13 @@
 <meta property="og:site_name" content="Nix 的自我修养">
 <meta property="og:description" content="TensorFlow 简介 TensorFlow™ 是一个使用数据流图进行数值计算的开源软件库。图中的节点代表数学运算， 而图中的边则代表在这些节点之间传递的多维数组（张量）。这种灵活的架构可让您使用一个 API 将计算工作部署到桌面设备、服务器或者移动设备中的一个或多个 CPU 或 GPU。 TensorFlow 最初是由 Google 机器智能研究部门的 Google Brain 团队中的研究">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/12/machine-learning-2/images/2018-03-12/TensorFlow结构.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/12/machine-learning-2/images/2018-03-12/overfitting.png">
-<meta property="og:updated_time" content="2018-03-13T03:14:47.105Z">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-12/TensorFlow结构.png">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-12/overfitting.png">
+<meta property="og:updated_time" content="2018-03-13T03:17:21.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow 学习笔记（二）">
 <meta name="twitter:description" content="TensorFlow 简介 TensorFlow™ 是一个使用数据流图进行数值计算的开源软件库。图中的节点代表数学运算， 而图中的边则代表在这些节点之间传递的多维数组（张量）。这种灵活的架构可让您使用一个 API 将计算工作部署到桌面设备、服务器或者移动设备中的一个或多个 CPU 或 GPU。 TensorFlow 最初是由 Google 机器智能研究部门的 Google Brain 团队中的研究">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/12/machine-learning-2/images/2018-03-12/TensorFlow结构.png">
+<meta name="twitter:image" content="http://yoursite.com/images/2018-03-12/TensorFlow结构.png">
 
 
 
@@ -377,7 +377,7 @@
 <a id="more"></a>
 <h1 id="TensorFlow_结构">TensorFlow 结构</h1><p><a href="https:#www.tensorflow.org/install/install_mac" target="_blank" rel="noopener">安装文档</a></p>
 <p>你可以直接在 Google 的 <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Colaboratory</a> 直接运行代码，也可以在本地 tf 目录通过<code>source bin/activate</code> 激活 tf 环境后在 python 中运行代码。</p>
-<p><img src="images/2018-03-12/TensorFlow结构.png" alt="TensorFlow结构"></p>
+<p><img src="/images/2018-03-12/TensorFlow结构.png" alt="TensorFlow结构"></p>
 <p>其中 tf.estimator 抽象级别比较高，使用起来很方便但缺乏灵活性。</p>
 <p>一份线性回归的代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line"># Set up a linear classifier.</span><br><span class="line">classifier = tf.estimator.LinearClassifier()</span><br><span class="line"></span><br><span class="line"># Train the model on some example data.</span><br><span class="line">classifier.train(input_fn=train_input_fn, steps=2000)</span><br><span class="line"></span><br><span class="line"># Use it to predict.</span><br><span class="line">predictions = classifier.predict(input_fn=predict_input_fn)</span><br></pre></td></tr></table></figure>
@@ -398,8 +398,32 @@
 <li><code>head()</code>：查看数据集的前几条数据。</li>
 </ul>
 <p>假设我们有一组这样的数据：</p>
-<pre><code><span class="string">| City name | Population</span>
-</code></pre><p>——|—————-|—————-<br>0|San Francisco|852469<br>1|San Jose|1015785<br>2|Sacramento|485199</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>City name</th>
+<th>Population</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>San Francisco</td>
+<td>852469</td>
+</tr>
+<tr>
+<td>1</td>
+<td>San Jose</td>
+<td>1015785</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sacramento</td>
+<td>485199</td>
+</tr>
+</tbody>
+</table>
 <p>以此为例子来演示使用 Pandas 处理数据。</p>
 <h3 id="读数据">读数据</h3><p>可以用 Python 中的 dict/list 相关方法来访问 DataFrame 的数据：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">city_names = pd.Series([&apos;San Francisco&apos;, &apos;San Jose&apos;, &apos;Sacramento&apos;]) # 初始化 Series</span><br><span class="line">population = pd.Series([852469, 1015785, 485199]) # 初始化 Series</span><br><span class="line">cities = pd.DataFrame(&#123; &apos;City name&apos;: city_names, &apos;Population&apos;: population &#125;) # 初始化 DataFrame</span><br><span class="line">cities[&apos;City name&apos;] # 使用下标来获取某一列的数据，返回类型是 Series</span><br><span class="line">cities[&apos;City name&apos;][1] # 使用下标来访问 Series 中特定位置的数据，返回类型是具体数据的类型</span><br><span class="line">cities[0:2] # 使用下标访问某一范围的数据，返回类型是 DataFrame</span><br></pre></td></tr></table></figure>
@@ -413,8 +437,44 @@
 <li>可以通过下标直接将 Series 赋值到 DataFrame 中。</li>
 </ul>
 <p>最终得到下面的数据：</p>
-<pre><code>|City <span class="property">name</span>|    Population|Area square miles |Population density |Is wide <span class="keyword">and</span> has saint <span class="property">name</span>
-</code></pre><p>——-|———|———|————-|———|—-<br>0|    San Francisco|    852469    |46.87    |18187.945381|False<br>1|    San Jose    |1015785    |176.53    |5754.177760|True<br>2|    Sacramento    |485199    |97.92    |4955.055147 |False</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>City name</th>
+<th>Population</th>
+<th>Area square miles</th>
+<th>Population density</th>
+<th>Is wide and has saint name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>San Francisco</td>
+<td>852469</td>
+<td>46.87</td>
+<td>18187.945381</td>
+<td>False</td>
+</tr>
+<tr>
+<td>1</td>
+<td>San Jose</td>
+<td>1015785</td>
+<td>176.53</td>
+<td>5754.177760</td>
+<td>True</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sacramento</td>
+<td>485199</td>
+<td>97.92</td>
+<td>4955.055147</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
 <h3 id="索引">索引</h3><p>创建一个 DataFrame 后，pandas 会为<strong>每个 DataFrame 行及 Series 数据项</strong>创建索引，并且<strong>一个 DataFrame 行/Series 数据项的索引值不会因为自身的顺序变化而变化</strong>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">city_names.index	# Series 数据项的索引</span><br><span class="line"># 输出：RangeIndex(start=0, stop=3, step=1)</span><br><span class="line"></span><br><span class="line">cities.index 	# DataFrame 行的索引</span><br><span class="line"># 输出：RangeIndex(start=0, stop=3, step=1)</span><br></pre></td></tr></table></figure>
 <p>我们可以使用 <code>reindex</code> 来修改 DataFrame 中数据的顺序：</p>
@@ -463,7 +523,7 @@
 </blockquote>
 <p>简而言之就是模型对现有的数据解释很好，但是对新的数据预测效果很差。这个时候我们说这个模型不能泛化，或者过拟合（overfitting）了训练数据。</p>
 <p>来看一个例子：我们有一个财富与幸福程度的模型。随着训练时间的增加（从左到右），模型复杂程度越来越高，对训练数据拟合程度越来越好（训练错误越来越少），但训练后期对新数据的预测错误却在增加。</p>
-<p><img src="images/2018-03-12/overfitting.png" alt="TensorFlow结构"></p>
+<p><img src="/images/2018-03-12/overfitting.png" alt="TensorFlow结构"></p>
 <p>因此，过度的训练会导致过拟合，模型的预测能力反而会下降。这也符合<a href="https://zh.wikipedia.org/wiki/%E5%A5%A5%E5%8D%A1%E5%A7%86%E5%89%83%E5%88%80" target="_blank" rel="noopener">奥卡姆剃刀原理</a>：</p>
 <blockquote>
 <p>如果关于同一个问题有许多种理论，每一种都能作出同样准确的预言，那么应该挑选其中使用假定最少的。尽管越复杂的方法通常能做出越好的预言，但是在不考虑预言能力（即结果大致相同）的情况下，假设越少越好。</p>
