@@ -113,7 +113,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/2018-01-31/UIActivityViewController.jpeg">
 <meta property="og:image" content="http://yoursite.com/images/2018-01-31/conformance_hierarchy.gif">
-<meta property="og:updated_time" content="2018-02-02T06:34:23.000Z">
+<meta property="og:updated_time" content="2018-03-14T12:32:08.317Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 中的分享">
 <meta name="twitter:description" content="分享内容国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。 相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。  如果你的 app 面向国外用户，UIActivityViewControll">
@@ -371,7 +371,7 @@
       
 
       
-        <h2 id="分享内容">分享内容</h2><p>国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。</p>
+        <h1 id="分享内容">分享内容</h1><p>国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。</p>
 <p>相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。</p>
 <p><img src="/images/2018-01-31/UIActivityViewController.jpeg" alt="UIActivityViewController"></p>
 <p>如果你的 app 面向国外用户，UIActivityViewController 了解一下。：）</p>
@@ -398,7 +398,7 @@
 </ul>
 <p>最后 present 设置完毕的 UIActivityViewController。</p>
 <p>至此，分享功能就介绍完了。</p>
-<h2 id="打开分享的文件">打开分享的文件</h2><p>但是如果想用你的 app 打开某个文件，也就是出现在 UIActivityViewController 分享界面中，还需要做额外的一些工作。</p>
+<h1 id="打开分享的文件">打开分享的文件</h1><p>但是如果想用你的 app 打开某个文件，也就是出现在 UIActivityViewController 分享界面中，还需要做额外的一些工作。</p>
 <p>在开始之前，你需要了解 <a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_intro/understand_utis_intro.html#//apple_ref/doc/uid/TP40001319" target="_blank" rel="noopener">UTI（Uniform Type Identifiers）</a> 的概念。</p>
 <p>简单来讲，UTI 是苹果定义的用来区分文件类型的标志符。同样是文本文件，不同文件的后缀名可能是 txt、text、html，但实际上一个纯文本编辑器都能打开它们。如果系统遇到一个陌生的文件后缀，也可以通过 UTI 来正确识别，并且知道哪些应用可以用来打开这个文件。</p>
 <p><img src="/images/2018-01-31/conformance_hierarchy.gif" alt="Conformance Hierarchy"></p>
@@ -408,7 +408,7 @@
 <p>AppDelegate 有个方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -&gt; Bool</span><br></pre></td></tr></table></figure>
 <p>当系统通过你的 app 打开文件时会调用这个方法，其中的 <code>url</code> 就是文件的 URL，可以通过这个 URL 来获取文件内容。</p>
-<h2 id="自定义文件类型">自定义文件类型</h2><p>如果你的 app 会生成自定义格式，那么你需要声明一个自定义的 UTI，Exported UTI 了解一下。</p>
+<h1 id="自定义文件类型">自定义文件类型</h1><p>如果你的 app 会生成自定义格式，那么你需要声明一个自定义的 UTI，Exported UTI 了解一下。</p>
 <p>要声明一个自定义的 UTI 需要以下几个信息：</p>
 <ul>
 <li>UTTypeIdentifier：自定义 UTI 的唯一标识符。</li>
@@ -586,7 +586,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -685,7 +685,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分享内容"><span class="nav-number">1.</span> <span class="nav-text">分享内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打开分享的文件"><span class="nav-number">2.</span> <span class="nav-text">打开分享的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义文件类型"><span class="nav-number">3.</span> <span class="nav-text">自定义文件类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分享内容"><span class="nav-number">1.</span> <span class="nav-text">分享内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打开分享的文件"><span class="nav-number">2.</span> <span class="nav-text">打开分享的文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义文件类型"><span class="nav-number">3.</span> <span class="nav-text">自定义文件类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

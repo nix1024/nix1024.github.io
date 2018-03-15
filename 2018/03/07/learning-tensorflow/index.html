@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.3" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="ML," />
+
+
+<meta name="description" content="本文是谷歌机器学习速成课程的学习笔记。 简介 机器学习是人工智能的一个分支。机器学习是实现人工智能的一个途径，即以机器学习为手段解决人工智能中的问题。  机器学习有下面优势：  可以增加编程效率。比如可以快速开发拼写纠正程序，而不是通过研究语法来实现逻辑。 可以制作更通用的工具。如果已经使用机器学习编写了针对一种语言的拼写纠正程序，那么只要通过提供相应的数据就可以快速实现针对另一种语言的拼写纠正程">
+<meta name="keywords" content="ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 学习笔记（一）—— 术语">
+<meta property="og:url" content="http://yoursite.com/2018/03/07/learning-tensorflow/index.html">
+<meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="本文是谷歌机器学习速成课程的学习笔记。 简介 机器学习是人工智能的一个分支。机器学习是实现人工智能的一个途径，即以机器学习为手段解决人工智能中的问题。  机器学习有下面优势：  可以增加编程效率。比如可以快速开发拼写纠正程序，而不是通过研究语法来实现逻辑。 可以制作更通用的工具。如果已经使用机器学习编写了针对一种语言的拼写纠正程序，那么只要通过提供相应的数据就可以快速实现针对另一种语言的拼写纠正程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-07/linear%20regression.png">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-07/loss.png">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-07/iterative%20method.png">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-07/convex.png">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-07/next.png">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-07/学习速率过低.png">
+<meta property="og:image" content="http://yoursite.com/images/2018-03-07/学习速率过高.png">
+<meta property="og:updated_time" content="2018-03-13T08:40:39.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow 学习笔记（一）—— 术语">
+<meta name="twitter:description" content="本文是谷歌机器学习速成课程的学习笔记。 简介 机器学习是人工智能的一个分支。机器学习是实现人工智能的一个途径，即以机器学习为手段解决人工智能中的问题。  机器学习有下面优势：  可以增加编程效率。比如可以快速开发拼写纠正程序，而不是通过研究语法来实现逻辑。 可以制作更通用的工具。如果已经使用机器学习编写了针对一种语言的拼写纠正程序，那么只要通过提供相应的数据就可以快速实现针对另一种语言的拼写纠正程">
+<meta name="twitter:image" content="http://yoursite.com/images/2018-03-07/linear%20regression.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/07/learning-tensorflow/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>TensorFlow 学习笔记（一）—— 术语 | Nix 的自我修养</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39883395-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-39883395-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nix 的自我修养</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/learning-tensorflow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow 学习笔记（一）—— 术语</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-07T16:24:24+08:00">2018-03-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/07/learning-tensorflow/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/07/learning-tensorflow/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/03/07/learning-tensorflow/" class="leancloud_visitors" data-flag-title="TensorFlow 学习笔记（一）—— 术语">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是<a href="https://developers.google.cn/machine-learning/crash-course/" target="_blank" rel="noopener">谷歌机器学习速成课程</a>的学习笔记。</p>
+<h1 id="简介">简介</h1><blockquote>
+<p>机器学习是人工智能的一个分支。机器学习是实现人工智能的一个途径，即以机器学习为手段解决人工智能中的问题。</p>
+</blockquote>
+<p>机器学习有下面优势：</p>
+<ul>
+<li>可以增加编程效率。比如可以快速开发拼写纠正程序，而不是通过研究语法来实现逻辑。</li>
+<li>可以制作更通用的工具。如果已经使用机器学习编写了针对一种语言的拼写纠正程序，那么只要通过提供相应的数据就可以快速实现针对另一种语言的拼写纠正程序。</li>
+<li>解决无法用常规的逻辑解决的问题。如果没有机器学习，你很难教机器如何识别一个苹果。</li>
+</ul>
+<p>除了上述优势之外，学习机器学习还可以改变我们的思考方式：我们可以跳出原有的使用逻辑来实现功能的思维方式，利用机器学习去实现一些以前根本无法想象的功能。</p>
+<a id="more"></a>
+<h1 id="术语">术语</h1><h2 id="监督式机器学习（Supervised_Learning）">监督式机器学习（Supervised Learning）</h2><blockquote>
+<p>監督式學習，是一個機器學習中的方法，可以由訓練資料中學到或建立一個模式（函數/ learning model），並依此模式推測新的实例。</p>
+</blockquote>
+<p>如果想教会机器识别垃圾邮件，首先给机器提供大量邮件并且告诉机器：「这是垃圾邮件」或者「这不是垃圾邮件」。通过大量的「训练」之后，机器就可以预测一封从未见过的邮件是不是垃圾邮件。</p>
+<h2 id="标签（Label）">标签（Label）</h2><p>标签是我们需要机器判断的事物，是机器学习预测的答案或结果。如一封邮件「是不是垃圾邮件」。</p>
+<h2 id="特征（Feature）">特征（Feature）</h2><p>特征是机器识别对象的某种性质，是机器学习预测的输入变量。如一封邮件的标题、发件人地址、包含某个特定短语。</p>
+<h2 id="样本（Example）">样本（Example）</h2><p>样本是数据的特定实例，如一封邮件。样本分为两类：</p>
+<ul>
+<li>有标签样本：同时包含特征和标签，如一封垃圾邮件或一封正常邮件。</li>
+<li>无标签样本：仅仅包含特征而没有标签，如一封邮件但我们并不知道是否是垃圾邮件。</li>
+</ul>
+<p>我们通过有标签样本来训练我们的模型，然后使用训练好的模型来预测无标签样本的标签。</p>
+<h2 id="模型（Model）">模型（Model）</h2><p>模型定义特征与标签之间的关系。模型的生命周期分为两个阶段：</p>
+<ul>
+<li>训练/学习：通过提供大量的样本，让模型学习特征与标签之间的关系。</li>
+<li>推断：训练完毕后，模型便可以预测无标签样本的标签。</li>
+</ul>
+<h2 id="回归与分类">回归与分类</h2><ul>
+<li>回归模型（regression model）用来预测连续值：如房价、点击概率。</li>
+<li>分类模型（classification model）用来预测离散值：如判断邮件是不是垃圾邮件，图片中包含的内容是猫还是狗。</li>
+</ul>
+<p>完整的<a href="https://developers.google.com/machine-learning/glossary" target="_blank" rel="noopener">术语列表</a>。</p>
+<h1 id="线性回归（Linear_Regression）">线性回归（Linear Regression）</h1><p>在某些情况下，特征和标签之间是简单的线性关系，如气温和蟋蟀鸣叫次数：</p>
+<p><img src="/images/2018-03-07/linear regression.png" alt="线性回归"></p>
+<p>所谓线性关系，就是我们可以通过画一条直线来近似表示两者之间的关系。初中数学告诉我们，可以用下面的公司来表示：</p>
+<p>$$y = mx + b$$</p>
+<p>按照机器学习的惯例可以写成：</p>
+<p>$$y’ = b + \omega_1x_1$$</p>
+<p>其中</p>
+<ul>
+<li>$y’$ 是预测标签。</li>
+<li>$b$ 是偏差（y 轴截距）。</li>
+<li>$\omega_1$ 是特征1 的权重。</li>
+<li>$x_1$ 是特征值。</li>
+</ul>
+<p>实际应用中一个模型可能包含多个特征：</p>
+<p>$$y’ = b + \omega_1x_1 + \omega_2x_2 + \omega_3x_3$$</p>
+<h2 id="训练（Training）与损失（Loss）">训练（Training）与损失（Loss）</h2><p>在训练过程中，模型预测得出的值与实际值是有损失的。比如下面两个模型</p>
+<p><img src="/images/2018-03-07/loss.png" alt="损失"></p>
+<p>图中蓝线表示预测，红色箭头表示损失。不难看出左边的模型损失比较大，换句话说，右边的模型预测更准确。</p>
+<p>如何衡量不同模型的准确程度？中学数学中有一个方差的概念：</p>
+<p>$$MSE = \frac{1}{N}\sum_{(x,y) \in D} (y - prediction(x))^2$$</p>
+<p>其中：</p>
+<ul>
+<li>$(x,y)$ 指的是样本，$x$ 是特征，$y$ 是标签。</li>
+<li>$prediction(x)$ 是模型预测的值。</li>
+<li>$D$ 是样本集。</li>
+<li>$N$ 是样本数量。</li>
+</ul>
+<p>尽管方法是机器学习常用的损失函数，但它不是唯一、也不一定是所有情况下最好的损失函数。</p>
+<h1 id="降低损失">降低损失</h1><p>现在我们知道了我们的目标：使用模型通过特征来预测标签，也知道了完成目标的衡量标准：损失，接下来就是如何减少损失。</p>
+<h2 id="迭代方法">迭代方法</h2><p>在机器学习中，一般通过迭代的方法来找到最佳模型。</p>
+<p><img src="/images/2018-03-07/iterative method.png" alt="迭代方法"></p>
+<p>通过不断调整计算参数并计算新参数下模型的损失，最终找到一组使损失最小的参数。</p>
+<p>比如前面的例子：</p>
+<p>$$y’ = b + \omega_1x_1$$</p>
+<p>我们需要确认的参数是 $b$ 和 $\omega_1$。于是机器学习系统会随机产生两个值带入进入，计算其损失值（比如使用前面提到的方差计算法），然后根据得出的损失值不断调整这两个参数代入模型，<strong>直到损失不再变化或者变化及其缓慢为止</strong>。这个时候可以说模型已经<strong>收敛</strong>。</p>
+<p>因此最关键的部分是<strong>如何计算参数更新</strong>。</p>
+<h2 id="梯度下降法（Gradient_Descent）">梯度下降法（Gradient Descent）</h2><p>对于回归问题，所产生的损失与权重的图形始终是凸形。</p>
+<p><img src="/images/2018-03-07/convex.png" alt="回归问题产生的损失与权重图为凸形"></p>
+<p>因此我们总是能找到一个 $\omega$ 使得损失最小。当然我们可以通过枚举所有的 $\omega$ 来找到使损失最小的值，但这样的计算代价往往不能接受。我们通常使用<strong>梯度下降法</strong>。</p>
+<p>首先我们随机取一个起点，然后计算损失曲线在起点处的梯度。梯度是偏导数的矢量，指向损失函数增长最快的方向，那么沿着梯度相反的方向来调整权重就可以快速降低损失。</p>
+<p><img src="/images/2018-03-07/next.png" alt="回归问题产生的损失与权重图为凸形"></p>
+<p>通过在起点上增加梯度调整到下一个点，然后一步一步逼近使损失的最小值。</p>
+<h2 id="学习速率（Learning_Rate）">学习速率（Learning Rate）</h2><p>前面我们了解到，我们通过向梯度相反的方向来调整参数，其中调整速度的快慢被称作学习速率（也叫步长）。梯度是矢量，具有方向和大小，假设梯度的大小是 0.25，学习速率是 0.1，那么下一个参数的值就是当前的值加上 0.025。</p>
+<p>学习速率过高或者过低都会有问题：</p>
+<p><img src="/images/2018-03-07/学习速率过低.png" alt="学习速率过低"></p>
+<p>学习速率过低会大大增加计算量。</p>
+<p><img src="/images/2018-03-07/学习速率过高.png" alt="学习速率过高"><br>学习速率过高则有可能会错过最低点。</p>
+<p>因此如何设置恰当的学习速率是非常关键的。这种用来调整机器学习算法的值被称作<strong>超参数（hyperparameter）</strong>。</p>
+<h2 id="随机梯度下降法">随机梯度下降法</h2><p>在梯度下降法中，<strong>批量</strong>指的是用于在单次迭代中计算梯度的样本总数。在每一次迭代中，我们对选择样本有三种策略：</p>
+<ul>
+<li>批量梯度下降法（Batch Gradient Descent）：每次迭代计算整个数据集的损失。这样做的好处是可以得到全局最优解，坏处是计算量非常大，并且因为超大批量的数据包含了大量冗余数据，使用起来并不一定比大批量数据好。</li>
+<li>随机梯度下降法（Stochastic Gradient Descent）：每次迭代只随机抽取一个样本（批量大小为 1）。显然这样做随机性太大，效果也不好。</li>
+<li>小批量随机梯度下降法（Mini-batch Gradient Descent）：介于前两者之间的方法，每次随机选取 100~1000 个样本。这样兼顾了效率和准确性。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ml/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/02/applications-of-ml/" rel="next" title="applications of ml">
+                <i class="fa fa-chevron-left"></i> applications of ml
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/12/learning-tensorflow-2/" rel="prev" title="TensorFlow 学习笔记（二）—— 初步使用">
+                TensorFlow 学习笔记（二）—— 初步使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Nix Wang" />
+            
+              <p class="site-author-name" itemprop="name">Nix Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#术语"><span class="nav-number">2.</span> <span class="nav-text">术语</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#监督式机器学习（Supervised_Learning）"><span class="nav-number">2.1.</span> <span class="nav-text">监督式机器学习（Supervised Learning）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签（Label）"><span class="nav-number">2.2.</span> <span class="nav-text">标签（Label）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征（Feature）"><span class="nav-number">2.3.</span> <span class="nav-text">特征（Feature）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样本（Example）"><span class="nav-number">2.4.</span> <span class="nav-text">样本（Example）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型（Model）"><span class="nav-number">2.5.</span> <span class="nav-text">模型（Model）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归与分类"><span class="nav-number">2.6.</span> <span class="nav-text">回归与分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性回归（Linear_Regression）"><span class="nav-number">3.</span> <span class="nav-text">线性回归（Linear Regression）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练（Training）与损失（Loss）"><span class="nav-number">3.1.</span> <span class="nav-text">训练（Training）与损失（Loss）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#降低损失"><span class="nav-number">4.</span> <span class="nav-text">降低损失</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代方法"><span class="nav-number">4.1.</span> <span class="nav-text">迭代方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降法（Gradient_Descent）"><span class="nav-number">4.2.</span> <span class="nav-text">梯度下降法（Gradient Descent）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习速率（Learning_Rate）"><span class="nav-number">4.3.</span> <span class="nav-text">学习速率（Learning Rate）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机梯度下降法"><span class="nav-number">4.4.</span> <span class="nav-text">随机梯度下降法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nix Wang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.3"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2018/03/07/learning-tensorflow/';
+        this.page.identifier = '2018/03/07/learning-tensorflow/';
+        this.page.title = 'TensorFlow 学习笔记（一）—— 术语';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nix1024.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("daX0gVJMRnUuyeEgXRpxSaUC-gzGzoHsz", "i9hFvVvJ3DXS71Is5Q6VFGG5");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

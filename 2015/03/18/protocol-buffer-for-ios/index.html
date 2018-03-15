@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="Nix 的自我修养">
 <meta property="og:description" content="Protocol Buffers 是 Google 出品的用来序列化/反序列化数据的工具。原生支持 C++、Java、Python。 如果要在 iOS 上使用 PB，可以直接使用 C++，但是编译过程很麻烦，因此这里使用的是第三方的库。 安装 Protocol Buffers 安装 homebrew  1ruby -e &quot;$(curl -fsSL https://raw.githubusercon">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2015-03-25T14:03:58.000Z">
+<meta property="og:updated_time" content="2018-03-14T12:19:32.220Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Protocol Buffers for iOS">
 <meta name="twitter:description" content="Protocol Buffers 是 Google 出品的用来序列化/反序列化数据的工具。原生支持 C++、Java、Python。 如果要在 iOS 上使用 PB，可以直接使用 C++，但是编译过程很麻烦，因此这里使用的是第三方的库。 安装 Protocol Buffers 安装 homebrew  1ruby -e &quot;$(curl -fsSL https://raw.githubusercon">
@@ -370,7 +370,7 @@
       
         <p>Protocol Buffers 是 Google 出品的用来序列化/反序列化数据的工具。原生支持 C++、Java、Python。</p>
 <p>如果要在 iOS 上使用 PB，可以直接使用 C++，但是编译过程很麻烦，因此这里使用的是第三方的库。</p>
-<h2 id="安装_Protocol_Buffers">安装 Protocol Buffers</h2><ul>
+<h1 id="安装_Protocol_Buffers">安装 Protocol Buffers</h1><ul>
 <li>安装 homebrew</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
@@ -399,7 +399,7 @@
 </li>
 </ul>
 <p>这里会提示找不到<code>GeneratedMessageProtocol</code>。你只需要帅气地将其注释掉就行了。</p>
-<h2 id="使用">使用</h2><p>假设有 person.proto 定义如下 </p>
+<h1 id="使用">使用</h1><p>假设有 person.proto 定义如下 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  required int32 id = 1;</span><br><span class="line">  required string name = 2;</span><br><span class="line">  optional string email = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过 protoc 生成 Person.pb.h 和 Person.pb.m 两个文件。</p>
 <ul>
@@ -410,7 +410,10 @@
 <li>反序列化</li>
 </ul>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span>* raw_data = ...;</span><br><span class="line">Person* person = [Person parseFromData:raw_data];</span><br></pre></td></tr></table></figure>
-<h2 id="参考">参考</h2><p><a href="http://protobuf.axo.io/#objc" target="_blank" rel="noopener">http://protobuf.axo.io/#objc</a><br><a href="https://github.com/alexeyxo/protobuf-objc" target="_blank" rel="noopener">https://github.com/alexeyxo/protobuf-objc</a></p>
+<h1 id="参考">参考</h1><ul>
+<li><a href="http://protobuf.axo.io/#objc" target="_blank" rel="noopener">http://protobuf.axo.io/#objc</a></li>
+<li><a href="https://github.com/alexeyxo/protobuf-objc" target="_blank" rel="noopener">https://github.com/alexeyxo/protobuf-objc</a></li>
+</ul>
 
       
     </div>
@@ -570,7 +573,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -669,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装_Protocol_Buffers"><span class="nav-number">1.</span> <span class="nav-text">安装 Protocol Buffers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装_Protocol_Buffers"><span class="nav-number">1.</span> <span class="nav-text">安装 Protocol Buffers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

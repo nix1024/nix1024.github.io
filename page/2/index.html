@@ -276,6 +276,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/09/kill-debug-symbol-warnings/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/05/09/kill-debug-symbol-warnings/" itemprop="url">消除引入第三方 Framework 导致的 Warning</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-09T19:38:07+08:00">2016-05-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/05/09/kill-debug-symbol-warnings/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/05/09/kill-debug-symbol-warnings/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/05/09/kill-debug-symbol-warnings/" class="leancloud_visitors" data-flag-title="消除引入第三方 Framework 导致的 Warning">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近在引入了一个 framework 后，在 Generate dSYM 的时候报出了大量的 warning：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">warning: (armv7) /Users/USERNAME/Library/Developer/Xcode/DerivedData/FRAMEWORKNAME-gizpafzckwvhuigzyzdtbpcvryue/Build/Intermediates/FRAMEWORKNAME.build/Debug-iphoneos/FRAMEWORKNAME.build/Objects-normal/armv7/SOMECLASS.o unable to open object file: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>在 Xcode 查看编译过程发现是执行 <code>dsymutil</code> 这条命令时产生的。</p>
+<blockquote>
+<p>dsymutil links the DWARF debug information found in the object files for an executable exe_path by using debug symbols information contained in its symbol table.</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/05/09/kill-debug-symbol-warnings/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/24/introduce-reactive-cococa/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -520,7 +672,7 @@
 
       
         
-          <h2 id="MVC">MVC</h2><blockquote>
+          <h1 id="MVC">MVC</h1><blockquote>
 <p>I’m dating with a model… and a view, and a controller.</p>
 </blockquote>
 <p>众所周知，MVC 是开发客户端最经典的设计模式，<a href="/2014/08/10/mvc-on-ios/">iOS 开发也不例外</a>，但是 MVC 有让人无法忽视的严重问题。</p>
@@ -670,7 +822,7 @@
 
       
         
-          <h2 id="前言">前言</h2><p>目前 iOS 上的动态更新方案主要有以下 4 种：</p>
+          <h1 id="前言">前言</h1><p>目前 iOS 上的动态更新方案主要有以下 4 种：</p>
 <ul>
 <li>HTML 5</li>
 <li>lua（wax）hotpatch</li>
@@ -1421,7 +1573,7 @@
         
           <p>Protocol Buffers 是 Google 出品的用来序列化/反序列化数据的工具。原生支持 C++、Java、Python。</p>
 <p>如果要在 iOS 上使用 PB，可以直接使用 C++，但是编译过程很麻烦，因此这里使用的是第三方的库。</p>
-<h2 id="安装_Protocol_Buffers">安装 Protocol Buffers</h2><ul>
+<h1 id="安装_Protocol_Buffers">安装 Protocol Buffers</h1><ul>
 <li>安装 homebrew</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br></pre></td></tr></table></figure>
@@ -1616,160 +1768,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/01/07/sign-your-mac-app-with-developer-id/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nix Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nix 的自我修养">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/01/07/sign-your-mac-app-with-developer-id/" itemprop="url">使用 Developer ID 为 Mac app 签名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-01-07T21:00:11+08:00">2015-01-07</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/01/07/sign-your-mac-app-with-developer-id/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/01/07/sign-your-mac-app-with-developer-id/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2015/01/07/sign-your-mac-app-with-developer-id/" class="leancloud_visitors" data-flag-title="使用 Developer ID 为 Mac app 签名">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="为何要签名">为何要签名</h1><blockquote>
-<p>对 app 进行代码签名可让用户确信它来自已知来源，且自最后一次签名之后未被修改。在您的 Mac app 或 iOS app 可以使用商店服务，安装到 iOS 设备上进行开发或测试，或者提交到 App Store 之前，必须先使用 Apple 颁布的证书对其进行签名。</p>
-</blockquote>
-<p>在 OS X 的<code>安全性与隐私</code>的设置里有一项设置是<code>允许从以下位置下载的应用程序</code>，默认的设置是<code>Mac App Store 和被认可的开发者</code>。</p>
-<p>也就是说在用户不手动修改设置的情况下，用户无法打开未签名的程序。</p>
-<p><img src="/images/2015-01-07/invalid_code_sign.png" alt="打开未签名程序时的警告"></p>
-<p>下面就来介绍如何使用 Developer ID 为 app 签名。</p>
-<p>注意：本文不适用于发布到 Mac App Store 的签名。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/01/07/sign-your-mac-app-with-developer-id/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1821,7 +1819,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

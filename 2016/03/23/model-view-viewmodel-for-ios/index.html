@@ -100,10 +100,11 @@
 
 
   
-  <meta name="keywords" content="Nix, iOS" />
+  <meta name="keywords" content="iOS," />
 
 
 <meta name="description" content="MVC I’m dating with a model… and a view, and a controller.  众所周知，MVC 是开发客户端最经典的设计模式，iOS 开发也不例外，但是 MVC 有让人无法忽视的严重问题。">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MVVM">
 <meta property="og:url" content="http://yoursite.com/2016/03/23/model-view-viewmodel-for-ios/index.html">
@@ -111,7 +112,7 @@
 <meta property="og:description" content="MVC I’m dating with a model… and a view, and a controller.  众所周知，MVC 是开发客户端最经典的设计模式，iOS 开发也不例外，但是 MVC 有让人无法忽视的严重问题。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/2016-03-23/mvvm.png">
-<meta property="og:updated_time" content="2016-03-24T11:06:33.000Z">
+<meta property="og:updated_time" content="2018-03-14T12:23:58.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVVM">
 <meta name="twitter:description" content="MVC I’m dating with a model… and a view, and a controller.  众所周知，MVC 是开发客户端最经典的设计模式，iOS 开发也不例外，但是 MVC 有让人无法忽视的严重问题。">
@@ -369,7 +370,7 @@
       
 
       
-        <h2 id="MVC">MVC</h2><blockquote>
+        <h1 id="MVC">MVC</h1><blockquote>
 <p>I’m dating with a model… and a view, and a controller.</p>
 </blockquote>
 <p>众所周知，MVC 是开发客户端最经典的设计模式，<a href="/2014/08/10/mvc-on-ios/">iOS 开发也不例外</a>，但是 MVC 有让人无法忽视的严重问题。</p>
@@ -383,7 +384,7 @@
 <li>和 View 紧耦合，无法测试。</li>
 </ul>
 <p>于是<a href="https://msdn.microsoft.com/en-us/library/hh848246.aspx" target="_blank" rel="noopener">微软的大牛提出了 MVVM</a></p>
-<h2 id="Model_View_ViewModel">Model View ViewModel</h2><p><img src="/images/2016-03-23/mvvm.png" alt="MVVM"></p>
+<h1 id="Model_View_ViewModel">Model View ViewModel</h1><p><img src="/images/2016-03-23/mvvm.png" alt="MVVM"></p>
 <p>既然 View 和 Controller 是一对好基友，在 MVVM 里面，干脆把它们当做 View。<br>现在将原来 Controller 的部分职责拆分出来由 View Model 承担，主要包括：</p>
 <ul>
 <li>校验用户输入。</li>
@@ -392,12 +393,15 @@
 <li>其他不能放入 Model，与 View 无关的逻辑。</li>
 </ul>
 <p>原来的 Controller 现在只负责绑定 View 和 ViewModel。值得注意的是，View Model 不包含与 View 直接关联的部分。一般来说，只要代码中没有<code>#import &lt;UIKit/UIKit.h&gt;</code>即可。</p>
-<h3 id="MVVM_的优点">MVVM 的优点</h3><ul>
+<h2 id="MVVM_的优点">MVVM 的优点</h2><ul>
 <li>MVVM 兼容 MVC，可以先创建一个简单的 View Model，再慢慢迁移。</li>
 <li>MVVM 使得 app 更容易测试，因为 View Model 部分不涉及 UI。</li>
 </ul>
 <p>MVVM 最好配合 binding 机制，Model 的变化需要同步到 View Model，View Model 的变化也需要同步到 View。<a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank" rel="noopener">ReactiveCocoa</a> 就可以用来实现 binding，当然它能做的远远不止 binding。</p>
-<h2 id="Ref">Ref</h2><p><a href="http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/" target="_blank" rel="noopener">http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/</a><br><a href="https://www.objc.io/issues/13-architecture/mvvm/" target="_blank" rel="noopener">https://www.objc.io/issues/13-architecture/mvvm/</a></p>
+<h1 id="Ref">Ref</h1><ul>
+<li><a href="http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/" target="_blank" rel="noopener">http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/</a></li>
+<li><a href="https://www.objc.io/issues/13-architecture/mvvm/" target="_blank" rel="noopener">https://www.objc.io/issues/13-architecture/mvvm/</a></li>
+</ul>
 
       
     </div>
@@ -441,6 +445,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag"># iOS</a>
+          
+        </div>
       
 
       
@@ -551,7 +561,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -650,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC"><span class="nav-number">1.</span> <span class="nav-text">MVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model_View_ViewModel"><span class="nav-number">2.</span> <span class="nav-text">Model View ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVVM_的优点"><span class="nav-number">2.1.</span> <span class="nav-text">MVVM 的优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC"><span class="nav-number">1.</span> <span class="nav-text">MVC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Model_View_ViewModel"><span class="nav-number">2.</span> <span class="nav-text">Model View ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM_的优点"><span class="nav-number">2.1.</span> <span class="nav-text">MVVM 的优点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
             
 
           </div>

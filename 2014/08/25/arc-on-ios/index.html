@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="Nix 的自我修养">
 <meta property="og:description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。 在类属性的声明中，ARC 相关的修饰词有 4 个：  strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。 weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-04-18T09:54:24.000Z">
+<meta property="og:updated_time" content="2018-03-14T12:15:56.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC 中的 ARC">
 <meta name="twitter:description" content="ARC 简介从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。 在类属性的声明中，ARC 相关的修饰词有 4 个：  strong 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。 weak 不会延长对象的生命周期，当weak类型的指针指向的对象被释放时，指针自身会被">
@@ -368,7 +368,7 @@
       
 
       
-        <h2 id="ARC_简介">ARC 简介</h2><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
+        <h1 id="ARC_简介">ARC 简介</h1><p>从 iOS 5开始，OC 引进了一种 ARC（Automatic Reference Counting）的方式来管理内存，由编译器来为我们生成相应的内存管理代码。</p>
 <p>在类属性的声明中，ARC 相关的修饰词有 4 个：</p>
 <ul>
 <li><code>strong</code> 一个对象只要存在一个 strong 类型的指针指向它，就不会被释放。</li>
@@ -392,7 +392,7 @@
 <p>上面的修饰词正确的使用方法是</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName * qualifier variableName;</span><br></pre></td></tr></table></figure>
 <p>修饰词放在其他位置也可以编译通过，但是严格来说是不正确的。</p>
-<h2 id="循环引用以及避免方法">循环引用以及避免方法</h2><p>当两个对象使用<code>strong</code>指针互相引用时，就会出现双方都不会被释放的情况，经常出现在使用 block 的地方。</p>
+<h1 id="循环引用以及避免方法">循环引用以及避免方法</h1><p>当两个对象使用<code>strong</code>指针互相引用时，就会出现双方都不会被释放的情况，经常出现在使用 block 的地方。</p>
 <p>例如下面的代码就存在循环引用：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="keyword">void</span>(^someBlock)();</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> setSomeBlock:^&#123;</span><br><span class="line">	[<span class="keyword">self</span> doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>在属性的生命中，类的对象含有一个 strong 类型的指针指向 block，在 block 中又存在 self （默认是 strong 类型）来引用类的对象，这样两者在生命周期结束时都不会被释放。</p>
@@ -561,7 +561,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -660,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARC_简介"><span class="nav-number">1.</span> <span class="nav-text">ARC 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环引用以及避免方法"><span class="nav-number">2.</span> <span class="nav-text">循环引用以及避免方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ARC_简介"><span class="nav-number">1.</span> <span class="nav-text">ARC 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环引用以及避免方法"><span class="nav-number">2.</span> <span class="nav-text">循环引用以及避免方法</span></a></li></ol></div>
             
 
           </div>
