@@ -367,51 +367,17 @@
 
       
         
-          
-            <h1 id="特征组合">特征组合</h1><p>在实际应用中，某些问题并不是线性问题，比如下面这张图:</p>
+          <h1 id="特征组合">特征组合</h1><p>在实际应用中，某些问题并不是线性问题，比如下面这张图:</p>
 <p><img src="../images/2018-03-17/LinearProblemNot.png" alt="非线性问题"></p>
 <p>我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。</p>
 <p>特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。</p>
-<p>对于<strong>数值特征</strong>，可以通过将 $x_1$ 与 $x_2$ 组合来创建一个名为 $x_3$ 的特征组合：</p>
-<p>$$ x_3 = x_1x_2 $$</p>
-<p>这样我们的线性公式变成：</p>
-<p>$$ y = b + \omega_1x_1 + \omega_2x_2 + \omega_3x_3 $$</p>
-<p>训练的方式跟以前相同。组合的方式可以有很多种，比如:</p>
-<ul>
-<li>[ A x B ]：将两个特征值相乘。</li>
-<li>[ A x B x C x D x E]：将五个特征值相乘。</li>
-<li>[ A x A]：对单个特征值求平方。</li>
-</ul>
-<p>但是实际应用中用得更多的是独热矢量的组合。例如下面两个独热矢量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binned_latitude = [0, 1, 0]</span><br><span class="line">binned_longitude = [0, 0, 1]</span><br></pre></td></tr></table></figure>
-<p>它们的组合是一个包含 9 个元素的独热矢量（8 个 0 和 1 个 1）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binned_latitude X binned_longitude = [0, 0, 0, 0, 0, 1, 0, 0, 0]</span><br></pre></td></tr></table></figure>
-<p>如果根据经纬度来预测房价，显然房价与单独的经度、维度相关性就没有与经纬度结合在一起的相关性高。</p>
-<h1 id="正规化">正规化</h1><p>前面介绍过拟合概念时提到，过度的训练可能会出现过拟合的情况。通过降低模型复杂度来防止过拟合的原则被称作正则化。</p>
-<p>因此训练模型的衡量目标并非只是获得最小的损失，而是要同时考虑损失和复杂度：</p>
-<p>$$minimize(Loss(Data|Model) + complexity(Model))$$</p>
-<p>于是我们衡量训练效果的因素分为两个部分：损失项和正则化项。</p>
-<p>正则化项目有两种计算方法：</p>
-<ul>
-<li>所有特征的权重的函数。</li>
-<li>所有非零权重的特征总数的函数。</li>
-</ul>
-<p>例如 <strong>$L_2$正则化</strong>公式采用的是第一种方法，定义是：</p>
-<p>$$L_2 regularization term = ||\omega||_2^2 = \omega_1^2 + \omega_2^2 + … + \omega_n^2$$</p>
-<p>权重越接近 0 对模型的影响越小。因此执行 $L_2$正则化会有下面的影响：</p>
-<ul>
-<li>权重接近于 0。</li>
-<li>权重的平均值接近于 0，并且呈正态分布。</li>
-</ul>
-<p>在实际操作中，我们会增加 lambda 参数来稍稍调整衡量目标：</p>
-<p>$$minimize(Loss(Data|Model) + \lambda complexity(Model))$$</p>
-<ul>
-<li>$\lambda$ 过大时，模型过于简单会出现欠拟合的情况，模型从数据中获得的信息不足，预测不准确。</li>
-<li>$\lambda$ 过小时，模型过于简单会出现过拟合的情况，模型无法泛化，预测不准确。</li>
-<li>$\lambda$ 取决于数据，需要根据数据手动调整。</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/17/learning-tensorflow-4/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1005,50 +971,14 @@
 
       
         
-          
-            <h1 id="机器学习简介">机器学习简介</h1><p>机器学习是一种能够直接从数据中学习，而无需依赖规则编程的算法。不同于传统的程序开发方式，你不需要告诉程序应该怎么做（甚至你也不知道应该怎么做），只要提供数据来训练模型。因此机器学习能做到以传统开发模式不能或很难完成的任务。</p>
-<h1 id="应用场景">应用场景</h1><h2 id="常见应用">常见应用</h2><ul>
-<li>搜索：Google 在数以亿计的网页中找到你想要的内容。</li>
-<li>推荐系统：亚马逊通过机器学习来推荐可能需要的产品给用户。</li>
-<li>垃圾邮件过滤：Gmail 通过机器学习分辨出垃圾邮件。</li>
-<li>图像<ul>
-<li>光学字符识别（OCR）：扫描全能王提供扫描文档的功能。</li>
-<li>以图搜图：Google 提供以图搜图的功能，告别照骗。</li>
-<li>人脸识别：支付宝刷脸支付，美图秀秀。</li>
-<li>看图说话：<a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Vinyals_Show_and_Tell_2015_CVPR_paper.pdf" target="_blank" rel="noopener">Show and Tell: A Neural Image Caption Generator</a>，自动生成图片的描述。Facebook 在图片加载失败时会显示自动生成的图片描述。</li>
-</ul>
-</li>
-<li>语音<ul>
-<li>语音识别：讯飞语音输入法、搜狗语音输入法。</li>
-<li>智能语音交互：如苹果的 Siri、微软的 Cortana。</li>
-</ul>
-</li>
-</ul>
-<h1 id="移动端应用场景">移动端应用场景</h1><p>机器学习在移动端会有一些不同的玩法，在移动端进行深度学习计算有几个优点：</p>
-<ul>
-<li>响应更快：由于不需要经过网络传输以及服务器对大规模数据进行计算，因此响应更快。<a href="https://zh.wikipedia.org/wiki/%E9%82%8A%E7%B7%A3%E9%81%8B%E7%AE%97" target="_blank" rel="noopener">边缘计算</a>了解一下。</li>
-<li>节省资源：手机计算能力日益强大，并且 Google 和 Apple 都在硬件层面上对机器学习进行了优化。原本在服务器进行的计算工作被转移到端上，节省了服务器资源。</li>
-<li>隐私保护：不上传用户数据到服务器，最大限度保护用户隐私。</li>
-<li>离线使用：在本地进行计算，不依赖网络连接。</li>
-</ul>
-<p>但是相应地也有一些局限性：</p>
-<ul>
-<li>模型滞后性：训练工作仍然不能在手机端完成，需要从服务器下发到移动端。</li>
-<li>只能使用简单的模型：</li>
-</ul>
-<p>已有的产品：</p>
-<ul>
-<li>垃圾邮件/短信过滤：熊猫吃短信 app。</li>
-<li>图像识别：iOS 相册中的搜索功能，支付宝形色识花。</li>
-<li>推荐算法：天猫客户端<a href="https://www.atatech.org/articles/100870" target="_blank" rel="noopener">基于端上实时用户操作行为的搜索推荐</a>。</li>
-<li>语音输入法：讯飞语音输入法。</li>
-</ul>
-<h1 id="参考">参考</h1><ul>
-<li><a href="https://cloud.tencent.com/developer/article/1054533" target="_blank" rel="noopener">机器学习(Machine Learning, ML)—应用场景</a></li>
-<li><a href="https://dl.acm.org/citation.cfm?id=3068782" target="_blank" rel="noopener">Supervised Learning Techniques in Mobile Device Apps for Androids</a></li>
-</ul>
-
-          
+          <h1 id="机器学习简介">机器学习简介</h1><p>机器学习是一种能够直接从数据中学习，而无需依赖规则编程的算法。不同于传统的程序开发方式，你不需要告诉程序应该怎么做（甚至你也不知道应该怎么做），只要提供数据来训练模型。因此机器学习能做到以传统开发模式不能或很难完成的任务。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/02/applications-of-ml/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1551,10 +1481,10 @@
 <li>外部调用是内部调用的子集，或者说外部调用应该基于内部调用暴露出去。</li>
 <li>不作区分会有安全隐患，可能存在通过外部调用到无权限服务的情况。</li>
 </ul>
-<h1 id="服务调用">服务调用</h1><h2 id="Runtime">Runtime</h2><p>调用服务时，mediator 通过 Objective-C 的 runtime 来实例化组件，避免对组件的依赖。</p>
+<h1 id="服务调用">服务调用</h1><h2 id="Runtime_方式">Runtime 方式</h2><p>调用服务时，mediator 通过 Objective-C 的 runtime 来实例化组件，避免对组件的依赖。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//Mediator.m</span><br><span class="line">@implementation Mediator</span><br><span class="line">+ (UIViewController *)BookDetailComponent_viewController:(NSString *)bookId &#123;</span><br><span class="line">    Class cls = NSClassFromString(@&quot;BookDetailComponent&quot;);</span><br><span class="line">    return [cls performSelector:NSSelectorFromString(@&quot;detailViewController:&quot;) withObject:@&#123;@&quot;bookId&quot;:bookId&#125;];</span><br><span class="line">&#125;</span><br><span class="line">+ (UIViewController *)ReviewComponent_viewController:(NSString *)bookId type:(NSInteger)type &#123;</span><br><span class="line">    Class cls = NSClassFromString(@&quot;ReviewComponent&quot;);</span><br><span class="line">    return [cls performSelector:NSSelectorFromString(@&quot;reviewViewController:&quot;) withObject:@&#123;@&quot;bookId&quot;:bookId, @&quot;type&quot;: @(type)&#125;];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <p>这个方法存在的一个小问题是 mediator 实现中存在一些硬编码。</p>
-<h2 id="Block">Block</h2><p>在 mediator 中维护一个 URL 和 block 的映射，因此不需要依赖组件。</p>
+<h2 id="Block_方式">Block 方式</h2><p>在 mediator 中维护一个 URL 和 block 的映射，因此不需要依赖组件。</p>
 <p>不足之处是映射表需要占用一定的内存。</p>
 <h1 id="业务组件内部">业务组件内部</h1><p>对于不同的业务组件内部，可以使用 MVP、MVVM、VIPER 等架构，需要研发团队协商并建立规范。</p>
 <h1 id="延伸阅读">延伸阅读</h1><ul>

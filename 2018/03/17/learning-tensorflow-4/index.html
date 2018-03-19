@@ -103,19 +103,19 @@
   <meta name="keywords" content="ML," />
 
 
-<meta name="description" content="特征组合在实际应用中，某些问题并不是线性问题，比如下面这张图:  我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。 特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。 对于数值特征，可以通过将 $x_1$ 与 $x_2$ 组合来创建一个名为 $x_3$ 的特征组合： $$ x_3 = x_1x_2 $$ 这样我们的线性公式变成： $$">
+<meta name="description" content="特征组合在实际应用中，某些问题并不是线性问题，比如下面这张图:  我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。 特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。">
 <meta name="keywords" content="ML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TensorFlow 学习笔记（四）—— 特征组合与特征化">
 <meta property="og:url" content="http://yoursite.com/2018/03/17/learning-tensorflow-4/index.html">
 <meta property="og:site_name" content="Nix 的自我修养">
-<meta property="og:description" content="特征组合在实际应用中，某些问题并不是线性问题，比如下面这张图:  我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。 特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。 对于数值特征，可以通过将 $x_1$ 与 $x_2$ 组合来创建一个名为 $x_3$ 的特征组合： $$ x_3 = x_1x_2 $$ 这样我们的线性公式变成： $$">
+<meta property="og:description" content="特征组合在实际应用中，某些问题并不是线性问题，比如下面这张图:  我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。 特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/03/17/images/2018-03-17/LinearProblemNot.png">
-<meta property="og:updated_time" content="2018-03-16T03:14:40.792Z">
+<meta property="og:updated_time" content="2018-03-19T12:21:31.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow 学习笔记（四）—— 特征组合与特征化">
-<meta name="twitter:description" content="特征组合在实际应用中，某些问题并不是线性问题，比如下面这张图:  我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。 特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。 对于数值特征，可以通过将 $x_1$ 与 $x_2$ 组合来创建一个名为 $x_3$ 的特征组合： $$ x_3 = x_1x_2 $$ 这样我们的线性公式变成： $$">
+<meta name="twitter:description" content="特征组合在实际应用中，某些问题并不是线性问题，比如下面这张图:  我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。 特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。">
 <meta name="twitter:image" content="http://yoursite.com/2018/03/17/images/2018-03-17/LinearProblemNot.png">
 
 
@@ -374,6 +374,7 @@
 <p><img src="../images/2018-03-17/LinearProblemNot.png" alt="非线性问题"></p>
 <p>我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。</p>
 <p>特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。</p>
+<a id="more"></a>
 <p>对于<strong>数值特征</strong>，可以通过将 $x_1$ 与 $x_2$ 组合来创建一个名为 $x_3$ 的特征组合：</p>
 <p>$$ x_3 = x_1x_2 $$</p>
 <p>这样我们的线性公式变成：</p>
