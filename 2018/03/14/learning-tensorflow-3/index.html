@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="Nix 的自我修养">
 <meta property="og:description" content="通过前面的学习，我们知道了机器学习的大致过程，现在要解决的问题是：如何得到训练样本？ 假如数据库中有一堆数据，把这些数据转化成训练模型需要的特征的过程被称作表示法（representation）。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-13T08:41:39.596Z">
+<meta property="og:updated_time" content="2018-03-15T06:47:01.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow 学习笔记（三）—— 表示法">
 <meta name="twitter:description" content="通过前面的学习，我们知道了机器学习的大致过程，现在要解决的问题是：如何得到训练样本？ 假如数据库中有一堆数据，把这些数据转化成训练模型需要的特征的过程被称作表示法（representation）。">
@@ -417,7 +417,14 @@
 <h2 id="分箱（Bucketing）">分箱（Bucketing）</h2><blockquote>
 <p>将一个特征（通常是连续特征）转换成多个二元特征（称为桶或箱），通常是根据值区间进行转换。例如，您可以将温度区间分割为离散分箱，而不是将温度表示成单个连续的浮点特征。假设温度数据可精确到小数点后一位，则可以将介于 0.0 到 15.0 度之间的所有温度都归入一个分箱，将介于 15.1 到 30.0 度之间的所有温度归入第二个分箱，并将介于 30.1 到 50.0 度之间的所有温度归入第三个分箱。</p>
 </blockquote>
-<p>这样的好处是可以减少运算量。</p>
+<p>这样做的好处是：</p>
+<ul>
+<li>离散化结果将会减少给定连续特征值的个数，减小系统对存储空间的实际需求。</li>
+<li>离散特征相对于连续特征来说更接近于知识层面的表示。</li>
+<li>通过离散化，数据被规约和简化，对于使用者和专家来说，离散化的数据都更易于理解，使用和解释。 </li>
+<li>离散化处理使得算法的学习更为准确和迅速。</li>
+<li>一系列算法只能应用于离散型数据，使得离散化处理成为必要，而离散化又使很多算法的应用范围扩展了。</li>
+</ul>
 
       
     </div>
@@ -486,6 +493,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/17/learning-tensorflow-4/" rel="prev" title="TensorFlow 学习笔记（四）—— 特征组合与特征化">
+                TensorFlow 学习笔记（四）—— 特征组合与特征化 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -573,7 +584,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-count">50</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

@@ -276,6 +276,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/17/learning-tensorflow-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/17/learning-tensorflow-4/" itemprop="url">TensorFlow 学习笔记（四）—— 特征组合与特征化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-17T10:39:02+08:00">2018-03-17</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/17/learning-tensorflow-4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/17/learning-tensorflow-4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/03/17/learning-tensorflow-4/" class="leancloud_visitors" data-flag-title="TensorFlow 学习笔记（四）—— 特征组合与特征化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="特征组合">特征组合</h1><p>在实际应用中，某些问题并不是线性问题，比如下面这张图:</p>
+<p><img src="../images/2018-03-17/LinearProblemNot.png" alt="非线性问题"></p>
+<p>我们无法用一条线来分开所有的蓝点和橙点。这个时候我们需要采用特征组合的方法。</p>
+<p>特征组合是指通过将两个或多个输入特征相乘来对特征空间中的非线性规律进行编码的合成特征。</p>
+<p>对于<strong>数值特征</strong>，可以通过将 $x_1$ 与 $x_2$ 组合来创建一个名为 $x_3$ 的特征组合：</p>
+<p>$$ x_3 = x_1x_2 $$</p>
+<p>这样我们的线性公式变成：</p>
+<p>$$ y = b + \omega_1x_1 + \omega_2x_2 + \omega_3x_3 $$</p>
+<p>训练的方式跟以前相同。组合的方式可以有很多种，比如:</p>
+<ul>
+<li>[ A x B ]：将两个特征值相乘。</li>
+<li>[ A x B x C x D x E]：将五个特征值相乘。</li>
+<li>[ A x A]：对单个特征值求平方。</li>
+</ul>
+<p>但是实际应用中用得更多的是独热矢量的组合。例如下面两个独热矢量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binned_latitude = [0, 1, 0]</span><br><span class="line">binned_longitude = [0, 0, 1]</span><br></pre></td></tr></table></figure>
+<p>它们的组合是一个包含 9 个元素的独热矢量（8 个 0 和 1 个 1）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binned_latitude X binned_longitude = [0, 0, 0, 0, 0, 1, 0, 0, 0]</span><br></pre></td></tr></table></figure>
+<p>如果根据经纬度来预测房价，显然房价与单独的经度、维度相关性就没有与经纬度结合在一起的相关性高。</p>
+<h1 id="正规化">正规化</h1><p>前面介绍过拟合概念时提到，过度的训练可能会出现过拟合的情况。通过降低模型复杂度来防止过拟合的原则被称作正则化。</p>
+<p>因此训练模型的衡量目标并非只是获得最小的损失，而是要同时考虑损失和复杂度：</p>
+<p>$$minimize(Loss(Data|Model) + complexity(Model))$$</p>
+<p>于是我们衡量训练效果的因素分为两个部分：损失项和正则化项。</p>
+<p>正则化项目有两种计算方法：</p>
+<ul>
+<li>所有特征的权重的函数。</li>
+<li>所有非零权重的特征总数的函数。</li>
+</ul>
+<p>例如 <strong>$L_2$正则化</strong>公式采用的是第一种方法，定义是：</p>
+<p>$$L_2 regularization term = ||\omega||_2^2 = \omega_1^2 + \omega_2^2 + … + \omega_n^2$$</p>
+<p>权重越接近 0 对模型的影响越小。因此执行 $L_2$正则化会有下面的影响：</p>
+<ul>
+<li>权重接近于 0。</li>
+<li>权重的平均值接近于 0，并且呈正态分布。</li>
+</ul>
+<p>在实际操作中，我们会增加 lambda 参数来稍稍调整衡量目标：</p>
+<p>$$minimize(Loss(Data|Model) + \lambda complexity(Model))$$</p>
+<ul>
+<li>$\lambda$ 过大时，模型过于简单会出现欠拟合的情况，模型从数据中获得的信息不足，预测不准确。</li>
+<li>$\lambda$ 过小时，模型过于简单会出现过拟合的情况，模型无法泛化，预测不准确。</li>
+<li>$\lambda$ 取决于数据，需要根据数据手动调整。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/learning-tensorflow-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1211,6 +1395,226 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/06/ios-modulization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/06/ios-modulization/" itemprop="url">iOS 组件化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-06T15:42:15+08:00">2017-05-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/06/ios-modulization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/06/ios-modulization/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/06/ios-modulization/" class="leancloud_visitors" data-flag-title="iOS 组件化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>看完 Limboy（<a href="http://limboy.me/tech/2016/03/10/mgj-components.html" target="_blank" rel="noopener">蘑菇街 App 的组件化之路</a>） 和 Casa（<a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">iOS应用架构谈 组件化方案</a>） 关于 iOS 上模块化的讨论，以及 Bang（<a href="http://blog.cnbang.net/tech/3080/" target="_blank" rel="noopener">iOS 组件化方案探索</a>）的总结，整理一下。</p>
+<h1 id="什么是组件化">什么是组件化</h1><p>将程序中功能相对独立的部分打包在一起形成模块，并且减少模块之间的直接依赖。</p>
+<p><img src="/images/2017-05-06/组件化.jpg" alt="组件化"></p>
+<p>可以看到，组件化是在横向分层的基础上，纵向对业务层进行切割。</p>
+<p>底层是中间件（业务无关的组件，如网络请求、存储、工具类），共同为上层业务提供服务，允许相互引用（但应尽量减少）；业务组件在上层依赖中间件，相互之间不允许直接引用。</p>
+<p>一个简单的验证方法是单独的业务模块配合中间件能不能独立编译通过。</p>
+<h1 id="为什么要组件化">为什么要组件化</h1><p>组件化是相对于原始的单一工程开发模式而言的。在业务初期，采用单一工程开发周期更短，是合适的开发模式，但是随着业务复杂度不断增加，工程越来越庞大，开发人员逐渐增多，单一工程的开发模式会出现一系列问题：</p>
+<ul>
+<li>耦合严重：组件之间依赖过于复杂，维护成本高。</li>
+<li>容易出现冲突：xib 或者代码冲突机会大大增加。</li>
+<li>开发效率低：每次都需要编译整个项目。</li>
+</ul>
+<p><img src="/images/2017-05-06/耦合问题.png" alt="耦合问题严重"></p>
+<p>总的来说，组件化最大的好处就是<strong>低耦合</strong>，这是程序开发最最基本的原则，可以带来诸多好处：</p>
+<ul>
+<li>维护成本更低。</li>
+<li>复用性更好。</li>
+<li>版本控制冲突更小。</li>
+</ul>
+<p>当然组件化也有一些代价：</p>
+<ul>
+<li>对新加入的开发人员不友好。</li>
+<li>开发流程更复杂，开发成本更高。</li>
+<li>模块化初期投入较大，影响发版节奏。</li>
+</ul>
+<p>因此需要根据业务所处的阶段来进行取舍。</p>
+<h1 id="方案">方案</h1><p>对于中间件，直接封装成 pod 放在私有的 repo 上即可；对于业务组件，重点是如何解决引用问题。</p>
+<p>问题是本质是<strong>组件之间服务的提供和调用</strong>。为此我们需要引入一个中间人（mediator、router）来传递这些信息：</p>
+<p><img src="/images/2017-05-06/中间人.png" alt="中间人"></p>
+<p>这样一来各个业务组件只需要依赖中间人。方案需要解决两个问题：</p>
+<ul>
+<li>服务的发现。</li>
+<li>服务的调用，并且避免中间人对组件的依赖。</li>
+</ul>
+<h1 id="服务提供">服务提供</h1><h2 id="接口方式">接口方式</h2><p>在 mediator 上直接提供接口来调用对应组件的方法。为了避免类过于臃肿，采用 category 的方式进行优化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//Mediator.m</span><br><span class="line">#import &quot;BookDetailComponent.h&quot;</span><br><span class="line">#import &quot;ReviewComponent.h&quot;</span><br><span class="line">@implementation Mediator</span><br><span class="line">+ (UIViewController *)BookDetailComponent_viewController:(NSString *)bookId &#123;</span><br><span class="line">    return [BookDetailComponent detailViewController:bookId];</span><br><span class="line">&#125;</span><br><span class="line">+ (UIViewController *)ReviewComponent_viewController:(NSString *)bookId reviewType:(NSInteger)type &#123;</span><br><span class="line">    return [ReviewComponent reviewViewController:bookId type:type];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>优点：</p>
+<ul>
+<li>服务信息比较直观。</li>
+<li>有代码补全和参数信息。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>Mediator 需要频繁改动。</li>
+</ul>
+<h2 id="URL_方式">URL 方式</h2><p>用 URL 表示接口，URL 在模块初始化时注册。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//Mediator.m 中间件</span><br><span class="line">@implementation Mediator</span><br><span class="line">typedef void (^componentBlock) (id param);</span><br><span class="line">@property (nonatomic, storng) NSMutableDictionary *cache</span><br><span class="line">- (void)registerURLPattern:(NSString *)urlPattern toHandler:(componentBlock)blk &#123;</span><br><span class="line">    [cache setObject:blk forKey:urlPattern];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)openURL:(NSString *)url withParam:(id)param &#123;</span><br><span class="line"> componentBlock blk = [cache objectForKey:url];</span><br><span class="line">    if (blk) blk(param);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//WRReadingViewController.m 调用者</span><br><span class="line">//ReadingViewController.m</span><br><span class="line">#import &quot;Mediator.h&quot;</span><br><span class="line"></span><br><span class="line">+ (void)gotoDetail:(NSString *)bookId &#123;</span><br><span class="line">    [[Mediator sharedInstance] openURL:@&quot;weread://bookDetail&quot; withParam:@&#123;@&quot;bookId&quot;: bookId&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优点：</p>
+<ul>
+<li>可以灵活配置，甚至从服务器下发动态修改行为。</li>
+<li>Android 和 iOS 可以统一。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>服务信息无法从代码层面获取，需要通过其他渠道（后台系统、文档）治理。</li>
+</ul>
+<p>注意点：</p>
+<p>外部调用（URLScheme）应该和内部调用区分开：</p>
+<ul>
+<li>外部调用无法传递复杂参数（如 UIImage），内外调用行为无法统一。</li>
+<li>外部调用是内部调用的子集，或者说外部调用应该基于内部调用暴露出去。</li>
+<li>不作区分会有安全隐患，可能存在通过外部调用到无权限服务的情况。</li>
+</ul>
+<h1 id="服务调用">服务调用</h1><h2 id="Runtime">Runtime</h2><p>调用服务时，mediator 通过 Objective-C 的 runtime 来实例化组件，避免对组件的依赖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//Mediator.m</span><br><span class="line">@implementation Mediator</span><br><span class="line">+ (UIViewController *)BookDetailComponent_viewController:(NSString *)bookId &#123;</span><br><span class="line">    Class cls = NSClassFromString(@&quot;BookDetailComponent&quot;);</span><br><span class="line">    return [cls performSelector:NSSelectorFromString(@&quot;detailViewController:&quot;) withObject:@&#123;@&quot;bookId&quot;:bookId&#125;];</span><br><span class="line">&#125;</span><br><span class="line">+ (UIViewController *)ReviewComponent_viewController:(NSString *)bookId type:(NSInteger)type &#123;</span><br><span class="line">    Class cls = NSClassFromString(@&quot;ReviewComponent&quot;);</span><br><span class="line">    return [cls performSelector:NSSelectorFromString(@&quot;reviewViewController:&quot;) withObject:@&#123;@&quot;bookId&quot;:bookId, @&quot;type&quot;: @(type)&#125;];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>这个方法存在的一个小问题是 mediator 实现中存在一些硬编码。</p>
+<h2 id="Block">Block</h2><p>在 mediator 中维护一个 URL 和 block 的映射，因此不需要依赖组件。</p>
+<p>不足之处是映射表需要占用一定的内存。</p>
+<h1 id="业务组件内部">业务组件内部</h1><p>对于不同的业务组件内部，可以使用 MVP、MVVM、VIPER 等架构，需要研发团队协商并建立规范。</p>
+<h1 id="延伸阅读">延伸阅读</h1><ul>
+<li><a href="http://limboy.me/tech/2016/03/10/mgj-components.html" target="_blank" rel="noopener">蘑菇街 App 的组件化之路</a></li>
+<li><a href="http://limboy.me/tech/2016/03/14/mgj-components-continued.html" target="_blank" rel="noopener">蘑菇街 App 的组件化之路·续</a></li>
+<li><a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">iOS应用架构谈 组件化方案</a></li>
+<li><a href="http://blog.cnbang.net/tech/3080/" target="_blank" rel="noopener">iOS 组件化方案探索</a></li>
+<li><a href="https://sdk.cn/news/2023" target="_blank" rel="noopener">饿了么移动APP的架构演进</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&amp;mid=2247488503&amp;idx=1&amp;sn=2c9a82593ebb06533f484f77035c4550&amp;source=41#wechat_redirect" target="_blank" rel="noopener">滴滴出行iOS客户端架构演进之路</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/airplay-without-bonjour/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1496,307 +1900,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/20/aop-and-its-application/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nix Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nix 的自我修养">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/07/20/aop-and-its-application/" itemprop="url">AOP 及应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T14:10:08+08:00">2016-07-20</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/07/20/aop-and-its-application/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/07/20/aop-and-its-application/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2016/07/20/aop-and-its-application/" class="leancloud_visitors" data-flag-title="AOP 及应用">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="什么是_AOP">什么是 AOP</h1><p>Wikipedia 上的 AOP 定义：</p>
-<blockquote>
-<p>In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a “pointcut” specification, such as “log all function calls when the function’s name begins with ‘set’”. This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality. AOP forms a basis for aspect-oriented software development.</p>
-</blockquote>
-<p>AOP（Aspect Oriented Programming，国内多译作「面向切面编程」），它是在不修改原有代码的前提下给程序添加功能的一种技术。这样可以将一些重复而又与主要业务逻辑无关的代码抽离出来，减少了耦合性，增加了代码复用性。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/07/20/aop-and-its-application/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/31/meet-run-loop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nix Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nix 的自我修养">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/05/31/meet-run-loop/" itemprop="url">初识 Run Loop</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-31T15:34:51+08:00">2016-05-31</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/05/31/meet-run-loop/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/05/31/meet-run-loop/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2016/05/31/meet-run-loop/" class="leancloud_visitors" data-flag-title="初识 Run Loop">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Run loop 类似 Windows 中的消息循环，作用是管理线程，让线程可以接收、处理消息，在没有工作时休眠。</p>
-<p>下图是 run loop 模型：</p>
-<p><img src="/images/2016-05-31/runloop.jpg" alt="Run loop 模型"></p>
-<p><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html" target="_blank" rel="noopener">图片来源</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/05/31/meet-run-loop/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1848,7 +1951,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-count">50</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
