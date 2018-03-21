@@ -1416,87 +1416,14 @@
 
       
         
-          
-            <p>看完 Limboy（<a href="http://limboy.me/tech/2016/03/10/mgj-components.html" target="_blank" rel="noopener">蘑菇街 App 的组件化之路</a>） 和 Casa（<a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">iOS应用架构谈 组件化方案</a>） 关于 iOS 上模块化的讨论，以及 Bang（<a href="http://blog.cnbang.net/tech/3080/" target="_blank" rel="noopener">iOS 组件化方案探索</a>）的总结，整理一下。</p>
-<h1 id="什么是组件化">什么是组件化</h1><p>将程序中功能相对独立的部分打包在一起形成模块，并且减少模块之间的直接依赖。</p>
-<p><img src="/images/2017-05-06/组件化.jpg" alt="组件化"></p>
-<p>可以看到，组件化是在横向分层的基础上，纵向对业务层进行切割。</p>
-<p>底层是中间件（业务无关的组件，如网络请求、存储、工具类），共同为上层业务提供服务，允许相互引用（但应尽量减少）；业务组件在上层依赖中间件，相互之间不允许直接引用。</p>
-<p>一个简单的验证方法是单独的业务模块配合中间件能不能独立编译通过。</p>
-<h1 id="为什么要组件化">为什么要组件化</h1><p>组件化是相对于原始的单一工程开发模式而言的。在业务初期，采用单一工程开发周期更短，是合适的开发模式，但是随着业务复杂度不断增加，工程越来越庞大，开发人员逐渐增多，单一工程的开发模式会出现一系列问题：</p>
-<ul>
-<li>耦合严重：组件之间依赖过于复杂，维护成本高。</li>
-<li>容易出现冲突：xib 或者代码冲突机会大大增加。</li>
-<li>开发效率低：每次都需要编译整个项目。</li>
-</ul>
-<p><img src="/images/2017-05-06/耦合问题.png" alt="耦合问题严重"></p>
-<p>总的来说，组件化最大的好处就是<strong>低耦合</strong>，这是程序开发最最基本的原则，可以带来诸多好处：</p>
-<ul>
-<li>维护成本更低。</li>
-<li>复用性更好。</li>
-<li>版本控制冲突更小。</li>
-</ul>
-<p>当然组件化也有一些代价：</p>
-<ul>
-<li>对新加入的开发人员不友好。</li>
-<li>开发流程更复杂，开发成本更高。</li>
-<li>模块化初期投入较大，影响发版节奏。</li>
-</ul>
-<p>因此需要根据业务所处的阶段来进行取舍。</p>
-<h1 id="方案">方案</h1><p>对于中间件，直接封装成 pod 放在私有的 repo 上即可；对于业务组件，重点是如何解决引用问题。</p>
-<p>问题是本质是<strong>组件之间服务的提供和调用</strong>。为此我们需要引入一个中间人（mediator、router）来传递这些信息：</p>
-<p><img src="/images/2017-05-06/中间人.png" alt="中间人"></p>
-<p>这样一来各个业务组件只需要依赖中间人。方案需要解决两个问题：</p>
-<ul>
-<li>服务的发现。</li>
-<li>服务的调用，并且避免中间人对组件的依赖。</li>
-</ul>
-<h1 id="服务提供">服务提供</h1><h2 id="接口方式">接口方式</h2><p>在 mediator 上直接提供接口来调用对应组件的方法。为了避免类过于臃肿，采用 category 的方式进行优化。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//Mediator.m</span><br><span class="line">#import &quot;BookDetailComponent.h&quot;</span><br><span class="line">#import &quot;ReviewComponent.h&quot;</span><br><span class="line">@implementation Mediator</span><br><span class="line">+ (UIViewController *)BookDetailComponent_viewController:(NSString *)bookId &#123;</span><br><span class="line">    return [BookDetailComponent detailViewController:bookId];</span><br><span class="line">&#125;</span><br><span class="line">+ (UIViewController *)ReviewComponent_viewController:(NSString *)bookId reviewType:(NSInteger)type &#123;</span><br><span class="line">    return [ReviewComponent reviewViewController:bookId type:type];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>优点：</p>
-<ul>
-<li>服务信息比较直观。</li>
-<li>有代码补全和参数信息。</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>Mediator 需要频繁改动。</li>
-</ul>
-<h2 id="URL_方式">URL 方式</h2><p>用 URL 表示接口，URL 在模块初始化时注册。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//Mediator.m 中间件</span><br><span class="line">@implementation Mediator</span><br><span class="line">typedef void (^componentBlock) (id param);</span><br><span class="line">@property (nonatomic, storng) NSMutableDictionary *cache</span><br><span class="line">- (void)registerURLPattern:(NSString *)urlPattern toHandler:(componentBlock)blk &#123;</span><br><span class="line">    [cache setObject:blk forKey:urlPattern];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)openURL:(NSString *)url withParam:(id)param &#123;</span><br><span class="line"> componentBlock blk = [cache objectForKey:url];</span><br><span class="line">    if (blk) blk(param);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//WRReadingViewController.m 调用者</span><br><span class="line">//ReadingViewController.m</span><br><span class="line">#import &quot;Mediator.h&quot;</span><br><span class="line"></span><br><span class="line">+ (void)gotoDetail:(NSString *)bookId &#123;</span><br><span class="line">    [[Mediator sharedInstance] openURL:@&quot;weread://bookDetail&quot; withParam:@&#123;@&quot;bookId&quot;: bookId&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>优点：</p>
-<ul>
-<li>可以灵活配置，甚至从服务器下发动态修改行为。</li>
-<li>Android 和 iOS 可以统一。</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>服务信息无法从代码层面获取，需要通过其他渠道（后台系统、文档）治理。</li>
-</ul>
-<p>注意点：</p>
-<p>外部调用（URLScheme）应该和内部调用区分开：</p>
-<ul>
-<li>外部调用无法传递复杂参数（如 UIImage），内外调用行为无法统一。</li>
-<li>外部调用是内部调用的子集，或者说外部调用应该基于内部调用暴露出去。</li>
-<li>不作区分会有安全隐患，可能存在通过外部调用到无权限服务的情况。</li>
-</ul>
-<h1 id="服务调用">服务调用</h1><h2 id="Runtime_方式">Runtime 方式</h2><p>调用服务时，mediator 通过 Objective-C 的 runtime 来实例化组件，避免对组件的依赖。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//Mediator.m</span><br><span class="line">@implementation Mediator</span><br><span class="line">+ (UIViewController *)BookDetailComponent_viewController:(NSString *)bookId &#123;</span><br><span class="line">    Class cls = NSClassFromString(@&quot;BookDetailComponent&quot;);</span><br><span class="line">    return [cls performSelector:NSSelectorFromString(@&quot;detailViewController:&quot;) withObject:@&#123;@&quot;bookId&quot;:bookId&#125;];</span><br><span class="line">&#125;</span><br><span class="line">+ (UIViewController *)ReviewComponent_viewController:(NSString *)bookId type:(NSInteger)type &#123;</span><br><span class="line">    Class cls = NSClassFromString(@&quot;ReviewComponent&quot;);</span><br><span class="line">    return [cls performSelector:NSSelectorFromString(@&quot;reviewViewController:&quot;) withObject:@&#123;@&quot;bookId&quot;:bookId, @&quot;type&quot;: @(type)&#125;];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>这个方法存在的一个小问题是 mediator 实现中存在一些硬编码。</p>
-<h2 id="Block_方式">Block 方式</h2><p>在 mediator 中维护一个 URL 和 block 的映射，因此不需要依赖组件。</p>
-<p>不足之处是映射表需要占用一定的内存。</p>
-<h1 id="业务组件内部">业务组件内部</h1><p>对于不同的业务组件内部，可以使用 MVP、MVVM、VIPER 等架构，需要研发团队协商并建立规范。</p>
-<h1 id="延伸阅读">延伸阅读</h1><ul>
-<li><a href="http://limboy.me/tech/2016/03/10/mgj-components.html" target="_blank" rel="noopener">蘑菇街 App 的组件化之路</a></li>
-<li><a href="http://limboy.me/tech/2016/03/14/mgj-components-continued.html" target="_blank" rel="noopener">蘑菇街 App 的组件化之路·续</a></li>
-<li><a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">iOS应用架构谈 组件化方案</a></li>
-<li><a href="http://blog.cnbang.net/tech/3080/" target="_blank" rel="noopener">iOS 组件化方案探索</a></li>
-<li><a href="https://sdk.cn/news/2023" target="_blank" rel="noopener">饿了么移动APP的架构演进</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&amp;mid=2247488503&amp;idx=1&amp;sn=2c9a82593ebb06533f484f77035c4550&amp;source=41#wechat_redirect" target="_blank" rel="noopener">滴滴出行iOS客户端架构演进之路</a></li>
-</ul>
-
-          
+          <p>看完 Limboy（<a href="http://limboy.me/tech/2016/03/10/mgj-components.html" target="_blank" rel="noopener">蘑菇街 App 的组件化之路</a>） 和 Casa（<a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">iOS应用架构谈 组件化方案</a>） 关于 iOS 上模块化的讨论，以及 Bang（<a href="http://blog.cnbang.net/tech/3080/" target="_blank" rel="noopener">iOS 组件化方案探索</a>）的总结，整理一下。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/06/ios-modulization/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
