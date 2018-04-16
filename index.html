@@ -522,116 +522,15 @@
 
       
         
-          
-            <h1 id="Baas">Baas</h1><p>对于独立客户端开发者来说，维护一个服务器成本相当高：你需要学习服务端技能、租用服务器、考虑扩展问题、还得花精力去维护，还有一个微不足道的原因是租服务器要花钱。</p>
+          <h1 id="Baas">Baas</h1><p>对于独立客户端开发者来说，维护一个服务器成本相当高：你需要学习服务端技能、租用服务器、考虑扩展问题、还得花精力去维护，还有一个微不足道的原因是租服务器要花钱。</p>
 <p>幸亏 IT 巨头们已经帮我们解决了这个问题，把后端能力打包成一个服务，让开发者不需要操心服务器相关的任何事情，只需要直接调用 API，这就是传说中的 BaaS（Backend as a Service）。</p>
-<p>典型的 BaaS 包含下面的功能：</p>
-<ul>
-<li>数据存储</li>
-<li>Crash 统计</li>
-<li>Analytics</li>
-<li>远程配置</li>
-<li>推送</li>
-</ul>
-<p>强大如 Firebase 还有其他许多功能：</p>
-<ul>
-<li>Dynamic Link（跨平台的 Universal Link）</li>
-<li>AdMob 广告平台</li>
-<li>Web 托管</li>
-</ul>
-<p>实际上，如果你的 app 体量不大并且功能简单，可以不花钱享受上面的所有服务。但弊端是一旦体量大了，需要更多的服务端开发需求时，BaaS 就很难满足了。</p>
-<h1 id="平台选择">平台选择</h1><p>市面上已经有很多 BaaS 平台可选：</p>
-<ul>
-<li>Google 的 Firebase：功能全面且强大，但由于是 Google 的服务，被 GFW 照顾得很好。实测 Analytics 和 AdMob 功能可用（后台需要翻墙），数据库功能和动态链接功能被墙。</li>
-<li>LeanCloud：有存储、消息、分析功能，算国内名气比较大的 BaaS 提供商。</li>
-<li>WildDog：主要致力于通信领域，了解不多。</li>
-<li>CloudKit：苹果亲儿子，主要提供的是数据存储功能，可以在 iOS/macOS 和 Web 端访问。</li>
-</ul>
-<p>选择 CloudKit 的原因一般有几个：</p>
-<ul>
-<li>Apple 自家的服务，基本不用担心服务稳定性和公司哪天突然倒闭的问题。</li>
-<li>和 Apple ID 打通，如果不想搭建自己的账号系统，可以不用关心账户体系的问题。</li>
-<li>Apple 和某组织关系处理得比较好，不会被照顾。</li>
-</ul>
-<p>缺点也很明显：不支持安卓。</p>
-<h1 id="功能">功能</h1><p>CloudKit 的主要功能是存储数据（CURD）和监听数据变化，后者可以方便地实现多端（Apple 全家桶）的数据同步。</p>
-<h1 id="基本概念">基本概念</h1><p><img src="/images/2018-04-09/CloudKit.png" alt="CloudKit"></p>
-<p>上面这张图出自 WWDC 2017 的 keynote，很好地展示了 CloudKit 中的核心概念。</p>
-<ul>
-<li>Apple 提供了两套数据库环境：Development 和 Production，两个环境功能相同但数据是隔离的，方便开发和测试。</li>
-<li>每个数据环境中包含三个数据库：<ul>
-<li>Public Database：任何人可读写。</li>
-<li>Shared Database：可以用来实现用户间的数据共享，比如便签的共享。</li>
-<li>Private Database：每个用户只能访问自己的数据，开发者无法访问。</li>
-</ul>
-</li>
-<li>数据库内部可以包含多个 Zone，一般使用默认的 Zone 就足够了。</li>
-<li>每个 Zone 中包含若干的 Record，可以理解成数据中的一行，每条 Record 都有自己的 RecordType，用来描述每个字段的名称和类型。</li>
-<li>Reference：Record 中的字段可以引用其他的 Record 来表达关系。</li>
-</ul>
-<p>下面有一张术语对照表：</p>
-<table>
-<thead>
-<tr>
-<th>RDBMS</th>
-<th>LeanCloud</th>
-<th>CloudKit</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Database</td>
-<td>Application</td>
-<td>Database</td>
-</tr>
-<tr>
-<td>Table</td>
-<td>Class</td>
-<td>Zone</td>
-</tr>
-<tr>
-<td>Row</td>
-<td>Object</td>
-<td>Record</td>
-</tr>
-<tr>
-<td>Index</td>
-<td>Index</td>
-<td>Index</td>
-</tr>
-<tr>
-<td>JOIN</td>
-<td>Reference</td>
-<td>Reference</td>
-</tr>
-</tbody>
-</table>
-<h1 id="使用">使用</h1><p>了解了上面的概念后就可以开始使用了。首先需要在 Xcode 中开启 iCloud 中的 CloudKit 功能。</p>
-<h2 id="存储数据">存储数据</h2><p>存储数据过程非常简单：获取一个 Public Database 的实例，创建一个 CKRecord，调用 <code>saveRecord</code> 方法即可。因为是网络调用，因此要做好错误处理。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let publicDB = CKContainer.default().publicCloudDatabase</span><br><span class="line">    </span><br><span class="line">let greatID = CKRecordID(recordName: &quot;GreatPlace&quot;)</span><br><span class="line">let place = CKRecord(recordType: &quot;Place&quot;, recordID: greatID)</span><br><span class="line">    </span><br><span class="line">publicDB.save(place) &#123; savedRecord, error in</span><br><span class="line">    // handle errors here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="查询数据">查询数据</h2><p>我们有两种方式查询数据：</p>
-<ul>
-<li>通过 CKRecordID 获取一条数据</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let recordID = CKRecordID(recordName: &quot;GreatPlace&quot;)</span><br><span class="line"></span><br><span class="line">publicDB.fetch(withRecordID: recordID) &#123; (fetchedPlace, error) in</span><br><span class="line">    guard let fetchedPlace = fetchedPlace else &#123;</span><br><span class="line">        // handle errors here</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let name = fetchedPlace[&quot;name&quot;] as? String ?? &quot;Unnamed Place&quot;</span><br><span class="line">    fetchedPlace[&quot;name&quot;] = name + &quot; Door A&quot; as CKRecordValue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过 CKQuery 查询满足条件的多条数据</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let predicate = NSPredicate(format: &quot;name BEGINSWITH &apos;Apple Store&apos;&quot;)</span><br><span class="line">let query = CKQuery(recordType: &quot;Place&quot;, predicate: predicate)</span><br><span class="line"></span><br><span class="line">publicDB.perform(query, inZoneWith: nil) &#123; (results, error) in</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="修改数据">修改数据</h2><p>查询数据，修改，然后保存。</p>
-<h2 id="删除数据">删除数据</h2><p>过程跟 fetch 类似：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let recordID = CKRecordID(recordName: &quot;GreatPlace&quot;)</span><br><span class="line"></span><br><span class="line">publicDB.fetch(withRecordID: recordID) &#123; (recordID, error) in</span><br><span class="line">	// handle errors here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="订阅">订阅</h2><p>我们可以通过 <code>CKRecordZoneSubscription</code> 或者 <code>CKQuerySubscription</code> 来订阅数据的变化，这样当数据发生变化时设备会收到推送。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let predicate = NSPredicate(format: &quot;description CONTAINS &apos;party&apos;&quot;)</span><br><span class="line">    </span><br><span class="line">let subscription = CKSubscription(recordType: &quot;Checkin&quot;, predicate: predicate, options: .firesOnRecordCreation)</span><br><span class="line">    </span><br><span class="line">let info = CKNotificationInfo()</span><br><span class="line">info.alertLocalizationKey = &quot;NEW_PARTY_ALERT_KEY&quot;</span><br><span class="line">info.soundName = &quot;NewAlert.aiff&quot;</span><br><span class="line">info.shouldBadge = true</span><br><span class="line">    </span><br><span class="line">subscription.notificationInfo = info</span><br><span class="line">    </span><br><span class="line">publicDB.save(subscription) &#123; subscription, error in</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Apple 写了一篇详细的<a href="https://developer.apple.com/library/content/documentation/DataManagement/Conceptual/CloudKitQuickStart/MaintainingaLocalCacheofCloudKitRecords/MaintainingaLocalCacheofCloudKitRecords.html#//apple_ref/doc/uid/TP40014987-CH12-SW1" target="_blank" rel="noopener">文档</a>来演示如何在本地缓存 CloudKit 的数据。</p>
-<h2 id="后台">后台</h2><p>Apple 还提供了一个 <a href="https://icloud.developer.apple.com/dashboard/" target="_blank" rel="noopener">Dashboard</a>，可以很方便地进行数据的管理。</p>
-<h1 id="参考">参考</h1><ul>
-<li><a href="http://nshipster.com/cloudkit/" target="_blank" rel="noopener">Cloud​Kit</a></li>
-<li><a href="https://www.raywenderlich.com/134694/cloudkit-tutorial-getting-started" target="_blank" rel="noopener">CloudKit Tutorial: Getting Started</a></li>
-<li><a href="https://developer.apple.com/library/content/documentation/DataManagement/Conceptual/CloudKitQuickStart/Introduction/Introduction.html#//apple_ref/doc/uid/TP40014987-CH1-SW1" target="_blank" rel="noopener">CloudKit Quick Start</a></li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/09/meet-cloudkit/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
