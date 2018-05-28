@@ -100,23 +100,28 @@
 
 
   
-  <meta name="keywords" content="Nix, iOS" />
+  <meta name="keywords" content="iOS," />
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nix 的自我修养">
-<meta property="og:url" content="http://yoursite.com/archives/2017/05/index.html">
+<meta name="description" content="最近我们的 app 在 iOS 8 上有一个启动 crash 的问题，原因是启动加载动态库时找不到 Network Extension 的符号，这个符号是 iOS 9 引入的。报错类似这样： 123456Dyld Error Message:Symbol not found: _OBJC_CLASS_$_NEPacketTunnelFlowReferenced from: /private/var">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Weak Linking">
+<meta property="og:url" content="http://yoursite.com/2017/08/26/weak-linking/index.html">
 <meta property="og:site_name" content="Nix 的自我修养">
+<meta property="og:description" content="最近我们的 app 在 iOS 8 上有一个启动 crash 的问题，原因是启动加载动态库时找不到 Network Extension 的符号，这个符号是 iOS 9 引入的。报错类似这样： 123456Dyld Error Message:Symbol not found: _OBJC_CLASS_$_NEPacketTunnelFlowReferenced from: /private/var">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-28T15:08:02.748Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nix 的自我修养">
+<meta name="twitter:title" content="Weak Linking">
+<meta name="twitter:description" content="最近我们的 app 在 iOS 8 上有一个启动 crash 的问题，原因是启动加载动态库时找不到 Network Extension 的符号，这个符号是 iOS 9 引入的。报错类似这样： 123456Dyld Error Message:Symbol not found: _OBJC_CLASS_$_NEPacketTunnelFlowReferenced from: /private/var">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2017/05/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/26/weak-linking/"/>
 
 
 
@@ -125,7 +130,7 @@
     sidebar: "",
   };
 </script>
-  <title>Archive | Nix 的自我修养</title>
+  <title>Weak Linking | Nix 的自我修养</title>
   
 
 
@@ -181,7 +186,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -259,79 +264,226 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-         
-          
-        Nice! 57 posts in total. Keep on posting.
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/26/weak-linking/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/05/06/ios-modulization/" itemprop="url">
-              
-                <span itemprop="name">iOS 组件化</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Weak Linking</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-06T15:42:15+08:00"
-              content="2017-05-06" >
-          05-06
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T20:33:17+08:00">2017-08-26</time>
+            
 
-    </header>
-  </article>
+            
+            
 
+            
+          </span>
 
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/26/weak-linking/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/26/weak-linking/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/26/weak-linking/" class="leancloud_visitors" data-flag-title="Weak Linking">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>最近我们的 app 在 iOS 8 上有一个启动 crash 的问题，原因是启动加载动态库时找不到 Network Extension 的符号，这个符号是 iOS 9 引入的。报错类似这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dyld Error Message:</span><br><span class="line">Symbol not found: _OBJC_CLASS_$_NEPacketTunnelFlow</span><br><span class="line">Referenced from: /private/var/mobile/Containers/Bundle/Application/610BA4A6-D057-4F6B-AA80-907827D2B24E/xxx.app/Frameworks/NEKit.framework/NEKit (which was built for iOS 9.3)</span><br><span class="line">Expected in: /System/Library/Frameworks/NetworkExtension.framework/NetworkExtension</span><br><span class="line">in /private/var/mobile/Containers/Bundle/Application/610BA4A6-D057-4F6B-AA80-907827D2B24E/xxx.app/Frameworks/NEKit.framework/NEKit</span><br><span class="line">Dyld Version: 353.5</span><br></pre></td></tr></table></figure>
+<p>解决的方法是使用 <a href="https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WeakLinking.html" target="_blank" rel="noopener">Weak Linking</a>。在 Xcode 的 <code>Linked Frameworks and Libraries</code> 中将 Network Extension 的 Status 修改成 optional，再重新编译 NEKit 即可。</p>
+<a id="more"></a>
+<p>在 iOS/macOS 上，许多系统库都是以动态库的形式存在的，当我们的 app 引用了系统库时，Xcode 并不会把系统库打包到 ipa 里，而是系统会在 app 启动时由 dynamic linker 在运行时链接所有需要的动态库。如果我们的 app 用到新系统提供的某些特性，当 app 运行在旧版本上时会因为找不到需要的动态库而 crash。</p>
+<p>Apple 为此引入了 Weak Linking。在使用了 Weak Linking 后，系统在 app 启动时找不到对应的符号不会立刻 crash，只有在真正调用到这些符号时才会 crash（所以在使用新符号前必须检查系统版本或者符号是否真的存在）。</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>给鸡排饭加个蛋</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Nix Wang WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nix Wang Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/06/ios-modulization/" rel="next" title="iOS 组件化">
+                <i class="fa fa-chevron-left"></i> iOS 组件化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/31/share-in-ios/" rel="prev" title="iOS 中的分享">
+                iOS 中的分享 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -600,6 +752,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.3"></script>
+
+
 
   
 
@@ -614,6 +770,23 @@
     <script id="dsq-count-scr" src="https://nix1024.disqus.com/count.js" async></script>
   
 
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2017/08/26/weak-linking/';
+        this.page.identifier = '2017/08/26/weak-linking/';
+        this.page.title = 'Weak Linking';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nix1024.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
   
 
 
