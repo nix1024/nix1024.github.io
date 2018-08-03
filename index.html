@@ -276,6 +276,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/a-better-fps-monitor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/03/a-better-fps-monitor/" itemprop="url">iOS FPS 监控</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-03T15:51:46+08:00">2018-08-03</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/03/a-better-fps-monitor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/03/a-better-fps-monitor/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/03/a-better-fps-monitor/" class="leancloud_visitors" data-flag-title="iOS FPS 监控">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="背景">背景</h1><p>iOS 系统及其应用以丝般顺滑闻名，界面的顺滑程度对于用户体验至关重要，因此需要针对性地对流程度进行优化。在优化之前必须要找到问题所在，那么就需要解决这两个问题：卡顿的原因是什么？哪里出现了卡顿？</p>
+<h1 id="卡顿原因">卡顿原因</h1><p>YYKit 作者 ibireme 写了<a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/#32" target="_blank" rel="noopener">一篇很好的文章</a>来解释卡顿问题及解决方法，其中写到卡顿的原因是:</p>
+<blockquote>
+<p>在 VSync 信号到来后，系统图形服务会通过 <code>CADisplayLink</code> 等机制通知 App，App 主线程开始在 CPU 中计算显示内容，比如视图的创建、布局计算、图片解码、文本绘制等。随后 CPU 会将计算好的内容提交到 GPU 去，由 GPU 进行变换、合成、渲染。随后 GPU 会把渲染结果提交到帧缓冲区去，等待下一次 VSync 信号到来时显示到屏幕上。由于垂直同步的机制，如果在一个 VSync 时间内，CPU 或者 GPU 没有完成内容提交，则那一帧就会被丢弃，等待下一次机会再显示，而这时显示屏会保留之前的内容不变。这就是界面卡顿的原因。</p>
+</blockquote>
+<p>简而言之就是 CPU 和 GPU 的工作量太大，无法在理想的时间内完成。相应的优化策略文章里也写得很清楚。</p>
+<h1 id="卡顿监控常见方案">卡顿监控常见方案</h1><ul>
+<li>FPS 监控：通过 <code>CADisplayLink</code> 来获取每一帧的耗时，进而计算出 FPS。</li>
+<li>通过开辟一个子线程监听 runLoop 状态变化来计算停留在各个状态的时间，当 runloop 处于 <code>kCFRunLoopBeforeSources</code> 和 <code>kCFRunLoopBeforeWaiting</code> 之间的时间过长就可以断定发生了卡顿。</li>
+</ul>
+<p>但常见的 FPS 监控存在一些问题。</p>
+<h1 id="FPS_监控优化">FPS 监控优化</h1><p>当界面处于静止状态时，其 PFS 一般都会接近 60，卡顿一般都发生在界面发生滚动时。为了避免界面发生滚动时 FPS 的数据被静止时的数据平均掉，我们需要监听界面的滚动状态。</p>
+<p>iOS 的 <code>UIScrollViewDelegate</code> 有三个方法可以做到：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)scrollViewWillBeginDragging:(<span class="built_in">UIScrollView</span> *)scrollView;	<span class="comment">// 用户开始拖动</span></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidEndDragging:(<span class="built_in">UIScrollView</span> *)scrollView willDecelerate:(<span class="built_in">BOOL</span>)decelerate;	<span class="comment">// 拖动结束</span></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidEndDecelerating:(<span class="built_in">UIScrollView</span> *)scrollView; 	<span class="comment">// 滑动结束</span></span><br></pre></td></tr></table></figure>
+<p>我们只需要 swizzle 这三个方法就可以排除界面静止时的数据。</p>
+<h2 id="Swizzling">Swizzling</h2><p>因为我们要 siwzzle 的是 delegate，跟常见的 swizzle 方法有些不同：</p>
+<ul>
+<li>我们并不知道 delegate 的类型。</li>
+<li>delegate 可能没有实现上面三个方法。</li>
+</ul>
+<p>针对一个问题，我们可以直接 hook <code>setDelegate</code> 方法，在 <code>setDelegate</code> 方法内部再 hook <code>UIScrollViewDelegate</code> 的三个方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)load &#123;</span><br><span class="line">    [<span class="keyword">self</span> sm_swizzleMethod:<span class="keyword">@selector</span>(setDelegate:) withMethod:<span class="keyword">@selector</span>(hmfps_setDelegate:)];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)hmfps_setDelegate:(<span class="keyword">id</span>&lt;<span class="built_in">UIScrollViewDelegate</span>&gt;)delegate &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"[HMFluencyMonitor] Hook %@"</span>, [<span class="keyword">self</span> <span class="keyword">class</span>]);</span><br><span class="line">    [<span class="keyword">self</span> hmfps_hookDelegate:delegate];</span><br><span class="line">    [<span class="keyword">self</span> hmfps_setDelegate:delegate];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这样做的好处是可以实现无痕监控，各个页面代码不需要做任何修改；风险是 app 里面的所有 UIScrollView 都会被 hook，包括嵌套的 UIScrollView，范围会比较广，一来 hook 了不需要 hook 的类，二来 crash 风险比较大，也可以提供方法让各个页面自行调用 hook。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)hmfps_shouldSwizzleDelegate:(<span class="keyword">id</span> _Nonnull)delegate &#123;</span><br><span class="line">    <span class="keyword">if</span> ([delegate isProxy]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span> isKindOfClass:[<span class="built_in">UITextView</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于第二个问题，delegate 可能并没有实现我们要 hook 的三个方法，因此需要为他们增加一个默认的实现，内容是什么都不干。最终的代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)hmfps_doNothing:(<span class="keyword">id</span>)nothing &#123;</span><br><span class="line">    <span class="comment">// Do nothing</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)hmfps_swizzleMethod:(SEL)originalSelector withMethod:(SEL)swizzledSelector forClass:(Class)originalClass&#123;</span><br><span class="line">    Method testMethod = class_getInstanceMethod(originalClass, swizzledSelector);</span><br><span class="line">    <span class="keyword">if</span> (testMethod) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Method originalMethod = class_getInstanceMethod(originalClass, originalSelector);</span><br><span class="line">    Method swizzledMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], swizzledSelector);</span><br><span class="line">    Method dummyMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(hmfps_doNothing:));</span><br><span class="line"></span><br><span class="line">    class_addMethod(originalClass,</span><br><span class="line">                    originalSelector,</span><br><span class="line">                    method_getImplementation(dummyMethod),</span><br><span class="line">                    method_getTypeEncoding(dummyMethod));</span><br><span class="line"></span><br><span class="line">    class_addMethod(originalClass,</span><br><span class="line">                    swizzledSelector,</span><br><span class="line">                    method_getImplementation(swizzledMethod),</span><br><span class="line">                    method_getTypeEncoding(swizzledMethod));</span><br><span class="line"></span><br><span class="line">    originalMethod = class_getInstanceMethod(originalClass, originalSelector);</span><br><span class="line">    swizzledMethod = class_getInstanceMethod(originalClass, swizzledSelector);</span><br><span class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有另外一个问题，如果项目里面使用了 BlockKit 的 <code>A2DynamicDelegate</code>，hook 时会发生 crash，真正使用时要进行排除，猜测是因为 <code>A2DynamicDelegate</code> 的基类是 <code>NSProxy</code> 而不是 <code>NSObject</code>。这里需要业务方自行实现三个 delegate 方法。</p>
+<h1 id="Ref">Ref</h1><ul>
+<li><a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/#32" target="_blank" rel="noopener">iOS 保持界面流畅的技巧</a></li>
+<li><a href="https://github.com/aozhimin/iOS-Monitor-Platform#%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7%E5%8D%A1%E9%A1%BF" target="_blank" rel="noopener">iOS 性能监控 SDK —— Wedjat（华狄特）开发过程的调研和整理</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/how-i-made-tiny-decisions-app/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1610,156 +1783,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/31/share-in-ios/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nix Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nix 的自我修养">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/31/share-in-ios/" itemprop="url">iOS 中的分享</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-31T20:10:38+08:00">2018-01-31</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/31/share-in-ios/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/01/31/share-in-ios/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/01/31/share-in-ios/" class="leancloud_visitors" data-flag-title="iOS 中的分享">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="分享内容">分享内容</h1><p>国内主流 app 的分享功能都是自定义的，这样做的考虑主要是为了让流量留在自己的生态中，另一方面 UIActivityViewController 不太符合国人的使用习惯。</p>
-<p>相比之下，国外的 app 如 Twitter，使用的都是苹果从 iOS 6 开始引入的 UIActivityViewController。</p>
-<p><img src="/images/2018-01-31/UIActivityViewController.jpeg" alt="UIActivityViewController"></p>
-<p>如果你的 app 面向国外用户，UIActivityViewController 了解一下。：）</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/31/share-in-ios/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1811,7 +1834,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1880,7 +1903,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
