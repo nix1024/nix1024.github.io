@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://yoursite.com/images/2018-11-12/Add%20to%20Siri.jpg">
 <meta property="og:image" content="http://yoursite.com/images/2018-11-12/Edit%20Voice%20Shortcut.jpg">
 <meta property="og:image" content="http://yoursite.com/images/2018-11-12/Tiny%20Decisions%20in%20Siri.jpg">
-<meta property="og:updated_time" content="2018-11-12T13:45:08.143Z">
+<meta property="og:updated_time" content="2018-11-12T13:51:38.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Siri Shortcuts 指北">
 <meta name="twitter:description" content="从 SiriKit 到 Siri ShortcutsApple 在 WWDC 2016 上推出了 SiriKit，使得开发者可以开发 app extension 让用户可以利用 Siri 完成特定的几种任务。这里有两个基本概念：  Domain：任务的类型，比如消息、VoIP、支付、运动、打车、搜索照片等 Intent：使用 Siri 完成的具体任务，比如发红包、发消息  Siri 会完成自然语言">
@@ -381,7 +381,7 @@
 <li>Intent：使用 Siri 完成的具体任务，比如发红包、发消息</li>
 </ul>
 <p>Siri 会完成自然语言处理，理解用户的意图，并决定什么时机来调用我们的 app extension，我们只需要告诉 Siri 是否可以处理这个 intent 并完成就可以了。Apple 为各个 domain 的 intents 提供了协议作为模板供开发者实现，以发送信息为例：</p>
-<p>当用户想用 Siri 发送消息时，系统会创建一个 <code>INSendMeSiri ShortcutsageIntent</code>，里面包含消息接受者、消息内容等信息，然后调用 app extension 的 handler，handler 解析这些上下文，确认可以处理并发送完消息后返回 <code>INSendMeSiri ShortcutsageIntentResponse</code> 类型的结果。</p>
+<p>当用户想用 Siri 发送消息时，系统会创建一个 <code>INSendMessageIntent</code>，里面包含消息接受者、消息内容等信息，然后调用 app extension 的 handler，handler 解析这些上下文，确认可以处理并发送完消息后返回 <code>INSendMessageIntentResponse</code> 类型的结果。</p>
 <p>在 WWDC 2018 上，Apple 推出了 Siri Shortcuts 进一步拓展了 Siri 的使用场景。Siri Shortcuts 能让用户通过一句自定义的短语让 Siri 完成自己经常进行的动作，比如查看今天的天气，叫一份外卖。与 SiriKit 最主要的不同点有两个：</p>
 <ul>
 <li>只针对具体的动作，不需要用户提供信息。可以理解成类和实例的关系。我们用 SiriKit 来打车，每次的出发地和目的地都不一样；而 Siri Shortcuts 只完成打车回家这个具体的动作，永远是从当前位置到家里，用户也就不需要再告诉 Siri 出发地和目的地。</li>
