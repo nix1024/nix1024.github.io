@@ -276,6 +276,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/siri-shortcuts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nix Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nix 的自我修养">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/siri-shortcuts/" itemprop="url">Siri Shortcuts 指北</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-12T21:20:03+08:00">2018-11-12</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/12/siri-shortcuts/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/11/12/siri-shortcuts/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/11/12/siri-shortcuts/" class="leancloud_visitors" data-flag-title="Siri Shortcuts 指北">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="从_SiriKit_到_Siri_Shortcuts">从 SiriKit 到 Siri Shortcuts</h1><p>Apple 在 WWDC 2016 上推出了 SiriKit，使得开发者可以开发 app extension 让用户可以利用 Siri 完成特定的几种任务。这里有两个基本概念：</p>
+<ul>
+<li>Domain：任务的类型，比如消息、VoIP、支付、运动、打车、搜索照片等</li>
+<li>Intent：使用 Siri 完成的具体任务，比如发红包、发消息</li>
+</ul>
+<p>Siri 会完成自然语言处理，理解用户的意图，并决定什么时机来调用我们的 app extension，我们只需要告诉 Siri 是否可以处理这个 intent 并完成就可以了。Apple 为各个 domain 的 intents 提供了协议作为模板供开发者实现，以发送信息为例：</p>
+<p>当用户想用 Siri 发送消息时，系统会创建一个 <code>INSendMeSiri ShortcutsageIntent</code>，里面包含消息接受者、消息内容等信息，然后调用 app extension 的 handler，handler 解析这些上下文，确认可以处理并发送完消息后返回 <code>INSendMeSiri ShortcutsageIntentResponse</code> 类型的结果。</p>
+<p>在 WWDC 2018 上，Apple 推出了 Siri Shortcuts 进一步拓展了 Siri 的使用场景。Siri Shortcuts 能让用户通过一句自定义的短语让 Siri 完成自己经常进行的动作，比如查看今天的天气，叫一份外卖。与 SiriKit 最主要的不同点有两个：</p>
+<ul>
+<li>只针对具体的动作，不需要用户提供信息。可以理解成类和实例的关系。我们用 SiriKit 来打车，每次的出发地和目的地都不一样；而 Siri Shortcuts 只完成打车回家这个具体的动作，永远是从当前位置到家里，用户也就不需要再告诉 Siri 出发地和目的地。</li>
+<li>可以用 Siri Shortcuts 完成的动作不限于 SiriKit 的几个 domain。Siri Shortcuts 可以理解成为特定动作设置的一个快捷方式，因为 Siri Shortcuts 不涉及语义分析，也就不用对实现的动作做限制。</li>
+</ul>
+<p>&lt;!- more -&gt;</p>
+<h2 id="使用">使用</h2><p>假设我们有一个 app 叫小决定，用转盘来帮助选择困难症患者做决定。现在要为小决定添加 Siri Shortcuts 的支持。</p>
+<h3 id="定义_Shortcuts">定义 Shortcuts</h3><p>首先，我们需要定义要完成的动作。Apple 用 <code>INShortcut</code> 来表示一个 shortcut，并提供了两种方式初始化参数：<code>NSUserActivity</code> 和 <code>INIntent</code>，用来封装动作的上下文。</p>
+<ul>
+<li><code>NSUserActivity</code>：iOS 8 开始提供，用来实现 Handoff 和 Spotlight 搜索，用来在手机和电脑之间传递用户操作的上下文。</li>
+<li><code>INIntent</code>：iOS 10 新添加的类，使得用户不用离开 Siri 的界面就可以完成动作。开发者不需要继承这个类，而是直接使用 Xcode 自动创建的子类。</li>
+</ul>
+<p>这里只介绍第二种。</p>
+<p>如果要实现的功能不属于 SiriKit 支持的 domain，就需要创建一个自定义的 Intent。我们首先需要通过 File &gt; New &gt; File… 新建一个 SiriKit Intent Definition File 文件，然后创建自己的 Intent</p>
+<p><img src="/images/2018-11-12/SiriKit Intent Definition.png" alt="SiriKit Intent Definition"></p>
+<p>这里依次填入基本信息，重点是下方的 Parameters 和 Shortcut Types。Parameters 用来存放完成动作的上下文信息，比如要点的咖啡种类、数量、选项（是否加冰等）。Shortcut Types 是 Parameters 的组合，比如“咖啡种类”和“咖啡种类加选项”，可以为不同的种类设置是否支持后台执行。如果支持后台执行，Siri 会调用 app extension 来完成动作。</p>
+<p>这里我们定义了一个 Intent 叫 <code>MakeDecisionIntent</code>，它有两个参数，决定的 id 和名称。</p>
+<p>定义完 Intent 之后需要定义 response。</p>
+<p><img src="/images/2018-11-12/SiriKit Intent Response.png" alt="SiriKit Intent Response"></p>
+<p>在这里可以定义一些 Properties，下面可以组合成不同的结果模板。系统提供了一些默认的错误码，开发者也可以定义新的错误码，Xcode 会为这些错误码生成对应的代码。这里我定义了一个 <code>decisionNotFound</code> 的错误码，来代表 id 对应的决定找不到的情况，在响应 Shortcut 的时候需要特殊处理。</p>
+<h3 id="捐赠（Donate）Shortcuts">捐赠（Donate）Shortcuts</h3><p>然后，我们需要告诉系统定义好的 shortcuts。</p>
+<p>要使用 <code>NSUserActivity</code> 来 donate shortcuts，只需要将 <code>isEligibleForPrediction</code> 设置成 true 即可。用这种方法 donate，Siri 在匹配到 Shortcuts 后会<strong>跳转到 app 中</strong>完成后续的操作。</p>
+<p>如果使用的是 Intent，那么在合适的时机（比如用户刚刚决定今晚吃什么），可以用 <code>INInteraction</code> 来 donate 「今晚吃什么」这个 intent。在一段时间后，Siri 会找到用户的行为模式（比如每周五下午都会做这个决定），会在「合适的时机」在锁屏界面或者 Siri 的搜索界面显示这个 shortcut。</p>
+<p><img src="/images/2018-11-12/Siri Suggestion.PNG" alt="Siri Suggestion"></p>
+<h3 id="响应_Shortcuts">响应 Shortcuts</h3><p>为了达到不离开 Siri 完成动作的目的，我们需要为 app 添加一个 Intent App Extension，跟其他类型的 App Extension 一样是以独立进程的形式运行的，因此编译完成后跟主 app 是两个独立的二进制文件，可以将公用的逻辑以 framework 的方式共享。</p>
+<p>在 Xcode 自动生成的 <code>IntentHandler</code> 中，有两个方法需要实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func handler(for intent: INIntent) -&gt; Any    // 1</span><br><span class="line"></span><br><span class="line">func handle(intent: MakeDecisionIntent, completion: @escaping (MakeDecisionIntentResponse) -&gt; Void)    // 2</span><br></pre></td></tr></table></figure>
+<p>方法一中需要返回一个 handler，在这里就是 <code>IntentHandler</code> 本身。<br>方法二处理具体的逻辑。可以看到这个方法包含两个参数，一个是之前 app donate 的 Intent，另一个参数是一个闭包，用来作为处理完成后的回调。其中的 <code>MakeDecisionIntent</code> 和 <code>MakeDecisionIntentResponse</code> 都是 Xcode 自动生成的。如果用户在添加了短语后删除了对应的决定，就返回前面定义的 <code>decisionNotFound</code>，这个时候 Siri 将前面定义好的错误信息展示给用户。</p>
+<h3 id="快捷短语">快捷短语</h3><p>除此之外，用户还可以主动为某个 shortcut 添加一个短语（类似语音命令），当用户对 Siri 说出这个短语时，就会触发相应 shortcut 的执行。<code>INIntent</code> 有一个属性叫做 <code>suggestedInvocationPhrase</code>，用来为用户提供短语的建议，这个短语应该尽可能简洁并有区分度。</p>
+<p>Apple 还特地为管理短语提供了一个 Add to Siri 按钮（INUIAddVoiceShortcutButton）。这个按钮统一了 Siri Shortcuts 短语的视觉和交互，使得用户更容易接受。</p>
+<p><img src="/images/2018-11-12/Add to Siri.PNG" alt="Add to Siri"></p>
+<p>用户点按这个按钮后会展示一个系统提供的界面，可以通过它添加、修改、删除短语。</p>
+<p><img src="/images/2018-11-12/Edit Voice Shortcut.PNG" alt="Edit Voice Shortcut"></p>
+<p>短语添加完成后就可以在 Siri 中使用了：</p>
+<p><img src="/images/2018-11-12/Tiny Decisions in Siri.PNG" alt="Tiny Decisions in Siri"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/30/ios-ui-testing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1616,153 +1800,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/02/applications-of-ml/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Nix Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nix 的自我修养">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/02/applications-of-ml/" itemprop="url">机器学习的应用场景</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-02T10:26:59+08:00">2018-03-02</time>
-            
-
-            
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/02/applications-of-ml/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/02/applications-of-ml/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/03/02/applications-of-ml/" class="leancloud_visitors" data-flag-title="机器学习的应用场景">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="机器学习简介">机器学习简介</h1><p>机器学习是一种能够直接从数据中学习，而无需依赖规则编程的算法。不同于传统的程序开发方式，你不需要告诉程序应该怎么做（甚至你也不知道应该怎么做），只要提供数据来训练模型。因此机器学习能做到以传统开发模式不能或很难完成的任务。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/02/applications-of-ml/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1814,7 +1851,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
