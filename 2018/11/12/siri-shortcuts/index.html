@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://yoursite.com/images/2018-11-12/Add%20to%20Siri.PNG">
 <meta property="og:image" content="http://yoursite.com/images/2018-11-12/Edit%20Voice%20Shortcut.PNG">
 <meta property="og:image" content="http://yoursite.com/images/2018-11-12/Tiny%20Decisions%20in%20Siri.PNG">
-<meta property="og:updated_time" content="2018-11-12T13:23:04.985Z">
+<meta property="og:updated_time" content="2018-11-12T13:26:08.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Siri Shortcuts 指北">
 <meta name="twitter:description" content="从 SiriKit 到 Siri ShortcutsApple 在 WWDC 2016 上推出了 SiriKit，使得开发者可以开发 app extension 让用户可以利用 Siri 完成特定的几种任务。这里有两个基本概念：  Domain：任务的类型，比如消息、VoIP、支付、运动、打车、搜索照片等 Intent：使用 Siri 完成的具体任务，比如发红包、发消息  Siri 会完成自然语言">
@@ -387,7 +387,7 @@
 <li>只针对具体的动作，不需要用户提供信息。可以理解成类和实例的关系。我们用 SiriKit 来打车，每次的出发地和目的地都不一样；而 Siri Shortcuts 只完成打车回家这个具体的动作，永远是从当前位置到家里，用户也就不需要再告诉 Siri 出发地和目的地。</li>
 <li>可以用 Siri Shortcuts 完成的动作不限于 SiriKit 的几个 domain。Siri Shortcuts 可以理解成为特定动作设置的一个快捷方式，因为 Siri Shortcuts 不涉及语义分析，也就不用对实现的动作做限制。</li>
 </ul>
-<p>&lt;!- more -&gt;</p>
+<a id="more"></a>
 <h2 id="使用">使用</h2><p>假设我们有一个 app 叫小决定，用转盘来帮助选择困难症患者做决定。现在要为小决定添加 Siri Shortcuts 的支持。</p>
 <h3 id="定义_Shortcuts">定义 Shortcuts</h3><p>首先，我们需要定义要完成的动作。Apple 用 <code>INShortcut</code> 来表示一个 shortcut，并提供了两种方式初始化参数：<code>NSUserActivity</code> 和 <code>INIntent</code>，用来封装动作的上下文。</p>
 <ul>
